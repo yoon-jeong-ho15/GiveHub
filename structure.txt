@@ -1,0 +1,96 @@
+.
+├── README.md
+├── build
+│   ├── classes
+│   │   └── java
+│   │       └── main
+│   │           └── kh
+│   │               └── GiveHub
+│   │                   ├── GiveHubApplication.class
+│   │                   └── controller
+│   │                       └── AdminMainController.class
+│   ├── generated
+│   │   └── sources
+│   │       ├── annotationProcessor
+│   │       │   └── java
+│   │       │       └── main
+│   │       └── headers
+│   │           └── java
+│   │               └── main
+│   ├── resources
+│   │   └── main
+│   │       ├── application.properties
+│   │       ├── static
+│   │       │   ├── img
+│   │       │   │   ├── Baby_wearing_a_head_correction_helmet.jpg
+│   │       │   │   ├── Korean_War_Veteran_Grandpa.png
+│   │       │   │   ├── baby_looking_out_the_window.jpg
+│   │       │   │   ├── board_img01.jpg
+│   │       │   │   ├── board_img02.jpg
+│   │       │   │   ├── board_img03.jpg
+│   │       │   │   ├── board_img04.jpg
+│   │       │   │   ├── board_img05.jpg
+│   │       │   │   ├── board_img06.jpg
+│   │       │   │   ├── custom_board_img01.jpg
+│   │       │   │   ├── custom_board_img02.jpg
+│   │       │   │   ├── harmony_logo.png
+│   │       │   │   ├── harmony_white.png
+│   │       │   │   └── sitting_brother.jpg
+│   │       │   └── index.html
+│   │       └── templates
+│   │           └── admin
+│   │               ├── Main.html
+│   │               └── NewsList.html
+│   └── tmp
+│       └── compileJava
+│           └── previous-compilation-data.bin
+├── build.gradle
+├── gradle
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
+├── gradlew
+├── gradlew.bat
+├── settings.gradle
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── kh
+│   │   │       └── GiveHub
+│   │   │           ├── GiveHubApplication.java
+│   │   │           └── controller
+│   │   │               └── AdminMainController.java
+│   │   └── resources
+│   │       ├── application.properties
+│   │       ├── static
+│   │       │   ├── img
+│   │       │   │   ├── Baby_wearing_a_head_correction_helmet.jpg
+│   │       │   │   ├── Korean_War_Veteran_Grandpa.png
+│   │       │   │   ├── baby_looking_out_the_window.jpg
+│   │       │   │   ├── board_img01.jpg
+│   │       │   │   ├── board_img02.jpg
+│   │       │   │   ├── board_img03.jpg
+│   │       │   │   ├── board_img04.jpg
+│   │       │   │   ├── board_img05.jpg
+│   │       │   │   ├── board_img06.jpg
+│   │       │   │   ├── custom_board_img01.jpg
+│   │       │   │   ├── custom_board_img02.jpg
+│   │       │   │   ├── harmony_logo.png
+│   │       │   │   ├── harmony_white.png
+│   │       │   │   └── sitting_brother.jpg
+│   │       │   └── index.html
+│   │       └── templates
+│   │           ├── admin
+│   │           │   ├── DonationList.html
+│   │           │   └── Main.html
+│   │           └── member
+│   │               ├── EditMyInfo.html
+│   │               └── MyDonation.html
+│   └── test
+│       └── java
+│           └── kh
+│               └── GiveHub
+│                   └── GiveHubApplicationTests.java
+└── structure.txt
+
+42 directories, 52 files
