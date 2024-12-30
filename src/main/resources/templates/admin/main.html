@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<h2>회원 목록</h2>
+<div class="userlist">
+    <table>
+        <tr align="center">
+            <th width="100px">번호</th>
+            <th width="100px">유형</th>
+            <th width="100px">이름</th>
+            <th width="200px">주민등록번호</th>
+            <th width="100px">아이디</th>
+            <th width="150px">주소</th>
+            <th width="100px">삭제 요청</th>
+        </tr>
+        <tr align="center">
+            <td>1</td>
+            <td>회원</td>
+            <td>박성훈</td>
+            <td>111111-1111111</td>
+            <td>qwer1</td>
+            <td>경기도 파주시</td>
+            <td></td>
+        </tr>
+    </table>
+    <input type="button" value="수정/삭제하기"/>
+</div>
+
+<div class="userdetail"> <!-- style="visibility:hidden;" -->
+    <h1>회원 정보</h1>
+    <input type="radio" id="user" value="user" name="type" checked/><label for="user">일반 회원</label>
+    <input type="radio" id="or" value="or" name="type"/><label for="or">주최자</label>
+    <br>
+    <table>
+        <tr>
+            <td width="100px">이름</td>
+            <td><input type="text" name="name" width="200px" readonly/></td>
+        </tr>
+        <tr>
+            <td width="100px">아이디</td>
+            <td><input type="text" name="id" width="200px" readonly/></td>
+        </tr>
+        <tr>
+            <td width="100px">등급</td>
+            <td>
+                <select>
+
+                </select>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <input type="button" value="수정하기"/>
+    <input type="button" value="삭제하기"/>
+</div>
+</body>
+</html>
