@@ -3,7 +3,6 @@ package kh.GiveHub.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 @RequestMapping("/admin")
@@ -13,8 +12,13 @@ public class AdminMainController {
         return "admin/main";
     }
 
-    @GetMapping("/DonationList")
+    @GetMapping("/NewsList")
     public String donationList() {
-        return "admin/donationlist";
+        return "admin/newslist";
+    }
+
+    @GetMapping("/NewsManage")
+    public String donationManage() {
+        return "admin/newsmanage";
     }
 }
