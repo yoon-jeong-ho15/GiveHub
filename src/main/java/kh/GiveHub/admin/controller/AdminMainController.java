@@ -1,4 +1,4 @@
-package kh.GiveHub.controller;
+package kh.GiveHub.admin.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
