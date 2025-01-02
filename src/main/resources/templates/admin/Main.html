@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
+    <style>
+        th, td{border: 1px solid black;}
+    </style>
 </head>
 <body>
+<th:block th:replace="~{/admin/sidebar}"></th:block>
 <h2>회원 목록</h2>
 <div class="userlist">
     <table>
@@ -27,10 +31,10 @@
             <td></td>
         </tr>
     </table>
-    <input type="button" value="수정/삭제하기"/>
+    <input id="userbutton" type="button" value="수정/삭제하기" style="width: 200px; height: 50px; background: black; color: white; border-radius: 100px"/>
 </div>
 
-<div class="userdetail"> <!-- style="visibility:hidden;" -->
+<div id="userdetail" style="visibility: hidden;">
     <h1>회원 정보</h1>
     <input type="radio" id="user" value="user" name="type" checked/><label for="user">일반 회원</label>
     <input type="radio" id="or" value="or" name="type"/><label for="or">주최자</label>
@@ -58,4 +62,11 @@
     <input type="button" value="삭제하기"/>
 </div>
 </body>
+<script>
+    window.onload = () =>{
+        document.getElementById('userbutton').addEventListener('click', ()=>{
+            document.getElementById('userdetail').style.visibility = 'visible';
+        });
+    }
+</script>
 </html>
