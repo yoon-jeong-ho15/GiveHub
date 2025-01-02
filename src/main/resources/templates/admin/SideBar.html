@@ -15,18 +15,17 @@
         <button type="button" class="blackbutton" id="newsList">소식게시판</button>
     </div>
 </body>
+</html>
 <script>
-    window.onload = () =>{
+    window.onload = () => {
         document.getElementById('memManage').addEventListener('click', ()=>{
-            location.href="admin/main";
+            location.href = "main";
         });
         document.getElementById('donaList').addEventListener('click', ()=>{
-            location.href="admin/?";
+            location.href="donalist";
         });
         document.getElementById('newsList').addEventListener('click', ()=>{
-            console.log('dsafdas');
-            location.href="admin/newslist";
+            location.href="newslist";
         });
     }
 </script>
-</html>
