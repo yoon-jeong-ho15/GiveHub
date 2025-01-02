@@ -12,6 +12,11 @@ public class AdminMainController {
         return "admin/main";
     }
 
+    @GetMapping("/donalist")
+    public String donalist() {
+        return "admin/donalist";
+    }
+
     @GetMapping("/newslist")
     public String newsList() {
         return "admin/newslist";
