@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로그인</title>
+<link href="login.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <form id="loginForm" method="post" action="loginAction.jsp">
+        <table align="center" style="margin-top: 100px;">
+            <!-- 타이틀 -->
+            <tr>
+                <td colspan="2" align="center">
+                    <h2 id="loginTop">로그인</h2>
+                    <p class="subtitle">더 나은 세상을 위한 한 걸음 기부, 함께 만드는 기적</p>
+                </td>
+            </tr>
+
+            <!-- 이메일 입력 -->
+            <tr>
+                <th align="left">
+                    <label for="mem_address">이메일</label>
+                </th>
+                <td>
+                    <input type="email" id="mem_address" name="mem_address" placeholder="이메일을 입력하세요" required>
+                </td>
+            </tr>
+
+            <!-- 비밀번호 입력 -->
+            <tr>
+                <th align="left">
+                    <label for="mem_pwd">비밀번호</label>
+                </th>
+                <td>
+                    <input type="password" id="mem_pwd" name="mem_pwd" placeholder="비밀번호를 입력하세요" required>
+                </td>
+            </tr>
+
+            <!-- 로그인 버튼 -->
+            <tr>
+                <td colspan="2" align="center">
+                    <button type="submit" class="login-btn">로그인</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+
+        loginForm.addEventListener('submit', (event) => {
+            const id = document.getElementById('mem_address');
+            const pwd = document.getElementById('mem_pwd');
+
+            // 유효성 검사
+            if (id.value.trim() === '') {
+                event.preventDefault(); // 폼 제출 방지
+                alert('이메일을 입력하세요');
+                id.focus();
+            } else if (pwd.value.trim() === '') {
+                event.preventDefault();
+                alert('비밀번호를 입력하세요');
+                pwd.focus();
+            }
+        });
+    </script>
+</body>
+</html>
