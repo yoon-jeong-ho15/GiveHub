@@ -12,13 +12,13 @@ public class AdminMainController {
         return "admin/main";
     }
 
-    @GetMapping("/NewsList")
-    public String donationList() {
+    @GetMapping("/newslist")
+    public String newsList() {
         return "admin/newslist";
     }
 
     @GetMapping("/NewsManage")
-    public String donationManage() {
+    public String newsManage() {
         return "admin/newsmanage";
     }
 }
