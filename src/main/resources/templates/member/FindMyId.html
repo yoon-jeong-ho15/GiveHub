@@ -3,6 +3,44 @@
 <head>
 	<meta charset="utf-8">
 	<title>아이디 찾기</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>기부 내역 조회</title><link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+	<style type="text/css">
+		form{
+			display: flex;
+			flex-direction: column;
+		}
+		input{
+			height: 28px;
+			padding: 5px;
+			border: 1px solid gray;
+			border-radius: 10px;
+			width: 270px;
+			text-align: justify;
+		}
+		input[name^=rrn]{
+			width: 120px;
+		}
+		span{
+			font-size: 9pt;
+			color: #2ab54c;
+			margin-top: 0;
+			margin-left: 4px;
+			margin-bottom: 10px;
+		}
+		button{
+		 	height: 41px;
+			width: 280px;
+			background: #34D28B;
+			border: 0px;
+			border-radius: 14px;
+			color: white;
+			font-size: 12pt;
+			margin-top: 20px;
+		}
+	</style>
 </head>
 <body>
 	<header>
@@ -11,13 +49,15 @@
 
 	<h1>아이디 찾기</h1>
 	<h3>회원가입 시 입력한 정보로 아이디를 찾을 수 있습니다.</h3>
-	<br>
-	<br>
 	<form>
-		<input type="text" name=""><br>
-		<span>회원가입시 등록한 이름을 입력해 주세요</span><br>
-		<input type="text" name=""><br>
-		<span>회원가입시 등록한 주민등록번호를 입력해 주세요</span><br>
+		<input type="text" name="name">
+		<span>회원가입시 등록한 이름을 입력해 주세요</span>
+		<div id="rrnDiv">
+			<input type="text" name="rrn1">
+			<label>-</label>
+			<input type="password" name="rrn2">
+		</div>
+		<span>회원가입시 등록한 주민등록번호를 입력해 주세요</span>
 		<button>확인</button>
 	</form>
 
