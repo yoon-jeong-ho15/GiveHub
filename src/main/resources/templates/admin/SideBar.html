@@ -4,15 +4,29 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .sidebutton{width: 200px; height: 50px; background: black; color: white; border-radius: 100px;}
+        .blackbutton{width: 200px; height: 50px; background: black; color: white; border-radius: 100px;}
         #sidebar{width: 200px;}
     </style>
 </head>
 <body>
     <div id="sidebar">
-        <input class="sidebutton" type="button" value="회원관리"/><br/>
-        <input class="sidebutton" type="button" value="기부게시판"/><br/>
-        <input class="sidebutton" type="button" value="소식게시판"/><br/>
+        <button type="button" class="blackbutton" id="memManage">회원관리</button>
+        <button type="button" class="blackbutton" id="donaList">기부게시판</button>
+        <button type="button" class="blackbutton" id="newsList">소식게시판</button>
     </div>
 </body>
+<script>
+    window.onload = () =>{
+        document.getElementById('memManage').addEventListener('click', ()=>{
+            location.href="admin/main";
+        });
+        document.getElementById('donaList').addEventListener('click', ()=>{
+            location.href="admin/?";
+        });
+        document.getElementById('newsList').addEventListener('click', ()=>{
+            console.log('dsafdas');
+            location.href="admin/newslist";
+        });
+    }
+</script>
 </html>
