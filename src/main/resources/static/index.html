@@ -212,9 +212,11 @@ section#section_01 {
 	margin: 0 auto;
 	position: relative;
 }
+
 .title_container {
-    position: relative;
+	position: relative;
 }
+
 .img_wrap {
 	width: 24%;
 	margin-right: 72px;
@@ -241,7 +243,7 @@ section#section_01 {
 }
 
 .custom_board_img {
-	border-radius:17px;
+	border-radius: 17px;
 	overflow: hidden;
 	display: flex;
 }
@@ -266,38 +268,41 @@ section#section_01 {
 }
 
 .right_arrow:after {
-    content: '';
-    width: 30px;
-    height: 30px;
-    border-top: 2px solid #121212;
-    border-right: 2px solid #121212;
-    display: inline-block;
-    transform: rotate(45deg);
-    position: absolute;
-    top: 0px;
-    left: 0px;
+	content: '';
+	width: 30px;
+	height: 30px;
+	border-top: 2px solid #121212;
+	border-right: 2px solid #121212;
+	display: inline-block;
+	transform: rotate(45deg);
+	position: absolute;
+	top: 0px;
+	left: 0px;
 }
+
 .right_arrow {
-    position: absolute;
-    bottom: 2.7rem;
-    right: 40px;
+	position: absolute;
+	bottom: 2.7rem;
+	right: 40px;
 }
+
 .left_arrow:after {
-    content: '';
-    width: 30px;
-    height: 30px;
-    border-top: 2px solid #121212;
-    border-right: 2px solid #121212;
-    display: inline-block;
-    transform: rotate(225deg);
-    position: absolute;
-    top: 0px;
-    left: 0px;
+	content: '';
+	width: 30px;
+	height: 30px;
+	border-top: 2px solid #121212;
+	border-right: 2px solid #121212;
+	display: inline-block;
+	transform: rotate(225deg);
+	position: absolute;
+	top: 0px;
+	left: 0px;
 }
+
 .left_arrow {
-    position: absolute;
-    bottom: 2.7rem;
-    right: 100px;
+	position: absolute;
+	bottom: 2.7rem;
+	right: 100px;
 }
 
 .right_arrow, .left_arrow {
@@ -335,22 +340,25 @@ section#section_01 {
 	scale: 1.05;
 	transition-duration: 0.5s;
 }
+
 .board_content_text_wrap {
-    padding: 1.2rem 1.5rem;
+	padding: 1.2rem 1.5rem;
 }
 
 .board_content_text_wrap .title {
-    font-size: 1.4rem;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
+	font-size: 1.4rem;
+	font-weight: 400;
+	margin-bottom: 0.5rem;
 }
+
 .board_content_text_wrap .fun_period {
-    font-weight: 400;
-    font-size: 1.2rem;
-    color: #575757;
+	font-weight: 400;
+	font-size: 1.2rem;
+	color: #575757;
 }
+
 .board_content_text_wrap .organizer {
-    font-size: 1.1rem;
+	font-size: 1.1rem;
 }
 /* section03 end */
 .custom_board_wrap>div:last-child {
@@ -358,43 +366,44 @@ section#section_01 {
 }
 
 .custom_board_contents {
-    width: 47.3%;
-    display: inline-block;
-    margin-right: 72px;
+	width: 47.3%;
+	display: inline-block;
+	margin-right: 72px;
 }
+
 .category.category_green {
-    color: #34D28B;
-    margin-bottom: 0.5rem;
+	color: #34D28B;
+	margin-bottom: 0.5rem;
 }
 /* section04 end */
+div.dona_btn a {
+	position: fixed;
+	bottom: 14rem;
+	right: 3%;
+	border: 1px solid #31BC7E;
+	background: #31BC7E;
+	padding: 1rem 2.4rem;
+	border-radius: 17px;
+	box-shadow: 0px 5px 30px #c7c7c7;
+	color: #fff;
+	font-size: 1.2rem;
+	font-weight: 500;
+	letter-spacing: 0px;
+	transition-duration: 0.5s
+}
+
+.dona_btn a:hover {
+	transform: translateY(-10px);
+	transition-duration: 0.5s
+}
+/* floationg Button */
+footer {
+	background: #31BC7E;
+}
+
 div .logo_white {
-    width: 70px;
+	width: 70px;
 }
-
-div.dona_btn a{
-    position: fixed;
-    bottom: 5rem;
-    right: 3%;
-    border: 1px solid #31BC7E;
-    background: #31BC7E;
-    padding: 1rem 2.4rem;
-    border-radius: 17px;
-    box-shadow: 0px 5px 30px #c7c7c7;
-    color: #fff;
-    font-size: 1.2rem;
-    font-weight: 500;
-    letter-spacing: 0px;
-    
-}
-@keyframes bounce{
-    to{
-        transform: translateY(-15px);
-    }
-}
-
-.dona_btn a:hover{
-    translate: bounce 0.7s cubic-bezier(0.1, 0.02, 0.15, 0.61) infinite alternate;
-    }
 </style>
 </head>
 <body>
@@ -616,7 +625,9 @@ div.dona_btn a{
 			</div>
 		</div>
 	</section>
-	<div id="floating_btn" class="dona_btn"><a href="#">후원하기</a></div>
+	<div id="floating_btn" class="dona_btn">
+		<a href="#">후원하기</a>
+	</div>
 	<footer>
 		<div class="containcer">
 			<div id="logo" class="logo_white">
