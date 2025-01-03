@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="side">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,22 +10,9 @@
 </head>
 <body>
     <div id="sidebar">
-        <button type="button" class="blackbutton" id="memManage">회원관리</button>
-        <button type="button" class="blackbutton" id="donaList">기부게시판</button>
-        <button type="button" class="blackbutton" id="newsList">소식게시판</button>
+        <button type="button" class="blackbutton" th:onclick="|location.href='@{main}'|" id="memManage">회원관리</button>
+        <button type="button" class="blackbutton" th:onclick="|location.href='@{donalist}'|" id="donaList">기부게시판</button>
+        <button type="button" class="blackbutton" th:onclick="|location.href='@{newslist}'|" id="newsList">소식게시판</button>
     </div>
 </body>
 </html>
-<script>
-    window.onload = () => {
-        document.getElementById('memManage').addEventListener('click', ()=>{
-            location.href = "main";
-        });
-        document.getElementById('donaList').addEventListener('click', ()=>{
-            location.href="donalist";
-        });
-        document.getElementById('newsList').addEventListener('click', ()=>{
-            location.href="newslist";
-        });
-    }
-</script>

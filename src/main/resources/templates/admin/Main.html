@@ -8,7 +8,7 @@
     </style>
 </head>
 <body>
-<div th:insert="admin/SideBar.html"></div>
+<div th:insert="admin/SideBar.html :: side"></div>
 <h2>회원 목록</h2>
 <div class="userlist">
     <table>
@@ -58,15 +58,42 @@
         </tr>
     </table>
     <br>
-    <input type="button" value="수정하기"/>
-    <input type="button" value="삭제하기"/>
+    <input type="button" th:onclick="|location.href='@{#}'|" value="수정하기"/>
+    <input type="button" th:onclick="|location.href='@{#}'|" value="삭제하기"/>
+    <input type="button" id="cancle" value="취소하기"/>
 </div>
 </body>
 <script>
     window.onload = () => {
+        let uno = 0;
         document.getElementById('userbutton').addEventListener('click', () => {
-            document.getElementById('userdetail').style.visibility = 'visible';
+            if (uno == 0){
+                alert('목록을 선택해주세요.');
+            }else{
+                document.getElementById('userdetail').style.visibility = 'visible';
+            }
         });
+
+        document.getElementById('cancle').addEventListener('click', () => {
+            document.getElementById('userdetail').style.visibility = 'hidden';
+            uno = 0;
+        });
+
+        const tds = document.getElementsByTagName('td')
+        for (const td of tds) {
+            const parent = td.parentElement;
+            td.addEventListener('mouseenter', ()=>{
+                parent.style.background = 'darkgray';
+                parent.style.cursor = 'pointer';
+            });
+            td.addEventListener('mouseout', ()=>{
+                parent.style.background = 'white';
+            });
+            td.addEventListener('click', ()=>{
+                // 셀렉문
+                uno = parent.children[0].innerText;
+            });
+        }
     }
 </script>
 </html>
