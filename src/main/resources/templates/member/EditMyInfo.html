@@ -1,118 +1,140 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>마이페이지</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>기부 내역 조회</title><link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-	<style type="text/css">
-		body *{
-			font-family: "inter";
-		}
-		form{
-			display: flex;
-			flex-direction: column;
-		}
-		.col{
-			display: flex;
-			flex-direction: column;
-			padding: 10px;
-		}
-		#labelCol>*{
-			font-size: 13pt;
-			margin: 10px;
-			margin-top: 18px;
-		}
-		#labelCol>label:nth-child(4){
-			margin-top: 38px;
-		}
-		#inputCol input{
-			margin-top: 12px;
-		}
-		.row{
-			display: flex;
-			flex-direction: row;
-		}
-		form>button{
-		 	height: 41px;
-			width: 280px;
-			background: #34D28B;
-			border: 0px;
-			border-radius: 14px;
-			color: white;
-			font-size: 12pt;
-			margin-left: 80px;
-			margin-top: 20px;
-		}
-		#emailDiv>button{
-			border: 1px solid #34D28B;
-			border-radius: 10px;
-			color: #34D28B;
-			background: white;
-			height: 40px;
-			width: 80px;
-			margin-left: 15px;
-		}
-		input{
-			height: 28px;
-			padding: 5px;
-			border: 1px solid gray;
-			border-radius: 10px;
-			width: 240px;
-			text-align: justify;
-		}
-		input[name^=rrn]{
-			width: 105px;
-		}
-		input[name=address]{
-			margin-top:0;
-		}
-		span{
-			font-size: 9pt;
-			color: #2ab54c;
-			margin-top: 0;
-			margin-left: 4px;
-		}
-	</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>마이페이지</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>기부 내역 조회</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+	rel="stylesheet">
+<style type="text/css">
+body * {
+	font-family: "inter";
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+.col {
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+}
+
+#labelCol>* {
+	font-size: 13pt;
+	margin: 10px;
+	margin-top: 18px;
+}
+
+#labelCol>label:nth-child(4) {
+	margin-top: 38px;
+}
+
+#inputCol input {
+	margin-top: 12px;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+}
+
+form>button {
+	height: 41px;
+	width: 280px;
+	background: #34D28B;
+	border: 0px;
+	border-radius: 14px;
+	color: white;
+	font-size: 12pt;
+	margin-left: 80px;
+	margin-top: 20px;
+}
+
+#emailDiv>button {
+	border: 1px solid #34D28B;
+	border-radius: 10px;
+	color: #34D28B;
+	background: white;
+	height: 40px;
+	width: 80px;
+	margin-left: 15px;
+}
+
+input {
+	height: 28px;
+	padding: 5px;
+	border: 1px solid gray;
+	border-radius: 10px;
+	width: 240px;
+	text-align: justify;
+}
+
+input[name^=rrn] {
+	width: 105px;
+}
+
+input[name=address] {
+	margin-top: 0;
+}
+
+span {
+	font-size: 9pt;
+	color: #2ab54c;
+	margin-top: 0;
+	margin-left: 4px;
+}
+</style>
 </head>
 <body>
-	<header>
-		
-	</header>
+	<header> </header>
 	<h1>내 정보 수정</h1>
 	<form>
 		<div class="row">
 			<div class="col" id="labelCol">
-				<label>이름</label>
-				<label>주민등록 번호</label>
-				<label>아이디</label>
-				<label>주소</label>
-				<label>비밀번호</label>
+				<label>이름</label> <label>아이디</label> <label>주소</label> <label>비밀번호</label>
 				<label>비밀번호 확인</label>
 			</div>
 			<div class="col" id="inputCol">
 				<input type="text" name="name">
-				<div id="rrnDiv">
-					<input type="text" name="rrn1">
-					<label>-</label>
-					<input type="password" name="rrn2">
-				</div>
 				<div id="emailDiv">
-					<input type="email" name="email">
-					<button>중복확인</button>
+					<input type="email" name="email" id="email">
+					<button onclick="emailCheck(event)">중복확인</button>
 				</div>
-				<span>사용하실수 있는 아이디 입니다.</span>
-				<input type="text" name="address">
-				<input type="password" name="">
-				<input type="password" name="">
-				<span>비밀번호가 일치합니다</span>
+				<span>사용하실수 있는 아이디 입니다.</span> <input type="text" name="address">
+				<input type="password" name=""> <input type="password"
+					name=""> <span>비밀번호가 일치합니다</span>
 			</div>
 		</div>
 		<button>확인</button>
 	</form>
+	<script>
+		const emailCheck = function(event){
+			const email = document.getElementById("email").value;
+			event.preventDefault;
+			$.ajax({
+				url:"emailCheck",
+				data : {email:email},
+				success : data=>{
+					if (data==1){
 
+					}else{
+					
+					}
+				},
+				error : data=>{
+					
+				}
+			});
+		}
+	
+	</script>
 </body>
 </html>
