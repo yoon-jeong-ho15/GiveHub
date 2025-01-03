@@ -119,9 +119,8 @@ th {
             const id = document.getElementById('mem_address');
             const pwd = document.getElementById('mem_pwd');
 
-            // 유효성 검사
             if (id.value.trim() === '') {
-                event.preventDefault(); // 폼 제출 방지
+                event.preventDefault();
                 alert('이메일을 입력하세요');
                 id.focus();
             } else if (pwd.value.trim() === '') {
@@ -131,5 +130,7 @@ th {
             }
         });
     </script>
+    
+    
 </body>
 </html>
