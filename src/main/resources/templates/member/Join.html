@@ -111,7 +111,7 @@ button:hover {
                     <input type="email" id="mem_id" name="mem_id" placeholder="사용 하실 아이디를 입력하세요" required>
                 </td>
                 <td>
-                    <button type="button" onclick="checkDuplicate()">중복확인</button>
+       				<button type="button" onclick="checkIdDuplicate()">아이디 중복확인</button>
                 </td>		
 			</tr>
 			<tr>
@@ -120,8 +120,8 @@ button:hover {
                     <input type="email" id="mem_email" name="mem_email" placeholder="이메일을 입력하세요" required>
                 </td>
                 <td>
-                    <button type="button" onclick="checkDuplicate()">중복확인</button>
-                </td>		
+                    <button type="button" onclick="checkEmailDuplicate()">이메일 중복확인</button>
+                </td>		 
 			</tr>					
 			<tr>
                 <th>주소</th>
@@ -172,5 +172,26 @@ button:hover {
             </tr>
         </table>
     </form>
+    
+    
+    <script>
+    
+    document.getElementById('passwordConfirm').addEventListener('input', function () {
+        const password = document.getElementById('mem_pwd').value;
+        const confirmPassword = this.value;
+
+        if (password !== confirmPassword) {
+            this.alert('비밀번호가 일치하지 않습니다.');
+        } 
+    });
+    
+    
+    
+    
+    
+    
+    
+    </script>
+
 </body>
 </html>
