@@ -1,67 +1,76 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
-    <style>
-        th, td{border: 1px solid black;}
-    </style>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="../../../css/reset.css" rel="stylesheet" type="text/css">
+<link href="../../../css/common.css" rel="stylesheet" type="text/css">
+<link href="../../../css/admin.css" rel="stylesheet" type="text/css">
+<style>
+</style>
 </head>
 <body>
-<div th:insert="admin/SideBar.html :: side"></div>
-<h2>회원 목록</h2>
-<div class="userlist">
-    <table>
-        <tr align="center">
-            <th width="100px">번호</th>
-            <th width="100px">유형</th>
-            <th width="100px">이름</th>
-            <th width="200px">주민등록번호</th>
-            <th width="100px">아이디</th>
-            <th width="150px">주소</th>
-            <th width="100px">삭제 요청</th>
-        </tr>
-        <tr align="center">
-            <td>1</td>
-            <td>회원</td>
-            <td>박성훈</td>
-            <td>111111-1111111</td>
-            <td>qwer1</td>
-            <td>경기도 파주시</td>
-            <td></td>
-        </tr>
-    </table>
-    <input class="blackbutton" id="userbutton" type="button" value="수정/삭제하기"/>
-</div>
+	<div class="container">
+		<div th:insert="admin/SideBar.html :: side"></div>
+		<h1 class="admin_title">회원 목록</h1>
+		<div class="userlist">
+			<table>
+				<tr align="center">
+					<th width="100px">번호</th>
+					<th width="100px">유형</th>
+					<th width="100px">이름</th>
+					<th width="200px">주민등록번호</th>
+					<th width="100px">아이디</th>
+					<th width="150px">주소</th>
+					<th width="100px">삭제 요청</th>
+				</tr>
+				<tr align="center">
+					<td>1</td>
+					<td>회원</td>
+					<td>박성훈</td>
+					<td>111111-1111111</td>
+					<td>qwer1</td>
+					<td>경기도 파주시</td>
+					<td></td>
+				</tr>
+			</table>
+			<div class="button_wrap">
+				<input class="blackbutton" id="userbutton" type="button" value="수정/삭제하기" />
+			</div>
+			
+		</div>
 
-<div id="userdetail" style="visibility: hidden;">
-    <h1>회원 정보</h1>
-    <input type="radio" id="user" value="user" name="type" checked/><label for="user">일반 회원</label>
-    <input type="radio" id="or" value="or" name="type"/><label for="or">주최자</label>
-    <br>
-    <table>
-        <tr>
-            <td width="100px">이름</td>
-            <td><input type="text" name="name" width="200px" readonly/></td>
-        </tr>
-        <tr>
-            <td width="100px">아이디</td>
-            <td><input type="text" name="id" width="200px" readonly/></td>
-        </tr>
-        <tr>
-            <td width="100px">등급</td>
-            <td>
-                <select>
+		<div id="userdetail">
+			<h2 class="admin_title">회원 정보</h2>
+			<input type="radio" id="user" value="user" name="type" checked /><label
+				for="user">일반 회원</label> <input type="radio" id="or" value="or"
+				name="type" /><label for="or">주최자</label> <br>
+			<table>
+				<tr>
+					<td>이름</td>
+					<td class="text_inner"><input type="text" name="name" readonly /></td>
+				</tr>
+				<tr>
+					<td>아이디</td>
+					<td class="text_inner"><input type="text" name="id" readonly /></td>
+				</tr>
+				<tr>
+					<td>등급</td>
+					<td><select>
 
-                </select>
-            </td>
-        </tr>
-    </table>
-    <br>
-    <input type="button" th:onclick="|location.href='@{#}'|" value="수정하기"/>
-    <input type="button" th:onclick="|location.href='@{#}'|" value="삭제하기"/>
-    <input type="button" id="cancle" value="취소하기"/>
-</div>
+					</select></td>
+				</tr>
+			</table>
+			<br> 
+			<div class="button_wrap">
+				<input class="blackbutton" type="button" th:onclick="|location.href='@{#}'|" value="수정하기" /> 
+				<input class="blackbutton" type="button" th:onclick="|location.href='@{#}'|" value="삭제하기" /> 
+				<input class="blackbutton" type="button" id="cancle" value="취소하기" />
+			</div>
+			
+		</div>
+	</div>
+
 </body>
 <script>
     window.onload = () => {
