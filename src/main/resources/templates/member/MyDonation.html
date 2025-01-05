@@ -1,92 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>기부 내역 조회</title><link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-	<style type="text/css">
-		body *{
-			font-family: "inter";
-		}
-		#buttonDiv{
-			margin-left: 70px;
-			margin-top: 20px;
-		}
-		#buttonDiv>button{
-		 	height: 41px;
-			width: 280px;
-			background: #34D28B;
-			border: 0px;
-			border-radius: 14px;
-			color: white;
-			font-size: 12pt;
-			margin-left: 10px;
-			margin-right: 10px;
-		}
-		table{
-			display: flex;
-			margin-top: 30px;
-			margin-left: 40px;
-		}
-		table td{
-			padding: 3px;
-			margin-top: 10px;
-		}
-		tr>td:nth-child(1){
-			width: 300px;
-		}
-		tr>td:nth-child(2){
-			width: 80px;
-		}
-		tr>td:nth-child(3){
-			width: 90px;
-		}
-		tr>td:nth-child(4){
-			width: 150px;
-		}
-		td>button{
-			background: #edb1b2;
-			color: red;
-			border:0px;
-			border-radius: 3px;
-			width:40px;
-			height:25px;
-		}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>기부 내역 조회</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+	rel="stylesheet">
+<style type="text/css">
+body * {
+	font-family: "inter";
+}
 
-	</style>
+#buttonDiv {
+	margin-left: 70px;
+	margin-top: 20px;
+}
+
+#buttonDiv>button {
+	height: 41px;
+	width: 280px;
+	background: #34D28B;
+	border: 0px;
+	border-radius: 14px;
+	color: white;
+	font-size: 12pt;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+table {
+	display: flex;
+	margin-top: 30px;
+	margin-left: 40px;
+}
+
+table td {
+	padding: 3px;
+	margin-top: 10px;
+}
+
+tr>td:nth-child(1) {
+	width: 300px;
+}
+
+tr>td:nth-child(2) {
+	width: 80px;
+}
+
+tr>td:nth-child(3) {
+	width: 90px;
+}
+
+tr>td:nth-child(4) {
+	width: 150px;
+}
+
+td>button {
+	background: #edb1b2;
+	color: red;
+	border: 0px;
+	border-radius: 3px;
+	width: 40px;
+	height: 25px;
+}
+</style>
 </head>
 <body>
-	<header>
-		
-	</header>
+	<header> </header>
 	<div id="buttonDiv">
-		<button>진행중인 후원</button>
-		<button>완료된 후원</button>
+		<button onclick="ongoingList()">진행중인 후원</button>
+		<button onclick="finishedList()">완료된 후원</button>
 	</div>
-	<table>
-	 	<tr>
-	 		<td>후원 프로젝트 제목입니다</td>
-	 		<td>주최자</td>
-	 		<td>5000원</td>
-	 		<td>2024년 12월 27일</td>
-	 		<td><button>취소</button></td>
-	 	</tr>
-	 	<tr>
-	 		<td>후원 프로젝트 제목입니다</td>
-	 		<td>주최자</td>
-	 		<td>5000원</td>
-	 		<td>2024년 12월 27일</td>
-	 		<td><button>취소</button></td>
-	 	</tr>
-	 	<tr>
-	 		<td>후원 프로젝트 제목입니다</td>
-	 		<td>주최자</td>
-	 		<td>5000원</td>
-	 		<td>2024년 12월 27일</td>
-	 		<td></td>
-	 	</tr>
-	</table>
+	<div id="tableDiv">
+		<table>
+			<tr>
+				<td>후원 프로젝트 제목입니다</td>
+				<td>주최자</td>
+				<td>5000원</td>
+				<td>2024년 12월 27일</td>
+				<td><button onclick="cancleDonation()">취소</button></td>
+			</tr>
+			<tr>
+				<td>후원 프로젝트 제목입니다</td>
+				<td>주최자</td>
+				<td>5000원</td>
+				<td>2024년 12월 27일</td>
+				<td><button>취소</button></td>
+			</tr>
+			<tr>
+				<td>후원 프로젝트 제목입니다</td>
+				<td>주최자</td>
+				<td>5000원</td>
+				<td>2024년 12월 27일</td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+			<script type="text/javascript">
+			
+				function ongoingList() {
+					//select * from donation 
+					//where status='Y' and mem_no=?
+					window.location="ongoingList";
+				}
+
+				function finishedList() {
+					//select * from donation
+					//where status='N' and mem_no=?
+					window.location="finishedList";
+					
+					//결과값이 없다면 <td colspan=5>로 조회결과 없다 통지
+					//결과값이 있다면 for each로
+					//<tr>과 <td>를 만들고
+					//취소버튼 : ongoingList에서만 있음
+				}
+				
+				function cancleDonation(){
+					//pay_no 찾아서 status 'N'으로
+					//pay_no는 hidden td에 넣어두
+				}
+				
+			</script>
 </body>
 </html>
