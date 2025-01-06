@@ -1,0 +1,144 @@
+/* 관리자 페이지 */
+table {
+    width: 100%;
+    margin-bottom: 3rem;
+}
+.button_wrap {
+    display: flex;
+    justify-content: center;
+}
+.blackbutton {
+    width: 200px;
+    height: 50px;
+    color: #0a0a0a;
+    border-radius: 100px;
+    border: none;
+    margin: 0 0.9rem;
+    display: inline-block;
+}
+
+.blackbutton:hover {
+	color: white;
+	background: #202020;
+}
+
+.admin_title {
+	font-size: 1.8rem;
+	font-weight: 400;
+	margin-bottom: 2.5rem;
+}
+
+tbody {
+	border-top: 2px solid #0a0a0a;
+	border-bottom: 2px solid #0a0a0a;
+}
+
+th, td {
+	border: 1px solid #0a0a0a;
+	padding: 0.7rem 2rem;
+	text-align: center;
+}
+
+th {
+	font-size: 1rem;
+	font-weight: 500;
+	background: #f6f6f6;
+}
+
+tr>th:last-child, tr>td:last-child {
+	border-right: 1px solid #0a0a0a;
+}
+
+tr>th, tr>td {
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+}
+
+input[type="text"] {
+	padding: 0.5rem 0.7rem 0.2rem 0.7rem;
+	font-size: 1.3rem;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+}
+
+input:focus {
+	outline: none;
+}
+/* 회원목록 end */
+
+#userdetail tbody {
+    border: none;
+}
+
+#userdetail th, #userdetail td {
+	border: none;
+	padding: 0.7rem 2rem;
+}
+
+
+label {
+  font-size: 18px;
+  line-height: 2rem;
+  padding: 0.2em 0.4em;
+}
+
+
+[type="radio"] {
+  appearance: none;
+  border: max(2px, 0.1em) solid #ddd;
+  border-radius: 50%;
+  width: 1.25em;
+  height: 1.25em;
+  transition: border 0.3s ease-in-out;
+}
+
+[type="radio"]:checked {
+  border: 0.4em solid #0a0a0a;
+}
+
+[type="radio"]:focus-visible {
+  outline-offset: max(2px, 0.1em);
+  outline: max(2px, 0.1em) dotted #0a0a0a;
+}
+
+[type="radio"]:hover {
+  box-shadow: 0 0 0 max(4px, 0.2em) #f6f6f6;
+  cursor: pointer;
+}
+
+[type="radio"]:hover + span {
+  cursor: pointer;
+}
+
+[type="radio"]:disabled {
+  background-color: lightgray;
+  box-shadow: none;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+[type="radio"]:disabled + span {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Global CSS */
+fieldset {
+  display: flex;
+  justify-content: center;
+  border: none;
+  margin: 0;
+  padding: 40px 20px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+#userdetail td {
+    width: 10%;
+    display: inline-block;
+}
