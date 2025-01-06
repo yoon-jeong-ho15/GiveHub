@@ -1,0 +1,29 @@
+/* 웹사이트 전체 기본 설정값 */
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Playwrite+FR+Trad:wght@100..400&family=Rhodium+Libre&display=swap')
+	;
+
+body {
+	color: #0A0A0A;
+	position: relative;
+	font-family: "Noto Sans KR", serif;
+	font-optical-sizing: auto;
+	font-weight: 300;
+	font-style: normal;
+}
+
+a {
+	text-decoration: none;
+	color: #0A0A0A;
+}
+
+.container {
+	width: 75%;
+	margin: 0 auto;
+	height: 100%;
+	padding: 4rem 0;
+	box-sizing: border-box;
+}
+
+
+
