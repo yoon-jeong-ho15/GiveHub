@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../../../css/reset.css" rel="stylesheet" type="text/css">
-<link href="../../../css/common.css" rel="stylesheet" type="text/css">
-<link href="../../../css/admin.css" rel="stylesheet" type="text/css">
+<link href="../../static/css/reset.css" rel="stylesheet" type="text/css">
+<link href="../../static/css/common.css" rel="stylesheet" type="text/css">
+<link href="../../static/css/admin.css" rel="stylesheet" type="text/css">
 <style>
 </style>
 </head>
@@ -19,7 +19,6 @@
 					<th width="100px">번호</th>
 					<th width="100px">유형</th>
 					<th width="100px">이름</th>
-					<th width="200px">주민등록번호</th>
 					<th width="100px">아이디</th>
 					<th width="150px">주소</th>
 					<th width="100px">삭제 요청</th>
@@ -28,7 +27,6 @@
 					<td>1</td>
 					<td>회원</td>
 					<td>박성훈</td>
-					<td>111111-1111111</td>
 					<td>qwer1</td>
 					<td>경기도 파주시</td>
 					<td></td>
@@ -40,7 +38,7 @@
 			
 		</div>
 
-		<div id="userdetail" style="visibility: hidden;" >
+		<div id="userdetail" class="userdetail_wrap"><!-- style="visibility: hidden;" -->
 			<h2 class="admin_title">회원 정보</h2>
 			<input type="radio" id="user" value="user" name="type" checked /><label
 				for="user">일반 회원</label> <input type="radio" id="or" value="or"
