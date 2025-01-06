@@ -47,7 +47,13 @@ th {
     margin-bottom: 10px;
 }
 
-
+#hyde1, #hyde2 {
+	color : #5cc78d;
+	text-align: left;
+    font-size: 12px;
+    font-weight: lighter;
+	
+}
 
 
 .login-btn {
@@ -87,6 +93,8 @@ th {
                 </th>
                 <td>
                     <input type="email" id="mem_address" name="mem_address" placeholder="이메일을 입력하세요" required>
+   			 	    <div id='hyde1' style="visibility: hidden">회원가입 시 등록한 이메일을 입력해 주세요</div>
+                    
                 </td>
             </tr>
 
@@ -96,6 +104,8 @@ th {
                 </th>
                 <td>
                     <input type="password" id="mem_pwd" name="mem_pwd" placeholder="비밀번호를 입력하세요" required>
+                    <div id='hyde2' style="visibility: hidden">회원가입 시 입력한 비밀번호를 입력해 주세요</div>
+                    
                 </td>
             </tr>
 
@@ -124,6 +134,43 @@ th {
                 pwd.focus();
             }
         });
+        
+    	const hyde1 = document.getElementById('hyde1');
+    	
+    	const pass1 = document.getElementById('mem_address');
+    	pass1.addEventListener('click',()=>{
+    		hyde1.style.visibility = 'visible';
+    	})
+    	
+    	document.addEventListener('click',(event)=>{
+    		if(!pass1.contains(event.target)){
+    			hyde1.style.visibility = 'hidden';
+    		}
+    	})
+    		
+
+    	
+
+    	const hyde2 = document.getElementById('hyde2');
+    	
+    	const pass2 = document.getElementById('mem_pwd');
+    	pass2.addEventListener('click',()=>{
+    		hyde2.style.visibility = 'visible';
+    	})
+    	
+    	document.addEventListener('click',(event)=>{
+    		if(!pass2.contains(event.target)){
+    			hyde2.style.visibility = 'hidden';
+    		}
+    	})
+    	
+    	
+    	
+    	
+    	
+        
+        
+        
     </script>
     
     
