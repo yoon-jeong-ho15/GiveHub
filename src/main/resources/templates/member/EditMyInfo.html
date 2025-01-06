@@ -109,7 +109,7 @@ span {
 				<input type="text" name="name">
 				<div id="emailDiv">
 					<input type="email" name="email" id="email">
-					<button onclick="emailCheck(event)">중복확인</button>
+					<button onclick="checkEmail(event)">중복확인</button>
 				</div>
 				<span id="emailCheckSpan">사용하실수 있는 아이디 입니다.</span> <input
 					type="text" name="address"> <input type="password" id="pwd"
@@ -120,14 +120,14 @@ span {
 		<button>확인</button>
 	</form>
 	<script>	
-		function emailCheck(event){
+		function checkEmail(event){
 			const email = document.getElementById("email").value;
 			event.preventDefault;
 			$.ajax({
-				url:"emailCheck",
+				url:"/checkEmail",
 				data : {email:email},
 				success : data=>{
-					if (data==1){
+					if (data!=0){
 						//아이디가 있는 경우
 						emailCheckSpan.innerText="이미 사용중인 아이디 입니다.";
 						emailCheckSpan.style.color="red";
@@ -174,6 +174,5 @@ span {
 			});
 		}
 
-	
 	</script>
 </html>
