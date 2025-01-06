@@ -7,70 +7,83 @@
 <link href="../../../css/common.css" rel="stylesheet" type="text/css">
 <link href="../../../css/admin.css" rel="stylesheet" type="text/css">
 <style>
+	.container {
+		display: flex; /* Flexbox 사용 */
+		height: 100vh; /* 화면 전체 높이 */
+		margin: 0;
+	}
+	.sidebar {
+		width: 250px; /* 사이드바 너비 */
+		background-color: #f4f4f4; /* 배경색 */
+		border-right: 1px solid #ccc; /* 오른쪽 테두리 */
+		box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* 살짝 그림자 효과 */
+	}
+	.content {
+		flex-grow: 1; /* 나머지 화면 차지 */
+		padding: 20px; /* 여백 */
+		overflow: auto; /* 내용이 넘칠 경우 스크롤 */
+	}
 </style>
 </head>
 <body>
 	<div class="container">
-		<div th:insert="admin/SideBar.html :: side"></div>
-		<h1 class="admin_title">회원 목록</h1>
-		<div class="userlist">
-			<table>
-				<tr align="center">
-					<th width="100px">번호</th>
-					<th width="100px">유형</th>
-					<th width="100px">이름</th>
-					<th width="200px">주민등록번호</th>
-					<th width="100px">아이디</th>
-					<th width="150px">주소</th>
-					<th width="100px">삭제 요청</th>
-				</tr>
-				<tr align="center">
-					<td>1</td>
-					<td>회원</td>
-					<td>박성훈</td>
-					<td>111111-1111111</td>
-					<td>qwer1</td>
-					<td>경기도 파주시</td>
-					<td></td>
-				</tr>
-			</table>
-			<div class="button_wrap">
-				<input class="blackbutton" id="userbutton" type="button" value="수정/삭제하기" />
+		<div class="sidebar" th:insert="admin/SideBar.html :: side"></div>
+		<div class="content">
+			<div class="userlist">
+				<table>
+					<caption class="admin_title">회원 목록</caption>
+					<tr align="center">
+						<th width="100px">번호</th>
+						<th width="100px">유형</th>
+						<th width="100px">이름</th>
+						<th width="100px">아이디</th>
+						<th width="150px">주소</th>
+						<th width="100px">삭제 요청</th>
+					</tr>
+					<tr align="center" class="selectlist">
+						<td>1</td>
+						<td>회원</td>
+						<td>박성훈</td>
+						<td>qwer1</td>
+						<td>경기도 파주시</td>
+						<td></td>
+					</tr>
+				</table>
+				<div class="button_wrap">
+					<input class="blackbutton" id="userbutton" type="button" value="수정/삭제하기" />
+				</div>
 			</div>
-			
-		</div>
 
-		<div id="userdetail" style="visibility: hidden;" >
-			<h2 class="admin_title">회원 정보</h2>
-			<input type="radio" id="user" value="user" name="type" checked /><label
-				for="user">일반 회원</label> <input type="radio" id="or" value="or"
-				name="type" /><label for="or">주최자</label> <br>
-			<table>
-				<tr>
-					<td>이름</td>
-					<td class="text_inner"><input type="text" name="name" readonly /></td>
-				</tr>
-				<tr>
-					<td>아이디</td>
-					<td class="text_inner"><input type="text" name="id" readonly /></td>
-				</tr>
-				<tr>
-					<td>등급</td>
-					<td><select>
+			<div id="userdetail" style="visibility: hidden;" >
+				<h2 class="admin_title">회원 정보</h2>
+				<input type="radio" id="user" value="user" name="type" checked /><label
+					for="user">일반 회원</label> <input type="radio" id="or" value="or"
+					name="type" /><label for="or">주최자</label> <br>
+				<table>
+					<tr>
+						<td>이름</td>
+						<td class="text_inner"><input type="text" name="name" readonly /></td>
+					</tr>
+					<tr>
+						<td>아이디</td>
+						<td class="text_inner"><input type="text" name="id" readonly /></td>
+					</tr>
+					<tr>
+						<td>등급</td>
+						<td><select>
 
-					</select></td>
-				</tr>
-			</table>
-			<br> 
-			<div class="button_wrap">
-				<input class="blackbutton" type="button" th:onclick="|location.href='@{#}'|" value="수정하기" /> 
-				<input class="blackbutton" type="button" th:onclick="|location.href='@{#}'|" value="삭제하기" /> 
-				<input class="blackbutton" type="button" id="cancle" value="취소하기" />
+						</select></td>
+					</tr>
+				</table>
+				<br>
+				<div class="button_wrap">
+					<input class="blackbutton" type="button" th:onclick="|location.href='@{#}'|" value="수정하기" />
+					<input class="blackbutton" type="button" th:onclick="|location.href='@{#}'|" value="삭제하기" />
+					<input class="blackbutton" type="button" id="cancle" value="취소하기" />
+				</div>
 			</div>
-			
 		</div>
 	</div>
-
 </body>
 <script>
     window.onload = () => {
@@ -88,19 +101,18 @@
             uno = 0;
         });
 
-        const tds = document.getElementsByTagName('td')
-        for (const td of tds) {
-            const parent = td.parentElement;
-            td.addEventListener('mouseenter', ()=>{
-                parent.style.background = 'darkgray';
-                parent.style.cursor = 'pointer';
+        const trs = document.getElementsByClassName('selectlist')
+        for (const tr of trs) {
+			tr.addEventListener('mouseenter', ()=>{
+				tr.style.background = 'darkgray';
+				tr.style.cursor = 'pointer';
             });
-            td.addEventListener('mouseout', ()=>{
-                parent.style.background = 'white';
+			tr.addEventListener('mouseout', ()=>{
+				tr.style.background = 'white';
             });
-            td.addEventListener('click', ()=>{
+			tr.addEventListener('click', ()=>{
                 // 셀렉문
-                uno = parent.children[0].innerText;
+                uno = tr.children[0].innerText;
             });
         }
     }
