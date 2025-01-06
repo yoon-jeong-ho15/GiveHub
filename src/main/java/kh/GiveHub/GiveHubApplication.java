@@ -8,6 +8,7 @@ public class GiveHubApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GiveHubApplication.class, args);
+		
 	}
 
 }
