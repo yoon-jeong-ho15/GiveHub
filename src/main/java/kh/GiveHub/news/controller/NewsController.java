@@ -1,5 +1,12 @@
 package kh.GiveHub.news.controller;
 
-public class NewsController {
+import org.springframework.stereotype.Controller;
 
+import kh.GiveHub.news.model.service.NewsService;
+import lombok.RequiredArgsConstructor;
+
+@Controller
+@RequiredArgsConstructor
+public class NewsController {
+	private final NewsService nService;
 }
