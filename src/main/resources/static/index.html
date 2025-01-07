@@ -461,28 +461,29 @@
 			<a href="#">후원하기</a>
 		</div>
 		<script>
-    document.addEventListener("scroll", function () {
-        const floatingBtn = document.getElementById("floating_btn");
-        const footer = document.querySelector("footer");
+			document.addEventListener("scroll", function () {
+				const floatingBtn = document.getElementById("floating_btn");
+				const footer = document.querySelector("footer");
 
-        const footerTop = footer.getBoundingClientRect().top + window.scrollY;
-        const btnHeight = floatingBtn.offsetHeight;
-        const scrollY = window.scrollY;
-        const viewportHeight = window.innerHeight;
+				const footerTop = footer.getBoundingClientRect().top + window.scrollY;
+				const btnHeight = floatingBtn.offsetHeight;
+				const scrollY = window.scrollY;
+				const viewportHeight = window.innerHeight;
 
-        // footer와 겹치는 시점 계산
-        if (scrollY + viewportHeight >= footerTop + 50) {
-            // absolute로 전환
-            floatingBtn.style.position = "absolute";
-            floatingBtn.style.top = `${footerTop - btnHeight - 50}px`;
-            floatingBtn.style.bottom = "auto";
-        } else {
-            // fixed 유지
-            floatingBtn.style.position = "fixed";
-            floatingBtn.style.bottom = "14rem";
-            floatingBtn.style.top = "auto";
-        }
-    });
+				// footer와 겹치는 시점 계산
+				if (scrollY + viewportHeight >= footerTop + 50) {
+					// absolute로 전환
+					floatingBtn.style.position = "absolute";
+					floatingBtn.style.top = `${footerTop - btnHeight - 50}px`;
+					floatingBtn.style.bottom = "auto";
+				} else {
+					// fixed 유지
+					floatingBtn.style.position = "fixed";
+					floatingBtn.style.bottom = "14rem";
+					floatingBtn.style.top = "auto";
+				}
+			});
+
 </script>
 	</div>
 	<footer>
