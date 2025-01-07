@@ -48,4 +48,9 @@ public class MemberController {
     	int result = mService.checkEmail(email);
     	response.getWriter().print(result);
     }
+
+    @GetMapping("/myDonation")
+    public String myDonation(){
+        return "member/MyDonation"
+    }
 }

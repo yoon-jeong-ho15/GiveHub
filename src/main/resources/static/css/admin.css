@@ -55,7 +55,7 @@ tr>th, tr>td {
 }
 
 input[type="text"] {
-	padding: 0.5rem 0.7rem 0.2rem 0.7rem;
+	padding: 0.5rem 0.7rem 0.5rem 0.7rem;
 	font-size: 1.3rem;
 	border-top: none;
 	border-left: none;
@@ -67,13 +67,18 @@ input:focus {
 }
 /* 회원목록 end */
 
-#userdetail tbody {
-    border: none;
+.userdetail_wrap tbody {
+    border: none !important;
 }
 
-#userdetail th, #userdetail td {
-	border: none;
-	padding: 0.7rem 2rem;
+.userdetail_wrap th, .userdetail_wrap td {
+	border: none !important;
+	padding: 0.7rem 2rem !important;
+}
+
+.userdetail_wrap tr{
+    display: flex;
+    align-items: flex-end;
 }
 
 
@@ -142,3 +147,57 @@ fieldset {
     width: 10%;
     display: inline-block;
 }
+/* 회원정보 end */
+.admin_board_wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin_board_wrap label {
+    width: 10%;
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.admin_board_wrap input[type="text"] {
+    background: #f6f6f6;
+    border: 1px solid #f6f6f6;
+    width: 100%;
+    border-radius: 4px;
+    max-width: 90%;
+}
+
+.admin_board_wrap textarea {
+    width: 100%;
+    background: #f6f6f6;
+    border: 1px solid #f6f6f6;
+    border-radius: 4px;
+}
+
+.admin_board_wrap span {
+    margin: 1rem 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

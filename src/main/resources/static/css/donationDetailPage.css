@@ -1,0 +1,87 @@
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&family=Playwrite+FR+Trad:wght@100..400&family=Rhodium+Libre&display=swap');
+.detail_title_wrap {
+    text-align: center;
+    margin: 5rem 0 2rem;
+}
+
+
+p.title_sub_text {
+    font-size: 1.3rem;
+    color: #1D9206;
+    font-weight: 400;
+     margin-bottom: 0.6rem;
+}
+h1.donation_detail_text {
+    font-size: 3.2rem;
+    line-height: 1.2em;
+    margin-bottom: 2rem;
+    letter-spacing: -1.5px;
+}
+p.page_category {
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+.donation_info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+.donation_info_text_wrap {
+    width: 100%;
+}
+.donation_img_wrap {
+    margin-right: 72px;
+}
+.donation_info span p {
+    display: inline-block;
+}
+.donation_img_wrap img {
+    border-radius: 17px;
+}
+p.donation_data {
+    font-size: 3rem;
+    line-height: 1.2em;
+    display: inline-block;
+}
+p.donation_data_small {
+    font-weight: 900;
+    color: #1d925e;
+    margin-left: 1rem;
+    font-size: 1.2rem;
+}
+.donation_info_text_wrap ul li {
+    margin-bottom: 2.4rem;
+}
+
+.donation_info_text_wrap ul:first-child {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e6e6e6;
+    margin-bottom: 4rem !important;
+}
+.bar-container {
+    width: 100%;
+    background-color: #ffffff;
+    text-align: center;
+    color: white;
+    border-radius: 17px;
+    box-shadow: 5px 5px 15px #e7e7e7;
+}
+
+.bar {
+    height: 15px;
+    background-color: #31BC7E;
+    border-radius: 17px;
+    line-height: 15px;
+}
+
+
+
+
+
+
+
+
+
+
