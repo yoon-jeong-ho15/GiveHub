@@ -51,6 +51,6 @@ public class MemberController {
 
     @GetMapping("/myDonation")
     public String myDonation(){
-        return "member/MyDonation"
+        return "member/MyDonation";
     }
 }
