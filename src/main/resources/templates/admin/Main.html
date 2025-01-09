@@ -1,114 +1,118 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="../../static/css/reset.css" rel="stylesheet" type="text/css">
-<link href="../../static/css/common.css" rel="stylesheet" type="text/css">
-<link href="../../static/css/admin.css" rel="stylesheet" type="text/css">
-<style>
-	.container {
-		display: flex; /* Flexbox 사용 */
-		height: 100vh; /* 화면 전체 높이 */
-	}
-	.content {
-		flex-grow: 1; /* 나머지 화면 차지 */
-		padding: 20px; /* 여백 */
-		overflow: auto; /* 내용이 넘칠 경우 스크롤 */
-	}
-</style>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link href="../../../css/reset.css" rel="stylesheet" type="text/css">
+    <link href="../../../css/common.css" rel="stylesheet" type="text/css">
+    <link href="../../../css/admin.css" rel="stylesheet" type="text/css">
+    <style>
+        .container {
+            display: flex; /* Flexbox 사용 */
+            height: 100vh; /* 화면 전체 높이 */
+        }
+        .content {
+            flex-grow: 1; /* 나머지 화면 차지 */
+            padding: 20px; /* 여백 */
+            overflow: auto; /* 내용이 넘칠 경우 스크롤 */
+        }
+    </style>
 </head>
 <body>
-	<div class="container" style="margin-left: 0">
-		<div th:insert="admin/SideBar.html :: side"></div>
-		<div class="content">
-			<div class="userlist">
-				<table>
-					<caption class="admin_title">회원 목록</caption>
-					<tr align="center">
-						<th width="100px">번호</th>
-						<th width="100px">유형</th>
-						<th width="100px">이름</th>
-						<th width="100px">아이디</th>
-						<th width="150px">주소</th>
-						<th width="100px">삭제 요청</th>
-					</tr>
-					<tr align="center" class="selectlist">
-						<td>1</td>
-						<td>회원</td>
-						<td>박성훈</td>
-						<td>qwer1</td>
-						<td>경기도 파주시</td>
-						<td></td>
-					</tr>
-				</table>
-				<div class="button_wrap">
-					<input class="blackbutton" id="userbutton" type="button" value="수정/삭제하기" />
-				</div>
-			</div>
-			<div id="userdetail" class="userdetail_wrap" style="visibility: hidden">
-				<h2 class="admin_title">회원 정보</h2>
-				<input type="radio" id="user" value="user" name="type" checked />
-				<label for="user">일반 회원</label><br>
-				<input type="radio" id="or" value="or" name="type" />
-				<label for="or">주최자</label><br>
-				<table>
-					<tr>
-						<td>이름</td>
-						<td class="text_inner"><input type="text" name="name" readonly /></td>
-					</tr>
-					<tr>
-						<td>아이디</td>
-						<td class="text_inner"><input type="text" name="id" readonly /></td>
-					</tr>
-					<tr>
-						<td>등급</td>
-						<td>
-							<select>
-								<option></option>
-							</select>
-						</td>
-					</tr>
-				</table>
-				<div class="button_wrap">
-					<input class="blackbutton" type="button" th:onclick="|location.href='@{#}'|" value="수정하기" />
-					<input class="blackbutton" type="button" th:onclick="|location.href='@{#}'|" value="삭제하기" />
-					<input class="blackbutton" type="button" id="cancle" value="취소하기" />
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="container" style="margin: 0">
+    <div th:replace="~{admin/SideBar.html :: side}"></div>
+    <div class="content">
+        <div class="userlist">
+            <table>
+                <caption class="admin_title">회원 목록</caption>
+                <thead>
+                <tr align="center">
+                    <th width="100px">번호</th>
+                    <th width="100px">유형</th>
+                    <th width="100px">이름</th>
+                    <th width="100px">아이디</th>
+                    <th width="150px">주소</th>
+                    <th width="120px">삭제 요청</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr align="center" class="selectlist">
+                    <td>1</td>
+                    <td>회원</td>
+                    <td>박성훈</td>
+                    <td>qwer1</td>
+                    <td>경기도 파주시</td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="button_wrap">
+                <input class="blackbutton" id="userbutton" type="button" value="수정/삭제하기"/>
+            </div>
+        </div>
+        <br><br>
+        <div id="userdetail" class="userdetail_wrap" style="visibility: hidden">
+            <h2 class="admin_title">회원 정보</h2>
+            <div>
+                <input type="radio" id="user" value="user" name="type" checked/>
+                <label for="user">일반 회원</label>
+                <input type="radio" id="or" value="or" name="type"/>
+                <label for="or">주최자</label>
+            </div>
+            <table>
+                <tr>
+                    <td>이름　</td>
+                    <td class="text_inner"><input type="text" name="name" id="name" readonly/></td>
+                </tr>
+                <tr>
+                    <td>아이디</td>
+                    <td class="text_inner"><input type="text" name="id" id="id" readonly/></td>
+                </tr>
+                <tr>
+                    <td>등급　</td>
+                    <td>
+                        <select>
+                            <option>bronze</option>
+                            <option>silver</option>
+                            <option>gold</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <div class="button_wrap">
+                <input class="blackbutton" type="button" th:onclick="|location.href='@{#}'|" value="수정하기"/>
+                <input class="blackbutton" type="button" th:onclick="|location.href='@{#}'|" value="삭제하기"/>
+                <input class="blackbutton" type="button" id="cancle" value="취소하기"/>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <script>
     window.onload = () => {
-        let uno = 0;
+        const userDetail = document.getElementById('userdetail');
+        let selectedNo = 0;
+
         document.getElementById('userbutton').addEventListener('click', () => {
-            if (uno == 0){
+            if (selectedNo === 0) {
                 alert('목록을 선택해주세요.');
-            }else{
-                document.getElementById('userdetail').style.visibility = 'visible';
+            } else {
+                userDetail.style.visibility = 'visible';
             }
         });
 
         document.getElementById('cancle').addEventListener('click', () => {
-            document.getElementById('userdetail').style.visibility = 'hidden';
-            uno = 0;
+            userDetail.style.visibility = 'hidden';
+            selectedNo = 0;
         });
 
-        const trs = document.getElementsByClassName('selectlist')
-        for (const tr of trs) {
-			tr.addEventListener('mouseenter', ()=>{
-				tr.style.background = 'darkgray';
-				tr.style.cursor = 'pointer';
+        document.querySelectorAll('.selectlist').forEach((tr) => {
+            tr.addEventListener('click', () => {
+                selectedNo = tr.children[0].innerText;
+                document.getElementById('id').value = tr.children[3].innerText;
+                document.getElementById('name').value = tr.children[2].innerText;
             });
-			tr.addEventListener('mouseout', ()=>{
-				tr.style.background = 'white';
-            });
-			tr.addEventListener('click', ()=>{
-                // 셀렉문
-                uno = tr.children[0].innerText;
-            });
-        }
-    }
+        });
+    };
 </script>
 </html>
