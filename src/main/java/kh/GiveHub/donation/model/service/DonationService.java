@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import kh.GiveHub.donation.model.mapper.DonationMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Service
 @RequiredArgsConstructor
