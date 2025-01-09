@@ -22,13 +22,10 @@ public class NewsController {
 	@GetMapping("/admin/newsmanage")
 	public String newsManage(@RequestParam("nNo") String nNo, Model model) {
 		News n = new News();
-		if (nNo.equals("0")){
-			model.addAttribute("n", n);
-			return "admin/NewsManage";
-		}else{
+		if (!nNo.equals("0")){
 			n = nService.selectNews(nNo);
-			model.addAttribute("n", n);
-			return "admin/NewsManage";
 		}
+		model.addAttribute("n", n);
+		return "admin/NewsManage";
 	}
 }
