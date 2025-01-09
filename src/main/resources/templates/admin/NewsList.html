@@ -21,25 +21,50 @@
 <body>
 	<div class="container" style="margin-left: 0">
 		<div class="sidebar" th:insert="admin/SideBar.html :: side"></div>
-		<div class="content">
+		<div class="content" style="margin-left: 200px">
 			<h1 class="admin_title">소식 목록</h1>
 			<div class="donationList">
 				<table>
 					<tr>
+						<th>번호</th>
 						<th>제목</th>
 						<th>기부 제목</th>
 						<th>작성일</th>
 					</tr>
-					<tr>
+					<tr align="center" class="selectlist">
+						<td>1</td>
 						<td>dsfa</td>
 						<td>asdfs</td>
 						<td>2024/12/31</td>
 					</tr>
 				</table>
-				<input class="blackbutton" type="button" value="등록하기" />
-				<input class="blackbutton" type="button" value="수정/삭제하기" />
+				<div align="center">
+					<input class="blackbutton" id="newsinsert" type="button" value="등록하기" />
+					<input class="blackbutton" id="newsedit" type="button" value="수정/삭제하기" />
+				</div>
 			</div>
 		</div>
 	</div>
 </body>
+<script>
+	document.querySelectorAll('.selectlist').forEach((tr) => {
+		let selectedNo = 0;
+
+		document.getElementById('newsedit').addEventListener('click', () => {
+			if (selectedNo === 0) {
+				alert('목록을 선택해주세요.');
+			} else {
+				location.href="newsmanage?nNo=" + selectedNo;
+			}
+		});
+
+		document.getElementById('newsinsert').addEventListener('click', () => {
+			location.href="newsmanage?nNo=0";
+		});
+
+		tr.addEventListener('click', () => {
+			selectedNo = tr.children[0].innerText;
+		});
+	});
+</script>
 </html>
