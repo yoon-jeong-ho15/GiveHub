@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
 <meta charset="utf-8">
@@ -97,7 +98,7 @@ span {
 </style>
 </head>
 <body>
-	<header> </header>
+	<div th:replace="~{/common/navbar.html :: navbar}"></div>
 	<h1>내 정보 수정</h1>
 	<form action="editMyInfo" method="post">
 		<div class="row">
@@ -119,6 +120,9 @@ span {
 		</div>
 		<button>확인</button>
 	</form>
+	<footer>
+		<div th:replace="~{/common/footer.html :: footer_bar}"></div>
+	</footer>
 	<script>	
 		function checkEmail(event){
 			const email = document.getElementById("email").value;
