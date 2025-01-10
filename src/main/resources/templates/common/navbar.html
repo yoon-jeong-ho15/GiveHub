@@ -2,38 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Header with Slide-up Menu</title>
 <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
-<link href="/static/css/common.css" rel="stylesheet"type="text/css">
+<link href="/static/css/common.css" rel="stylesheet" type="text/css">
 <link href="/static/css/index.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	
+</style>
 </head>
 <body>
 
 	<header class="navbar" th:fragment="navbar">
 		<div id="top_bar" class="top_wrap">
 			<div id="logo" class="logo_main logo_color">
-				<a href="#"> <img src="/img/harmony_logo.png">
+				<a href="#"> <img src="/img/harmony_logo.png" alt="Harmony 로고">
 				</a>
 			</div>
 			<nav id="main_menu" class="main_menu_wrap">
 				<ul>
-					<li><a href="#">게시판</a>
-						<div id="slide_up_menu" class="img_menu">
-							<ul>
-								<a href="#">
-									<li>후원게시판</li>
-									<li class="main_menu_img"><img
-										src="/img/Baby_wearing_a_head_correction_helmet.jpg" /></li>
-								</a>
-							</ul>
-							<ul>
-								<a href="#">
-									<li>소식게시판</li>
-									<li class="main_menu_img"><img
-										src="/img/baby_looking_out_the_window.jpg" /></li>
-								</a>
-							</ul>
-						</div></li>
+					<li><a href="#">게시판</a></li>
 				</ul>
 			</nav>
 			<div id="login_bar" class="login_wrap">
@@ -45,7 +32,29 @@
 				</div>
 			</div>
 		</div>
+		<div id="slide_up_menu" class="img_menu">
+			<div class="slide_up_inner_menu">
+				<ul>
+					<a href="#">
+						<li>후원게시판</li>
+						<li class="main_menu_img"><img
+							src="/img/Baby_wearing_a_head_correction_helmet.jpg"
+							alt="후원 게시판 이미지"></li>
+					</a>
+				</ul>
+				<ul>
+					<a href="#">
+						<li>소식게시판</li>
+						<li class="main_menu_img"><img
+							src="/img/baby_looking_out_the_window.jpg" alt="소식 게시판 이미지">
+					</li>
+					</a>
+				</ul>
+			</div>
+		</div>
 	</header>
+	
+	
 
 
 </body>

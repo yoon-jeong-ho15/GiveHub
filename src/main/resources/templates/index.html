@@ -11,7 +11,46 @@
 </head>
 <body>
 	<div th:replace="~{/common/navbar.html :: navbar}"></div>
+	<script>
+	const header = document.querySelector('header.navbar');
+	const slideUpMenu = document.querySelector('div#slide_up_menu');
+	const menuLinks = header.querySelectorAll('a');  // header 내의 모든 <a> 링크
+	const menuItems = slideUpMenu.querySelectorAll('li');  // #slide_up_menu 내의 모든 <li> 항목들
 
+	// 마우스를 헤더에 올리면 메뉴 펼치기
+	header.addEventListener('mouseenter', () => {
+	    slideUpMenu.style.top = '60px'; // 메뉴가 내려옴
+	    header.style.height = '320px'; // 헤더 높이 증가 (슬라이드 메뉴 포함)
+ 	    header.style.background = 'rgba(255, 255, 255, 0.9)';
+	    
+	    // 모든 텍스트 색상을 검정색으로 변경
+	    menuLinks.forEach(link => {
+	        link.style.color = 'black';
+	    });
+
+	    // slide_up_menu 내의 li 항목들의 텍스트 색상도 검정색으로 변경
+	    menuItems.forEach(item => {
+	        item.style.color = 'black';
+	    });
+	});
+
+	// 마우스를 헤더에서 떼면 메뉴 숨기기
+	header.addEventListener('mouseleave', () => {
+	    slideUpMenu.style.top = '-270px'; // 메뉴가 올라감
+	    header.style.height = '80px'; // 기본 높이로 복귀
+ 	    header.style.background = 'rgba(255, 255, 255, 0.2)';
+	    
+	    // 텍스트 색상을 원래 색상으로 복귀 (원하는 색으로 변경 가능)
+	    menuLinks.forEach(link => {
+	        link.style.color = '';  // 기본 색상으로 돌아가도록 설정
+	    });
+
+	    // slide_up_menu 내의 li 항목들의 텍스트 색상도 원래 색상으로 복귀
+	    menuItems.forEach(item => {
+	        item.style.color = '';  // 기본 색상으로 돌아가도록 설정
+	    });
+	});
+</script>
 	<!-- 	<div class="body_wrap"> -->
 
 	<section id="section_01">
@@ -32,8 +71,8 @@
 			<div class="title_wrap">
 				<h2>100% 전달하는 기부</h2>
 				<p>
-					<span class="display_block">장기적이고 지속적인 지원을 통해 <span />
-					<span class="display_block">도움이 필요한 곳에 안정적인 성장 발판을 마련합니다.<span />
+					<span class="display_block">장기적이고 지속적인 지원을 통해 <span /> <span
+						class="display_block">도움이 필요한 곳에 안정적인 성장 발판을 마련합니다.<span />
 				</p>
 				<div id="slide_arrow" class="slide_arrow_wrap">
 					<div id="right" class="right_arrow"></div>
@@ -226,7 +265,7 @@
 		});
 	</script>
 	<footer>
-	<div th:replace="~{/common/footer.html :: footer_bar}"></div>
+		<div th:replace="~{/common/footer.html :: footer_bar}"></div>
 	</footer>
 
 
