@@ -45,4 +45,12 @@ public class MemberController {
     public String myDonation(){
         return "member/MyDonation";
     }
+    
+    @GetMapping("member/join")
+    public String Join() {
+    	return "member/Join";
+    }
+    
+    
+    
 }
