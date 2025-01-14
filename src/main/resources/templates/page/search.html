@@ -67,9 +67,6 @@ tr.board td:first-child {
 	padding: 0.7rem 0rem 1rem;
 } 
 
-.searchBox{
-	
-}
 
 
 
@@ -89,7 +86,7 @@ tr.board td:first-child {
 					<button>가족/여성</button>
 					<button>동물</button>
 					<button>환경</button>
-					<button>기타c</button>
+					<button>기타</button>
 				</div>
 				<div id="categoryList" class="category_list_wrap">
 					<input type="radio" id="popular" value="popular" name="type" checked/><label for="user">인기순</label> 
@@ -97,13 +94,6 @@ tr.board td:first-child {
 					<input type="radio" id="popular" value="popular" name="type" /><label for="user">마감임박순</label>
 					<input type="radio" id="popular" value="popular" name="type" /><label for="user">마감임박순</label>
 				</div>
-				
-				<div id="searchBox">
-					<input type="text" id="search" name="search"> <button type="button" onclick="location.href='/page/search'">검색</button>
-				</div>
-				
-				
-				
 			</div>
 			
 			
@@ -173,28 +163,10 @@ tr.board td:first-child {
 						<td>한마음나눔</td>
 					</tr>
 				</table>
-			</div>
-		</div>
+			</div> 
+		</div> 
 	</section>
 	
-	
-<!-- 	<script> -->
-// 	    function filterBoard() {
-// 	        const searchValue = document.getElementById('search').value.toLowerCase();
-	        
-// 	        const boards = document.querySelectorAll('tr.board');
-	        
-// 	        boards.forEach(board => {
-// 	            const title = board.querySelector('td:nth-child(3)').innerText.toLowerCase();
-// 	            if (title.includes(searchValue)) {
-// 	                board.style.display = '';
-// 	            } else {
-// 	                board.style.display = 'none';
-// 	            }
-// 	        });
-// 	    }
-	
-<!-- 	</script> -->
 
 
 </body>

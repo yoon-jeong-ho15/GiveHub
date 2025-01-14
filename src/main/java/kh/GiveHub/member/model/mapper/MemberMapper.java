@@ -11,4 +11,8 @@ public interface MemberMapper {
 	int checkEmail(String email);
 
     ArrayList<Member> selectMemberList();
+
+	Member login(Member m);
+    
+    
 }

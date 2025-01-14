@@ -23,13 +23,13 @@ public class DonationController {
 	@GetMapping("/ongoingList")
 	public String ongoingList(HttpSession session) {
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		return "templates/member/MyDonation";
+		return "templates/member/mydonation";
 	}
 	
 	@GetMapping("/finishedList")
 	public String finishedList(HttpSession session) {
 		
-		return "templates/member/Mydonation";
+		return "templates/member/mydonation";
 	}
 	
 	@GetMapping("/donationList")

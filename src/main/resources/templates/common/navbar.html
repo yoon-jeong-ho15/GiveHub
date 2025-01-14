@@ -3,12 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Header with Slide-up Menu</title>
-<link href="/static/css/reset.css" rel="stylesheet" type="text/css">
+<!-- <link href="/static/css/reset.css" rel="stylesheet" type="text/css">
 <link href="/static/css/common.css" rel="stylesheet" type="text/css">
-<link href="/static/css/index.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	
-</style>
+<link href="/static/css/index.css" rel="stylesheet" type="text/css"> -->
+
 </head>
 <body>
 
@@ -24,15 +22,15 @@
 				</ul>
 			</nav>
 			<div id="login_bar" class="login_wrap">
-				<div id="login">
-					<a href="admin/main">로그인1</a>
-				</div>
-				<div id="join">
-					<a href="member/join">회원가입</a>
-				</div>
+				<button id="login" type="button" onclick="location.href='/member/login'">
+					로그인
+				</button>
+				<button id="join" type="button" onclick="location.href='/member/join'">
+					회원가입
+				</button>
 			</div>
 		</div>
-		<div id="slide_up_menu" class="img_menu">
+		<!-- <div id="slide_up_menu" class="img_menu">
 			<div class="slide_up_inner_menu">
 				<ul>
 					<a href="donationList">
@@ -51,7 +49,7 @@
 					</a>
 				</ul>
 			</div>
-		</div>
+		</div> -->
 	</header>
 	
 	

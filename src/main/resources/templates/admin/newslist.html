@@ -20,7 +20,7 @@
 </head>
 <body>
 	<div class="container" style="margin-left: 0">
-		<div class="sidebar" th:insert="admin/SideBar.html :: side"></div>
+		<div class="sidebar" th:insert="admin/sidebar.html :: side"></div>
 		<div class="content" style="margin-left: 200px">
 			<h1 class="admin_title">소식 목록</h1>
 			<div class="donationList">
@@ -31,11 +31,11 @@
 						<th>기부 제목</th>
 						<th>작성일</th>
 					</tr>
-					<tr align="center" class="selectlist">
-						<td>1</td>
-						<td>dsfa</td>
-						<td>asdfs</td>
-						<td>2024/12/31</td>
+					<tr align="center" class="selectlist" th:each="n : ${list}">
+						<td th:text="${n.newsNo}"></td>
+						<td th:text="${n.newsTitle}"></td>
+						<td th:text="${n.doTitle}"></td>
+						<td th:text="${n.newsCreateDate}"></td>
 					</tr>
 				</table>
 				<div align="center">
