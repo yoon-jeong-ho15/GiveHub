@@ -10,13 +10,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+
 @Controller
 @RequiredArgsConstructor
 public class NewsController {
 	private final NewsService nService;
 
 	@GetMapping("/admin/newslist")
-	public String newsList() {
+	public String newsList(Model model) {
+		ArrayList<News> list = nService.selectNewsList();
+		model.addAttribute("list", list);
 		return "admin/NewsList";
 	}
 

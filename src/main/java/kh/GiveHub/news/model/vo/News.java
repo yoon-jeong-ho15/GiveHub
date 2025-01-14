@@ -17,4 +17,5 @@ public class News {
     private String newsStatus;
     private String memNo;
     private String doNo;
+    private String doTitle;
 }
