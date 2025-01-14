@@ -26,11 +26,11 @@
 <body>
 	<div id="sidebar">
 		<button type="button" class="blackbutton"
-			th:onclick="|location.href='@{main}'|" id="memManage">회원관리</button>
+			th:onclick="|location.href='/admin/main'|" id="memManage">회원관리</button>
 		<button type="button" class="blackbutton"
-			th:onclick="|location.href='@{donalist}'|" id="donaList">기부게시판</button>
+			th:onclick="|location.href='/admin/donalist'|" id="donaList">기부게시판</button>
 		<button type="button" class="blackbutton"
-			th:onclick="|location.href='@{newslist}'|" id="newsList">소식게시판</button>
+			th:onclick="|location.href='/admin/newslist'|" id="newsList">소식게시판</button>
 	</div>
 </body>
 </html>
