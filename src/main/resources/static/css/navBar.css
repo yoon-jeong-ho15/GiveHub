@@ -1,0 +1,98 @@
+@charset "UTF-8";
+header {
+    width: 100%;
+    position: absolute;
+    height: 80px;
+    line-height: 80px;
+    z-index: 1;
+    transition: height 0.3s ease;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(20px);
+}
+
+.top_wrap{
+	width: 94%;
+    padding: 0 3%;
+	
+    z-index: 1;
+}
+
+div#top_bar {
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+li.main_menu_img {
+   width: 354px;
+}
+
+img {
+   width: 100%;
+}
+
+nav#main_menu>Ul>li>a {
+   display: block;
+   position: absolute;
+   z-index: 1;
+   color: #fff;
+}
+
+nav#main_menu ul li a {
+    z-index: 2; /* 게시판 링크를 상위 레이어에 표시 */
+    position: relative; /* z-index 적용을 위해 position 설정 */
+    color: #fff;
+}
+
+.img_menu ul {
+   display: inline-block;
+   margin-top: 1rem;
+}
+
+nav#main_menu {
+   width: 60%;
+}
+
+div.slide_up_inner_menu>ul:first-child {
+   margin-right: 8rem;
+}
+
+.img_menu li {
+	margin-bottom:0.5rem;
+   line-height: 1.5rem;
+}
+
+div#slide_up_menu {
+    display: flex;
+    position: fl;
+    width: 94%;
+    padding: 0 3%;
+    position: absolute;
+    top: -270px;
+    z-index: 0;
+    transition: top 0.3s ease;
+    justify-content: center;
+}
+.slide_up_inner_menu {
+    width: 66%;
+}
+.slide_up_inner_menu a>li {
+	color:#fff;
+}
+.slide_up_inner_menu a>li>img {
+	border-radius: 17px;
+}
+.login_wrap {
+	display: flex;
+	width: 10%;
+	justify-content: space-between;
+}
+.login_wrap button {
+    background: none;
+    color: #fff;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+/* header end */

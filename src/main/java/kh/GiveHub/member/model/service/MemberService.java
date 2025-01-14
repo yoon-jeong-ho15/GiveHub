@@ -21,4 +21,9 @@ public class MemberService {
     public ArrayList<Member> selectMemberList() {
 		return mapper.selectMemberList();
     }
+
+    //로그인
+	public Member login(Member m) {
+		return mapper.login(m);
+	}
 }

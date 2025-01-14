@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <style>
 @charset "UTF-8";
 
-body {
+.page_wrap {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
@@ -72,13 +72,28 @@ th {
 .login-btn:hover {
     background-color: #4caf75;
 }
+
+.login_wrap button {
+    background: none;
+    color: #1a1a1a !important;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
  
 </style>
 <meta charset="UTF-8">
 <title>로그인</title>
+<link href="/css/reset.css" rel="stylesheet" type="text/css">
+<link href="/css/common.css" rel="stylesheet" type="text/css">
+<link href="/css/navBar.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <form id="loginForm" method="post" action="loginAction.jsp">
+<div th:replace="~{/common/navbar.html :: navbar}"></div>
+<div class="page_wrap">
+
+    <form id="loginForm" method="post" action="/member/login">
         <table align="center" style="margin-top: 100px;">
             <tr>
                 <td colspan="2" align="center">
@@ -92,7 +107,7 @@ th {
                     <label for="mem_address">이메일</label>
                 </th>
                 <td>
-                    <input type="email" id="mem_address" name="mem_address" placeholder="이메일을 입력하세요" required>
+                    <input type="email" id="mem_address" name="memId" placeholder="이메일을 입력하세요" required>
    			 	    <div id='hyde1' style="visibility: hidden">회원가입 시 등록한 이메일을 입력해 주세요</div>
                     
                 </td>
@@ -103,7 +118,7 @@ th {
                     <label for="mem_pwd">비밀번호</label>
                 </th>
                 <td>
-                    <input type="password" id="mem_pwd" name="mem_pwd" placeholder="비밀번호를 입력하세요" required>
+                    <input type="password" id="mem_pwd" name="memPwd" placeholder="비밀번호를 입력하세요" required>
                     <div id='hyde2' style="visibility: hidden">회원가입 시 입력한 비밀번호를 입력해 주세요</div>
                     
                 </td>
@@ -116,7 +131,7 @@ th {
             </tr>
         </table>
     </form>
-
+</div>
     <script>
         const loginForm = document.getElementById('loginForm');
 
