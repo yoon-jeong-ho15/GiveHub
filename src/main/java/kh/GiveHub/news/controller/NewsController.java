@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 
@@ -21,7 +20,7 @@ public class NewsController {
 	public String newsList(Model model) {
 		ArrayList<News> list = nService.selectNewsList();
 		model.addAttribute("list", list);
-		return "admin/NewsList";
+		return "newslist";
 	}
 
 	@GetMapping("/admin/newsmanage/{nNo}")
@@ -31,6 +30,6 @@ public class NewsController {
 			n = nService.selectNews(nNo);
 		}
 		model.addAttribute("n", n);
-		return "admin/NewsManage";
+		return "newsmanage";
 	}
 }
