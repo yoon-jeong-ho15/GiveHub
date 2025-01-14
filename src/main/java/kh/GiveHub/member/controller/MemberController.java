@@ -1,7 +1,9 @@
 package kh.GiveHub.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import kh.GiveHub.member.model.vo.Member;
 import kh.GiveHub.news.model.vo.News;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +23,9 @@ public class MemberController {
     private final MemberService mService;
 
     @GetMapping("/admin/main")
-    public String adminMain() {
+    public String adminMain(Model model) {
+        ArrayList<Member> list = mService.selectMemberList();
+        model.addAttribute("list", list);
         return "admin/Main";
     }
 
@@ -50,7 +54,4 @@ public class MemberController {
     public String Join() {
     	return "member/Join";
     }
-    
-    
-    
 }

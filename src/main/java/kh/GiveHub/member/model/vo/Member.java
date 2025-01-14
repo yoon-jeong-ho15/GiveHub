@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member {
-    private int mem_no;
-    private String mem_name;
-    private String mem_id;
-    private String mem_pwd;
-    private String mem_address;
-    private String mem_type;
-    private String mem_grade;
-    private String mem_status;
-    private String mem_confirm;
+    private int memNo;
+    private String memName;
+    private String memId;
+    private String memPwd;
+    private String memAddress;
+    private String memType;
+    private String memGrade;
+    private String memStatus;
+    private String memConfirm;
 }

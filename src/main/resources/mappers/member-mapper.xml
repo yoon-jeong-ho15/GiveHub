@@ -6,4 +6,8 @@
 		select count(*) from member
 		where mem_id = #{email}
 	</select>
+
+	<select id="selectMemberList">
+		select * from member
+	</select>
 </mapper>

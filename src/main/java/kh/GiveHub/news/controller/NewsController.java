@@ -7,6 +7,7 @@ import kh.GiveHub.news.model.service.NewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -19,10 +20,10 @@ public class NewsController {
 		return "admin/NewsList";
 	}
 
-	@GetMapping("/admin/newsmanage")
-	public String newsManage(@RequestParam("nNo") String nNo, Model model) {
+	@GetMapping("/admin/newsmanage/{nNo}")
+	public String newsManage(@PathVariable("nNo") String nNo, Model model) {
 		News n = new News();
-		if (!nNo.equals("0")){
+		if (nNo != null){
 			n = nService.selectNews(nNo);
 		}
 		model.addAttribute("n", n);

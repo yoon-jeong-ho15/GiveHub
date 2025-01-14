@@ -48,18 +48,18 @@
 </body>
 <script>
 	document.querySelectorAll('.selectlist').forEach((tr) => {
-		let selectedNo = 0;
+		let selectedNo = null;
 
 		document.getElementById('newsedit').addEventListener('click', () => {
-			if (selectedNo === 0) {
+			if (selectedNo === null) {
 				alert('목록을 선택해주세요.');
 			} else {
-				location.href="newsmanage?nNo=" + selectedNo;
+				location.href="newsmanage/" + selectedNo;
 			}
 		});
 
 		document.getElementById('newsinsert').addEventListener('click', () => {
-			location.href="newsmanage?nNo=0";
+			location.href="newsmanage/" + selectedNo;
 		});
 
 		tr.addEventListener('click', () => {
