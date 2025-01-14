@@ -43,7 +43,6 @@
                     <td th:text="${m.memId}"></td>
                     <td th:text="${m.memAddress}"></td>
                     <td th:text="${m.memConfirm == 'N' ? 'O' : ''}"></td>
-                    <input type="hidden" th:value="${m.memGrade}"/>
                 </tr>
                 </tbody>
             </table>
@@ -111,6 +110,7 @@
             tr.addEventListener('click', () => {
                 userDetail.style.visibility = 'hidden';
                 selectedNo = tr.children[0].innerText;
+                // memNo로 ajax를 통해 입력할 예정
                 document.getElementById('id').value = tr.children[3].innerText;
                 document.getElementById('name').value = tr.children[2].innerText;
                 if (tr.children[1].innerText == '주최자'){
@@ -122,9 +122,6 @@
                     document.getElementById('delete').style.visibility = 'hidden';
                 }else{
                     document.getElementById('delete').style.visibility = 'visible';
-                }
-                if (tr.children[6].innerText == 'bronze'){
-
                 }
             });
         });
