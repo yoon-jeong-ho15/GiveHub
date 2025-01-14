@@ -29,4 +29,16 @@ public class NewsController {
 		model.addAttribute("n", n);
 		return "admin/NewsManage";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
