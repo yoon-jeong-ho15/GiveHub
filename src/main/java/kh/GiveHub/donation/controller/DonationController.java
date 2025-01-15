@@ -22,5 +22,5 @@ public class DonationController {
 		
 		return "templates/member/mydonation";
 	}
-	
+	 
 }
