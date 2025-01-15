@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -119,7 +119,7 @@ label.delete_user {
 		</div>
 		<div class="my_info_wrap">
 			<div class="user_intro">
-				<div><img src="../../static/img/test_icon.png"><p>손동준<p>님, 반갑습니다.</div>
+				<div><img src="../../static/img/test_icon.png"><p>[[${session.loginUser.memName}]]<p>님, 반갑습니다.</div>
 				<p>하모니와 함께 아름다운 세상을 만들어갑니다.</p>
 			</div>
 			<div class="info_detail_wrap">
@@ -128,19 +128,19 @@ label.delete_user {
 				<table>
 					<tr>
 						<td>등급</td>
-						<td>새싹</td>
+						<td>[[${session.loginUser.memGrade}]]</td>
 					</tr>
 					<tr>
 						<td>이름</td>
-						<td>손동준</td>
+						<td>[[${session.loginUser.memName}]]</td>
 					</tr>
 					<tr>
 						<td>아이디</td>
-						<td>son@gmail.com</td>
+						<td>[[${session.loginUser.memId}]]</td>
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td>서울시 노원구</td>
+						<td>[[${session.loginUser.memAddress}]]</td>
 					</tr>
 				</table>
 			</div>		

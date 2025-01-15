@@ -22,11 +22,17 @@
 				</ul>
 			</nav>
 			<div id="login_bar" class="login_wrap">
-				<button id="login" type="button" onclick="location.href='/member/login'">
+				<button th:if="${session.loginUser == null}" id="login" type="button" onclick="location.href='/member/login'">
 					로그인
 				</button>
-				<button id="join" type="button" onclick="location.href='/member/join'">
+				<button th:if="${session.loginUser != null}" id="myPage" type="button" onclick="location.href='/member/mypage'">
+					마이페이지
+				</button>
+				<button th:if="${session.loginUser == null}" id="join" type="button" onclick="location.href='/member/join'">
 					회원가입
+				</button>
+				<button th:if="${session.loginUser != null}" id="logout" type="button" onclick="location.href='/member/logout'">
+					로그아웃
 				</button>
 			</div>
 		</div>
