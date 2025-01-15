@@ -3,14 +3,13 @@ package kh.GiveHub.member.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.member.model.service.MemberService;
 import kh.GiveHub.member.model.vo.Member;
 import lombok.RequiredArgsConstructor;
@@ -29,12 +28,15 @@ public class MemberController {
     
     //로그인
     @PostMapping("/member/login")
-    public void login(Member m) {
-//    	System.out.println("id : " + m.getMemId());
-//    	System.out.println("pwd : " + m.getMemPwd());
+    public String login(Member m, HttpSession session) {
     	
     	Member loginUser = mService.login(m);
-    	System.out.println(loginUser);
+    	if(loginUser != null) {
+    		session.setAttribute("loginUser", loginUser);
+    		return "redirect:/index";
+    	}else {
+    		return "";
+    	}
     }
 
     

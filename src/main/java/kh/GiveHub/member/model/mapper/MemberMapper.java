@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.ArrayList;
 
-@Mapper
+@Mapper 
 public interface MemberMapper {
 
 	int checkEmail(String email);

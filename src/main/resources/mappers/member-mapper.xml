@@ -11,10 +11,11 @@
 		select * from member
 	</select>
 	
-	<select id="login">
+	<!-- 로그인 -->
+	<select id="login" resultType="Member">
 		select *
 		from MEMBER
-		where MEM_ID=#{memId} and MEM_STATUS ='Y'
+		where MEM_ID = #{memId} and MEM_PWD=#{memPwd} and MEM_STATUS ='Y'
 	</select>
 	
 </mapper>
