@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>기부 게시판 조회페이지</title>
+<link href="../../static/css/reset.css" rel="stylesheet" type="text/css">
+<link href="../../static/css/common.css" rel="stylesheet"
+	type="text/css">
+
+</head>
+<style>
+.doantion_list_wrap h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+.category_btn_wrap button {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 100px;
+    padding: 0.3rem 0.9rem;
+    font-size: 1rem;
+    font-weight: 400;
+    transition-duration: 0.1s;
+}
+.category_btn_wrap button:hover {
+    color: #34D28B;
+    border-color: #34D28B;
+    transition-duration: 0.1s;
+}
+div#categoryList {
+    display: block;
+    float: right;
+}
+.category_btn_wrap {
+    margin-bottom: 3rem;
+}
+.board_title_category_wrap {
+    overflow: hidden;
+    margin-bottom: 3rem;
+}
+tbody {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+tr.board {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+}
+.board img {
+    border-radius: 17px;
+}
+tr.board td:nth-child(2) span{
+    color: #34D28B;
+    border: 1px solid #34D28B;
+    border-radius: 100px;
+    padding: 0.3rem 0.9rem;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+td {
+    padding: 0.5rem 1rem;
+}
+tr.board td:first-child {
+	padding: 0.7rem 0rem 1rem;
+} 
+
+
+
+
+
+
+</style>
+<body>
+	<section class="doantion_list_wrap">
+		<div class="container">
+			<div class="board_title_category_wrap">
+			<h1>캠페인</h1>
+				<div id="CategoryBtnWrap" class="category_btn_wrap">
+					<button>전체</button>
+					<button>아동/청소년</button>
+					<button>어르신</button>
+					<button>장애인</button>
+					<button>가족/여성</button>
+					<button>동물</button>
+					<button>환경</button>
+					<button>기타</button>
+				</div>
+				<div id="categoryList" class="category_list_wrap">
+					<input type="radio" id="popular" value="popular" name="type" checked/><label for="user">인기순</label> 
+					<input type="radio" id="popular" value="popular" name="type" /><label for="user">최신순</label>
+					<input type="radio" id="popular" value="popular" name="type" /><label for="user">마감임박순</label>
+					<input type="radio" id="popular" value="popular" name="type" /><label for="user">마감임박순</label>
+				</div>
+			</div>
+			
+			
+			<div class="list_wrap">
+				<table>
+					<tr class="board">
+						<td><img src="../../static/img/board_img01.jpg"></td>
+						<td><span>아동/청소년</span></td>
+						<td>전교 1등 예은이와 아빠의 주먹밥</td>
+						<td>2025.01.10~2025.04.20</td>
+						<td>한마음나눔</td>
+					</tr>
+					<tr class="board">
+						<td><img src="../../static/img/board_img02.jpg"></td>
+						<td><span>아동/청소년</span></td>
+						<td>18살 다훈이와 할머니의 느리게 걷는길</td>
+						<td>2025.01.02~2025.06.22</td>
+						<td>한마음나눔</td>
+					</tr>
+					<tr class="board">
+						<td><img src="../../static/img/board_img03.jpg"></td>
+						<td>아동/청소년</td>
+						<td>아홉살 민재의 할머니를 지키는 시간</td>
+						<td>2024.12.24~2025.08.10</td>
+						<td>한마음나눔</td>
+					</tr>
+					<tr class="board">
+						<td><img src="../../static/img/board_img04.jpg"></td>
+						<td>아동/청소년</td>
+						<td>전교 1등 예은이와 아빠의 주먹밥</td>
+						<td>2025.01.10~2025.04.20</td>
+						<td>한마음나눔</td>
+					</tr>
+					<tr class="board">
+						<td><img src="../../static/img/board_img05.jpg"></td>
+						<td>아동/청소년</td>
+						<td>18살 다훈이와 할머니의 느리게 걷는길</td>
+						<td>2025.01.02~2025.06.22</td>
+						<td>한마음나눔</td>
+					</tr>
+					<tr class="board">
+						<td><img src="../../static/img/board_img06.jpg"></td>
+						<td>아동/청소년</td>
+						<td>아홉살 민재의 할머니를 지키는 시간</td>
+						<td>2024.12.24~2025.08.10</td>
+						<td>한마음나눔</td>
+					</tr>
+					<tr class="board">
+						<td><img src="../../static/img/board_img01.jpg"></td>
+						<td>아동/청소년</td>
+						<td>전교 1등 예은이와 아빠의 주먹밥</td>
+						<td>2025.01.10~2025.04.20</td>
+						<td>한마음나눔</td>
+					</tr>
+					<tr class="board">
+						<td><img src="../../static/img/board_img02.jpg"></td>
+						<td>아동/청소년</td>
+						<td>18살 다훈이와 할머니의 느리게 걷는길</td>
+						<td>2025.01.02~2025.06.22</td>
+						<td>한마음나눔</td>
+					</tr>
+					<tr class="board">
+						<td><img src="../../static/img/board_img03.jpg"></td>
+						<td>아동/청소년</td>
+						<td>아홉살 민재의 할머니를 지키는 시간</td>
+						<td>2024.12.24~2025.08.10</td>
+						<td>한마음나눔</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</section>
+	
+
+
+</body>
+</html>

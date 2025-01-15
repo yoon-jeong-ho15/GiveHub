@@ -32,16 +32,4 @@ public class NewsController {
 		model.addAttribute("n", n);
 		return "newsmanage";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
