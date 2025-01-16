@@ -31,17 +31,14 @@ public class DonationController {
 		return "/member/mydonation";
 	}
 	
-	@GetMapping("/donationlist")
-	public String donationlist() {
-		return "/page/donationlist";
-	}
-	
-	
-	@GetMapping("detailCategory")
-	public ArrayList<Donation> detailCategory(@RequestParam("doCategory") String category) {
-		ArrayList<Donation> list = dService.detailCategory(category);
+	@GetMapping("/page/donationlist")
+	public ArrayList<Donation> donationlist(@ModelAttribute Donation d, @RequestParam("doCategory") String category ) {
+		ArrayList<Donation> list = dService.donationlist(category);
 
+		
 		return list;
 	}
+	
+	
 	 
 }

@@ -3,6 +3,7 @@
 <mapper namespace="kh.GiveHub.donation.model.mapper.DonationMapper">
 	
 	<select id="detailCategory">
+	
 		select *
 		from donation
 		where DO_CATEGORY = ${doCategory}

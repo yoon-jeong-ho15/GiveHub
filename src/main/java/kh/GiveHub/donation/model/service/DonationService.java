@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class DonationService {
 	private final DonationMapper mapper;
 	
-	public ArrayList<Donation> detailCategory(String category) {
-		return mapper.detailCategory(category);
+
+	public ArrayList<Donation> donationlist(String category) {
+		return mapper.donationlist(category);
 	}
 	
 
