@@ -52,6 +52,12 @@ public class MemberController {
 	      return "redirect:/";
 	}
 
+    //회원가입
+    @GetMapping("/member/enroll")
+    public String enroll() {
+    	return "member/join";
+    }
+  
     @PostMapping("/admin/editMyInfo")
     public String editMyInfo() {
     	return "editmyinfo";

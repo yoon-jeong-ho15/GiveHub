@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <meta charset="UTF-8">
 <style>
 body {
@@ -107,7 +108,9 @@ button:hover {
                 </td>
                 <td>
        				<button type="button" onclick="checkIdDuplicate()">아이디 중복확인</button>
-                </td>		
+                </td>	
+                <td style="color: crimson;" th:text="${code}"></td>	
+                <td style="text-align: center;"> 아래 코드를 사이트에 입력해주십시오</td>
 			</tr>
 			<tr>
                 <th>이메일</th>
@@ -167,10 +170,59 @@ button:hover {
                 </td>
             </tr>
         </table>
-    </form>
+
+
+		<div id="mail_input" name="mail_input">
+			<input type="text" name="mail" id="mail" placeholder="이메일 입력">
+			<button type="button" id="sendBtn" name="sendBtn"
+				onclick="sendNumber()">인증번호</button>
+		</div>
+		<br>
+		<div id="mail_number" name="mail_number" style="display: none">
+			<input type="text" name="number" id="number" placeholder="인증번호 입력">
+			<button type="button" name="confirmBtn" id="confirmBtn"
+				onclick="confirmNumber()">이메일 인증</button>
+		</div>
+		<br> <input type="text" id="Confirm" name="Confirm"
+			style="display: none" value="">
+
+
+
+	</form>
     
     
     <script>
+    function sendNumber() {
+        $("#mail_number").css("display", "block");
+        $.ajax({
+            url: "/api/v1/email/send",
+            type: "post",
+            dataType: "json",
+            data: {"mail": $("#mail").val()},
+            success: function (data) {
+                alert("인증번호 발송");
+                $("#Confirm").attr("value", data);
+            }
+        });
+    }
+
+    function confirmNumber() {
+        let mail = $("#mail").val();
+        let number = $("#number").val();
+
+        $.ajax({
+           url: "/api/v1/email/verify",
+           type: "post",
+            dataType: "json",
+            data: {"mail": mail, "verifyCode": number},
+            success: function (data, status, xhr) {
+               console.log(status);
+            }
+        });
+    }
+    
+    
+    
     
     document.getElementById('passwordConfirm').addEventListener('input', function () {
         const password = document.getElementById('mem_pwd').value;
