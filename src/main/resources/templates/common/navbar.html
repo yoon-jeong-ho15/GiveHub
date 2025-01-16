@@ -13,7 +13,7 @@
 	<header class="navbar" th:fragment="navbar">
 		<div id="top_bar" class="top_wrap">
 			<div id="logo" class="logo_main logo_color">
-				<a href="/"> <img src="/img/harmony_logo.png" alt="Harmony 로고">
+				<a href="#"> <img src="/img/harmony_logo.png" alt="Harmony 로고">
 				</a>
 			</div>
 			<nav id="main_menu" class="main_menu_wrap">
@@ -22,25 +22,21 @@
 				</ul>
 			</nav>
 			<div id="login_bar" class="login_wrap">
-				<th:block th:if="${session.loginUser == null}">
-					<button id="login" type="button" onclick="location.href='/member/login'">
-						로그인
-					</button>
-					<button id="join" type="button" onclick="location.href='/member/enroll'">
-						회원가입
-					</button>
-				</th:block>
-				<th:block th:unless="${session.loginUser == null}">	
-					<button id="myPage" type="button" onclick="location.href='/member/mypage'">
-						마이페이지
-					</button>
-					<button id="logout" type="button" onclick="location.href='/member/logout'">
-						로그아웃
-					</button>
-				</th:block>
+				<button th:if="${session.loginUser == null}" id="login" type="button" onclick="location.href='/member/login'">
+					로그인
+				</button>
+				<button th:if="${session.loginUser != null}" id="myPage" type="button" onclick="location.href='/member/mypage'">
+					마이페이지
+				</button>
+				<button th:if="${session.loginUser == null}" id="join" type="button" onclick="location.href='/member/join'">
+					회원가입
+				</button>
+				<button th:if="${session.loginUser != null}" id="logout" type="button" onclick="location.href='/member/logout'">
+					로그아웃
+				</button>
 			</div>
 		</div>
-		<div id="slide_up_menu" class="img_menu">
+		<!-- <div id="slide_up_menu" class="img_menu">
 			<div class="slide_up_inner_menu">
 				<ul>
 					<a href="#">
@@ -59,7 +55,7 @@
 					</a>
 				</ul>
 			</div>
-		</div>
+		</div> -->
 	</header>
 	
 	

@@ -3,6 +3,7 @@ package kh.GiveHub.member.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import kh.GiveHub.member.model.exception.MemberException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,73 +16,47 @@ import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.member.model.service.MemberService;
 import kh.GiveHub.member.model.vo.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
 @SessionAttributes("loginUser")
 public class MemberController {
-	
+
     private final MemberService mService;
-    
+
     //로그인 화면 연결
     @GetMapping("/member/login")
     public String logIn() {
     	return "/member/login";
     }
-    
+
     //로그인
     @PostMapping("/member/login")
     public String login(Member m, HttpSession session) {
-    	
+
     	Member loginUser = mService.login(m);
     	if(loginUser != null) {
     		session.setAttribute("loginUser", loginUser);
-    		return "redirect:/";
+    		return "redirect:/index";
     	}else {
-    		return "redirect:/member/login";
+    		return "";
     	}
     }
-    
+
     //로그아웃
     @GetMapping("/member/logout")
 	   public String logout(SessionStatus session) {
-	      session.setComplete();  
+	      session.setComplete();
 	      return "redirect:/";
 	}
 
-    //회원가입
-    @GetMapping("/member/enroll")
-    public String enroll() {
-    	return "member/join";
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    @GetMapping("/admin/main")
-    public String adminMain(Model model) {
-        ArrayList<Member> list = mService.selectMemberList();
-        model.addAttribute("list", list);
-        return "main";
-    }
-
-    @GetMapping("/admin/donalist")
-    public String donalist() {
-        return "donationlist";
-    }
-    
     @PostMapping("/admin/editMyInfo")
     public String editMyInfo() {
     	return "editmyinfo";
     }
-    
+
     @GetMapping("/admin/checkEmail")
     public void checkEmail(String email, HttpServletResponse response) throws IOException {
     	int result = mService.checkEmail(email);
@@ -92,9 +67,49 @@ public class MemberController {
     public String myDonation(){
         return "mydonation";
     }
-    
+
     @GetMapping("member/join")
     public String Join() {
     	return "join";
+    }
+
+
+    // 관리자 메인페이지(회원관리 페이지)
+    @GetMapping("/admin/main")
+    public String adminMain(Model model) {
+        ArrayList<Member> list = mService.selectMemberList();
+        model.addAttribute("list", list);
+        return "/admin/main";
+    }
+
+    // 관리자 기부관리 게시판
+    @GetMapping("/admin/donalist")
+    public String donalist() {
+        return "/organizer/donationmanage";
+    }
+
+    // 관리자 회원 수정, 삭제 페이지
+    @GetMapping("/admin/selectNo")
+    @ResponseBody
+    public Member selectNo(@RequestParam("no") int no) {
+        return mService.selectNo(no);
+    }
+
+    @PostMapping("/admin/memberUpdate")
+    public String adminMemberUpdate(Member m) {
+        int result = mService.adminMemberUpdate(m);
+        if (result > 0) {
+            return "redirect:/admin/main";
+        }
+        throw new MemberException("실패");
+    }
+
+    @PostMapping("/admin/memberDelete")
+    public String adminMemberDelete(Member m) {
+        int result = mService.adminMemberDelete(m);
+        if (result > 0) {
+            return "redirect:/admin/main";
+        }
+        throw new MemberException("실패");
     }
 }

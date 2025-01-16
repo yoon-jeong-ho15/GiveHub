@@ -16,13 +16,15 @@ import java.util.ArrayList;
 public class NewsController {
 	private final NewsService nService;
 
+	// 관리자 소식관리 게시판
 	@GetMapping("/admin/newslist")
 	public String newsList(Model model) {
 		ArrayList<News> list = nService.selectNewsList();
 		model.addAttribute("list", list);
-		return "newslist";
+		return "/admin/newslist";
 	}
 
+	// 관리자 소식 상세 페이지(수정, 삭제)
 	@GetMapping("/admin/newsmanage/{nNo}")
 	public String newsManage(@PathVariable("nNo") String nNo, Model model) {
 		News n = new News();
@@ -30,6 +32,6 @@ public class NewsController {
 			n = nService.selectNews(nNo);
 		}
 		model.addAttribute("n", n);
-		return "newsmanage";
+		return "/admin/newsmanage";
 	}
 }
