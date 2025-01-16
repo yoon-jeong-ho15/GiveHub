@@ -39,32 +39,29 @@
 					</tr>
 				</table>
 				<div align="center">
-					<input class="blackbutton" id="newsinsert" type="button" value="등록하기" />
-					<input class="blackbutton" id="newsedit" type="button" value="수정/삭제하기" />
+					<input class="blackbutton" id="delete" type="button" value="삭제하기" />
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
 <script>
-	document.querySelectorAll('.selectlist').forEach((tr) => {
+	window.onload = () => {
 		let selectedNo = null;
 
-		document.getElementById('newsedit').addEventListener('click', () => {
+		document.getElementById('delete').addEventListener('click', () => {
 			if (selectedNo === null) {
 				alert('목록을 선택해주세요.');
 			} else {
-				location.href="newsmanage/" + selectedNo;
+				location.href="/admin/newsDelete/" + selectedNo;
 			}
 		});
 
-		document.getElementById('newsinsert').addEventListener('click', () => {
-			location.href="newsmanage/" + selectedNo;
+		document.querySelectorAll('.selectlist').forEach((tr) => {
+			tr.addEventListener('click', () => {
+				selectedNo = tr.children[0].innerText;
+			});
 		});
-
-		tr.addEventListener('click', () => {
-			selectedNo = tr.children[0].innerText;
-		});
-	});
+	}
 </script>
 </html>

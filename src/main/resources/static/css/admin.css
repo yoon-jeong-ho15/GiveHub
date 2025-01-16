@@ -72,6 +72,24 @@ input[type="text"] {
     transition: border 0.3s ease;
 }
 
+input[type="number"] {
+    padding: 0.7rem 1rem;
+    font-size: 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    transition: border 0.3s ease;
+}
+
+input[type="date"] {
+    padding: 0.7rem 1rem;
+    font-size: 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    transition: border 0.3s ease;
+}
+
 input:focus {
     outline: none;
     border: 1px solid #0a0a0a;

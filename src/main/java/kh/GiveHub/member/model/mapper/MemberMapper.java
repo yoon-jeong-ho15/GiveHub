@@ -13,6 +13,11 @@ public interface MemberMapper {
     ArrayList<Member> selectMemberList();
 
 	Member login(Member m);
-    
-    
+
+
+    Member selectNo(int no);
+
+    int adminMemberUpdate(Member m);
+
+    int adminMemberDelete(Member m);
 }
