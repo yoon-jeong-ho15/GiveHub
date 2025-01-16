@@ -20,4 +20,8 @@ public class NewsService {
     public ArrayList<News> selectNewsList() {
         return mapper.selectNewsList();
     }
+
+    public int deleteNews(String nNo) {
+        return mapper.deleteNews(nNo);
+    }
 }

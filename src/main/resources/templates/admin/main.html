@@ -43,7 +43,7 @@
                     <td th:text="${m.memName}"></td>
                     <td th:text="${m.memId}"></td>
                     <td th:text="${m.memAddress}"></td>
-                    <td th:text="${m.memType == '1' ? m.memConfirm == 'N' ? '승인대기' : '승인완료' : ''}"></td>
+                    <td th:text="${m.memConfirm == 'W' ? '승인대기' : m.memConfirm == 'N' ? '승인완료' : ''}"></td>
                 </tr>
                 </tbody>
             </table>
@@ -86,8 +86,8 @@
                         <td>승인 </td>
                         <td>
                             <select id="confirm" name="memConfirm">
-                                <option id="N" value="N">승인대기</option>
-                                <option id="Y" value="Y">승인완료</option>
+                                <option id="W" value="W">승인대기</option>
+                                <option id="N" value="N">승인완료</option>
                             </select>
                         </td>
                     </tr>
