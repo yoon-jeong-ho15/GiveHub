@@ -26,4 +26,8 @@ public class MemberService {
 	public Member login(Member m) {
 		return mapper.login(m);
 	}
+
+	public Member selectNo(int no) {
+		return mapper.selectNo(no);
+	}
 }

@@ -1,99 +1,137 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>기부 목록, 관리</title>
-<style type="text/css">
-td {
-	border: 1px solid gray;
-	text-align: center;
-}
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>기부 목록, 관리</title>
+    <link href="../../../css/reset.css" rel="stylesheet" type="text/css">
+    <link href="../../../css/common.css" rel="stylesheet" type="text/css">
+    <link href="../../../css/admin.css" rel="stylesheet" type="text/css">
+    <style>
+        .container {
+            display: flex; /* Flexbox 사용 */
+            height: 100vh; /* 화면 전체 높이 */
+        }
+
+        .content {
+            flex-grow: 1; /* 나머지 화면 차지 */
+            padding: 20px; /* 여백 */
+            overflow: auto; /* 내용이 넘칠 경우 스크롤 */
+        }
+    </style>
 </head>
 <body>
-	<h1>기부 목록</h1>
-	<div>
-		<table>
-			<tr>
-				<td width="300px">제목입니다 제목 들어가는 자리입니다</td>
-				<td width="80px">작성자</td>
-				<td width="100px">작성일</td>
-				<td width="80px">카테고리</td>
-				<td width="80px">진척도</td>
-			<tr>
-			<tr>
-				<td width="300px">제목입니다 제목 들어가는 자리입니다</td>
-				<td width="80px">작성자</td>
-				<td width="100px">작성일</td>
-				<td width="80px">카테고리</td>
-				<td width="100px">진척도</td>
-			<tr>
-		</table>
-	</div>
-	<div>
-		<button>소식 등록</button>
-		<button>수정/삭제 하기</button>
-	</div>
-	<!-- 일단 Sponsorship.html에서 가져옴  -->
-	<div id="editDiv">
-		<form id="recruitForm" method="post">
-			<table align="center" style="margin-top: 100px;">
-				<tr>
-					<td colspan="5" align="center">
-						<h2 id=recruitTop>후원 모집</h2>
-					</td>
-				</tr>
-
-				<tr>
-					<th align="left"><label for="title">제목</label></th>
-					<td colspan="4"><input type="text" id="title" name="title"
-						placeholder="프로젝트 제목을 입력하세요" required></td>
-				</tr>
-
-
-				<tr>
-					<th align="left"><label for="goal">목표 금액</label></th>
-					<td><input type="number" id="goal" name="goal"
-						placeholder="목표 금액을 입력하세요" step="100" required></td>
-					<th align="left"><label for="goalUnit">만원</label></th>
+<div class="container" style="margin: 0">
+    <div th:replace="~{admin/sidebar.html :: side}"></div>
+    <div class="content" style="margin-left: 200px">
+        <div class="donalist">
+            <table>
+                <caption class="admin_title">기부 목록</caption>
+                <tr>
+                    <th width="10px">번호</th>
+                    <th width="300px">제목입니다 제목 들어가는 자리입니다</th>
+                    <th width="80px">작성자</th>
+                    <th width="100px">작성일</th>
+                    <th width="100px">카테고리</th>
+                    <th width="80px">진척도</th>
+                <tr>
+                <tr>
+                    <td>1</td>
+                    <td>제목입니다 제목 들어가는 자리입니다</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                    <td>카테고리</td>
+                    <td>진척도</td>
+                <tr>
+            </table>
+        </div>
+        <div align="center">
+            <input class="blackbutton" type="button" th:onclick="|location.href='@{#}'|" value="소식 등록"/>
+            <input class="blackbutton" type="button" id="editButton" th:onclick="|location.href='@{#}'|"
+                   value="수정/삭제하기"/>
+        </div>
+        <div id="editDiv" style="visibility: hidden">
+            <form id="recruitForm" method="post">
+                <table align="center" style="margin-top: 100px;">
+                    <caption class="admin_title">후원 모집</caption>
+                    <tr>
+                        <th align="left"><label for="title">제목</label></th>
+                        <td colspan="4"><input type="text" id="title" name="title"
+                                               placeholder="프로젝트 제목을 입력하세요" required></td>
+                    </tr>
 
 
+                    <tr>
+                        <th align="left"><label for="goal">목표 금액</label></th>
+                        <td><input type="number" id="goal" name="goal"
+                                   placeholder="목표 금액을 입력하세요" step="100" required></td>
+                        <th align="left"><label for="goalUnit">만원</label></th>
 
-					<th><label for="category">카테고리</label></th>
 
-					<th><select id="type" name="type" required>
-							<option>-----------------------------------</option>
-							<option value="아동/청소년">아동/청소년</option>
-							<option value="동물">동물</option>
-							<option value="어르신">어르신</option>
-							<option value="해외">해외</option>
-							<option value="장애인">장애인</option>
-							<option value="환경">환경</option>
-							<option value="다문화">다문화</option>
-						</select></th>
-				</tr>
+                        <th><label for="category">카테고리</label></th>
 
-				<tr>
-					<th align="left"><label for="deadline">후원 마감일</label></th>
-					<td><input type="date" id="deadline" name="deadline" required>
-					</td>
-					<th colspan="3" align="left">까지</th>
-				</tr>
-				<tr>
-					<th align="left"><label for="content">게시글 내용</label></th>
-				</tr>
-				<tr>
-					<td colspan="5"><textarea id="content" name="content"
-							placeholder="프로젝트에 대한 자세한 설명을 작성하세요" required></textarea></td>
-				</tr>
-				<tr>
-					<td>
-						<button id="recruit">확인</button>
-					</td>
-				</tr>
-			</table>
-		</form>
-	</div>
+                        <th><select id="type" name="type" required>
+                            <option>-----------------------------------</option>
+                            <option value="아동/청소년">아동/청소년</option>
+                            <option value="동물">동물</option>
+                            <option value="어르신">어르신</option>
+                            <option value="해외">해외</option>
+                            <option value="장애인">장애인</option>
+                            <option value="환경">환경</option>
+                            <option value="다문화">다문화</option>
+                        </select></th>
+                    </tr>
+
+                    <tr>
+                        <th align="left"><label for="deadline">후원 마감일</label></th>
+                        <td><input type="date" id="deadline" name="deadline" required>
+                        </td>
+                        <th colspan="3" align="left">까지</th>
+                    </tr>
+                    <tr>
+                        <th align="left"><label for="content">게시글 내용</label></th>
+                    </tr>
+                    <tr>
+                        <td colspan="5"><textarea id="content" name="content" cols="100" rows="5"
+                                                  placeholder="프로젝트에 대한 자세한 설명을 작성하세요" required></textarea></td>
+                    </tr>
+                </table>
+                <div class="button_wrap">
+                    <input class="blackbutton" type="button" th:onclick="|location.href='@{#}'|" value="수정하기"/>
+                    <input class="blackbutton" type="button" id="delete" th:onclick="|location.href='@{#}'|"
+                           value="삭제하기"/>
+                    <input class="blackbutton" type="button" id="cancle" value="취소하기"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = () => {
+        const editDiv = document.getElementById('editDiv');
+        let selectedNo = 0;
+
+        document.getElementById('editButton').addEventListener('click', () => {
+            if (selectedNo === 0) {
+                alert('목록을 선택해주세요.');
+            } else {
+                editDiv.style.visibility = 'visible';
+            }
+        });
+
+        document.getElementById('cancle').addEventListener('click', () => {
+            editDiv.style.visibility = 'hidden';
+            selectedNo = 0;
+        });
+
+        document.querySelectorAll('.donalist').forEach((tr) => {
+            tr.addEventListener('click', () => {
+                editDiv.style.visibility = 'hidden';
+                selectedNo = tr.children[0].innerText;
+                console.log(selectedNo);
+            });
+        });
+    };
+</script>
 </body>
 </html>

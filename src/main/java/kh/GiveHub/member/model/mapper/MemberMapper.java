@@ -13,6 +13,7 @@ public interface MemberMapper {
     ArrayList<Member> selectMemberList();
 
 	Member login(Member m);
-    
-    
+
+
+    Member selectNo(int no);
 }

@@ -17,5 +17,8 @@
 		from MEMBER
 		where MEM_ID = #{memId} and MEM_PWD=#{memPwd} and MEM_STATUS ='Y'
 	</select>
-	
+
+	<select id="selectNo">
+		select * from member where mem_no = #{no}
+	</select>
 </mapper>
