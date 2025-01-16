@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -16,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
+@SessionAttributes("loginUser")
 public class MemberController {
 	
     private final MemberService mService;
@@ -33,12 +36,24 @@ public class MemberController {
     	Member loginUser = mService.login(m);
     	if(loginUser != null) {
     		session.setAttribute("loginUser", loginUser);
-    		return "redirect:/index";
+    		return "redirect:/";
     	}else {
-    		return "";
+    		return "redirect:/member/login";
     	}
     }
+    
+    //로그아웃
+    @GetMapping("/member/logout")
+	   public String logout(SessionStatus session) {
+	      session.setComplete();  
+	      return "redirect:/";
+	}
 
+    //회원가입
+    @GetMapping("/member/enroll")
+    public String enroll() {
+    	return "member/join";
+    }
     
     
     
