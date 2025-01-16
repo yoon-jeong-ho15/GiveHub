@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
+@SessionAttributes("loginUser")
 public class MemberController {
 
     private final MemberService mService;
@@ -40,6 +43,13 @@ public class MemberController {
     		return "";
     	}
     }
+
+    //로그아웃
+    @GetMapping("/member/logout")
+	   public String logout(SessionStatus session) {
+	      session.setComplete();
+	      return "redirect:/";
+	}
 
     @PostMapping("/admin/editMyInfo")
     public String editMyInfo() {

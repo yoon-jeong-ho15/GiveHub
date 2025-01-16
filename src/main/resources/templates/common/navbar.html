@@ -22,7 +22,7 @@
 				</ul>
 			</nav>
 			<div id="login_bar" class="login_wrap">
-				<button th:if="${session.loginUser == null}" id="login" type="button" onclick="location.href='/admin/main'">
+				<button th:if="${session.loginUser == null}" id="login" type="button" onclick="location.href='/member/login'">
 					로그인
 				</button>
 				<button th:if="${session.loginUser != null}" id="myPage" type="button" onclick="location.href='/member/mypage'">
