@@ -13,45 +13,73 @@
 <body>
 	<div th:replace="~{/common/navbar.html :: navbar}"></div>
     <script>
-	const header = document.querySelector('header.navbar');
-	const slideUpMenu = document.querySelector('div#slide_up_menu');
-	const menuLinks = header.querySelectorAll('a');  // header 내의 모든 <a> 링크
-	const menuItems = slideUpMenu.querySelectorAll('li');  // #slide_up_menu 내의 모든 <li> 항목들
+    const header = document.querySelector('header.navbar');
+    const slideUpMenu = document.querySelector('div#slide_up_menu');
+    const menuLinks = header.querySelectorAll('a');
+    const menuItems = slideUpMenu.querySelectorAll('li');
+    const loginButtons = document.querySelectorAll('#login, #join');
+    const topWrap = document.querySelector('.top_wrap');
+    let isMouseOverHeader = false;
 
-	// 마우스를 헤더에 올리면 메뉴 펼치기
-	header.addEventListener('mouseenter', () => {
-	    slideUpMenu.style.top = '60px'; // 메뉴가 내려옴
-	    header.style.height = '320px'; // 헤더 높이 증가 (슬라이드 메뉴 포함)
- 	    header.style.background = 'rgba(255, 255, 255, 0.9)';
-	    
-	    // 모든 텍스트 색상을 검정색으로 변경
-	    menuLinks.forEach(link => {
-	        link.style.color = 'black';
-	    });
+    // 헤더 기본 스타일 설정
+    header.style.position = 'fixed';
+    header.style.top = '0';
+    header.style.width = '100%';
+    header.style.zIndex = '1000';
+    header.style.transition = 'background 0.3s, height 0.3s';
 
-	    // slide_up_menu 내의 li 항목들의 텍스트 색상도 검정색으로 변경
-	    menuItems.forEach(item => {
-	        item.style.color = 'black';
-	    });
-	});
+    // 스크롤에 따른 스타일 변경 함수
+    function handleScroll() {
+        if (!isMouseOverHeader) {
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.8)';
+                header.style.height = '60px';
+                topWrap.style.height = '60px';
+                menuLinks.forEach(link => link.style.color = 'black');
+                menuItems.forEach(item => item.style.color = 'black');
+                loginButtons.forEach(button => button.style.color = 'black');
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.2)';
+                header.style.height = '80px';
+                topWrap.style.height = ''; // 초기값 유지
+                menuLinks.forEach(link => link.style.color = 'white');
+                menuItems.forEach(item => item.style.color = 'white');
+                loginButtons.forEach(button => button.style.color = 'white');
+            }
+        }
+    }
 
-	// 마우스를 헤더에서 떼면 메뉴 숨기기
-	header.addEventListener('mouseleave', () => {
-	    slideUpMenu.style.top = '-270px'; // 메뉴가 올라감
-	    header.style.height = '80px'; // 기본 높이로 복귀
- 	    header.style.background = 'rgba(255, 255, 255, 0.2)';
-	    
-	    // 텍스트 색상을 원래 색상으로 복귀 (원하는 색으로 변경 가능)
-	    menuLinks.forEach(link => {
-	        link.style.color = '';  // 기본 색상으로 돌아가도록 설정
-	    });
+    // 헤더에 마우스를 올렸을 때 스타일 변경
+    header.addEventListener('mouseenter', () => {
+        isMouseOverHeader = true;
+        slideUpMenu.style.top = '60px';
+        header.style.height = '320px';
+        header.style.background = 'rgba(255, 255, 255, 0.9)';
+        topWrap.style.height = window.scrollY > 50 ? '60px' : ''; // 스크롤 상태에 따라 유지
+        menuLinks.forEach(link => link.style.color = 'black');
+        menuItems.forEach(item => item.style.color = 'black');
+        loginButtons.forEach(button => button.style.color = 'black');
+    });
 
-	    // slide_up_menu 내의 li 항목들의 텍스트 색상도 원래 색상으로 복귀
-	    menuItems.forEach(item => {
-	        item.style.color = '';  // 기본 색상으로 돌아가도록 설정
-	    });
-	});
+    // 헤더에서 마우스를 뗐을 때 스타일 복구
+    header.addEventListener('mouseleave', () => {
+        isMouseOverHeader = false;
+        slideUpMenu.style.top = '-270px';
+        header.style.height = window.scrollY > 50 ? '60px' : '80px';
+        header.style.background = window.scrollY > 50 ? 'rgba(255, 255, 255, 0.8)' : 'rgba(255, 255, 255, 0.2)';
+        topWrap.style.height = window.scrollY > 50 ? '60px' : ''; // 스크롤 상태에 따라 유지
+        menuLinks.forEach(link => link.style.color = window.scrollY > 50 ? 'black' : 'white');
+        menuItems.forEach(item => item.style.color = window.scrollY > 50 ? 'black' : 'white');
+        loginButtons.forEach(button => button.style.color = window.scrollY > 50 ? 'black' : 'white');
+    });
+
+    // 스크롤 이벤트 등록
+    window.addEventListener('scroll', handleScroll);
+
+    // 초기 상태 반영
+    handleScroll();
 </script>
+
 	<!-- 	<div class="body_wrap"> -->
 
 	<section id="section_01">
@@ -241,30 +269,50 @@
 		<a href="#">후원하기</a>
 	</div>
 	<script>
-		document.addEventListener("scroll", function() {
-			const floatingBtn = document.getElementById("floating_btn");
-			const footer = document.querySelector("footer");
+    document.addEventListener("DOMContentLoaded", function () {
+        const floatingBtn = document.getElementById("floating_btn");
+        const footer = document.querySelector("footer");
+        const showScrollPosition = window.innerHeight; // 100vh만큼 스크롤했을 때 버튼 보이기
+        const fadeInDuration = 300; // ms (버튼이 나타나는 애니메이션 시간)
+        let isButtonVisible = false;
 
-			const footerTop = footer.getBoundingClientRect().top
-					+ window.scrollY;
-			const btnHeight = floatingBtn.offsetHeight;
-			const scrollY = window.scrollY;
-			const viewportHeight = window.innerHeight;
+        // 초기 설정 - 버튼 숨기기
+        floatingBtn.style.opacity = "0";
+        floatingBtn.style.transition = `opacity ${fadeInDuration}ms ease`;
+        floatingBtn.style.position = "fixed";
+        floatingBtn.style.bottom = "14rem";
 
-			// footer와 겹치는 시점 계산
-			if (scrollY + viewportHeight >= footerTop + 50) {
-				// absolute로 전환
-				floatingBtn.style.position = "absolute";
-				floatingBtn.style.top = `${footerTop - btnHeight - 50}px`;
-				floatingBtn.style.bottom = "auto";
-			} else {
-				// fixed 유지
-				floatingBtn.style.position = "fixed";
-				floatingBtn.style.bottom = "14rem";
-				floatingBtn.style.top = "auto";
-			}
-		});
-	</script>
+        document.addEventListener("scroll", function () {
+            const footerTop = footer.getBoundingClientRect().top + window.scrollY;
+            const btnHeight = floatingBtn.offsetHeight;
+            const scrollY = window.scrollY;
+            const viewportHeight = window.innerHeight;
+
+            // 스크롤 위치에 따라 버튼 보이기/숨기기
+            if (scrollY >= showScrollPosition && !isButtonVisible) {
+                floatingBtn.style.opacity = "1"; // 나타남
+                isButtonVisible = true;
+            } else if (scrollY < showScrollPosition && isButtonVisible) {
+                floatingBtn.style.opacity = "0"; // 사라짐
+                isButtonVisible = false;
+            }
+
+            // footer와 겹치는 시점 계산
+            if (scrollY + viewportHeight >= footerTop + 50) {
+                // absolute로 전환
+                floatingBtn.style.position = "absolute";
+                floatingBtn.style.top = `${footerTop - btnHeight - 50}px`;
+                floatingBtn.style.bottom = "auto";
+            } else {
+                // fixed 유지
+                floatingBtn.style.position = "fixed";
+                floatingBtn.style.bottom = "14rem";
+                floatingBtn.style.top = "auto";
+            }
+        });
+    });
+</script>
+
 	<footer>
 		<div th:replace="~{/common/footer.html :: footer_bar}"></div>
 	</footer>
