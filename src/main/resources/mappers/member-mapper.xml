@@ -17,5 +17,16 @@
 		from MEMBER
 		where MEM_ID = #{memId} and MEM_PWD=#{memPwd} and MEM_STATUS ='Y'
 	</select>
-	
+
+	<select id="selectNo">
+		select * from member where mem_no = #{no}
+	</select>
+
+	<update id="adminMemberUpdate">
+		update member set mem_type = #{memType}, mem_grade = #{memGrade}, mem_confirm = #{memConfirm} where mem_no = #{memNo}
+	</update>
+
+	<update id="adminMemberDelete">
+		update member set mem_status = 'N' where mem_no = #{memNo}
+	</update>
 </mapper>
