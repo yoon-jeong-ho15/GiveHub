@@ -3,6 +3,7 @@ package kh.GiveHub.member.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import kh.GiveHub.member.model.exception.MemberException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -94,9 +95,21 @@ public class MemberController {
         return mService.selectNo(no);
     }
 
-    @GetMapping("/admin/memberUpdate")
-    public String memberUpdate(@RequestParam("no") int no) {
-        System.out.println(no);
-        return null;
+    @PostMapping("/admin/memberUpdate")
+    public String adminMemberUpdate(Member m) {
+        int result = mService.adminMemberUpdate(m);
+        if (result > 0) {
+            return "redirect:/admin/main";
+        }
+        throw new MemberException("실패");
+    }
+
+    @PostMapping("/admin/memberDelete")
+    public String adminMemberDelete(Member m) {
+        int result = mService.adminMemberDelete(m);
+        if (result > 0) {
+            return "redirect:/admin/main";
+        }
+        throw new MemberException("실패");
     }
 }

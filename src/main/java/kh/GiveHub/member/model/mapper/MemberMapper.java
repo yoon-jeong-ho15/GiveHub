@@ -16,4 +16,8 @@ public interface MemberMapper {
 
 
     Member selectNo(int no);
+
+    int adminMemberUpdate(Member m);
+
+    int adminMemberDelete(Member m);
 }

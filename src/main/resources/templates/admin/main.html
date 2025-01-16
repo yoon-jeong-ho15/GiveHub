@@ -33,7 +33,7 @@
                     <th width="100px">이름</th>
                     <th width="100px">아이디</th>
                     <th width="150px">주소</th>
-                    <th width="120px">삭제 요청</th>
+                    <th width="120px">주최자 권한 대기</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -43,7 +43,7 @@
                     <td th:text="${m.memName}"></td>
                     <td th:text="${m.memId}"></td>
                     <td th:text="${m.memAddress}"></td>
-                    <td th:text="${m.memConfirm == 'N' ? 'O' : ''}"></td>
+                    <td th:text="${m.memType == '1' ? m.memConfirm == 'N' ? '승인대기' : '승인완료' : ''}"></td>
                 </tr>
                 </tbody>
             </table>
@@ -52,39 +52,48 @@
             </div>
         </div>
         <br><br>
-        <form id="userdetailform">
+        <form id="userDetailForm" method="post">
             <div id="userdetail" class="userdetail_wrap" style="visibility: hidden">
                 <h2 class="admin_title">회원 정보</h2>
-                <input type="hidden" id="no" name="no">
+                <input type="hidden" id="no" name="memNo">
                 <div>
-                    <input type="radio" id="user" value="user" name="type"/>
+                    <input type="radio" id="user" value="0" name="memType"/>
                     <label for="user">일반 회원</label>
-                    <input type="radio" id="or" value="or" name="type"/>
+                    <input type="radio" id="or" value="1" name="memType"/>
                     <label for="or">주최자</label>
                 </div>
                 <table>
                     <tr>
                         <td>이름　</td>
-                        <td class="text_inner"><input type="text" name="name" id="name" readonly/></td>
+                        <td class="text_inner"><input type="text" name="memName" id="name" readonly/></td>
                     </tr>
                     <tr>
                         <td>아이디</td>
-                        <td class="text_inner"><input type="text" name="id" id="id" readonly/></td>
+                        <td class="text_inner"><input type="text" name="memId" id="id" readonly/></td>
                     </tr>
                     <tr>
                         <td>등급　</td>
                         <td>
-                            <select id="grade">
-                                <option id="unrank">UNRANK</option>
-                                <option id="bronze">BRONZE</option>
-                                <option id="silver">SILVER</option>
-                                <option id="gold">GOLD</option>
+                            <select id="grade" name="memGrade">
+                                <option id="UNRANK">UNRANK</option>
+                                <option id="BRONZE">BRONZE</option>
+                                <option id="SILVER">SILVER</option>
+                                <option id="GOLD">GOLD</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>승인 </td>
+                        <td>
+                            <select id="confirm" name="memConfirm">
+                                <option id="N" value="N">승인대기</option>
+                                <option id="Y" value="Y">승인완료</option>
                             </select>
                         </td>
                     </tr>
                 </table>
                 <div class="button_wrap">
-                    <input class="blackbutton" type="button" value="수정하기"/>
+                    <input class="blackbutton" type="button" id="update" value="수정하기"/>
                     <input class="blackbutton" type="button" id="delete" value="삭제하기"/>
                     <input class="blackbutton" type="button" id="cancle" value="취소하기"/>
                 </div>
@@ -102,20 +111,6 @@
             if (selectedNo === 0) {
                 alert('목록을 선택해주세요.');
             } else {
-                userDetail.style.visibility = 'visible';
-            }
-        });
-
-        document.getElementById('cancle').addEventListener('click', () => {
-            userDetail.style.visibility = 'hidden';
-            selectedNo = 0;
-        });
-
-        document.querySelectorAll('.selectlist').forEach((tr) => {
-            tr.addEventListener('click', () => {
-                userDetail.style.visibility = 'hidden';
-                selectedNo = tr.children[0].innerText;
-                // memNo로 ajax를 통해 입력할 예정
                 $.ajax({
                     url:'/admin/selectNo',
                     data:{no:selectedNo},
@@ -133,16 +128,35 @@
                             document.querySelector('#id').value = data.memId;
                             document.querySelector('#' + data.memGrade).selected = true;
                             document.querySelector('#no').value = data.memNo;
+                            document.querySelector('#' + data.memConfirm).selected = true;
                         }
                     },
                     error:data=>console.log(data)
                 });
+                userDetail.style.visibility = 'visible';
+            }
+        });
+
+        document.getElementById('cancle').addEventListener('click', () => {
+            userDetail.style.visibility = 'hidden';
+            selectedNo = 0;
+        });
+
+        document.querySelectorAll('.selectlist').forEach((tr) => {
+            tr.addEventListener('click', () => {
+                userDetail.style.visibility = 'hidden';
+                selectedNo = tr.children[0].innerText;
             });
         });
 
-        const form = document.querySelector('#userdetailform');
-        document.querySelector('#delete').addEventListener('click', ()=>{
+        const form = document.querySelector('#userDetailForm');
+        document.querySelector('#update').addEventListener('click', ()=>{
             form.action = '/admin/memberUpdate';
+            form.submit();
+        });
+
+        document.querySelector('#delete').addEventListener('click', ()=>{
+            form.action = '/admin/memberDelete';
             form.submit();
         });
     };

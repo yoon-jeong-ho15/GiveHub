@@ -30,4 +30,12 @@ public class MemberService {
 	public Member selectNo(int no) {
 		return mapper.selectNo(no);
 	}
+
+	public int adminMemberUpdate(Member m) {
+		return mapper.adminMemberUpdate(m);
+	}
+
+	public int adminMemberDelete(Member m) {
+		return mapper.adminMemberDelete(m);
+	}
 }
