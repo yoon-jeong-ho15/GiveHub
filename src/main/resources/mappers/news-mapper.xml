@@ -11,4 +11,8 @@
 	<select id="selectNewsList">
 		select * from news join donation using(do_no)
 	</select>
+
+	<update id="deleteNews">
+		update news set news_status = 'N' where news_no = #{nNo}
+	</update>
 </mapper>

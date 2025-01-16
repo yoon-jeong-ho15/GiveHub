@@ -82,13 +82,6 @@ public class MemberController {
         return "/admin/main";
     }
 
-    // 관리자 기부관리 게시판
-    @GetMapping("/admin/donalist")
-    public String donalist() {
-        return "/organizer/donationmanage";
-    }
-
-    // 관리자 회원 수정, 삭제 페이지
     @GetMapping("/admin/selectNo")
     @ResponseBody
     public Member selectNo(@RequestParam("no") int no) {
