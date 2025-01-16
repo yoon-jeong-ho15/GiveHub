@@ -65,6 +65,7 @@ public class MemberController {
     
     
     
+    
     @GetMapping("/admin/main")
     public String adminMain(Model model) {
         ArrayList<Member> list = mService.selectMemberList();
