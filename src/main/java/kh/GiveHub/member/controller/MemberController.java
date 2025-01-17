@@ -55,6 +55,7 @@ public class MemberController {
     public String enroll() {
     	return "member/enroll";
     }
+    
     @PostMapping("/member/enroll")
     public void enroll(@ModelAttribute Member m) {
     	System.out.println(m);
