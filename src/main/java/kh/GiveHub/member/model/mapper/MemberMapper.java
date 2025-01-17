@@ -8,8 +8,6 @@ import java.util.ArrayList;
 @Mapper 
 public interface MemberMapper {
 
-	int checkEmail(String email);
-
     ArrayList<Member> selectMemberList();
 
 	Member login(Member m);
@@ -21,4 +19,6 @@ public interface MemberMapper {
 
 
 	int adminMemberDelete(Member m);
+
+    int checkId(String id);
 }
