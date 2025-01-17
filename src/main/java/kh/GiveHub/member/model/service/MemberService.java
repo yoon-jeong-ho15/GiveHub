@@ -38,4 +38,8 @@ public class MemberService {
 	public int checkId(String id) {
 		return mapper.checkId(id);
 	}
+
+	public int memberJoin(Member m) {
+		return mapper.memberJoin(m);
+	}
 }
