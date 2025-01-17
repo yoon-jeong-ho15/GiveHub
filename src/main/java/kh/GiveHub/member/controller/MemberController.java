@@ -60,20 +60,13 @@ public class MemberController {
 
     @GetMapping("/member/join.id")
     @ResponseBody
-    public String checkId(Model model) {
-
-        return null;
+    public int checkId(@RequestParam("id") String id) {
+        return mService.checkId(id);
     }
   
     @PostMapping("/admin/editMyInfo")
     public String editMyInfo() {
     	return "editmyinfo";
-    }
-
-    @GetMapping("/admin/checkEmail")
-    public void checkEmail(String email, HttpServletResponse response) throws IOException {
-    	int result = mService.checkEmail(email);
-    	response.getWriter().print(result);
     }
 
     @GetMapping("/admin/myDonation")
