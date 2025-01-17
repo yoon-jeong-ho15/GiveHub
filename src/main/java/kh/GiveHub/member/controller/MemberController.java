@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -52,10 +53,13 @@ public class MemberController {
     //회원가입
     @GetMapping("/member/enroll")
     public String enroll() {
-    	return "member/join";
+    	return "member/enroll";
     }
     
-    
+    @PostMapping("/member/enroll")
+    public void enroll(@ModelAttribute Member m) {
+    	System.out.println(m);
+    }
     
     
     
