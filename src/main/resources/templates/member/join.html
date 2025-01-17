@@ -89,33 +89,33 @@ button:hover {
 			<tr>
                 <th>가입유형</th>
 				<td colspan="2">        
-					<input type="radio" name="member_type" value="일반 회원" checked> 일반 회원
-	        		<input type="radio" name="member_type" value="주최자"> 주최자
+					<input type="radio" name="memberType" value="일반 회원" checked> 일반 회원
+	        		<input type="radio" name="memberType" value="주최자"> 주최자
 	       	 	</td>
 			</tr>
 			
 			<tr>
                 <th>이름</th>
                 <td colspan="2">
-                    <input type="text" id="mem_name" name="mem_name" placeholder="이름을 입력하세요" required>
+                    <input type="text" id="mem_name" name="memName" placeholder="이름을 입력하세요" required>
                 </td>			
 			</tr>
 	
 			<tr>
                 <th>아이디</th>
                 <td>
-                    <input type="email" id="mem_id" name="mem_id" placeholder="사용 하실 아이디를 입력하세요" required>
+                    <input type="email" id="mem_id" name="memId" placeholder="사용 하실 아이디를 입력하세요" required>
                 </td>
                 <td>
        				<button type="button" onclick="checkIdDuplicate()">아이디 중복확인</button>
-                </td>	
-                <td style="color: crimson;" th:text="${code}"></td>	
+                </td>
+                <td style="color: crimson;" th:text="${code}"></td>
                 <td style="text-align: center;"> 아래 코드를 사이트에 입력해주십시오</td>
 			</tr>
 			<tr>
                 <th>이메일</th>
                 <td>
-                    <input type="email" id="mem_email" name="mem_email" placeholder="이메일을 입력하세요" required>
+                    <input type="email" id="mem_email" name="memEmail" placeholder="이메일을 입력하세요" required>
                 </td>
                 <td>
                     <button type="button" onclick="checkEmailDuplicate()">이메일 중복확인</button>
@@ -124,14 +124,14 @@ button:hover {
 			<tr>
                 <th>주소</th>
                 <td colspan="2">
-                    <input type="text" id="mem_address" name="mem_address" placeholder="주소를 입력하세요" required>
-                </td>		
+                    <input type="text" id="mem_address" name="memAddress" placeholder="주소를 입력하세요" required>
+                </td>
 			</tr>	
 			
 			<tr>
                 <th>비밀번호</th>
                 <td colspan="2">
-                    <input type="password" id="mem_pwd" name="mem_pwd" placeholder="비밀번호를 입력하세요" required>
+                    <input type="password" id="mem_pwd" name="memPwd" placeholder="비밀번호를 입력하세요" required>
                 </td>		
 			</tr>
 			
@@ -139,7 +139,8 @@ button:hover {
                 <th>비밀번호 확인</th>
                 <td colspan="2">
                     <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호를 한번 더 입력하세요" required>
-                </td>			
+                    <label id="confirmText">비밀번호확인을 입력하세요.</label>
+                </td>
 			</tr>
 			
  			<tr>
@@ -166,7 +167,7 @@ button:hover {
             
             <tr>
                 <td colspan="3" align="center">
-                    <button type="submit">확인</button>
+                    <button type="submit">회원가입</button>
                 </td>
             </tr>
         </table>
@@ -183,163 +184,144 @@ button:hover {
 			<button type="button" name="confirmBtn" id="confirmBtn"
 				onclick="confirmNumber()">이메일 인증</button>
 		</div>
-		<br> <input type="text" id="Confirm" name="Confirm"
-			style="display: none" value="">
-
-
-
+		<br> <input type="text" id="Confirm" name="Confirm"style="display: none" value="">
 	</form>
-    
-    
+
     <script>
-    function sendNumber() {
-        $("#mail_number").css("display", "block");
-        $.ajax({
-            url: "/api/v1/email/send",
-            type: "post",
-            dataType: "json",
-            data: {"mail": $("#mail").val()},
-            success: function (data) {
-                alert("인증번호 발송");
-                $("#Confirm").attr("value", data);
-            }
-        });
-    }
-
-    function confirmNumber() {
-        let mail = $("#mail").val();
-        let number = $("#number").val();
-
-        $.ajax({
-           url: "/api/v1/email/verify",
-           type: "post",
-            dataType: "json",
-            data: {"mail": mail, "verifyCode": number},
-            success: function (data, status, xhr) {
-               console.log(status);
-            }
-        });
-    }
-    
-    
-    
-    
-    document.getElementById('passwordConfirm').addEventListener('input', function () {
-        const password = document.getElementById('mem_pwd').value;
-        const confirmPassword = this.value;
-
-        if (password !== confirmPassword) {
-            this.alert('비밀번호가 일치하지 않습니다.');
-        } 
-    });
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    document.getElementById('mem_id').addEventListener('focusout',function(){
-      	 const value = this.value;
-      	 const targetTd = this.parentElement.parentElement.nextElementSibling.children[0]
-      	 
-      	 
-      	 if(value.trim() !=''){
-      		 $.ajax({
-      			 url: '${contextPath}/join.me',
-      			 type: 'post',
-      			 data : {value:value},
-      			 success: (data)=>{
-      				if(data.trim() =='0'){
-      					 targetTd.innerText='사용 가능한 사원번호입니다.';
-      					 targetTd.style.color='green';
-      					 validate = true;
-      				 }else{
-      					 targetTd.innerHTML="중복된 사원번호 입니다."; 
-      					 targetTd.style.color = 'red';
-      					 validate = false;
-      				 }
-      				 targetTd.style.fontSize='16px';
-      			 },
-      			 error: (data)=>{
-      				 console.log(data);
-      			 }
-      			 
-      		 });
-      	 }
-       });
-    
-    
-    
-    
-    document.getElementById('mem_email').addEventListener('focusout',function(){
-      	 const value = this.value;
-      	 const targetTd = this.parentElement.parentElement.nextElementSibling.children[0]
-      	 
-      	 
-      	 if(value.trim() !=''){
-      		 $.ajax({
-      			 url: '${contextPath}/join.me',
-      			 type: 'post',
-      			 data : {value:value},
-      			 success: (data)=>{
-      				if(data.trim() =='0'){
-      					 targetTd.innerText='사용 가능한 사원번호입니다.';
-      					 targetTd.style.color='green';
-      					 validate = true;
-      				 }else{
-      					 targetTd.innerHTML="중복된 사원번호 입니다."; 
-      					 targetTd.style.color = 'red';
-      					 validate = false;
-      				 }
-      				 targetTd.style.fontSize='16px';
-      			 },
-      			 error: (data)=>{
-      				 console.log(data);
-      			 }
-      			 
-      		 });
-      	 }
-       });
-    
-    
-    
-    
-    document.getElementById('allCheckbox').addEventListener('change', function () {
-        const isChecked = this.checked;
-        document.getElementById('termsCheckbox').checked = isChecked;
-        document.getElementById('agreeCheckbox').checked = isChecked;
-    });
-
-    document.querySelectorAll('#termsCheckbox, #agreeCheckbox').forEach(function (checkbox) {
-        checkbox.addEventListener('change', function () {
-            const allCheckbox = document.getElementById('allCheckbox');
-            const termsCheckbox = document.getElementById('termsCheckbox');
-            const agreeCheckbox = document.getElementById('agreeCheckbox');
-
-            if (termsCheckbox.checked && agreeCheckbox.checked) {
-                allCheckbox.checked = true;
-            } else {
-                allCheckbox.checked = false;
-            }
-        });
-    });
-
-    document.getElementById('loginForm').addEventListener('submit', function (e) {
-        const termsCheckbox = document.getElementById('termsCheckbox').checked;
-        const agreeCheckbox = document.getElementById('agreeCheckbox').checked;
-
-        if (!termsCheckbox || !agreeCheckbox) {
-            e.preventDefault();
-            alert('모든 약관에 동의하셔야 합니다.');
+        function sendNumber() {
+            $("#mail_number").css("display", "block");
+            $.ajax({
+                url: "/api/v1/email/send",
+                type: "post",
+                dataType: "json",
+                data: {"mail": $("#mail").val()},
+                success: function (data) {
+                    alert("인증번호 발송");
+                    $("#Confirm").attr("value", data);
+                }
+            });
         }
-    });
-    
-    
-    
-    </script>
 
+        function confirmNumber() {
+            let mail = $("#mail").val();
+            let number = $("#number").val();
+
+            $.ajax({
+               url: "/api/v1/email/verify",
+               type: "post",
+                dataType: "json",
+                data: {"mail": mail, "verifyCode": number},
+                success: function (data, status, xhr) {
+                   console.log(status);
+                }
+            });
+        }
+
+
+
+
+        document.getElementById('passwordConfirm').addEventListener('change', function () {
+            const password = document.getElementById('mem_pwd').value;
+            const confirmPassword = this.value;
+            const confirmText = document.querySelector('#confirmText');
+
+            if (password !== confirmPassword) {
+                this.value = '';
+                confirmText.innerText = '비밀번호가 일치하지 않습니다.';
+                confirmText.style.color = 'red';
+            }else{
+                confirmText.innerText = '비밀번호가 일치합니다.';
+                confirmText.style.color = 'green';
+            }
+        });
+
+        document.getElementById('mem_id').addEventListener('focusout',function(){
+             const value = this.value;
+             const targetTd = this.parentElement.parentElement.nextElementSibling.children[0]
+             if(value.trim() !=''){
+                 $.ajax({
+                     url: '/member/join.id',
+                     type: 'post',
+                     data : {value:value},
+                     success: (data)=>{
+                        if(data.trim() =='0'){
+                             targetTd.innerText='사용 가능한 사원번호입니다.';
+                             targetTd.style.color='green';
+                             validate = true;
+                         }else{
+                             targetTd.innerHTML="중복된 사원번호 입니다.";
+                             targetTd.style.color = 'red';
+                             validate = false;
+                         }
+                         targetTd.style.fontSize='16px';
+                     },
+                     error: (data)=>{
+                         console.log(data);
+                     }
+
+                 });
+             }
+           });
+
+        document.getElementById('mem_email').addEventListener('focusout',function(){
+             const value = this.value;
+             const targetTd = this.parentElement.parentElement.nextElementSibling.children[0]
+
+
+             if(value.trim() !=''){
+                 $.ajax({
+                     url: '${contextPath}/join.me',
+                     type: 'post',
+                     data : {value:value},
+                     success: (data)=>{
+                        if(data.trim() =='0'){
+                             targetTd.innerText='사용 가능한 사원번호입니다.';
+                             targetTd.style.color='green';
+                             validate = true;
+                         }else{
+                             targetTd.innerHTML="중복된 사원번호 입니다.";
+                             targetTd.style.color = 'red';
+                             validate = false;
+                         }
+                         targetTd.style.fontSize='16px';
+                     },
+                     error: (data)=>{
+                         console.log(data);
+                     }
+
+                 });
+             }
+           });
+
+        document.getElementById('allCheckbox').addEventListener('change', function () {
+            const isChecked = this.checked;
+            document.getElementById('termsCheckbox').checked = isChecked;
+            document.getElementById('agreeCheckbox').checked = isChecked;
+        });
+
+        document.querySelectorAll('#termsCheckbox, #agreeCheckbox').forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                const allCheckbox = document.getElementById('allCheckbox');
+                const termsCheckbox = document.getElementById('termsCheckbox');
+                const agreeCheckbox = document.getElementById('agreeCheckbox');
+
+                if (termsCheckbox.checked && agreeCheckbox.checked) {
+                    allCheckbox.checked = true;
+                } else {
+                    allCheckbox.checked = false;
+                }
+            });
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            const termsCheckbox = document.getElementById('termsCheckbox').checked;
+            const agreeCheckbox = document.getElementById('agreeCheckbox').checked;
+
+            if (!termsCheckbox || !agreeCheckbox) {
+                e.preventDefault();
+                alert('모든 약관에 동의하셔야 합니다.');
+            }
+        });
+    </script>
 </body>
 </html>

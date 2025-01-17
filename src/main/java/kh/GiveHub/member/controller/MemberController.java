@@ -52,10 +52,17 @@ public class MemberController {
 	      return "redirect:/";
 	}
 
-    //회원가입
-    @GetMapping("/member/enroll")
-    public String enroll() {
-    	return "member/join";
+    // 회원가입
+    @GetMapping("/member/join")
+    public String Join() {
+        return "/member/join";
+    }
+
+    @GetMapping("/member/join.id")
+    @ResponseBody
+    public String checkId(Model model) {
+
+        return null;
     }
   
     @PostMapping("/admin/editMyInfo")
@@ -73,12 +80,6 @@ public class MemberController {
     public String myDonation(){
         return "mydonation";
     }
-
-    @GetMapping("member/join")
-    public String Join() {
-    	return "join";
-    }
-
 
     // 관리자 메인페이지(회원관리 페이지)
     @GetMapping("/admin/main")
