@@ -2,6 +2,8 @@ package kh.GiveHub.donation.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.member.model.vo.Member;
@@ -22,5 +24,7 @@ public class DonationController {
 		
 		return "templates/member/mydonation";
 	}
-	 
+	
+
+	
 }
