@@ -8,5 +8,11 @@
     <select id="selectDonaList">
         select * from donation join member using(mem_no)
     </select>
+
+    <select id="detailCategory">
+        select *
+        from donation
+        where DO_CATEGORY = ${doCategory}
+    </select>
 </mapper>
 
