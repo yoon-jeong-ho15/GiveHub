@@ -7,7 +7,7 @@
 		select *
 		from donation
 		where DO_CATEGORY = ${doCategory}
-	
+	 
 	</select>
 </mapper>
 

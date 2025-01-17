@@ -25,7 +25,6 @@ public class DonationController {
 
 	
 
-	private final DonationService dService;
 
 	@GetMapping("/ongoingList")
 	public String ongoingList(HttpSession session) {
