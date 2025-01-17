@@ -1,7 +1,9 @@
 @charset "UTF-8";
 header {
     width: 100%;
-    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
     height: 80px;
     line-height: 80px;
     z-index: 1;
@@ -10,17 +12,23 @@ header {
     backdrop-filter: blur(20px);
 }
 
+
 .top_wrap{
 	width: 94%;
     padding: 0 3%;
-	
+	height: 80px;
     z-index: 1;
 }
-
+.logo_main a {
+	height: 100%;
+    display: flex;
+    align-items: center;
+}
 div#top_bar {
 	margin: 0 auto;
 	display: flex;
 	justify-content: space-between;
+	
 }
 
 li.main_menu_img {
@@ -42,6 +50,9 @@ nav#main_menu ul li a {
     z-index: 2; /* 게시판 링크를 상위 레이어에 표시 */
     position: relative; /* z-index 적용을 위해 position 설정 */
     color: #fff;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
 .img_menu ul {
@@ -60,6 +71,14 @@ div.slide_up_inner_menu>ul:first-child {
 .img_menu li {
 	margin-bottom:0.5rem;
    line-height: 1.5rem;
+}
+
+.main_menu_wrap ul {
+    height: 100%;
+}
+
+.main_menu_wrap li {
+    height: 100%;
 }
 
 div#slide_up_menu {

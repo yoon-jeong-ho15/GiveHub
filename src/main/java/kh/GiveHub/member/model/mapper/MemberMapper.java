@@ -12,7 +12,6 @@ public interface MemberMapper {
 
 	Member login(Member m);
 
-
     Member selectNo(int no);
 
     int adminMemberUpdate(Member m);

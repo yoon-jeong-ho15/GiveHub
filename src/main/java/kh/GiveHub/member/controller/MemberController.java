@@ -1,6 +1,5 @@
 package kh.GiveHub.member.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import kh.GiveHub.member.model.exception.MemberException;
@@ -9,16 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import kh.GiveHub.member.model.exception.MemberException;
 import kh.GiveHub.member.model.service.MemberService;
 import kh.GiveHub.member.model.vo.Member;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MemberController {
 
     private final MemberService mService;
+    
+    private final BCryptPasswordEncoder bcrypt;
 
     private final BCryptPasswordEncoder bcrypt;
 
@@ -36,17 +36,29 @@ public class MemberController {
     }
 
     //로그인
+//    @PostMapping("/member/login")
+//    public String login(Member m, HttpSession session) {
+//
+//    	Member loginUser = mService.login(m);
+//    	if(loginUser != null) {
+//    		session.setAttribute("loginUser", loginUser);
+//    		return "redirect:/";
+//    	}else {
+//    		return "";
+//    	}
+//    }
+    
     @PostMapping("/member/login")
-    public String login(Member m, HttpSession session) {
-
+    public String login(Member m, Model model) {
     	Member loginUser = mService.login(m);
-    	if(loginUser != null) {
-    		session.setAttribute("loginUser", loginUser);
-    		return "redirect:/index";
+    	if(loginUser != null && bcrypt.matches(m.getMemPwd(), loginUser.getMemPwd())) {
+    		model.addAttribute("loginUser", loginUser);
+    		return "redirect:/";
     	}else {
     		return "";
     	}
     }
+    
 
     //로그아웃
     @GetMapping("/member/logout")
@@ -54,7 +66,8 @@ public class MemberController {
 	      session.setComplete();
 	      return "redirect:/";
 	}
-
+    
+    
     // 회원가입
     @GetMapping("/member/join")
     public String Join() {

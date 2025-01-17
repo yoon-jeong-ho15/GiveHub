@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<style>
+.content_container {
+	font-family: 'Arial', sans-serif;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+#loginTop {
+	margin-bottom: 10px;
+	font-size: 24px;
+	color: #333;
+	text-align: center;
+}
+
+.subtitle {
+	font-size: 14px;
+	color: #888;
+	margin-bottom: 20px;
+}
+
+th {
+	font-size: 14px;
+	color: #555;
+	padding-bottom: 10px;
+}
+
+#mem_id, #mem_name, #mem_email, #mem_address, #mem_pwd, #passwordConfirm
+	{
+	width: 100%;
+	padding: 10px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-bottom: 10px;
+}
+
+button {
+	padding: 10px 20px;
+	font-size: 14px;
+	background-color: #5cc78d;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #4caf75;
+}
+
+.main_menu_wrap a {
+	color: #1a1a1a !important;
+}
+
+.login_wrap button {
+    background: none;
+    color: #1a1a1a !important;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+</style>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<link href="/css/reset.css" rel="stylesheet" type="text/css">
+<link href="/css/common.css" rel="stylesheet" type="text/css">
+<link href="/css/navBar.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div th:replace="~{/common/navbar.html :: navbar}"></div>
+	<div class="container content_container">
+
+		<form id="loginForm" action="/member/enroll" method="post">
+			<table align="center" style="margin-top: 100px;">
+				<tr>
+					<td colspan="3" align="center">
+						<h2 id="joinTop">회원가입</h2>
+						<p class="subtitle">회원가입 시 입력한 정보로 비밀번호를 찾을 수 있습니다.</p>
+					</td>
+				</tr>
+
+				<tr>
+					<th>가입유형</th>
+					<td colspan="2">
+						<input type="radio" name="memType"
+						value="일반 회원" checked> 일반 회원 <input type="radio"
+						name="memType" value="주최자"> 주최자</td>
+				</tr>
+
+				<tr>
+					<th><label for="mem_name">이름</label></th>
+					<td colspan="2"><input type="text" id="mem_name"
+						name="memName" placeholder="이름을 입력하세요" required></td>
+				</tr>
+
+				<!-- <tr>
+					<th><label for="mem_id">아이디</label></th>
+					<td><input type="email" id="mem_id" name="memId"
+						placeholder="사용 하실 아이디를 입력하세요" required></td>
+					<td>
+						<button type="button" onclick="checkIdDuplicate()">아이디
+							중복확인</button>
+					</td>
+				</tr> -->
+				<tr>
+					<th><label for="mem_email">이메일</label></th>
+					<td><input type="email" id="mem_email" name="memId"
+						placeholder="이메일을 입력하세요" required></td>
+					<td>
+						<button type="button" onclick="checkEmailDuplicate()">이메일
+							중복확인</button>
+					</td>
+				</tr>
+				<tr>
+					<th><label for="mem_address">주소</label></th>
+					<td colspan="2"><input type="text" id="mem_address"
+						name="memAddress" placeholder="주소를 입력하세요" required></td>
+				</tr>
+
+				<tr>
+					<th><label for="mem_pwd">비밀번호</label></th>
+					<td colspan="2"><input type="password" id="mem_pwd"
+						name="memPwd" placeholder="비밀번호를 입력하세요" required></td>
+				</tr>
+
+				<tr>
+					<th>비밀번호 확인</th>
+					<td colspan="2"><input type="password" id="passwordConfirm"
+						name="passwordConfirm" placeholder="비밀번호를 한번 더 입력하세요" required>
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="3">
+						<fieldset>
+							<legend>약관 동의</legend>
+							<label> <input type="checkbox" id="allCheckbox"
+								name="terms"> 전체 동의
+							</label> <br> <label> <input type="checkbox"
+								id="termsCheckbox" name="terms" required> (필수) 온라인 서비스
+								이용약관
+							</label> <br> <label> <input type="checkbox"
+								id="agreeCheckbox" name="terms" required> (필수) 온라인 서비스
+								이용을 위한 개인정보 수집 이용 동의
+							</label>
+						</fieldset>
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="3" align="center">
+						<button type="submit">가입하기</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+	<script>
+    
+    document.getElementById('passwordConfirm').addEventListener('input', function () {
+        const password = document.getElementById('mem_pwd').value;
+        const confirmPassword = this.value;
+
+        if (password !== confirmPassword) {
+            this.alert('비밀번호가 일치하지 않습니다.');
+        } 
+    });
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    document.getElementById('mem_id').addEventListener('focusout',function(){
+      	 const value = this.value;
+      	 const targetTd = this.parentElement.parentElement.nextElementSibling.children[0]
+      	 
+      	 
+      	 if(value.trim() !=''){
+      		 $.ajax({
+      			 url: '${contextPath}/join.me',
+      			 type: 'post',
+      			 data : {value:value},
+      			 success: (data)=>{
+      				if(data.trim() =='0'){
+      					 targetTd.innerText='사용 가능한 사원번호입니다.';
+      					 targetTd.style.color='green';
+      					 validate = true;
+      				 }else{
+      					 targetTd.innerHTML="중복된 사원번호 입니다."; 
+      					 targetTd.style.color = 'red';
+      					 validate = false;
+      				 }
+      				 targetTd.style.fontSize='16px';
+      			 },
+      			 error: (data)=>{
+      				 console.log(data);
+      			 }
+      			 
+      		 });
+      	 }
+       });
+    
+    
+    
+    
+    document.getElementById('mem_email').addEventListener('focusout',function(){
+      	 const value = this.value;
+      	 const targetTd = this.parentElement.parentElement.nextElementSibling.children[0]
+      	 
+      	 
+      	 if(value.trim() !=''){
+      		 $.ajax({
+      			 url: '${contextPath}/join.me',
+      			 type: 'post',
+      			 data : {value:value},
+      			 success: (data)=>{
+      				if(data.trim() =='0'){
+      					 targetTd.innerText='사용 가능한 사원번호입니다.';
+      					 targetTd.style.color='green';
+      					 validate = true;
+      				 }else{
+      					 targetTd.innerHTML="중복된 사원번호 입니다."; 
+      					 targetTd.style.color = 'red';
+      					 validate = false;
+      				 }
+      				 targetTd.style.fontSize='16px';
+      			 },
+      			 error: (data)=>{
+      				 console.log(data);
+      			 }
+      			 
+      		 });
+      	 }
+       });
+    
+    
+    
+    
+    document.getElementById('allCheckbox').addEventListener('change', function () {
+        const isChecked = this.checked;
+        document.getElementById('termsCheckbox').checked = isChecked;
+        document.getElementById('agreeCheckbox').checked = isChecked;
+    });
+
+    document.querySelectorAll('#termsCheckbox, #agreeCheckbox').forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            const allCheckbox = document.getElementById('allCheckbox');
+            const termsCheckbox = document.getElementById('termsCheckbox');
+            const agreeCheckbox = document.getElementById('agreeCheckbox');
+
+            if (termsCheckbox.checked && agreeCheckbox.checked) {
+                allCheckbox.checked = true;
+            } else {
+                allCheckbox.checked = false;
+            }
+        });
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+        const termsCheckbox = document.getElementById('termsCheckbox').checked;
+        const agreeCheckbox = document.getElementById('agreeCheckbox').checked;
+
+        if (!termsCheckbox || !agreeCheckbox) {
+            e.preventDefault();
+            alert('모든 약관에 동의하셔야 합니다.');
+        }
+    });
+    
+    
+    
+    </script>
+
+</body>
+</html>
