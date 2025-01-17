@@ -78,14 +78,14 @@ tr.board td:first-child {
 			<div class="board_title_category_wrap">
 			<h1>캠페인</h1>
 				<div id="CategoryBtnWrap" class="category_btn_wrap">
-					<button name="allCategory" value="allCategory">전체</button>
-					<button name="child" value="child">아동/청소년</button>
-					<button name="old" value="old">어르신</button>
-					<button name="handicap" value="handicap">장애인</button>
-					<button name="family" value="family">가족</button>
-					<button name="pet" value="pet">동물</button>
-					<button name="enviromnet" value="enviromnet">환경</button>
-					<button name="act" value="act">기타</button>
+				    <button type="button" onclick="sendCategory('allCategory')">전체</button>
+				    <button type="button" onclick="sendCategory('child')">아동/청소년</button>
+				    <button type="button" onclick="sendCategory('old')">어르신</button>
+				    <button type="button" onclick="sendCategory('handicap')">장애인</button>
+				    <button type="button" onclick="sendCategory('family')">가족</button>
+				    <button type="button" onclick="sendCategory('pet')">동물</button>
+				    <button type="button" onclick="sendCategory('environment')">환경</button>
+				    <button type="button" onclick="sendCategory('act')">기타</button>
 				</div>
 				
 				<div id="categoryList" class="category_list_wrap">
@@ -155,17 +155,14 @@ tr.board td:first-child {
 	function sendCategory(value) {
 	    // AJAX 요청으로 버튼 값을 서버로 전송
 		    $.ajax({
-		        url: '/categories',          // 서버 요청 URL
+		        url: '/page/donationlist',          // 서버 요청 URL
 		        method: 'POST',              // HTTP 메서드
 		        data: { category: value },   // 클릭된 버튼 값을 URL 인코딩된 데이터로 전송
-		        success: function(response) {
-		            // 서버로부터 응답 성공 시 처리
-		            $('#response').text('서버 응답: ' + response); // 응답 메시지 표시
+		        success: function() {
+		        	
 		        },
-		        error: function(xhr, status, error) {
-		            // 오류 발생 시 처리
-		            console.error('AJAX Error:', error);
-		            $('#response').text('서버 통신 중 오류가 발생했습니다.');
+		        error:{
+		            
 		        	}
 	   	 		});
 			}

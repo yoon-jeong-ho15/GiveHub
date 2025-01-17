@@ -11,9 +11,15 @@ import java.util.ArrayList;
 @Mapper
 public interface DonationMapper {
 
+	ArrayList<Donation> categorySelect = null;
+
 	ArrayList<Donation> donationlist(String category);
 
     int deleteDona(String no);
 
     ArrayList<Donation> selectDonaList();
+
+	ArrayList<Donation> categorySelect(String category);
+	
+	
 }
