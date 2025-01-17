@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
@@ -39,12 +40,18 @@ public class DonationController {
 	}
 	
 	@GetMapping("/page/donationlist")
-	public ArrayList<Donation> donationlist(@ModelAttribute Donation d, @RequestParam("doCategory") String category ) {
-		ArrayList<Donation> list = dService.donationlist(category);
+	public String donationlist(@ModelAttribute Donation d) {
 
 		
-		return list;
+		return "/page/donationlist";
 	}
+	
+    @PostMapping("/page/donationlist")
+    public String handleCategory(@RequestParam String category) {
+        return category;
+    }
+	
+	
 	
 	@GetMapping("/admin/donaList")
 	public String newsList(Model model) {
