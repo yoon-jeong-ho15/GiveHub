@@ -13,10 +13,6 @@ import java.util.ArrayList;
 public class MemberService {
 	
 	private final MemberMapper mapper;
-	
-	public int checkEmail(String email) {
-		return mapper.checkEmail(email);
-	}
 
     public ArrayList<Member> selectMemberList() {
 		return mapper.selectMemberList();
@@ -25,5 +21,21 @@ public class MemberService {
     //로그인
 	public Member login(Member m) {
 		return mapper.login(m);
+	}
+
+	public Member selectNo(int no) {
+		return mapper.selectNo(no);
+	}
+
+	public int adminMemberUpdate(Member m) {
+		return mapper.adminMemberUpdate(m);
+	}
+
+	public int adminMemberDelete(Member m) {
+		return mapper.adminMemberDelete(m);
+	}
+
+	public int checkId(String id) {
+		return mapper.checkId(id);
 	}
 }

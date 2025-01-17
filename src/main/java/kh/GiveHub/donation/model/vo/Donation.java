@@ -21,4 +21,5 @@ public class Donation {
     private Date doCreateDate;
     private String doStatus;
     private String memNo;
+    private String memName;
 }
