@@ -25,7 +25,6 @@ public class DonationController {
 
 	
 
-	private final DonationService dService;
 
 	@GetMapping("/ongoingList")
 	public String ongoingList(HttpSession session) {
@@ -59,7 +58,11 @@ public class DonationController {
 		int result = dService.deleteDona(no);
 		if (result > 0) {
 			return "redirect:/admin/donaList";
+		} else {
+			//throw new MemberException("실패");
+			throw new MemberException("실패");
 		}
-		throw new MemberException("실패");
+		
+		
 	}
 }

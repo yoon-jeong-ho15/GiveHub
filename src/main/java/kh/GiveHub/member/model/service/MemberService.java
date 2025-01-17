@@ -38,4 +38,5 @@ public class MemberService {
 	public int adminMemberDelete(Member m) {
 		return mapper.adminMemberDelete(m);
 	}
+
 }
