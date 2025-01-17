@@ -2,7 +2,6 @@ package kh.GiveHub.member.controller;
 
 import java.util.ArrayList;
 
-import kh.GiveHub.member.model.exception.MemberException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.member.model.exception.MemberException;
 import kh.GiveHub.member.model.service.MemberService;
 import kh.GiveHub.member.model.vo.Member;
@@ -51,6 +51,7 @@ public class MemberController {
     	Member loginUser = mService.login(m);
     	if(loginUser != null && bcrypt.matches(m.getMemPwd(), loginUser.getMemPwd())) {
     		model.addAttribute("loginUser", loginUser);
+    		System.out.println(bcrypt.encode("1111"));
     		return "redirect:/";
     	}else {
     		return "";
@@ -85,6 +86,7 @@ public class MemberController {
         if (result > 0) {
             return "redirect:/";
         }
+        System.out.println(bcrypt);
         throw new MemberException("실패");
     }
 
@@ -98,6 +100,13 @@ public class MemberController {
     public String editMyInfo() {
     	return "editmyinfo";
     }
+    
+    
+    @GetMapping("/member/mypage")
+    public String mypage() {
+    	return "/member/mypage";
+    }
+    
 
     @GetMapping("/admin/myDonation")
     public String myDonation(){
