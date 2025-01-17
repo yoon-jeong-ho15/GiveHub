@@ -24,6 +24,10 @@ public class DonationService {
     public ArrayList<Donation> selectDonaList() {
         return mapper.selectDonaList();
     }
+	public ArrayList<Donation> categorySelect(String category) {
+		// TODO Auto-generated method stub
+		return mapper.categorySelect(category);
+	}
     
 }
 

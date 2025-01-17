@@ -9,10 +9,10 @@
         select * from donation join member using(mem_no)
     </select>
 
-    <select id="detailCategory">
+    <select id="categorySelect">
         select *
-        from donation
-        where DO_CATEGORY = ${doCategory}
+		from donation
+		where do_category = #{category} and do_status ='Y'
     </select>
 </mapper>
 

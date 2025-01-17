@@ -46,10 +46,18 @@ public class DonationController {
 		return "/page/donationlist";
 	}
 	
-    @PostMapping("/page/donationlist")
-    public String handleCategory(@RequestParam String category) {
-        return category;
+	
+	
+	@PostMapping("/page/donationlist")
+	public ArrayList<Donation> categorySelect(@RequestParam("category") String cat) {
+//	System.out.println("카테고리 받아오니? " + category);
+		ArrayList<Donation> list = dService.categorySelect(cat);
+		
+		System.out.println(list);
+		return list;
+		
     }
+
 	
 	
 	
