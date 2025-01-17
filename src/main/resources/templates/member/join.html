@@ -73,7 +73,7 @@
     <title>Insert title here</title>
 </head>
 <body>
-<form id="loginForm" method="post">
+<form id="joinForm" method="post" action="/member/join">
     <table align="center" style="margin-top: 100px;">
         <tr>
             <td colspan="3" align="center">
@@ -85,8 +85,8 @@
         <tr>
             <th>가입유형</th>
             <td colspan="2">
-                <input type="radio" id="ck1" name="memberType" value="0" checked><label for="ck1">일반 회원</label>
-                <input type="radio" id="ck2" name="memberType" value="1"><label for="ck2">주최자</label>
+                <input type="radio" id="ck1" name="memType" value="0" checked><label for="ck1">일반 회원</label>
+                <input type="radio" id="ck2" name="memType" value="1"><label for="ck2">주최자</label>
             </td>
         </tr>
 
@@ -131,8 +131,12 @@
             <td colspan="2">
                 <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호를 한번 더 입력하세요"
                        required>
-                <label id="confirmText"></label>
             </td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td><label id="confirmText"></label></td>
         </tr>
 
         <tr>
@@ -159,26 +163,10 @@
 
         <tr>
             <td colspan="3" align="center">
-                <button type="submit">회원가입</button>
+                <button type="button" id="join">회원가입</button>
             </td>
         </tr>
     </table>
-
-
-    <div id="mail_input" name="mail_input">
-        <input type="text" name="mail" id="mail" placeholder="이메일 입력">
-        <button type="button" id="sendBtn" name="sendBtn"
-                onclick="sendNumber()">인증번호
-        </button>
-    </div>
-    <br>
-    <div id="mail_number" name="mail_number" style="display: none">
-        <input type="text" name="number" id="number" placeholder="인증번호 입력">
-        <button type="button" name="confirmBtn" id="confirmBtn"
-                onclick="confirmNumber()">이메일 인증
-        </button>
-    </div>
-    <br> <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
 </form>
 
 <script>
@@ -199,6 +187,19 @@
             confirmText.style.color = 'green';
             validate = true;
         }
+        confirmId.style.fontSize = '16px';
+    });
+
+    document.querySelector('#mem_id').addEventListener('change', () => {
+        document.querySelector('#confirmId').innerText = '다시 확인하세요.';
+        document.querySelector('#confirmId').style.color = 'red';
+        validate = false;
+    });
+
+    document.querySelector('#mem_pwd').addEventListener('change', () => {
+        document.querySelector('#confirmText').innerText = '다시 확인하세요.';
+        document.querySelector('#confirmText').style.color = 'red';
+        validate = false;
     });
 
     document.getElementById('checkId').addEventListener('click', () => {
@@ -228,6 +229,14 @@
         }
     });
 
+    document.querySelector('#join').addEventListener('click', ()=>{
+        if (validate){
+            document.querySelector('#joinForm').submit();
+        }else{
+            alert('아이디 혹은 비밀번호를 확인하세요.');
+        }
+    });
+
     document.getElementById('allCheckbox').addEventListener('change', function () {
         const isChecked = this.checked;
         document.getElementById('termsCheckbox').checked = isChecked;
@@ -246,16 +255,6 @@
                 allCheckbox.checked = false;
             }
         });
-    });
-
-    document.getElementById('loginForm').addEventListener('submit', function (e) {
-        const termsCheckbox = document.getElementById('termsCheckbox').checked;
-        const agreeCheckbox = document.getElementById('agreeCheckbox').checked;
-
-        if (!termsCheckbox || !agreeCheckbox) {
-            e.preventDefault();
-            alert('모든 약관에 동의하셔야 합니다.');
-        }
     });
 </script>
 </body>

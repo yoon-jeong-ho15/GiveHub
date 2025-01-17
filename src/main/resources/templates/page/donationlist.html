@@ -2,11 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <title>기부 게시판 조회페이지</title>
 <link href="../../static/css/reset.css" rel="stylesheet" type="text/css">
-<link href="../../static/css/common.css" rel="stylesheet"
-	type="text/css">
-
+<link href="../../static/css/common.css" rel="stylesheet" type="text/css">
 </head>
 <style>
 .doantion_list_wrap h1 {
@@ -79,38 +78,29 @@ tr.board td:first-child {
 			<div class="board_title_category_wrap">
 			<h1>캠페인</h1>
 				<div id="CategoryBtnWrap" class="category_btn_wrap">
-					<button>전체</button>
-					<button>아동/청소년</button>
-					<button>어르신</button>
-					<button>장애인</button>
-					<button>가족/여성</button>
-					<button>동물</button>
-					<button>환경</button>
-					<button>기타</button>
+					<button name="allCategory" value="allCategory">전체</button>
+					<button name="child" value="child">아동/청소년</button>
+					<button name="old" value="old">어르신</button>
+					<button name="handicap" value="handicap">장애인</button>
+					<button name="family" value="family">가족</button>
+					<button name="pet" value="pet">동물</button>
+					<button name="enviromnet" value="enviromnet">환경</button>
+					<button name="act" value="act">기타</button>
 				</div>
+				
 				<div id="categoryList" class="category_list_wrap">
 					<input type="radio" id="popular" value="popular" name="type" checked/><label for="user">인기순</label> 
 					<input type="radio" id="popular" value="popular" name="type" /><label for="user">최신순</label>
 					<input type="radio" id="popular" value="popular" name="type" /><label for="user">마감임박순</label>
 					<input type="radio" id="popular" value="popular" name="type" /><label for="user">마감임박순</label>
 				</div>
+				
 			</div>
 			
 			
 			<div class="list_wrap">
 				<table>
-					<th>
-						<select id="type" name="type" required>
-							<option>-----------------------------------</option>
-							<option value="아동/청소년">아동/청소년</option>
-							<option value="동물">동물</option>
-							<option value="어르신">어르신</option>
-							<option value="해외">해외</option>
-							<option value="장애인">장애인</option>
-							<option value="환경">환경</option>
-							<option value="다문화">다문화</option>
-						</select>
-					</th>
+
 					
 					<div class="container">
 					    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -120,7 +110,7 @@ tr.board td:first-child {
 					                <div class="card-body">
 					                    <p class="card-text">
 					                        <label class="bId">NO. [[${d.doNo}]]</label> |
-					                        <label class="writer">[[${d.doCategory}]]</label>
+					                        <label class="writer"></label>
 					                    </p>
 					                    <div class="d-flex justify-content-between align-items-center">
 					                        [[${d.doTitle}]]
@@ -130,6 +120,21 @@ tr.board td:first-child {
 					        </div>
 					    </div>
 					</div>
+					
+					<p>
+						<table class="table">
+							<thead>
+								<tr>
+									<th width="100px">글 번호 </th>
+									<th> 글제목 </th>
+									<th width="200px">작성자</th>
+									<th width="200px">작성일자</th>
+									<th width="100px">조회수</th>
+								</tr>
+							</thead>	
+							<tbody></tbody>
+						</table>
+					</p>
 										
 					<tr class="board">
 						<td><img src="../../static/img/board_img01.jpg"></td>
@@ -139,68 +144,32 @@ tr.board td:first-child {
 						<td>아동/청소년</td>
 						
 					</tr>
-					<tr class="board">
-						<td><img src="../../static/img/board_img02.jpg"></td>
-						<td><span>아동/청소년</span></td>
-						<td>18살 다훈이와 할머니의 느리게 걷는길</td>
-						<td>2025.01.02~2025.06.22</td>
-						<td>한마음나눔</td>
-					</tr>
-					<tr class="board">
-						<td><img src="../../static/img/board_img03.jpg"></td>
-						<td>아동/청소년</td>
-						<td>아홉살 민재의 할머니를 지키는 시간</td>
-						<td>2024.12.24~2025.08.10</td>
-						<td>한마음나눔</td>
-					</tr>
-					<tr class="board">
-						<td><img src="../../static/img/board_img04.jpg"></td>
-						<td>아동/청소년</td>
-						<td>전교 1등 예은이와 아빠의 주먹밥</td>
-						<td>2025.01.10~2025.04.20</td>
-						<td>한마음나눔</td>
-					</tr>
-					<tr class="board">
-						<td><img src="../../static/img/board_img05.jpg"></td>
-						<td>아동/청소년</td>
-						<td>18살 다훈이와 할머니의 느리게 걷는길</td>
-						<td>2025.01.02~2025.06.22</td>
-						<td>한마음나눔</td>
-					</tr>
-					<tr class="board">
-						<td><img src="../../static/img/board_img06.jpg"></td>
-						<td>아동/청소년</td>
-						<td>아홉살 민재의 할머니를 지키는 시간</td>
-						<td>2024.12.24~2025.08.10</td>
-						<td>한마음나눔</td>
-					</tr>
-					<tr class="board">
-						<td><img src="../../static/img/board_img01.jpg"></td>
-						<td>아동/청소년</td>
-						<td>전교 1등 예은이와 아빠의 주먹밥</td>
-						<td>2025.01.10~2025.04.20</td>
-						<td>한마음나눔</td>
-					</tr>
-					<tr class="board">
-						<td><img src="../../static/img/board_img02.jpg"></td>
-						<td>아동/청소년</td>
-						<td>18살 다훈이와 할머니의 느리게 걷는길</td>
-						<td>2025.01.02~2025.06.22</td>
-						<td>한마음나눔</td>
-					</tr>
-					<tr class="board">
-						<td><img src="../../static/img/board_img03.jpg"></td>
-						<td>아동/청소년</td>
-						<td>아홉살 민재의 할머니를 지키는 시간</td>
-						<td>2024.12.24~2025.08.10</td>
-						<td>한마음나눔</td>
-					</tr>
+
 					
 				</table>
 			</div>
 		</div>
 	</section>
 	
+	<script>
+	function sendCategory(value) {
+	    // AJAX 요청으로 버튼 값을 서버로 전송
+		    $.ajax({
+		        url: '/categories',          // 서버 요청 URL
+		        method: 'POST',              // HTTP 메서드
+		        data: { category: value },   // 클릭된 버튼 값을 URL 인코딩된 데이터로 전송
+		        success: function(response) {
+		            // 서버로부터 응답 성공 시 처리
+		            $('#response').text('서버 응답: ' + response); // 응답 메시지 표시
+		        },
+		        error: function(xhr, status, error) {
+		            // 오류 발생 시 처리
+		            console.error('AJAX Error:', error);
+		            $('#response').text('서버 통신 중 오류가 발생했습니다.');
+		        	}
+	   	 		});
+			}
+	</script>
 
 
 </body>

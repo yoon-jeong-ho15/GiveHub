@@ -20,4 +20,6 @@ public interface MemberMapper {
 	int adminMemberDelete(Member m);
 
     int checkId(String id);
+
+    int memberJoin(Member m);
 }

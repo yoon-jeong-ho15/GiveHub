@@ -2,6 +2,7 @@ package kh.GiveHub.member.controller;
 
 import java.util.ArrayList;
 
+import kh.GiveHub.member.model.exception.MemberException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,8 @@ public class MemberController {
 
     private final MemberService mService;
     
+    private final BCryptPasswordEncoder bcrypt;
+
     private final BCryptPasswordEncoder bcrypt;
 
     //로그인 화면 연결
@@ -71,6 +74,22 @@ public class MemberController {
         return "/member/join";
     }
 
+    @PostMapping("/member/join")
+    public String Join(Member m) {
+        if (m.getMemType().equals("1")){
+            m.setMemConfirm("W");
+        }else{
+            m.setMemConfirm("Y");
+        }
+        m.setMemGrade("UNRANK");
+        m.setMemPwd(bcrypt.encode(m.getMemPwd()));
+        int result = mService.memberJoin(m);
+        if (result > 0) {
+            return "redirect:/";
+        }
+        throw new MemberException("실패");
+    }
+
     @GetMapping("/member/join.id")
     @ResponseBody
     public int checkId(@RequestParam("id") String id) {
@@ -103,6 +122,9 @@ public class MemberController {
 
     @PostMapping("/admin/memberUpdate")
     public String adminMemberUpdate(Member m) {
+        if (m.getMemType().equals("1")){
+            m.setMemConfirm("Y");
+        }
         int result = mService.adminMemberUpdate(m);
         if (result > 0) {
             return "redirect:/admin/main";

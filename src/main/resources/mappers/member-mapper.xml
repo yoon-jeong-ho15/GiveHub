@@ -29,4 +29,8 @@
 	<update id="adminMemberDelete">
 		update member set mem_status = 'N' where mem_no = #{memNo}
 	</update>
+
+	<insert id="memberJoin">
+		insert into member values(seq_mem_no.nextval, #{memName}, #{memId}, #{memPwd}, #{memAddress}, #{memType}, #{memGrade}, default, #{memConfirm})
+	</insert>
 </mapper>

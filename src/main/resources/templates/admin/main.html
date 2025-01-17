@@ -43,7 +43,7 @@
                     <td th:text="${m.memName}"></td>
                     <td th:text="${m.memId}"></td>
                     <td th:text="${m.memAddress}"></td>
-                    <td th:text="${m.memConfirm == 'W' ? '승인대기' : m.memConfirm == 'N' ? '승인완료' : ''}"></td>
+                    <td th:text="${m.memType == '1' && m.memConfirm == 'W' ? '승인대기' : m.memType == '1' && m.memConfirm == 'N' ? '승인완료' : ''}"></td>
                 </tr>
                 </tbody>
             </table>
