@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
-@Data
+//@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Donation {
