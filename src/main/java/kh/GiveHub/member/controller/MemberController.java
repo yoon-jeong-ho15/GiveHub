@@ -2,7 +2,6 @@ package kh.GiveHub.member.controller;
 
 import java.util.ArrayList;
 
-import kh.GiveHub.member.model.exception.MemberException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
