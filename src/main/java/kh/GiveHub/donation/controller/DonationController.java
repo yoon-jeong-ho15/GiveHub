@@ -2,11 +2,11 @@ package kh.GiveHub.donation.controller;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,10 +37,18 @@ public class DonationController {
 	}
 	
 	@GetMapping("/page/donationlist")
-	public String donationlist(@ModelAttribute Donation d) {
+	public String donationlist(    @RequestParam(value = "category", required = false, defaultValue = "all") String category, 
+		    Model model) {
 
-		
-		return "/page/donationlist";
+	    List<Donation> donationList = category.equals("all") 
+	            ? dService.categorySelect(category) 
+	            : dService.categorySelect(category);
+	        
+	        // 모델에 데이터 전달
+	        model.addAttribute("List", donationList);
+	        model.addAttribute("selectedCategory", category);
+
+	    return "/page/donationlist";
 	}
 	
 	
