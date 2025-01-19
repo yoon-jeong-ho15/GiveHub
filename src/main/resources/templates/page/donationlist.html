@@ -83,9 +83,9 @@ tr.board td:first-child {
 				    <button type="button" onclick="sendCategory('old')">어르신</button>
 				    <button type="button" onclick="sendCategory('handicap')">장애인</button>
 				    <button type="button" onclick="sendCategory('family')">가족</button>
-				    <button type="button" onclick="sendCategory('pet')">동물</button>
+				    <button type="button" onclick="sendCategory('animal')">동물</button>
 				    <button type="button" onclick="sendCategory('environment')">환경</button>
-				    <button type="button" onclick="sendCategory('act')">기타</button>
+				    <button type="button" onclick="sendCategory('etc')">기타</button>
 				</div>
 				
 				<div id="categoryList" class="category_list_wrap">
@@ -94,79 +94,94 @@ tr.board td:first-child {
 					<input type="radio" id="popular" value="popular" name="type" /><label for="user">마감임박순</label>
 					<input type="radio" id="popular" value="popular" name="type" /><label for="user">마감임박순</label>
 				</div>
-				
 			</div>
 			
 			
 			<div class="list_wrap">
-				<table>
-
-					<div class="container">
-					    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-					        <!-- 게시글 개수만큼 div 반복 -->
-					        <div class="col" th:each="d : ${List}">
-					            <div class="card shadow-sm">
-					                <div class="card-body">
+<!-- 				<table> -->
+<!-- 					<div class="container"> -->
+<!-- 					    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"> -->
+<!-- 					        게시글 개수만큼 div 반복 -->
+<!-- 					        <div class="col" th:each="d : ${List}"> -->
+<!-- 					            <div class="card shadow-sm"> -->
+<!-- 					                <div class="card-body"> -->
 					                
-					                    <p class="card-text">
-					                        <label class="bId">NO. [[${d.doNo}]]</label> |
-					                        <label class="writer">[[${d.memName]]</label>
-					                    </p>
+<!-- 					                    <p class="card-text"> -->
+<!-- 					                        <label class="bId">NO. [[${d.doNo}]]</label> | -->
+<!-- 					                        <label class="writer">[[${d.memName]]</label> -->
+<!-- 					                    </p> -->
 					                    
-					                    <div class="d-flex justify-content-between align-items-center">
-					                        [[${d.doTitle}]]
-					                    </div>
-					                </div>
-					            </div>
-					        </div>
-					    </div>
-					</div>
+<!-- 					                    <div class="d-flex justify-content-between align-items-center"> -->
+<!-- 					                        [[${d.doTitle}]] -->
+<!-- 					                    </div> -->
+<!-- 					                </div> -->
+<!-- 					             </div> -->
+<!-- 					          </div> -->
+<!-- 					     </div> -->
+<!-- 					  </div> -->
+<!-- 					</table> -->
 					
-					<p>
-						<table class="table">
-							<thead>
-								<tr>
-									<th width="100px">글 번호 </th>
-									<th> 글제목 </th>
-									<th width="200px">작성자</th>
-									<th width="200px">작성일자</th>
-									<th width="100px">조회수</th>
-								</tr>
-							</thead>	
-							<tbody></tbody>
-						</table>
-					</p>
-										
-<!-- 					<tr class="board"> -->
-<!-- 						<td><img src="../../static/img/board_img01.jpg"></td> -->
-<!-- 						<td><span>아동/청소년</span></td> -->
-<!-- 						<td>전교 1등 예은이와 아빠의 주먹밥</td> -->
-<!-- 						<td>2025.01.10~2025.04.20</td> -->
-<!-- 						<td>아동/청소년</td> -->
-<!-- 					</tr> -->
-
-				</table>
+					<table class="table">
+						<thead>
+							<tr>
+								<th width="100px">글 번호 </th>
+								<th> 글제목 </th>
+								<th width="200px">작성자</th>
+								<th width="200px">작성일자</th>
+								<th width="100px">조회수</th>
+							</tr>
+						</thead>
+							
+				        <tbody>
+						    <th:block th:if="${donationList != null}">
+						        <tr th:each="d : ${donationlist}">
+						            <td th:text="${d.doNo}">글 번호</td>
+						            <td th:text="${d.doTitle}">글 제목</td>
+						            <td th:text="${d.memNo}">작성자</td>
+						            <td th:text="${d.doCreateDate}">작성일자</td>
+						            <td th:text="${d.doViews}">조회수</td>
+						        </tr>
+						    </th:block>
+				        </tbody>
+					</table>
 			</div>
 		</div>
 	</section>
 	
 	<script>
-	function sendCategory(value) {
-	    // AJAX 요청으로 버튼 값을 서버로 전송
+		function sendCategory(category) {
 		    $.ajax({
-		        url: '/page/donationlist',          // 서버 요청 URL
-		        method: 'POST',              // HTTP 메서드
-		        data: { category: value },   // 클릭된 버튼 값을 URL 인코딩된 데이터로 전송
-		        success: function() {
-		        	
+		        url: '/page/donationlist', // 서버 URL
+		        method: 'POST',           // HTTP 메서드
+		        data: { category: category }, // 전송 데이터
+		        success: function(data) {
+		            // 서버에서 받은 데이터를 테이블에 업데이트
+		            const tbody = $(".table tbody"); // 테이블의 tbody 선택
+		            tbody.empty(); // 기존 내용 삭제
+	
+		            // 데이터 추가
+		            data.forEach(function(donation) {
+		                const row = `
+		                    <tr>
+		                        <td>${donation.doNo}</td>
+		                        <td>${donation.doTitle}</td>
+		                        <td>${donation.memNo}</td>
+		                        <td>${donation.doCreateDate}</td>
+		                        <td>${donation.doViews}</td>
+		                    </tr>
+		                `;
+		                tbody.append(row);
+		            });
 		        },
-		        error:{
-		            
-		        	}
-	   	 		});
-			}
-	</script>
+		        error: function(xhr, status, error) {
+		            console.error("데이터 가져오기 실패:", error);
+		            alert("데이터를 가져오는 데 실패했습니다.");
+		        }
+		    });
+		}
 
+
+	</script>
 
 </body>
 </html>
