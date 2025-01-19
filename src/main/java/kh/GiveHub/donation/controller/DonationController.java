@@ -36,19 +36,31 @@ public class DonationController {
 		return "/member/mydonation";
 	}
 	
+//	@GetMapping("/page/donationlist")
+//	public String donationlist(    @RequestParam(value = "category", required = false, defaultValue = "all") String category, 
+//		    Model model) {
+//
+//	    List<Donation> donationList = category.equals("all") 
+//	            ? dService.categorySelect(category) 
+//	            : dService.categorySelect(category);
+//	        
+//	        // 모델에 데이터 전달
+//	        model.addAttribute("list", donationList);
+//	        model.addAttribute("selectedCategory", category);
+//
+//	    return "/page/donationlist";
+//	}
 	@GetMapping("/page/donationlist")
-	public String donationlist(    @RequestParam(value = "category", required = false, defaultValue = "all") String category, 
-		    Model model) {
+	public String donationlist(
+	        @RequestParam(value = "category", required = false, defaultValue = "all") String category,
+	        Model model) {
 
-	    List<Donation> donationList = category.equals("all") 
-	            ? dService.categorySelect(category) 
-	            : dService.categorySelect(category);
-	        
-	        // 모델에 데이터 전달
-	        model.addAttribute("List", donationList);
-	        model.addAttribute("selectedCategory", category);
+	    List<Donation> donationList = dService.categorySelect(category);
+	    model.addAttribute("donationList", donationList);
+	    model.addAttribute("selectedCategory", category);
+	    System.out.println("donationList : " + donationList);
 
-	    return "/page/donationlist";
+	    return "page/donationlist";
 	}
 	
 	
