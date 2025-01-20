@@ -12,7 +12,10 @@
     <select id="categorySelect">
         select *
 		from donation
-		where do_category = #{category} and do_status ='Y'
+		where do_status ='Y'
+        <if test="category != 'all'">
+            and do_category = #{category}
+        </if>
     </select>
 </mapper>
 
