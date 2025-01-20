@@ -28,6 +28,14 @@ public class DonationService {
 		// TODO Auto-generated method stub
 		return mapper.categorySelect(category);
 	}
-    
+
+	public ArrayList<Donation> categoryChoice() {
+		return mapper.categoryChoice();
+	}
+
+	public ArrayList<Donation> selectList() {
+		return  mapper.selectList();
+
+	}
 }
 

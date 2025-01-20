@@ -4,6 +4,9 @@ package kh.GiveHub.donation.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -110,6 +113,40 @@ public class DonationController {
 		return "donation/donationWrite";
 	}
 
+	@GetMapping(value="/category")
+	public void categoryChoice(HttpServletResponse response) {
+		System.out.println("잘 들어옴");
+		ArrayList<Donation> list = dService.categoryChoice();
+
+		response.setContentType("application/json; charset=UTF-8");
+
+		GsonBuilder gb = new GsonBuilder().setDateFormat("yyyy-MM-dd");
+		Gson gson = gb.create();
+
+
+		try {
+			gson.toJson(list, response.getWriter());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@GetMapping(value="/selectList")
+	public void selectList(HttpServletResponse response) {
+		ArrayList<Donation> list = dService.selectList();
+
+		response.setContentType("application/json; charset=UTF-8");
+
+		GsonBuilder gb = new GsonBuilder().setDateFormat("yyyy-MM-dd");
+		Gson gson = gb.create();
+
+
+		try {
+			gson.toJson(list, response.getWriter());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 
 
