@@ -89,10 +89,9 @@ tr.board td:first-child {
 				</div>
 				
 				<div id="categoryList" class="category_list_wrap">
-					<input type="radio" id="popular" value="popular" name="type" checked/><label for="user">인기순</label> 
-					<input type="radio" id="popular" value="popular" name="type" /><label for="user">최신순</label>
-					<input type="radio" id="popular" value="popular" name="type" /><label for="user">마감임박순</label>
-					<input type="radio" id="popular" value="popular" name="type" /><label for="user">마감임박순</label>
+					<input type="radio" id="popular" value="popular" name="type" checked/><label for="popular">인기순</label>
+					<input type="radio" id="recent" value="recent" name="type" /><label for="recent">최신순</label>
+					<input type="radio" id="urgent" value="urgent" name="type" /><label for="urgent">마감임박순</label>
 				</div>
 			</div>
 			
@@ -134,7 +133,7 @@ tr.board td:first-child {
 							
 				        <tbody>
 						    <th:block th:if="${donationList != null}">
-						        <tr th:each="d : ${donationlist}">
+						        <tr th:each="d : ${donationList}">
 						            <td th:text="${d.doNo}">글 번호</td>
 						            <td th:text="${d.doTitle}">글 제목</td>
 						            <td th:text="${d.memNo}">작성자</td>
@@ -168,7 +167,7 @@ tr.board td:first-child {
 		                        <td>${donation.memNo}</td>
 		                        <td>${donation.doCreateDate}</td>
 		                        <td>${donation.doViews}</td>
-		                    </tr>
+		                    </tr> 
 		                `;
 		                tbody.append(row);
 		            });

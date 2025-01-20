@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.donation.model.service.DonationService;
@@ -66,6 +67,7 @@ public class DonationController {
 	
 	
 	@PostMapping("/page/donationlist")
+	@ResponseBody
 	public ArrayList<Donation> categorySelect(@RequestParam("category") String cat) {
 //	System.out.println("카테고리 받아오니? " + category);
 		ArrayList<Donation> list = dService.categorySelect(cat);
