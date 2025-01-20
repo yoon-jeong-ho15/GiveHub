@@ -98,7 +98,7 @@
 						<label>후원 시작일</label>
 					</th>
 					<td>
-						<input type="date" id="doStartDate" name="doStartDate" required>
+						<input type="date" id="doStartDate" name="doStartDate"  required>
 					</td>
 					<th align="left">
 						<label for="doEndDate">후원 마감일</label>
@@ -124,11 +124,13 @@
 			window.onload = () =>{
 				tinymce.init({
 					license_key: "gpl",
-	                selector: "#editor",
-	                resize: "both"
+	                selector: "#doContent",
+	                resize: "both",
 	                height: 600,
                 	plugins: ["image", "media", "emoticons"],
                 	menubar: false,
+                	statusbar: false,
+                	promotion: false,
                 	toolbar: "undo redo | bold italic | alignleft "+
 	                    "aligncenter alignright alignjustify outdent indent "+
 	                    "| image  media | forecolor backcolor emoticons",
