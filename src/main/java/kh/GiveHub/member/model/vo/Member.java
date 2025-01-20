@@ -8,7 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 
-//@Data
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member {
