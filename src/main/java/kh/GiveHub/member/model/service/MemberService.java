@@ -42,4 +42,13 @@ public class MemberService {
 	public int memberJoin(Member m) {
 		return mapper.memberJoin(m);
 	}
+
+	public int checkIdDuplication(String email) {
+		return mapper.checkIdDuplication(email);
+		
+	}
+
+	public int editMemberInfo(Member m) {
+		return mapper.editMemberInfo(m);
+	}
 }
