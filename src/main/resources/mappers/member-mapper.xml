@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kh.GiveHub.member.model.mapper.MemberMapper">
-	<select	id="checkEmail">
+	<select	id="checkId">
 		select count(*) from member
-		where mem_id = #{email}
+		where mem_id = #{id} and mem_status = 'Y'
 	</select>
 
 	<select id="selectMemberList">
@@ -12,10 +12,10 @@
 	</select>
 	
 	<!-- 로그인 -->
-	<select id="login" resultType="Member">
+	<select id="login">
 		select *
 		from MEMBER
-		where MEM_ID = #{memId} and MEM_PWD=#{memPwd} and MEM_STATUS ='Y'
+		where MEM_ID = #{memId} and MEM_PWD=#{memPwd} and MEM_STATUS ='Y'  
 	</select>
 
 	<select id="selectNo">
@@ -29,4 +29,8 @@
 	<update id="adminMemberDelete">
 		update member set mem_status = 'N' where mem_no = #{memNo}
 	</update>
+
+	<insert id="memberJoin">
+		insert into member values(seq_mem_no.nextval, #{memName}, #{memId}, #{memPwd}, #{memAddress}, #{memType}, #{memGrade}, default, #{memConfirm})
+	</insert>
 </mapper>

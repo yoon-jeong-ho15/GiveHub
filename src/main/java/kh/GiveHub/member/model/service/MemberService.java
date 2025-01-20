@@ -13,10 +13,6 @@ import java.util.ArrayList;
 public class MemberService {
 	
 	private final MemberMapper mapper;
-	
-	public int checkEmail(String email) {
-		return mapper.checkEmail(email);
-	}
 
     public ArrayList<Member> selectMemberList() {
 		return mapper.selectMemberList();
@@ -37,5 +33,13 @@ public class MemberService {
 
 	public int adminMemberDelete(Member m) {
 		return mapper.adminMemberDelete(m);
+	}
+
+	public int checkId(String id) {
+		return mapper.checkId(id);
+	}
+
+	public int memberJoin(Member m) {
+		return mapper.memberJoin(m);
 	}
 }

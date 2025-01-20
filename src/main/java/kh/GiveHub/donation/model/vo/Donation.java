@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
-@Data
+//@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Donation {
@@ -21,4 +21,5 @@ public class Donation {
     private Date doCreateDate;
     private String doStatus;
     private String memNo;
+    private String memName;
 }
