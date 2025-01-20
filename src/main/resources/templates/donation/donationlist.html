@@ -74,6 +74,9 @@
 </style>
 <body>
 <section class="doantion_list_wrap">
+	<button th:if="${session.loginUser == null}" id="login" type="button" onclick="location.href='/donation/donationWrite'">
+		후원글 작성
+	</button>
 	<div class="container">
 		<div class="board_title_category_wrap">
 			<h1>캠페인</h1>
