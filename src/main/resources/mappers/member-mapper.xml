@@ -15,7 +15,7 @@
 	<select id="login">
 		select *
 		from MEMBER
-		where MEM_ID = #{memId} and MEM_PWD=#{memPwd} and MEM_STATUS ='Y'  
+		where MEM_ID = #{memId} and MEM_STATUS ='Y'
 	</select>
 
 	<select id="selectNo">

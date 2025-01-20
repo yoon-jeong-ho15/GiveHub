@@ -14,9 +14,8 @@ public class MailController {
     private final MailService mailService;
 
     @ResponseBody
-    @PostMapping("/emailCheck") // 이 부분은 각자 바꿔주시면 됩니다.
+    @PostMapping("/emailCheck") // ajax로 보낸 email을 받아서 넘기기
     public String emailCheck(@RequestParam("email") String mail) throws MessagingException, UnsupportedEncodingException {
-        String authCode = mailService.sendSimpleMessage(mail);
-        return authCode; // Response body에 값을 반환
+        return mailService.sendSimpleMessage(mail);
     }
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-//import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.member.model.exception.MemberException;
 import kh.GiveHub.member.model.service.MemberService;
 import kh.GiveHub.member.model.vo.Member;
@@ -51,10 +50,9 @@ public class MemberController {
     	Member loginUser = mService.login(m);
     	if(loginUser != null && bcrypt.matches(m.getMemPwd(), loginUser.getMemPwd())) {
     		model.addAttribute("loginUser", loginUser);
-    		System.out.println(bcrypt.encode("1111"));
     		return "redirect:/";
     	}else {
-    		return "";
+    		throw new MemberException("실패");
     	}
     }
 

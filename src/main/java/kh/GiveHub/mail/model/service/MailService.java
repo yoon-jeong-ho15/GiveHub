@@ -14,19 +14,20 @@ import java.util.Random;
 public class MailService {
 
     private final JavaMailSender javaMailSender;
-    private static final String senderEmail = "givehub0@gmail.com";
+    private static final String senderEmail = "givehub0@gmail.com"; // 웹사이트 이메일
 
     // 랜덤으로 숫자 생성
     public String createNumber() {
         Random random = new Random();
         StringBuilder key = new StringBuilder();
 
-        for (int i = 0; i < 6; i++) { // 인증 코드 8자리
-            key.append(random.nextInt(10)); // 숫자
+        for (int i = 0; i < 6; i++) { // 인증 코드 6자리
+            key.append(random.nextInt(10)); // 0~9 까지의 랜덤숫자
         }
         return key.toString();
     }
 
+    // 메일 폼 형태
     public MimeMessage createMail(String mail, String number) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
 
@@ -53,7 +54,6 @@ public class MailService {
             e.printStackTrace();
             throw new IllegalArgumentException("메일 발송 중 오류가 발생했습니다.");
         }
-
         return number; // 생성된 인증번호 반환
     }
 }

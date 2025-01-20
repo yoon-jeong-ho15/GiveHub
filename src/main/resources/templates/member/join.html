@@ -162,14 +162,14 @@
         </tr>
 
         <tr>
-            <td><button type="button" id="sendBtn" name="sendBtn">인증번호</button></td>
-            <td colspan="2">
-                <div class="form-group" id="mail_number" name="mail_number">
+            <td colspan="3">
+                <button type="button" id="sendBtn" name="sendBtn">인증번호</button>
+                <div class="form-group" id="mail_number" name="mail_number" style="visibility: visible">
                     <input type="text" name="number" id="number" class="form-control" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
                     <span id="mail-check-warn"></span>
                     <button type="button" name="confirmBtn" id="confirmBtn" style="margin-top: 20px" onclick="confirmNumber()">이메일 인증</button>
                     <br>
-                    <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+                    <input type="text" id="Confirm" name="Confirm" value="">
                 </div>
             </td>
         </tr>
@@ -271,15 +271,19 @@
     });
 
     document.querySelector('#sendBtn').addEventListener('click', ()=>{
-        $.ajax({
-            url: '/emailCheck',
-            method:'post',
-            data:{email:document.querySelector('#mem_id').value},
-            success:data=>{
-                console.log(data);
-            },
-            error:data => console.log(data)
-        });
+        if (document.querySelector('#mem_id').value.trim() === ''){
+            alert('아이디를 입력해 주세요.');
+        }else{
+            $.ajax({
+                url: '/emailCheck',
+                method:'post',
+                data:{email:document.querySelector('#mem_id').value},
+                success:data=>{
+                    document.querySelector('#Confirm').value = data;
+                },
+                error:data => console.log(data)
+            });
+        }
     });
 </script>
 </body>
