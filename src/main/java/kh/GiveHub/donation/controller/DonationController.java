@@ -24,7 +24,10 @@ public class DonationController {
 		
 		return "templates/member/mydonation";
 	}
-	
+	@GetMapping("payment")
+	public String paymentPage() {
+		return "page/paymentPage";
+	}
 
 	
 }

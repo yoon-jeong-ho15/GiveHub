@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기부 페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            display: inline-block;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .container input[type="radio"],
+        .container input[type="text"] {
+            margin: 10px 0;
+        }
+        .container input[type="text"] {
+            padding: 5px;
+            width: 150px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="/pay" method="post">
+            <div>
+                <label for="donor-name">기부자</label>
+                <input type="text" id="donor-name" name="donater" placeholder="이름 입력" value="#" readonly> 님
+            </div>
+            <div>
+                <input type="radio" id="amount1" name="amount" value="10000">
+                <label for="amount1">1만원</label>
+                <input type="radio" id="amount2" name="amount" value="30000">
+                <label for="amount2">3만원</label>
+                <input type="radio" id="amount3" name="amount" value="50000">
+                <label for="amount3">5만원</label>
+                <br>
+                <input type="radio" id="amount4" name="amount" value="100000">
+                <label for="amount4">10만원</label>
+                <input type="radio" id="amount5" name="amount" value="200000">
+                <label for="amount5">20만원</label>
+            </div>
+            <div>
+                <label for="custom-amount">직접입력</label>
+                <input type="text" id="custom-amount" name="customAmount" placeholder="금액 입력"> 원
+            </div>
+            <button type="button" class="submit-btn" id="payBtn">결제 하기</button>
+        </form>
+    </div>
+    
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<script>
+    // 아임포트 초기화
+    IMP.init("imp64726784");
+
+    document.getElementById("payBtn").addEventListener("click", function() {
+        const amountList = document.getElementsByName('amount');
+        let amount = null;
+
+        // 선택된 금액을 가져오기
+        for (let i = 0; i < amountList.length; i++) {
+            if (amountList[i].checked) {
+                amount = amountList[i].value;
+                break;
+            }
+        }
+
+        // 사용자 입력 금액 처리
+        if (!amount) {
+            const customAmount = document.getElementById("custom-amount").value.trim();
+            if (customAmount) {
+                amount = customAmount; // 사용자 입력 금액 사용
+            } else {
+                alert("결제 금액을 선택하거나 입력해주세요.");
+                return;
+            }
+        }
+
+        // 결제 요청 함수
+        IMP.request_pay({
+            pg: "html5_inicis.INIpayTest", // 사용할 PG사
+            pay_method: "card", // 결제 방식
+            merchant_uid: "order_" + new Date().getTime(), // 주문 고유 번호
+            name: "기부금 결제", // 결제 상품명
+            amount: amount, // 결제 금액
+            buyer_email: "user@example.com", // 구매자 이메일
+            buyer_name: "홍길동", // 구매자 이름
+            buyer_tel: "010-1234-5678", // 구매자 전화번호
+            buyer_addr: "서울특별시 강남구 테헤란로" // 구매자 주소
+        }, function(rsp) {
+            if (rsp.success) {
+                alert("결제가 완료되었습니다. 결제 금액: " + rsp.paid_amount);
+                // 서버로 결제 정보 전달
+                fetch("/payment/complete", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        imp_uid: rsp.imp_uid,
+                        merchant_uid: rsp.merchant_uid
+                    })
+                }).then(response => {
+                    if (response.ok) {
+                        alert("결제 정보가 서버에 성공적으로 전달되었습니다.");
+                    } else {
+                        alert("서버 전송 중 문제가 발생했습니다.");
+                    }
+                });
+            } else {
+                alert("결제에 실패하였습니다. 오류 메시지: " + rsp.error_msg);
+            }
+        });
+    });
+</script>
+</body>
+</html>
