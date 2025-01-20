@@ -104,4 +104,17 @@ public class DonationController {
 	public String paymentPage() {
 		return "page/paymentPage";
 	}
+
+	@GetMapping("/donation/donationWrite")
+	public String donationWrite() {
+		return "donation/donationWrite";
+	}
+
+
+
+
+
+
+
+
 }
