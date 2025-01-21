@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 
 public class DonationService {
-	private final DonationMapper mapper;
+    private final DonationMapper mapper;
 
     public int deleteDona(String no) {
         return mapper.deleteDona(no);
@@ -25,5 +25,8 @@ public class DonationService {
     public ArrayList<Donation> selectCategory(String category) {
         return mapper.selectCategory(category);
     }
-}
 
+    public ArrayList<Donation> orderBy(String type) {
+        return mapper.selectOrderBy(type);
+    }
+}
