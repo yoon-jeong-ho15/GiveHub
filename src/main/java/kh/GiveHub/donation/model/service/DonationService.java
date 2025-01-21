@@ -18,12 +18,12 @@ public class DonationService {
         return mapper.deleteDona(no);
     }
 
-	public ArrayList<Donation> selectDonaList(int i) {
-		return mapper.selectDonaList(i);
-	}
+    public ArrayList<Donation> selectDonaList(int i) {
+        return mapper.selectDonaList(i);
+    }
 
-	public ArrayList<Donation> selectCategory(String category) {
-		return mapper.selectCategory(category);
-	}
+    public ArrayList<Donation> selectCategory(String category) {
+        return mapper.selectCategory(category);
+    }
 }
 

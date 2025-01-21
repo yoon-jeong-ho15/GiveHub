@@ -33,4 +33,13 @@
 	<insert id="memberJoin">
 		insert into member values(seq_mem_no.nextval, #{memName}, #{memId}, #{memPwd}, #{memAddress}, #{memType}, #{memGrade}, default, #{memConfirm})
 	</insert>
+	
+	<select id="checkIdDuplication" resultType="_int" parameterType="string">
+		select count(*) from member where mem_id =#{email} and mem_status='Y'
+	</select>
+	
+	<update id="editMemberInfo">
+		update member set mem_name=#{memName} , mem_ID=#{memId},MEM_ADDRESS=#{memAddress},MEM_PWD=#{memPwd} where mem_no=#{memNo}
+	</update>
+	
 </mapper>

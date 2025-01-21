@@ -7,6 +7,7 @@
     <link href="css/reset.css" rel="stylesheet" type="text/css">
     <link href="css/common.css" rel="stylesheet" type="text/css">
     <link href="css/index.css" rel="stylesheet" type="text/css">
+    <link href="/css/navBar.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -60,33 +61,23 @@
         loginButtons.forEach(button => button.style.color = 'black');
     });
 
-    // 마우스를 헤더에서 떼면 메뉴 숨기기
+    // 헤더에서 마우스를 뗐을 때 스타일 복구
     header.addEventListener('mouseleave', () => {
-        slideUpMenu.style.top = '-270px'; // 메뉴가 올라감
-        header.style.height = '80px'; // 기본 높이로 복귀
-        header.style.background = 'rgba(255, 255, 255, 0.2)';
+        isMouseOverHeader = false;
+        slideUpMenu.style.top = '-270px';
+        header.style.height = window.scrollY > 50 ? '60px' : '80px';
+        header.style.background = window.scrollY > 50 ? 'rgba(255, 255, 255, 0.8)' : 'rgba(255, 255, 255, 0.2)';
+        topWrap.style.height = window.scrollY > 50 ? '60px' : ''; // 스크롤 상태에 따라 유지
+        menuLinks.forEach(link => link.style.color = window.scrollY > 50 ? 'black' : 'white');
+        menuItems.forEach(item => item.style.color = window.scrollY > 50 ? 'black' : 'white');
+        loginButtons.forEach(button => button.style.color = window.scrollY > 50 ? 'black' : 'white');
+    });
 
-        // 텍스트 색상을 원래 색상으로 복귀 (원하는 색으로 변경 가능)
-        menuLinks.forEach(link => {
-            link.style.color = '';  // 기본 색상으로 돌아가도록 설정
-        });
-        // 헤더에서 마우스를 뗐을 때 스타일 복구
-        header.addEventListener('mouseleave', () => {
-            isMouseOverHeader = false;
-            slideUpMenu.style.top = '-270px';
-            header.style.height = window.scrollY > 50 ? '60px' : '80px';
-            header.style.background = window.scrollY > 50 ? 'rgba(255, 255, 255, 0.8)' : 'rgba(255, 255, 255, 0.2)';
-            topWrap.style.height = window.scrollY > 50 ? '60px' : ''; // 스크롤 상태에 따라 유지
-            menuLinks.forEach(link => link.style.color = window.scrollY > 50 ? 'black' : 'white');
-            menuItems.forEach(item => item.style.color = window.scrollY > 50 ? 'black' : 'white');
-            loginButtons.forEach(button => button.style.color = window.scrollY > 50 ? 'black' : 'white');
-        });
+    // 스크롤 이벤트 등록
+    window.addEventListener('scroll', handleScroll);
 
-        // 스크롤 이벤트 등록
-        window.addEventListener('scroll', handleScroll);
-
-        // 초기 상태 반영
-        handleScroll();
+    // 초기 상태 반영
+    handleScroll();
 </script>
 
 <!--    <div class="body_wrap"> -->
@@ -109,8 +100,8 @@
         <div class="title_wrap">
             <h2>100% 전달하는 기부</h2>
             <p>
-               <span class="display_block">장기적이고 지속적인 지원을 통해 <span/> <span
-                       class="display_block">도움이 필요한 곳에 안정적인 성장 발판을 마련합니다.<span/>
+               <span class="display_block">장기적이고 지속적인 지원을 통해 <span /> <span
+                       class="display_block">도움이 필요한 곳에 안정적인 성장 발판을 마련합니다.<span />
             </p>
             <div id="slide_arrow" class="slide_arrow_wrap">
                 <div id="right" class="right_arrow"></div>
@@ -120,6 +111,7 @@
 
     </div>
     <div class="right_container">
+
         <div id="slide_visual" class="visual_img">
             <div id="slide_wrap" class="slide_img_wrap">
                 <div class="img_wrap">
@@ -166,6 +158,7 @@
                     <div id="left" class="left_arrow"></div>
                 </div>
             </div>
+
         </div>
         <div id="board_visual" class="visual_board">
             <div class="board_img_wrap">
@@ -273,7 +266,7 @@
     </div>
 </section>
 <div id="floating_btn" class="dona_btn">
-    <a href="payment">후원하기</a>
+    <a href="#">후원하기</a>
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -323,6 +316,7 @@
 <footer>
     <div th:replace="~{/common/footer.html :: footer_bar}"></div>
 </footer>
+
 
 
 </body>

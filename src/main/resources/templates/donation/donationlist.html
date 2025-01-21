@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 	<title>기부 게시판 조회페이지</title>
-	<!-- <link href="../../static/css/reset.css" rel="stylesheet" type="text/css"> -->
-	<!-- <link href="../../static/css/common.css" rel="stylesheet" type="text/css"> -->
+<!--	 <link href="../../static/css/reset.css" rel="stylesheet" type="text/css"> -->
+<!--	 <link href="../../static/css/common.css" rel="stylesheet" type="text/css">-->
 </head>
 <style>
 	.doantion_list_wrap h1 {
@@ -100,27 +100,31 @@
 
 
 		<div class="list_wrap">
-
 			<table class="table">
 				<thead>
 					<tr>
-						<th width="100px">글 번호 </th>
+						<th width="50px">글 번호 </th>
 						<th> 글제목 </th>
 						<th width="200px">작성자</th>
 						<th width="200px">작성일자</th>
 						<th width="100px">조회수</th>
 					</tr>
 				</thead>
-				<tbody></tbody>
-
+				<tbody>
+					<tr th:each="d : ${donationList}">
+						<td th:text="${d.doNo}"></td>
+						<td th:text="${d.doTitle}"></td>
+						<td th:text="${d.memNo}"></td>
+						<td th:text="${d.doCreateDate}"></td>
+						<td th:text="${d.doViews}"></td>
+					</tr>
+				</tbody>
 			</table>
 		</div>
 	</div>
 </section>
-
-
-
 </body>
+
 <script th:inline="javascript">
 	window.onload=()=> {
 		document.getElementById('categoryBtn').addEventListener('click', (e) => {
@@ -152,7 +156,7 @@
 					titleTd.appendChild(titleVal);
 
 					const memNoTd = document.createElement('td');
-					const memNoVal = document.createTextNode(d.memName);
+					const memNoVal = document.createTextNode(d.memNo);
 					memNoTd.appendChild(memNoVal);
 
 					const createDateTd = document.createElement('td');
@@ -176,7 +180,6 @@
 			}
 		});
 	};
-
 	// window.onload=()=> {
 	// 	document.getElementById('sortCategory').addEventListener('click', (e) => {
 	// 		// 클릭된 요소가 버튼인지 확인
@@ -235,7 +238,5 @@
 	// 		}
 	// 	});
 	// };
-
-
 </script>
 </html>

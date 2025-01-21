@@ -22,4 +22,8 @@ public interface MemberMapper {
     int checkId(String id);
 
     int memberJoin(Member m);
+
+	int checkIdDuplication(String email);
+
+	int editMemberInfo(Member m);
 }

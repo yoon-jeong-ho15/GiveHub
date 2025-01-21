@@ -47,19 +47,26 @@
 </body>
 <script>
 	window.onload = () => {
-		let selectedNo = null;
+		let selectedNo = 0;
+		const tr = null;
 
 		document.getElementById('delete').addEventListener('click', () => {
-			if (selectedNo === null) {
+			if (selectedNo === 0) {
 				alert('목록을 선택해주세요.');
 			} else {
-				location.href="/admin/newsDelete/" + selectedNo;
+				if (confirm('정말 삭제하시겠습니까?')){
+					location.href="/admin/newsDelete/" + selectedNo;
+					tr.remove();
+				}else{
+					selectedNo = 0;
+				}
 			}
 		});
 
 		document.querySelectorAll('.selectlist').forEach((tr) => {
 			tr.addEventListener('click', () => {
 				selectedNo = tr.children[0].innerText;
+				tr = tr.children[0];
 			});
 		});
 	}

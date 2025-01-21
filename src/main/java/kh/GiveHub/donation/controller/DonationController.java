@@ -2,15 +2,10 @@ package kh.GiveHub.donation.controller;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class DonationController {
 
 	private final DonationService dService;
-
+  
 	@GetMapping("/ongoingList")
 	public String ongoingList(HttpSession session) {
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -38,8 +33,7 @@ public class DonationController {
 	public String finishedList(HttpSession session) {
 		
 		return "/member/mydonation";
-	}
-	
+
 
 	@GetMapping("/admin/donaList")
 	public String newsList(Model model) {
@@ -54,10 +48,8 @@ public class DonationController {
 		if (result > 0) {
 			return "redirect:/admin/donaList";
 		} else {
-			//throw new MemberException("실패");
 			throw new MemberException("실패");
 		}
-		
 	}
   
 	@GetMapping("payment")
@@ -76,8 +68,6 @@ public class DonationController {
 		model.addAttribute("list", list);
 		return list;
 	}
-
-
 
 	@GetMapping("/category")
 	@ResponseBody
@@ -101,8 +91,4 @@ public class DonationController {
 //			return dService.selectCategory(category);
 //		}
 //	}
-
-
-
-
 }
