@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<script src="https://www.google.com/recaptcha/enterprise.js?render=6Ld3Db0qAAAAAIhina2lzN0q8-633rruQp0jRse4"></script>
+
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <meta charset="UTF-8">
@@ -177,8 +179,11 @@
         <tr>
             <td colspan="3" align="center">
                 <button type="button" id="join">회원가입</button>
+
+               <!-- <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">-->
             </td>
         </tr>
+
     </table>
 </form>
 
@@ -288,6 +293,40 @@
         }
     });
 
+    document.getElementById('join').addEventListener('click', function (event) {
+        event.preventDefault(); // 기본 제출 동작 방지
+
+        grecaptcha.enterprise.ready(function () {
+            grecaptcha.enterprise.execute('6Ld3Db0qAAAAAIhina2lzN0q8-633rruQp0jRse4', { action: 'submit' })
+                .then(function (token) {
+                    console.log("reCAPTCHA Token:", token); // 콘솔에 토큰 출력
+
+                    // 백엔드로 reCAPTCHA 토큰 및 회원가입 정보 전송
+                    fetch('/member/join', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            memId: document.getElementById('mem_id').value,
+                            memPwd: document.getElementById('mem_pwd').value,
+                            memName: document.getElementById('mem_name').value,
+                            recaptchaResponse: token // reCAPTCHA 토큰 추가
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("서버 응답:", data);
+                            alert(data.message);
+                        })
+                        .catch(error => console.error("에러 발생:", error));
+                })
+                .catch(function (error) {
+                    console.error("reCAPTCHA 오류:", error);
+                });
+        });
+    });
+  
     document.querySelector('#confirmBtn').addEventListener('click', ()=>{
         if (document.querySelector('#confirmNumber').value == document.querySelector('#Confirm').value){
             confirmCheck = true;
@@ -298,5 +337,7 @@
         }
     });
 </script>
+
+
 </body>
 </html>
