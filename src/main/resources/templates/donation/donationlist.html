@@ -78,20 +78,20 @@
 		후원글 작성
 	</button>
 	<div class="container">
-		<div class="board_title_category_wrap">
+		<div class="dCategory">
 			<h1>캠페인</h1>
-			<div id="CategoryBtnWrap" class="category_btn_wrap">
-				<button type="button" onclick="sendCategory('allCategory')">전체</button>
-				<button type="button" onclick="sendCategory('child')">아동/청소년</button>
-				<button type="button" onclick="sendCategory('old')">어르신</button>
-				<button type="button" onclick="sendCategory('handicap')">장애인</button>
-				<button type="button" onclick="sendCategory('family')">가족</button>
-				<button type="button" onclick="sendCategory('animal')">동물</button>
-				<button type="button" onclick="sendCategory('environment')">환경</button>
-				<button type="button" onclick="sendCategory('etc')">기타</button>
+			<div id="categoryBtn" class="categoryBtn">
+				<button id="all" data-category="all">전체</button>
+				<button id="child" data-category="child">아동/청소년</button>
+				<button id="old" data-category="old">어르신</button>
+				<button id="handicap" data-category="handicap">장애인</button>
+				<button id="family" data-category="family">가족</button>
+				<button id="animal" data-category="animal">동물</button>
+				<button id="environment" data-category="environment">환경</button>
+				<button id="etc" data-category="etc">기타</button>
 			</div>
 
-			<div id="categoryList" class="category_list_wrap">
+			<div id="sortCategory" class="sortCategory">
 				<input type="radio" id="popular" value="popular" name="type" checked/><label for="popular">인기순</label>
 				<input type="radio" id="recent" value="recent" name="type" /><label for="recent">최신순</label>
 				<input type="radio" id="urgent" value="urgent" name="type" /><label for="urgent">마감임박순</label>
@@ -113,13 +113,13 @@
 				</thead>
 
 				<tbody>
-					<tr th:each="d : ${donationList}">
-						<td th:text="${d.doNo}"></td>
-						<td th:text="${d.doTitle}"></td>
-						<td th:text="${d.memNo}"></td>
-						<td th:text="${d.doCreateDate}"></td>
-						<td th:text="${d.doViews}"></td>
-					</tr>
+<!--					<tr th:each="d : ${donationList}">-->
+<!--						<td th:text="${d.doNo}"></td>-->
+<!--						<td th:text="${d.doTitle}"></td>-->
+<!--						<td th:text="${d.memNo}"></td>-->
+<!--						<td th:text="${d.doCreateDate}"></td>-->
+<!--						<td th:text="${d.doViews}"></td>-->
+<!--					</tr>-->
 				</tbody>
 			</table>
 		</div>
@@ -129,23 +129,93 @@
 
 
 </body>
-<script>
-	아.addEventListener('click', () => {
-		func();
-	})
-	장.addEventListener('click', () => {
-		func();
-	})
-	가.addEventListener('click', () => {
-		func();
-	})
+<script th:inline="javascript">
+	window.onload=()=> {
 
-	const func = () => {
-		$.ajax({
-			url: 'url',
-			data: {category:'아동'},
-			success: data => console.log(data)
-		})
+		document.getElementById('categoryBtn').addEventListener('click', (e) => {
+			// 클릭된 요소가 버튼인지 확인
+			if (e.target.tagName === 'BUTTON') {
+				const category = e.target.getAttribute('data-category'); // data-category 값 가져오기
+				func(category); // func 함수 호출
+			}
+		});
 	}
+	const func = (category) => {
+		$.ajax({
+			url: '/category', // 서버 요청 URL
+			method: 'GET', // HTTP 메서드
+			data: { category: category }, // 전달할 데이터
+			success: (data) => {
+				console.log('성공:', data); // 성공 시 데이터 출력
+			},
+			error: (xhr, status, error) => {
+				// console.error('오류:', error); // 에러 메시지 출력
+			}
+		});
+	};
+
+	const selectList =() =>{
+		$.ajax({
+			url: '/selectList',
+// 				dataType: "json",
+			success: data =>{
+				const tbody = document.querySelector('tbody'); // tbody에 접근
+				tbody.innerHTML = "";
+				console.log(data);
+				for(const d of data){
+
+					const tr = document.createElement('tr');
+
+					const noTd = document.createElement('td');
+// 						noTd.appendChild(document.createTextNode(no));
+					const noVal = document.createTextNode(d.doNo);
+					noTd.append(noVal);
+
+					const titleTd = document.createElement('td');
+					const titleVal = document.createTextNode(d.boardTitle);
+					titleTd.append(titleVal);
+
+					const memNoTd = document.createElement('td');
+					const memNoVal = document.createTextNode(d.memNo);
+					titleTd.append(memNoVal);
+
+
+					const createDateTd = document.createElement('td');
+// 						createDateTd.appendChild(document.createTextNode(date));
+					createDateTd.innerText = d.doCreateDate;
+
+					const doViewsTd = document.createElement('td');
+					const doViewsVal = document.createTextNode(d.doViews);
+					titleTd.append(doViewsVal);
+
+
+
+
+					tr.append(doNo);
+					tr.append(doTitle);
+					tr.append(memNo);
+					tr.append(createDate);
+					tr.append(doViews);
+
+
+					tbody.append(tr);
+				}
+			},
+			error: data => console.log(data)
+		});
+	}
+
+
+	window.onload = ()=>{
+		selectList();
+
+		// setInterval(()=>{
+		// 	selectList();
+		// }, 2000);
+	}
+
+
+
+
 </script>
 </html>
