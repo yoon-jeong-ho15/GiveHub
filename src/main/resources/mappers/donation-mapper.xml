@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kh.GiveHub.donation.model.mapper.DonationMapper">
-    <update id="deleteDona">
-        update donation set do_status = 'N' where do_no = #{no}
-    </update>
+    <delete id="deleteDona">
+        delete from donation where do_no = #{no}
+    </delete>
 
     <select id="selectDonaList">
         select * from donation join member using(mem_no)
+        <if test="i == 1">
+            where do_status = 'Y'
+        </if>
     </select>
 
-    <select id="categorySelect">
-        select *
-		from donation
-		where do_status ='Y'
-        <if test="category != 'all'">
-            and do_category = #{category}
-        </if>
+    <select id="selectCategory">
+        select * from donation join member using(mem_no) where do_category = #{category}
     </select>
 </mapper>
 
