@@ -22,38 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class DonationController {
 
 	private final DonationService dService;
-
-	@GetMapping("/donation/donationlist")
-	public ArrayList<Donation> donationList(Model model) {
-		ArrayList<Donation> list = dService.selectDonaList(0);
-		model.addAttribute("list", list);
-		return list;
-	}
-
-	@GetMapping("/category")
-	@ResponseBody
-	public ArrayList<Donation> category(@RequestParam("category") String category) {
-		if (category.equals("all")){
-			return dService.selectDonaList(1);
-		}else{
-			return dService.selectCategory(category);
-		}
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 	@GetMapping("/ongoingList")
 	public String ongoingList(HttpSession session) {
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -64,7 +33,7 @@ public class DonationController {
 	public String finishedList(HttpSession session) {
 		
 		return "/member/mydonation";
-	}
+
 
 	@GetMapping("/admin/donaList")
 	public String newsList(Model model) {
@@ -87,4 +56,39 @@ public class DonationController {
 	public String paymentPage() {
 		return "page/paymentPage";
 	}
+
+	@GetMapping("/donation/donationWrite")
+	public String donationWrite() {
+		return "donation/donationWrite";
+	}
+
+	@GetMapping("/donation/donationlist")
+	public ArrayList<Donation> donationList(Model model) {
+		ArrayList<Donation> list = dService.selectDonaList(0);
+		model.addAttribute("list", list);
+		return list;
+	}
+
+	@GetMapping("/category")
+	@ResponseBody
+	public ArrayList<Donation> category(@RequestParam("category") String category) {
+//		System.out.println(category);
+		if (category.equals("all")){
+			return dService.selectDonaList(1);
+		}else{
+			return dService.selectCategory(category);
+		}
+	}
+
+//	@GetMapping("/order")
+//	@ResponseBody
+//	public ArrayList<Donation> order(@RequestParam("popular") String popular,
+//					@RequestParam("recent") String recent,
+//					 @RequestParam("urgent") String urgent ) {
+//		if (category.equals("all")){
+//			return dService.selectDonaList(1);
+//		}else{
+//			return dService.selectCategory(category);
+//		}
+//	}
 }

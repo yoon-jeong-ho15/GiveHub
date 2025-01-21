@@ -13,7 +13,19 @@
     </select>
 
     <select id="selectCategory">
-        select * from donation join member using(mem_no) where do_category = #{category}
+        select * from donation
+        join member using(mem_no)
+        where do_category = #{category}
     </select>
+
+
+
+
+
+
+
+
+
+
 </mapper>
 
