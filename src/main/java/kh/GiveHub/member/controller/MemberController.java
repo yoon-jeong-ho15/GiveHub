@@ -8,12 +8,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.member.model.exception.MemberException;
 import kh.GiveHub.member.model.service.MemberService;
 import kh.GiveHub.member.model.vo.Member;
@@ -36,22 +38,11 @@ public class MemberController {
     	return "/member/login";
     }
 
-    //로그인
-//    @PostMapping("/member/login")
-//    public String login(Member m, HttpSession session) {
-//
-//    	Member loginUser = mService.login(m);
-//    	if(loginUser != null) {
-//    		session.setAttribute("loginUser", loginUser);
-//    		return "redirect:/";
-//    	}else {
-//    		return "";
-//    	}
-//    }
-
     @PostMapping("/member/login")
     public String login(Member m, Model model) {
+    	System.out.println(bcrypt.encode(m.getMemPwd()));
     	Member loginUser = mService.login(m);
+    	
     	if(loginUser != null && bcrypt.matches(m.getMemPwd(), loginUser.getMemPwd())) {
     		model.addAttribute("loginUser", loginUser);
     		return "redirect:/";
@@ -60,14 +51,12 @@ public class MemberController {
     	}
     }
 
-
     //로그아웃
     @GetMapping("/member/logout")
 	   public String logout(SessionStatus session) {
 	      session.setComplete();
 	      return "redirect:/";
-	}
-
+	  }
 
     // 회원가입
     @GetMapping("/member/join")
@@ -132,12 +121,6 @@ public class MemberController {
         return mService.checkId(id);
     }
 
-    @PostMapping("/admin/editMyInfo")
-    public String editMyInfo() {
-    	return "editmyinfo";
-    }
-
-
     @GetMapping("/member/mypage")
     public String mypage() {
     	return "/member/mypage";
@@ -183,8 +166,40 @@ public class MemberController {
         }
         throw new MemberException("실패");
     }
-
-
-
-
+    
+    @GetMapping("/member/editMyInfo")
+    public String MembereditMyInfo() {
+    	return "/member/editmyinfo";
+    }
+  
+    @GetMapping(value="checkEmail",produces="application/json; charset=UTF-8")
+    @ResponseBody
+    public int checkIdDuplication(@RequestParam("email") String email) {
+    	System.out.println(email);
+    	int result = mService.checkIdDuplication(email);
+    	System.out.println(result);
+    	
+    	return result;
+    }
+  
+    @PostMapping("/member/editMyInfo")
+    public String editMemberInfo(@ModelAttribute Member m , HttpSession session,Model model) {
+    	Member loginUser = (Member)session.getAttribute("loginUser");
+    	m.setMemNo(loginUser.getMemNo());
+    	
+    	if(m.getMemPwd().trim().equals("")) {
+    		m.setMemPwd(loginUser.getMemPwd());
+    	}else {
+    		m.setMemPwd(bcrypt.encode(m.getMemPwd()));
+    	}
+    	int result = mService.editMemberInfo(m);
+    	
+    	System.out.println(result);
+    	if(result>0) {
+    		model.addAttribute("loginUser",mService.login(m));
+    		return "redirect:/";
+    	}else {
+    		throw new MemberException("회원 정보 수정 중 오류가 남");
+    	}
+    }
 }

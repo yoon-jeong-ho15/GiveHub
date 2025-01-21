@@ -1,70 +1,70 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<title>기부 게시판 조회페이지</title>
-<!-- <link href="../../static/css/reset.css" rel="stylesheet" type="text/css"> -->
-<!-- <link href="../../static/css/common.css" rel="stylesheet" type="text/css"> -->
+	<meta charset="UTF-8">
+	<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+	<title>기부 게시판 조회페이지</title>
+	<!-- <link href="../../static/css/reset.css" rel="stylesheet" type="text/css"> -->
+	<!-- <link href="../../static/css/common.css" rel="stylesheet" type="text/css"> -->
 </head>
 <style>
-.doantion_list_wrap h1 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-}
-.category_btn_wrap button {
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 100px;
-    padding: 0.3rem 0.9rem;
-    font-size: 1rem;
-    font-weight: 400;
-    transition-duration: 0.1s;
-}
-.category_btn_wrap button:hover {
-    color: #34D28B;
-    border-color: #34D28B;
-    transition-duration: 0.1s;
-}
-div#categoryList {
-    display: block;
-    float: right;
-}
-.category_btn_wrap {
-    margin-bottom: 3rem;
-}
-.board_title_category_wrap {
-    overflow: hidden;
-    margin-bottom: 3rem;
-}
-tbody {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-tr.board {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 3rem;
-}
-.board img {
-    border-radius: 17px;
-}
-tr.board td:nth-child(2) span{
-    color: #34D28B;
-    border: 1px solid #34D28B;
-    border-radius: 100px;
-    padding: 0.3rem 0.9rem;
-    font-size: 1rem;
-    font-weight: 400;
-}
+	.doantion_list_wrap h1 {
+		font-size: 2rem;
+		margin-bottom: 2rem;
+	}
+	.category_btn_wrap button {
+		background: #fff;
+		border: 1px solid #e0e0e0;
+		border-radius: 100px;
+		padding: 0.3rem 0.9rem;
+		font-size: 1rem;
+		font-weight: 400;
+		transition-duration: 0.1s;
+	}
+	.category_btn_wrap button:hover {
+		color: #34D28B;
+		border-color: #34D28B;
+		transition-duration: 0.1s;
+	}
+	div#categoryList {
+		display: block;
+		float: right;
+	}
+	.category_btn_wrap {
+		margin-bottom: 3rem;
+	}
+	.board_title_category_wrap {
+		overflow: hidden;
+		margin-bottom: 3rem;
+	}
+	tbody {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+	tr.board {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 3rem;
+	}
+	.board img {
+		border-radius: 17px;
+	}
+	tr.board td:nth-child(2) span{
+		color: #34D28B;
+		border: 1px solid #34D28B;
+		border-radius: 100px;
+		padding: 0.3rem 0.9rem;
+		font-size: 1rem;
+		font-weight: 400;
+	}
 
-td {
-    padding: 0.5rem 1rem;
-}
-tr.board td:first-child {
-	padding: 0.7rem 0rem 1rem;
-} 
+	td {
+		padding: 0.5rem 1rem;
+	}
+	tr.board td:first-child {
+		padding: 0.7rem 0rem 1rem;
+	}
 
 
 
@@ -73,114 +73,149 @@ tr.board td:first-child {
 
 </style>
 <body>
-	<section class="doantion_list_wrap">
-		<div class="container">
-			<div class="board_title_category_wrap">
+<section class="doantion_list_wrap">
+	<button th:if="${session.loginUser == null}" id="login" type="button" onclick="location.href='/donation/donationWrite'">
+		후원글 작성
+	</button>
+	<div class="container">
+		<div class="dCategory">
 			<h1>캠페인</h1>
-				<div id="CategoryBtnWrap" class="category_btn_wrap">
-				    <button type="button" onclick="sendCategory('allCategory')">전체</button>
-				    <button type="button" onclick="sendCategory('child')">아동/청소년</button>
-				    <button type="button" onclick="sendCategory('old')">어르신</button>
-				    <button type="button" onclick="sendCategory('handicap')">장애인</button>
-				    <button type="button" onclick="sendCategory('family')">가족</button>
-				    <button type="button" onclick="sendCategory('animal')">동물</button>
-				    <button type="button" onclick="sendCategory('environment')">환경</button>
-				    <button type="button" onclick="sendCategory('etc')">기타</button>
-				</div>
-				
-				<div id="categoryList" class="category_list_wrap">
-					<input type="radio" id="popular" value="popular" name="type" checked/><label for="popular">인기순</label>
-					<input type="radio" id="recent" value="recent" name="type" /><label for="recent">최신순</label>
-					<input type="radio" id="urgent" value="urgent" name="type" /><label for="urgent">마감임박순</label>
-				</div>
+			<div id="categoryBtn" class="categoryBtn">
+				<button id="all" data-category="all">전체</button>
+				<button id="child" data-category="child">아동/청소년</button>
+				<button id="old" data-category="old">어르신</button>
+				<button id="handicap" data-category="handicap">장애인</button>
+				<button id="family" data-category="family">가족</button>
+				<button id="animal" data-category="animal">동물</button>
+				<button id="environment" data-category="environment">환경</button>
+				<button id="etc" data-category="etc">기타</button>
 			</div>
-			
-			
-			<div class="list_wrap">
-<!-- 				<table> -->
-<!-- 					<div class="container"> -->
-<!-- 					    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"> -->
-<!-- 					        게시글 개수만큼 div 반복 -->
-<!-- 					        <div class="col" th:each="d : ${List}"> -->
-<!-- 					            <div class="card shadow-sm"> -->
-<!-- 					                <div class="card-body"> -->
-					                
-<!-- 					                    <p class="card-text"> -->
-<!-- 					                        <label class="bId">NO. [[${d.doNo}]]</label> | -->
-<!-- 					                        <label class="writer">[[${d.memName]]</label> -->
-<!-- 					                    </p> -->
-					                    
-<!-- 					                    <div class="d-flex justify-content-between align-items-center"> -->
-<!-- 					                        [[${d.doTitle}]] -->
-<!-- 					                    </div> -->
-<!-- 					                </div> -->
-<!-- 					             </div> -->
-<!-- 					          </div> -->
-<!-- 					     </div> -->
-<!-- 					  </div> -->
-<!-- 					</table> -->
-					
-					<table class="table">
-						<thead>
-							<tr>
-								<th width="100px">글 번호 </th>
-								<th> 글제목 </th>
-								<th width="200px">작성자</th>
-								<th width="200px">작성일자</th>
-								<th width="100px">조회수</th>
-							</tr>
-						</thead>
-							
-				        <tbody>
-						    <th:block th:if="${donationList != null}">
-						        <tr th:each="d : ${donationList}">
-						            <td th:text="${d.doNo}">글 번호</td>
-						            <td th:text="${d.doTitle}">글 제목</td>
-						            <td th:text="${d.memNo}">작성자</td>
-						            <td th:text="${d.doCreateDate}">작성일자</td>
-						            <td th:text="${d.doViews}">조회수</td>
-						        </tr>
-						    </th:block>
-				        </tbody>
-					</table>
+
+			<div id="sortCategory" class="sortCategory">
+				<input type="radio" id="popular" value="popular" name="type" checked/><label for="popular">인기순</label>
+				<input type="radio" id="recent" value="recent" name="type" /><label for="recent">최신순</label>
+				<input type="radio" id="urgent" value="urgent" name="type" /><label for="urgent">마감임박순</label>
 			</div>
 		</div>
-	</section>
-	
-	<script>
-		function sendCategory(category) {
-		    $.ajax({
-		        url: '/page/donationlist', // 서버 URL
-		        method: 'POST',           // HTTP 메서드
-		        data: { category: category }, // 전송 데이터
-		        success: function(data) {
-		            // 서버에서 받은 데이터를 테이블에 업데이트
-		            const tbody = $(".table tbody"); // 테이블의 tbody 선택
-		            tbody.empty(); // 기존 내용 삭제
-	
-		            // 데이터 추가
-		            data.forEach(function(donation) {
-		                const row = `
-		                    <tr>
-		                        <td>${donation.doNo}</td>
-		                        <td>${donation.doTitle}</td>
-		                        <td>${donation.memNo}</td>
-		                        <td>${donation.doCreateDate}</td>
-		                        <td>${donation.doViews}</td>
-		                    </tr> 
-		                `;
-		                tbody.append(row);
-		            });
-		        },
-		        error: function(xhr, status, error) {
-		            console.error("데이터 가져오기 실패:", error);
-		            alert("데이터를 가져오는 데 실패했습니다.");
-		        }
-		    });
-		}
 
 
-	</script>
+		<div class="list_wrap">
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th width="100px">글 번호 </th>
+						<th> 글제목 </th>
+						<th width="200px">작성자</th>
+						<th width="200px">작성일자</th>
+						<th width="100px">조회수</th>
+					</tr>
+				</thead>
+
+				<tbody>
+<!--					<tr th:each="d : ${donationList}">-->
+<!--						<td th:text="${d.doNo}"></td>-->
+<!--						<td th:text="${d.doTitle}"></td>-->
+<!--						<td th:text="${d.memNo}"></td>-->
+<!--						<td th:text="${d.doCreateDate}"></td>-->
+<!--						<td th:text="${d.doViews}"></td>-->
+<!--					</tr>-->
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+
+
 
 </body>
+<script th:inline="javascript">
+	window.onload=()=> {
+
+		document.getElementById('categoryBtn').addEventListener('click', (e) => {
+			// 클릭된 요소가 버튼인지 확인
+			if (e.target.tagName === 'BUTTON') {
+				const category = e.target.getAttribute('data-category'); // data-category 값 가져오기
+				func(category); // func 함수 호출
+			}
+		});
+	}
+	const func = (category) => {
+		$.ajax({
+			url: '/category', // 서버 요청 URL
+			method: 'GET', // HTTP 메서드
+			data: { category: category }, // 전달할 데이터
+			success: (data) => {
+				console.log('성공:', data); // 성공 시 데이터 출력
+			},
+			error: (xhr, status, error) => {
+				// console.error('오류:', error); // 에러 메시지 출력
+			}
+		});
+	};
+
+	const selectList =() =>{
+		$.ajax({
+			url: '/selectList',
+// 				dataType: "json",
+			success: data =>{
+				const tbody = document.querySelector('tbody'); // tbody에 접근
+				tbody.innerHTML = "";
+				console.log(data);
+				for(const d of data){
+
+					const tr = document.createElement('tr');
+
+					const noTd = document.createElement('td');
+// 						noTd.appendChild(document.createTextNode(no));
+					const noVal = document.createTextNode(d.doNo);
+					noTd.append(noVal);
+
+					const titleTd = document.createElement('td');
+					const titleVal = document.createTextNode(d.boardTitle);
+					titleTd.append(titleVal);
+
+					const memNoTd = document.createElement('td');
+					const memNoVal = document.createTextNode(d.memNo);
+					titleTd.append(memNoVal);
+
+
+					const createDateTd = document.createElement('td');
+// 						createDateTd.appendChild(document.createTextNode(date));
+					createDateTd.innerText = d.doCreateDate;
+
+					const doViewsTd = document.createElement('td');
+					const doViewsVal = document.createTextNode(d.doViews);
+					titleTd.append(doViewsVal);
+
+
+
+
+					tr.append(doNo);
+					tr.append(doTitle);
+					tr.append(memNo);
+					tr.append(createDate);
+					tr.append(doViews);
+
+
+					tbody.append(tr);
+				}
+			},
+			error: data => console.log(data)
+		});
+	}
+
+
+	window.onload = ()=>{
+		selectList();
+
+		// setInterval(()=>{
+		// 	selectList();
+		// }, 2000);
+	}
+
+
+
+
+</script>
 </html>

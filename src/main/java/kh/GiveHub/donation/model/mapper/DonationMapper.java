@@ -20,6 +20,8 @@ public interface DonationMapper {
     ArrayList<Donation> selectDonaList();
 
 	ArrayList<Donation> categorySelect(String category);
-	
-	
+
+	ArrayList<Donation> categoryChoice();
+
+	ArrayList<Donation> selectList();
 }
