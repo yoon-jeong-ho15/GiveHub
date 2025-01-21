@@ -1,6 +1,8 @@
 package kh.GiveHub.member.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ import kh.GiveHub.member.model.exception.MemberException;
 import kh.GiveHub.member.model.service.MemberService;
 import kh.GiveHub.member.model.vo.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Controller
 @RequiredArgsConstructor
@@ -88,6 +92,40 @@ public class MemberController {
         throw new MemberException("실패");
     }
 
+    // reCAPTCHA 검증 로직 추가
+  /* @PostMapping("/member/join")
+   public ResponseEntity<Map<String, Object>> join(@RequestBody MemberDTO memberDTO) {
+       // reCAPTCHA 검증
+       boolean isHuman = mService.verifyRecaptcha(memberDTO.getRecaptchaResponse());
+
+       if (!isHuman) {
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                   .body(Map.of("success", false, "message", "reCAPTCHA 인증 실패"));
+       }
+
+       // 회원가입 로직 유지
+       Member member = new Member();
+       member.setMemId(memberDTO.getMemId());
+       member.setMemPwd(bcrypt.encode(memberDTO.getMemPwd()));
+       member.setMemName(memberDTO.getMemName());
+       member.setMemGrade("UNRANK");
+
+       if ("1".equals(memberDTO.getMemType())) {
+           member.setMemConfirm("W");
+       } else {
+           member.setMemConfirm("Y");
+       }
+
+       int result = mService.memberJoin(member);
+
+       if (result > 0) {
+           return ResponseEntity.ok(Map.of("success", true, "message", "회원가입 성공"));
+       } else {
+           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                   .body(Map.of("success", false, "message", "회원가입 실패"));
+       }
+   }*/
+
     @GetMapping("/member/join.id")
     @ResponseBody
     public int checkId(@RequestParam("id") String id) {
@@ -145,4 +183,8 @@ public class MemberController {
         }
         throw new MemberException("실패");
     }
+
+
+
+
 }
