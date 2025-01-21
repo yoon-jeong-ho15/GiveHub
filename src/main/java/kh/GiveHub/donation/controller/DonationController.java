@@ -40,52 +40,10 @@ public class DonationController {
 		return "/member/mydonation";
 	}
 	
-//	@GetMapping("/donation/donationlist")
-//	public String donationlist(    @RequestParam(value = "category", required = false, defaultValue = "all") String category, 
-//		    Model model) {
-//
-//	    List<Donation> donationList = category.equals("all") 
-//	            ? dService.categorySelect(category) 
-//	            : dService.categorySelect(category);
-//	        
-//	        // 모델에 데이터 전달
-//	        model.addAttribute("list", donationList);
-//	        model.addAttribute("selectedCategory", category);
-//
-//	    return "/page/donationlist";
-//	}
-	@GetMapping("/donation/donationlist")
-	public String donationlist(
-	        @RequestParam(value = "category", required = false, defaultValue = "all") String category,
-	        Model model) {
 
-	    List<Donation> donationList = dService.categorySelect(category);
-	    model.addAttribute("donationList", donationList);
-	    model.addAttribute("selectedCategory", category);
-	    System.out.println("donationList : " + donationList);
-
-	    return "donation/donationlist";
-	}
-	
-	
-	
-	@PostMapping("/donation/donationlist")
-	@ResponseBody
-	public ArrayList<Donation> categorySelect(@RequestParam("category") String cat) {
-//	System.out.println("카테고리 받아오니? " + category);
-		ArrayList<Donation> list = dService.categorySelect(cat);
-		
-		System.out.println(list);
-		return list;
-		
-    }
-
-	
-	
-	
 	@GetMapping("/admin/donaList")
 	public String newsList(Model model) {
-		ArrayList<Donation> list = dService.selectDonaList();
+		ArrayList<Donation> list = dService.selectDonaList(0);
 		model.addAttribute("list", list);
 		return "/admin/donaList";
 	}
@@ -100,7 +58,6 @@ public class DonationController {
 			throw new MemberException("실패");
 		}
 		
-		
 	}
   
 	@GetMapping("payment")
@@ -113,43 +70,37 @@ public class DonationController {
 		return "donation/donationWrite";
 	}
 
-	@GetMapping(value="/category")
-	public void categoryChoice(HttpServletResponse response) {
-		System.out.println("잘 들어옴");
-		ArrayList<Donation> list = dService.categoryChoice();
-
-		response.setContentType("application/json; charset=UTF-8");
-
-		GsonBuilder gb = new GsonBuilder().setDateFormat("yyyy-MM-dd");
-		Gson gson = gb.create();
-
-
-		try {
-			gson.toJson(list, response.getWriter());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@GetMapping(value="/selectList")
-	public void selectList(HttpServletResponse response) {
-		ArrayList<Donation> list = dService.selectList();
-
-		response.setContentType("application/json; charset=UTF-8");
-
-		GsonBuilder gb = new GsonBuilder().setDateFormat("yyyy-MM-dd");
-		Gson gson = gb.create();
-
-
-		try {
-			gson.toJson(list, response.getWriter());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	@GetMapping("/donation/donationlist")
+	public ArrayList<Donation> donationList(Model model) {
+		ArrayList<Donation> list = dService.selectDonaList(0);
+		model.addAttribute("list", list);
+		return list;
 	}
 
 
 
+	@GetMapping("/category")
+	@ResponseBody
+	public ArrayList<Donation> category(@RequestParam("category") String category) {
+//		System.out.println(category);
+		if (category.equals("all")){
+			return dService.selectDonaList(1);
+		}else{
+			return dService.selectCategory(category);
+		}
+	}
+
+//	@GetMapping("/order")
+//	@ResponseBody
+//	public ArrayList<Donation> order(@RequestParam("popular") String popular,
+//					@RequestParam("recent") String recent,
+//					 @RequestParam("urgent") String urgent ) {
+//		if (category.equals("all")){
+//			return dService.selectDonaList(1);
+//		}else{
+//			return dService.selectCategory(category);
+//		}
+//	}
 
 
 

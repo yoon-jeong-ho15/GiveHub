@@ -7,15 +7,25 @@
 
     <select id="selectDonaList">
         select * from donation join member using(mem_no)
-    </select>
-
-    <select id="categorySelect">
-        select *
-		from donation
-		where do_status ='Y'
-        <if test="category != 'all'">
-            and do_category = #{category}
+        <if test="i == 1">
+            where do_status = 'Y'
         </if>
     </select>
+
+    <select id="selectCategory">
+        select * from donation
+        join member using(mem_no)
+        where do_category = #{category}
+    </select>
+
+
+
+
+
+
+
+
+
+
 </mapper>
 

@@ -11,17 +11,9 @@ import java.util.ArrayList;
 @Mapper
 public interface DonationMapper {
 
-	ArrayList<Donation> categorySelect = null;
-
-	ArrayList<Donation> donationlist(String category);
-
     int deleteDona(String no);
 
-    ArrayList<Donation> selectDonaList();
+	ArrayList<Donation> selectDonaList(int i);
 
-	ArrayList<Donation> categorySelect(String category);
-
-	ArrayList<Donation> categoryChoice();
-
-	ArrayList<Donation> selectList();
+	ArrayList<Donation> selectCategory(String category);
 }
