@@ -126,117 +126,77 @@
 </body>
 
 <script th:inline="javascript">
-	window.onload=()=> {
+
+	window.onload = () => {
+		// '전체' 데이터를 가져와 렌더링
+		donationList('all');
+
 		document.getElementById('categoryBtn').addEventListener('click', (e) => {
-			// 클릭된 요소가 버튼인지 확인
 			if (e.target.tagName === 'BUTTON') {
-				const category = e.target.getAttribute('data-category'); // data-category 값 가져오기
-				donationList(category); // func 함수 호출
+				const category = e.target.getAttribute('data-category');
+				donationList(category);
 			}
 		});
-	}
+	};
 
 	const donationList = (category) => {
 		$.ajax({
 			url: '/category', // 서버 요청 URL
-			data: { category: category }, // 전달할 데이터
+			data: { category: category },
 			success: (data) => {
-				const tbody = document.querySelector('tbody'); // tbody에 접근
-				tbody.innerHTML = '';
-				console.log(data);
-				for(const d of data){
+				const tbody = document.querySelector('tbody');
+				tbody.innerHTML = ''; // 기존 내용 초기화
+				for (const d of data) {
 					const tr = document.createElement('tr');
-
-					const noTd = document.createElement('td');
-					const noVal = document.createTextNode(d.doNo);
-					noTd.appendChild(noVal);
-
-					const titleTd = document.createElement('td');
-					const titleVal = document.createTextNode(d.doTitle);
-					titleTd.appendChild(titleVal);
-
-					const memNoTd = document.createElement('td');
-					const memNoVal = document.createTextNode(d.memNo);
-					memNoTd.appendChild(memNoVal);
-
-					const createDateTd = document.createElement('td');
-					createDateTd.innerText = d.doCreateDate;
-
-					const doViewsTd = document.createElement('td');
-					const doViewsVal = document.createTextNode(d.doViews);
-					doViewsTd.appendChild(doViewsVal);
-
-					tr.appendChild(noTd);
-					tr.appendChild(titleTd);
-					tr.appendChild(memNoTd);
-					tr.appendChild(createDateTd);
-					tr.appendChild(doViewsTd);
-
+					tr.innerHTML = `
+                    <td>${d.doNo}</td>
+                    <td>${d.doTitle}</td>
+                    <td>${d.memName}</td>
+                    <td>${d.doCreateDate}</td>
+                    <td>${d.doViews}</td>
+                `;
 					tbody.appendChild(tr);
 				}
 			},
 			error: (xhr, status, error) => {
-				// console.error('오류:', error); // 에러 메시지 출력
+				console.error('오류:', error);
 			}
 		});
 	};
-	// window.onload=()=> {
-	// 	document.getElementById('sortCategory').addEventListener('click', (e) => {
-	// 		// 클릭된 요소가 버튼인지 확인
-	// 		if (e.target.tagName === 'INPUT') {
-	// 			const order = e.target.getAttribute('value'); // data-category 값 가져오기
-	// 			orderList(order); // func 함수 호출
-	// 		}
-	// 	});
-	// }
-	//
-	// const orderList = (order) => {
-	// 	$.ajax({
-	// 		url: '/order', // 서버 요청 URL
-	// 		data: {
-	// 			popular: popular,
-	// 			recent: recent,
-	// 			urgent:	urgent
-	// 		}, // 전달할 데이터
-	// 		success: (data) => {
-	// 			const tbody = document.querySelector('tbody'); // tbody에 접근
-	// 			tbody.innerHTML = '';
-	// 			console.log(data);
-	// 			for(const d of data){
-	// 				const tr = document.createElement('tr');
-	//
-	// 				const noTd = document.createElement('td');
-	// 				const noVal = document.createTextNode(d.doNo);
-	// 				noTd.appendChild(noVal);
-	//
-	// 				const titleTd = document.createElement('td');
-	// 				const titleVal = document.createTextNode(d.doTitle);
-	// 				titleTd.appendChild(titleVal);
-	//
-	// 				const memNoTd = document.createElement('td');
-	// 				const memNoVal = document.createTextNode(d.memName);
-	// 				memNoTd.appendChild(memNoVal);
-	//
-	// 				const createDateTd = document.createElement('td');
-	// 				createDateTd.innerText = d.doCreateDate;
-	//
-	// 				const doViewsTd = document.createElement('td');
-	// 				const doViewsVal = document.createTextNode(d.doViews);
-	// 				doViewsTd.appendChild(doViewsVal);
-	//
-	// 				tr.appendChild(noTd);
-	// 				tr.appendChild(titleTd);
-	// 				tr.appendChild(memNoTd);
-	// 				tr.appendChild(createDateTd);
-	// 				tr.appendChild(doViewsTd);
-	//
-	// 				tbody.appendChild(tr);
-	// 			}
-	// 		},
-	// 		error: (xhr, status, error) => {
-	// 			// console.error('오류:', error); // 에러 메시지 출력
-	// 		}
-	// 	});
-	// };
+
+
+	document.querySelectorAll('input[name="type"]').forEach((radio) => {
+		radio.addEventListener('change', (e) => {
+			const type = e.target.value; // 선택된 라디오 버튼의 value
+			sortList(type); // 정렬 함수 호출
+		});
+	});
+
+	const sortList = (type) => {
+		$.ajax({
+			url: '/order',
+			data: { type: type }, // 선택된 정렬 타입 전달
+			success: (data) => {
+				const tbody = document.querySelector('tbody'); // tbody 선택
+				tbody.innerHTML = ''; // 기존 내용 초기화
+				for (const d of data) {
+					const tr = document.createElement('tr');
+					tr.innerHTML = `
+                    <td>${d.doNo}</td>
+                    <td>${d.doTitle}</td>
+                    <td>${d.memName}</td>
+                    <td>${d.doCreateDate}</td>
+                    <td>${d.doViews}</td>
+                `;
+					tbody.appendChild(tr);
+				}
+			},
+			error: (xhr, status, error) => {
+				console.error('오류:', error); // 오류 처리
+			},
+		});
+	};
+
+
 </script>
 </html>
