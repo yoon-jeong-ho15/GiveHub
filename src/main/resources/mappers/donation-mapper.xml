@@ -45,7 +45,7 @@
                 do_Title like '%${doTitle}%'
             </if>
             <if test="memName != null">
-                mem_name like + '%${memName}%'
+                mem_name like '%${memName}%'
             </if>
         </where>
     </select>
