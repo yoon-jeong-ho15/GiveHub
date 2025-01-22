@@ -1,10 +1,11 @@
 	<!DOCTYPE html>
-	<html>
+	<html xmlns:th="http://www.thymeleaf.org">
 	<head>
+		<link href="/css/reset.css" rel="stylesheet" type="text/css">
+		<link href="/css/common.css" rel="stylesheet" type="text/css">
+		<link href="/css/navBar.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
 		<style>
-			@charset "UTF-8";
-			@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Batang&family=Noto+Sans+KR:wght@100..900&family=Orbit&display=swap');
 			body {
 				font-family: 'Arial', sans-serif;
 				margin: 0;
@@ -52,11 +53,26 @@
 			button:hover {
 				background-color: #4caf75;
 			}
+			.main_menu_wrap a {
+				color: #1a1a1a !important;
+			}
+
+
+			.login_wrap button {
+				background: none;
+				color: #1a1a1a !important;
+				border: none;
+				font-size: 1rem;
+				font-weight: 500;
+				cursor: pointer;
+			}
 		</style>
 		<meta charset="UTF-8">
 		<title>후원 모집글 작성</title>
 	</head>
 	<body>
+	<div th:replace="~{/common/navbar.html :: navbar}"></div>
+	<script src="/js/tinymce/common.js"></script>
 		<h2>후원 모집</h2>
 		<form id="donationForm" method="post">
 			<table align="center" style="margin-top: 100px;">

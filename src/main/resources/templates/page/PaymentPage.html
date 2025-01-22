@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,9 +39,24 @@
         .submit-btn:hover {
             background-color: #45a049;
         }
+        .main_menu_wrap a {
+            color: #1a1a1a !important;
+        }
+
+
+        .login_wrap button {
+            background: none;
+            color: #1a1a1a !important;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+<div th:replace="~{/common/navbar.html :: navbar}"></div>
+<script src="/js/tinymce/common.js"></script>
     <div class="container">
         <form action="/pay" method="post">
             <div>
