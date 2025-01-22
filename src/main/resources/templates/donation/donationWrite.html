@@ -1,9 +1,11 @@
 	<!DOCTYPE html>
-	<html>
+	<html xmlns:th="http://www.thymeleaf.org">
 	<head>
+		<link href="/css/reset.css" rel="stylesheet" type="text/css">
+		<link href="/css/common.css" rel="stylesheet" type="text/css">
+		<link href="/css/navBar.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
 		<style>
-			@charset "UTF-8";
 			body {
 				font-family: 'Arial', sans-serif;
 				margin: 0;
@@ -51,11 +53,26 @@
 			button:hover {
 				background-color: #4caf75;
 			}
+			.main_menu_wrap a {
+				color: #1a1a1a !important;
+			}
+
+
+			.login_wrap button {
+				background: none;
+				color: #1a1a1a !important;
+				border: none;
+				font-size: 1rem;
+				font-weight: 500;
+				cursor: pointer;
+			}
 		</style>
 		<meta charset="UTF-8">
 		<title>후원 모집글 작성</title>
 	</head>
 	<body>
+	<div th:replace="~{/common/navbar.html :: navbar}"></div>
+	<script src="/js/tinymce/common.js"></script>
 		<h2>후원 모집</h2>
 		<form id="donationForm" method="post">
 			<table align="center" style="margin-top: 100px;">
@@ -77,6 +94,8 @@
 					<th align="left">
 						<label>만원</label>
 					</th>
+				</tr>
+				<tr>
 					<th>
 						<label>카테고리</label>
 					</th>
@@ -98,7 +117,7 @@
 						<label>후원 시작일</label>
 					</th>
 					<td>
-						<input type="date" id="doStartDate" name="doStartDate" required>
+						<input type="date" id="doStartDate" name="doStartDate">
 					</td>
 					<th align="left">
 						<label for="doEndDate">후원 마감일</label>
@@ -122,28 +141,109 @@
 		</form>
 		<script>
 			window.onload = () =>{
-				tinymce.init({
-					license_key: "gpl",
-	                selector: "#editor",
-	                resize: "both"
-	                height: 600,
-                	plugins: ["image", "media", "emoticons"],
-                	menubar: false,
-                	toolbar: "undo redo | bold italic | alignleft "+
-	                    "aligncenter alignright alignjustify outdent indent "+
-	                    "| image  media | forecolor backcolor emoticons",
-               	 file_picker_types: "image"
-				});
+
+				/*날짜 관련 함수*/
+				const today = new Date().toISOString().substring(0, 10);
+				const tomorrow = new Date(Date.now() + 86400000).toISOString().substring(0,10);
 				
-				document.getElementById('recruit').onclick = e =>{
+				document.getElementById("doStartDate").value = tomorrow;
+				document.getElementById("doStartDate").addEventListener("change", function(){
+					if(this.value<today){
+						alert("start date < today");
+						this.value=today;
+					}
+				})
+
+				document.getElementById("doEndDate").addEventListener("change", function(){
+					const start = document.getElementById("doStartDate").value;
+					if (this.value<start){
+						alert("start date > end date");
+						this.value=null;
+					}
+				});
+
+				document.getElementById('submit').onclick = e =>{
 					const dept = document.getElementsByName('type')[0];
 					if(dept.value.indexOf('-') == 0){
 						alert('후원종류 선택은 필수 선택 항목입니다');
 						dept.focus();
 						e.preventDefault();
 					}
-				}
+				};
+
+
+				/*금액 관련 함수*/
+				document.getElementById("doGoal").addEventListener("change", function(){
+					if (this.value < 0){
+						alert("less than 0");
+					}
+				});
+
+
+				/*게시글 api*/
+				tinymce.init({
+					license_key: "gpl",
+	                selector: "#doContent",
+	                resize: "both",
+	                height: 600,
+                	plugins: "image media emoticons",
+                	menubar: false,
+                	statusbar: false,
+                	promotion: false,
+                	toolbar: "undo redo | fontfamily fontsize bold italic forecolor backcolor | alignleft "+
+	                    "aligncenter alignright alignjustify "+
+	                    "| image  media emoticons",
+                    font_family_formats :
+				        "Noto Sans KR=Noto Sans KR;" +
+				        "Noto Serif KR=Noto Serif KR;"+
+				        "Gowun Batang=Gowun Batang;"+
+				        "Gowun Dodum=Gowun Dodum;"+
+				        "Orbit=Orbit;"+
+				        "Nanum Gothic=Nanum Gothic;"+
+				        "Nanum Myeongjo=Nanum Myeongjo;"+
+				        "Nanum Brush Script=Nanum Brush Script;",
+			        font_size_formats : "12pt 14pt 16pt 18pt 20pt 24pt 28pt 36pt 48pt",
+                    content_style: "@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Gowun+Dodum&family=Nanum+Brush+Script&family=Nanum+Gothic&family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR:wght@200..900&family=Orbit&display=swap');",
+               	 	file_picker_types: "image",
+               	 	file_picker_callback: function(callback, value, meta){
+               	 		const input = document.createElement("input");
+	                    input.setAttribute("type", "file");
+	                    input.setAttribute("accept", "image/*");
+
+	                    input.onchange = async function(){
+	                        const file = this.files[0];
+	                        const formData = new FormData();
+	                        formData.append("image", file);
+
+	                        try{
+	                            const response = await fetch("/image/upload", {
+	                                method: "POST",
+	                                body: formData
+	                            });
+
+	                            if (!response.ok){
+	                                throw new Error("Upload failed");
+	                            }
+
+	                            const path = await response.text();
+
+	                            callback(path, {title: file.name});
+	                        } catch(error){
+	                            console.error("upload failed : ", error);
+	                        }
+	                    }
+	                    input.click();
+               	 	}
+				});
+	
 			}
+
+
+
+
+
+
+
 		</script>    
 
 	</body>

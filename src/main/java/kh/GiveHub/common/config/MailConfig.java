@@ -15,7 +15,7 @@ public class MailConfig {
         mailSender.setHost("smtp.gmail.com"); // 메일 호스트
         mailSender.setPort(587); // 메일 포트번호
         mailSender.setUsername("givehub0@gmail.com"); // 웹사이트 메일
-        mailSender.setPassword("otij wulr dber gvga"); // 비밀번호
+        mailSender.setPassword("otij wulr dber gvga"); // 앱 비밀번호
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");

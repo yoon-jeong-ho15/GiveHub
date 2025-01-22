@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
 	<title>아이디 찾기</title>
@@ -7,7 +7,7 @@
 	<title>기부 내역 조회</title><link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-	<style type="text/css">
+	<style>
 		form{
 			display: flex;
 			flex-direction: column;
@@ -39,6 +39,20 @@
 			color: white;
 			font-size: 12pt;
 			margin-top: 20px;
+		}
+
+		.main_menu_wrap a {
+			color: #1a1a1a !important;
+		}
+
+
+		.login_wrap button {
+			background: none;
+			color: #1a1a1a !important;
+			border: none;
+			font-size: 1rem;
+			font-weight: 500;
+			cursor: pointer;
 		}
 	</style>
 </head>

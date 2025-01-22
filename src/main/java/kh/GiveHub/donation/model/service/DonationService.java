@@ -12,22 +12,23 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 
 public class DonationService {
-	private final DonationMapper mapper;
+    private final DonationMapper mapper;
 
-	public ArrayList<Donation> donationlist(String category) {
-		return mapper.donationlist(category);
-	}
     public int deleteDona(String no) {
         return mapper.deleteDona(no);
     }
 
-    public ArrayList<Donation> selectDonaList() {
-        return mapper.selectDonaList();
+    public ArrayList<Donation> selectDonaList(int i) {
+        return mapper.selectDonaList(i);
     }
-	public ArrayList<Donation> categorySelect(String category) {
-		// TODO Auto-generated method stub
-		return mapper.categorySelect(category);
-	}
-    
-}
 
+    public ArrayList<Donation> selectCategory(String category) {
+        return mapper.selectCategory(category);
+    }
+
+    public ArrayList<Donation> orderBy(String type) {
+        return mapper.selectOrderBy(type);
+    }
+
+    public ArrayList<Donation> search(Donation d) { return mapper.search(d);}
+}

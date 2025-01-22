@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>마이페이지</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>기부 내역 조회</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -13,7 +12,7 @@
 	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<style type="text/css">
+<style>
 body * {
 	font-family: "inter";
 }
@@ -94,10 +93,13 @@ span {
 	margin-left: 4px;
 	visibility: hidden;
 }
+
+
 </style>
 </head>
 <body>
-<!-- 	<div th:replace="~{/common/navbar.html :: navbar}"></div> -->
+<div th:replace="~{/common/navbar.html :: navbar}"></div>
+<script src="/js/tinymce/common.js"></script>
 	<h1>내 정보 수정</h1>
 	<form action="editMyInfo" method="post">
 		<div class="row">
