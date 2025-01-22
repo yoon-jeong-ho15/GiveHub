@@ -4,6 +4,7 @@
 		<link href="/css/reset.css" rel="stylesheet" type="text/css">
 		<link href="/css/common.css" rel="stylesheet" type="text/css">
 		<link href="/css/navBar.css" rel="stylesheet" type="text/css">
+		<link href="/css/footer.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
 		<style>
 			body {
@@ -139,6 +140,9 @@
 			</textarea>
 			<button id="submit">후원 모집</button>	
 		</form>
+	<footer>
+		<div th:replace="~{/common/footer.html :: footer_bar}"></div>
+	</footer>
 		<script>
 			window.onload = () =>{
 
