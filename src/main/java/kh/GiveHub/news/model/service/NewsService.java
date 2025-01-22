@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Service
 @RequiredArgsConstructor
 public class NewsService {
-	private final NewsMapper mapper;
+    private final NewsMapper mapper;
 
     public News selectNews(String nNo) {
         return mapper.selectNews(nNo);
@@ -24,4 +24,10 @@ public class NewsService {
     public int deleteNews(String nNo) {
         return mapper.deleteNews(nNo);
     }
+
+    public ArrayList<News> nnewsList() {
+        return mapper.nnewsList();
+    }
+
+
 }

@@ -18,4 +18,5 @@ public class News {
     private String memNo;
     private String doNo;
     private String doTitle;
+    private String memName;
 }
