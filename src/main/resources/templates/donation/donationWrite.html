@@ -1,107 +1,97 @@
-	<!DOCTYPE html>
-	<html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<link href="/css/reset.css" rel="stylesheet" type="text/css">
-		<link href="/css/common.css" rel="stylesheet" type="text/css">
-		<link href="/css/navBar.css" rel="stylesheet" type="text/css">
-		<script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
-		<style>
-			body {
-				font-family: 'Arial', sans-serif;
-				margin: 0;
-				padding: 0;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-				height: 100vh;
-			}
-			#loginTop {
-				margin-bottom: 10px;
-				font-size: 24px;
-				color: #333;
-				text-align: center;
-			}
-			th {
-				font-size: 14px;
-				color: #555;
-				padding-bottom: 10px;
-			}
-			#title,
-			#goal,
-			#category,
-			#deadline,
-			#content
-			{
-				width: 100%;
-				padding: 10px;
-				font-size: 14px;
-				border: 1px solid #ccc;
-				border-radius: 4px;
-				box-sizing: border-box;
-				margin-bottom: 10px;
-			}
-			button {
-				padding: 10px 20px;
-				font-size: 14px;
-				background-color: #5cc78d;
-				color: white;
-				border: none;
-				border-radius: 4px;
-				cursor: pointer;
-			}
-			button:hover {
-				background-color: #4caf75;
-			}
-			.main_menu_wrap a {
-				color: #1a1a1a !important;
-			}
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 
+<head>
+	<link href="/css/reset.css" rel="stylesheet" type="text/css">
+	<link href="/css/common.css" rel="stylesheet" type="text/css">
+	<link href="/css/navBar.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
+	<style>
+		body {
+			display: flex;
+			flex-direction: column;
+		}
 
-			.login_wrap button {
-				background: none;
-				color: #1a1a1a !important;
-				border: none;
-				font-size: 1rem;
-				font-weight: 500;
-				cursor: pointer;
-			}
-		</style>
-		<meta charset="UTF-8">
-		<title>후원 모집글 작성</title>
-	</head>
-	<body>
+		#loginTop {
+			margin-bottom: 10px;
+			font-size: 24px;
+			color: #333;
+			text-align: center;
+		}
+
+		#submitBtn {
+			padding: 10px 20px;
+			font-size: 14px;
+			background-color: #5cc78d;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		#submitBtn:hover {
+			background-color: #4caf75;
+		}
+		.sec1{
+			display: flex;
+			flex-direction: row;
+		}
+		.sec2{
+			display: flex;
+			flex-direction: column;
+			margin-top: 30px;
+		}
+		.main{
+			margin-top: 250px;
+		}
+		h2{
+			margin: 20px;
+			font-size: 160%;
+		}
+
+	</style>
+	<meta charset="UTF-8">
+	<title>후원 모집글 작성</title>
+</head>
+
+<body>
 	<div th:replace="~{/common/navbar.html :: navbar}"></div>
-	<script src="/js/tinymce/common.js"></script>
-		<h2>후원 모집</h2>
-		<form id="donationForm" method="post">
-			<table align="center" style="margin-top: 100px;">
+	<script src="/js/common.js"></script>
+	
+	<div class="main">
+	<h2>후원 모집</h2>
+	<form>
+		<section class="sec1">
+			<table>
 				<tr>
-					<th align="left">
-						<label for="title">제목</label>
-					</th>
-					<td colspan="4">
-						<input type="text" id="doTitle" name="doTitle" placeholder="프로젝트 제목을 입력하세요" required>
-					</td>
-				</tr>
-				<tr>
-					<th align="left">
-						<label for="goal" >목표 금액</label>
-					</th>
 					<td>
-						<input type="number" id="doGoal" name="doGoal" placeholder="목표 금액을 입력하세요" step="100" required>
+						<label for="title">제목</label>
 					</td>
-					<th align="left">
-						<label>만원</label>
-					</th>
+					<td>
+						<input type="text" id="doTitle" name="doTitle" 
+						placeholder="프로젝트 제목을 입력하세요" required>
+					</td>
 				</tr>
 				<tr>
-					<th>
+					<td>
+						<label for="goal">목표 금액</label>
+					</td>
+					<td>
+						<input type="number" id="fakeGoal" 
+						placeholder="목표 금액을 입력하세요" 
+						step="100" min="0">
+						<input type="hidden" id="doGoal" 
+						name="doGoal">
+						<label>만원</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
 						<label>카테고리</label>
-					</th>
-					<th>
-						<select id="doCategory" name="doCategory" required>
-							<option>-----------------------------------</option>
+					</td>
+					<td>
+						<select id="doCategory" name="doCategory">
+							<option value=null>-----------------------------------</option>
 							<option value="아동/청소년">아동/청소년</option>
 							<option value="동물">동물</option>
 							<option value="어르신">어르신</option>
@@ -110,141 +100,48 @@
 							<option value="환경">환경</option>
 							<option value="다문화">다문화</option>
 						</select>
-					</th>
+					</td>
 				</tr>
 				<tr>
-					<th>
+					<td>
 						<label>후원 시작일</label>
-					</th>
+					</td>
 					<td>
 						<input type="date" id="doStartDate" name="doStartDate">
+						부터
 					</td>
-					<th align="left">
-						<label for="doEndDate">후원 마감일</label>
-					</th>
-					<td> 
-						<input type="date" id="doEndDate" name="doEndDate" required>
-					</td>
-					<th colspan="3" align="left">
-						까지
-					</th>
 				</tr>
 				<tr>
-					<th align="left">
-						<label for="content">게시글 내용</label>
-					</th>
+					<td>
+						<label for="doEndDate">후원 마감일</label>
+					</td>
+					<td>
+						<input type="date" id="doEndDate" name="doEndDate" required>
+						까지
+					</td>
 				</tr>
 			</table>
-			<textarea id="doContent" name="doContent" placeholder="프로젝트에 대한 자세한 설명을 작성하세요" required>	
+			<div>
+				<label>썸네일</label>
+				<button type="button" id="thumbBtn">넣기</button>
+				<div width="425px" height="300px">
+					<img id="thumbPre" src="/img/board_img05.jpg">
+				</div>
+			</div>
+		</section>
+		<section class="sec2">
+			<h2>게시글 내용</h2>
+			<textarea id="doContent" name="doContent" 
+			placeholder="프로젝트에 대한 자세한 설명을 작성하세요" >
 			</textarea>
-			<button id="submit">후원 모집</button>	
-		</form>
-		<script>
-			window.onload = () =>{
+			<div class="buttonDiv">
+				<button type="button" id="submitBtn">후원 모집</button>
+				<button type="button" id="backBtn">뒤로가기</button>
+			</div>
+		</section>
+	</form>
+	</div>
+	<script src="/js/donationWrite.js"></script>
+</body>
 
-				/*날짜 관련 함수*/
-				const today = new Date().toISOString().substring(0, 10);
-				const tomorrow = new Date(Date.now() + 86400000).toISOString().substring(0,10);
-				
-				document.getElementById("doStartDate").value = tomorrow;
-				document.getElementById("doStartDate").addEventListener("change", function(){
-					if(this.value<today){
-						alert("start date < today");
-						this.value=today;
-					}
-				})
-
-				document.getElementById("doEndDate").addEventListener("change", function(){
-					const start = document.getElementById("doStartDate").value;
-					if (this.value<start){
-						alert("start date > end date");
-						this.value=null;
-					}
-				});
-
-				document.getElementById('submit').onclick = e =>{
-					const dept = document.getElementsByName('type')[0];
-					if(dept.value.indexOf('-') == 0){
-						alert('후원종류 선택은 필수 선택 항목입니다');
-						dept.focus();
-						e.preventDefault();
-					}
-				};
-
-
-				/*금액 관련 함수*/
-				document.getElementById("doGoal").addEventListener("change", function(){
-					if (this.value < 0){
-						alert("less than 0");
-					}
-				});
-
-
-				/*게시글 api*/
-				tinymce.init({
-					license_key: "gpl",
-	                selector: "#doContent",
-	                resize: "both",
-	                height: 600,
-                	plugins: "image media emoticons",
-                	menubar: false,
-                	statusbar: false,
-                	promotion: false,
-                	toolbar: "undo redo | fontfamily fontsize bold italic forecolor backcolor | alignleft "+
-	                    "aligncenter alignright alignjustify "+
-	                    "| image  media emoticons",
-                    font_family_formats :
-				        "Noto Sans KR=Noto Sans KR;" +
-				        "Noto Serif KR=Noto Serif KR;"+
-				        "Gowun Batang=Gowun Batang;"+
-				        "Gowun Dodum=Gowun Dodum;"+
-				        "Orbit=Orbit;"+
-				        "Nanum Gothic=Nanum Gothic;"+
-				        "Nanum Myeongjo=Nanum Myeongjo;"+
-				        "Nanum Brush Script=Nanum Brush Script;",
-			        font_size_formats : "12pt 14pt 16pt 18pt 20pt 24pt 28pt 36pt 48pt",
-                    content_style: "@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Gowun+Dodum&family=Nanum+Brush+Script&family=Nanum+Gothic&family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR:wght@200..900&family=Orbit&display=swap');",
-               	 	file_picker_types: "image",
-               	 	file_picker_callback: function(callback, value, meta){
-               	 		const input = document.createElement("input");
-	                    input.setAttribute("type", "file");
-	                    input.setAttribute("accept", "image/*");
-
-	                    input.onchange = async function(){
-	                        const file = this.files[0];
-	                        const formData = new FormData();
-	                        formData.append("image", file);
-
-	                        try{
-	                            const response = await fetch("/image/upload", {
-	                                method: "POST",
-	                                body: formData
-	                            });
-
-	                            if (!response.ok){
-	                                throw new Error("Upload failed");
-	                            }
-
-	                            const path = await response.text();
-
-	                            callback(path, {title: file.name});
-	                        } catch(error){
-	                            console.error("upload failed : ", error);
-	                        }
-	                    }
-	                    input.click();
-               	 	}
-				});
-	
-			}
-
-
-
-
-
-
-
-		</script>    
-
-	</body>
-	</html>
+</html>
