@@ -7,6 +7,7 @@
 <link href="/css/reset.css" rel="stylesheet" type="text/css">
 <link href="/css/common.css" rel="stylesheet" type="text/css">
 <link href="/css/navBar.css" rel="stylesheet" type="text/css">
+<link href="/css/footer.css" rel="stylesheet" type="text/css">
 <style>
 
     .page_wrap {
@@ -18,9 +19,6 @@
         align-items: center;
         height: 100vh;
     }
-
-
-
 
     #loginTop {
         margin-bottom: 10px;
@@ -139,6 +137,9 @@
         </table>
     </form>
 </div>
+<footer>
+    <div th:replace="~{/common/footer.html :: footer_bar}"></div>
+</footer>
     <script>
         const loginForm = document.getElementById('loginForm');
 
