@@ -243,4 +243,9 @@ public class MemberController {
             throw new MemberException("회원 정보 수정 중 오류가 남");
         }
     }
+    
+    @GetMapping("/findmyid")
+    public String findmyIdPage() {
+    	return "/member/findmyid";
+    }
 }

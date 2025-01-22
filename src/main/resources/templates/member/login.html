@@ -7,6 +7,7 @@
 <link href="/css/reset.css" rel="stylesheet" type="text/css">
 <link href="/css/common.css" rel="stylesheet" type="text/css">
 <link href="/css/navBar.css" rel="stylesheet" type="text/css">
+<link href="/css/footer.css" rel="stylesheet" type="text/css">
 <style>
 
     .page_wrap {
@@ -18,9 +19,6 @@
         align-items: center;
         height: 100vh;
     }
-
-
-
 
     #loginTop {
         margin-bottom: 10px;
@@ -130,15 +128,28 @@
                     
                 </td>
             </tr>
-
-            <tr>
                 <td colspan="2" align="center">
                     <button type="submit" class="login-btn">로그인</button>
                 </td>
             </tr>
         </table>
     </form>
+	<tr>
+		<td colspan="2">
+			<button type="button" onclick="location.href='/findmyid'">아이디 찾기</button>
+		</td>
+	</tr>
+		
+	<tr>
+		<td colspan="2" align="center">
+			<button type="submit"> 비밀번호 찾기</button>
+		</td>
+	<tr>
+            
 </div>
+<footer>
+    <div th:replace="~{/common/footer.html :: footer_bar}"></div>
+</footer>
     <script>
         const loginForm = document.getElementById('loginForm');
 
