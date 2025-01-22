@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../../static/css/reset.css" rel="stylesheet" type="text/css">
-<link href="../../static/css/common.css" rel="stylesheet" type="text/css">
-<link href="../../static/css/index.css" rel="stylesheet" type="text/css">
+<link href="/css/reset.css" rel="stylesheet" type="text/css">
+<link href="/css/common.css" rel="stylesheet" type="text/css">
+<link href="/css/navBar.css" rel="stylesheet" type="text/css">
 <style>
+
 .my_info_container {
     width: 25%;
     margin-right: 72px;
@@ -101,9 +102,26 @@ label.delete_user {
 .info_detail_wrap table tr td:first-child {
     width: 110px;
 }
+.main_menu_wrap a {
+	color: #1a1a1a !important;
+}
+
+
+.login_wrap button {
+	background: none;
+	color: #1a1a1a !important;
+	border: none;
+	font-size: 1rem;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+
 </style>
 </head>
 <body>
+<div th:replace="~{/common/navbar.html :: navbar}"></div>
+<script src="/js/tinymce/common.js"></script>
 	<div class="container info_container">
 		<div class="my_info_container">
 			<div class="my_info_menu_wrap">

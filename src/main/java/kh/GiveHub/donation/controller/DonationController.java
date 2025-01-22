@@ -28,7 +28,6 @@ public class DonationController {
 
 	@GetMapping("/finishedList")
 	public String finishedList(HttpSession session) {
-
 		return "/member/mydonation";
 	}
 
