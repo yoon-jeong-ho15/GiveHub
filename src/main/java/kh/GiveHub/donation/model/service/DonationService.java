@@ -29,4 +29,6 @@ public class DonationService {
     public ArrayList<Donation> orderBy(String type) {
         return mapper.selectOrderBy(type);
     }
+
+    public ArrayList<Donation> search(Donation d) { return mapper.search(d);}
 }
