@@ -13,4 +13,9 @@ public interface DonationMapper {
     ArrayList<Donation> selectCategory(String category);
 
     int deleteDona(String no);
+
+
+    ArrayList<Donation> selectOrderBy(String type);
+
+    ArrayList<Donation> search(Donation d);
 }

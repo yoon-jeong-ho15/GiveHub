@@ -18,6 +18,38 @@
         where do_category = #{category}
     </select>
 
+    <select id="selectOrderBy" >
+        select * from donation
+        join member using(mem_no)
+        <choose>
+            <when test="type == 'popular'">
+                order by do_views desc
+            </when>
+            <when test="type == 'recent'">
+                order by do_createdate desc
+            </when>
+            <when test="type == 'urgent'">
+                order by do_enddate asc
+            </when>
+        </choose>
+    </select>
+
+
+    <select id="search">
+        select *
+        from donation
+        join member
+        using(mem_no)
+        <where>
+            <if test="doTitle != null">
+                do_Title like '%${doTitle}%'
+            </if>
+            <if test="memName != null">
+                mem_name like '%${memName}%'
+            </if>
+        </where>
+    </select>
+
 
 
 

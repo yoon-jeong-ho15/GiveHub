@@ -45,15 +45,15 @@ public class MemberController {
 
     @PostMapping("/member/login")
     public String login(Member m, Model model) {
-        System.out.println(bcrypt.encode(m.getMemPwd()));
-        Member loginUser = mService.login(m);
-
-        if(loginUser != null && bcrypt.matches(m.getMemPwd(), loginUser.getMemPwd())) {
-            model.addAttribute("loginUser", loginUser);
-            return "redirect:/";
-        }else {
-            throw new MemberException("실패");
-        }
+    	System.out.println(bcrypt.encode(m.getMemPwd()));
+    	Member loginUser = mService.login(m);
+        System.out.println(loginUser);
+        model.addAttribute("loginUser", loginUser);
+        if(loginUser != null && bcrypt.matches(m.getMemPwd(), loginUser.getMemPwd()) && !loginUser.getMemType().equals("2")) {
+    		return "redirect:/";
+    	}else {
+    		return "redirect:/admin/main";
+    	}
     }
 
     //로그아웃
@@ -173,9 +173,12 @@ public class MemberController {
     // 관리자 메인페이지(회원관리 페이지)
     @GetMapping("/admin/main")
     public String adminMain(Model model) {
-        ArrayList<Member> list = mService.selectMemberList();
-        model.addAttribute("list", list);
-        return "/admin/main";
+        if (model.getAttribute("loginUser") != null) {
+            ArrayList<Member> list = mService.selectMemberList();
+            model.addAttribute("list", list);
+            return "/admin/main";
+        }
+        throw new MemberException("실패");
     }
 
     @GetMapping("/admin/selectNo")
