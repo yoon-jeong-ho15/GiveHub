@@ -170,7 +170,7 @@
 						e.preventDefault();
 					}
 				};
-				/*날짜 관련 끝*/
+
 
 				/*금액 관련 함수*/
 				document.getElementById("doGoal").addEventListener("change", function(){
@@ -178,7 +178,7 @@
 						alert("less than 0");
 					}
 				});
-				/*금액 관련 끝*/
+
 
 				/*게시글 api*/
 				tinymce.init({
@@ -202,10 +202,37 @@
 				        "Nanum Gothic=Nanum Gothic;"+
 				        "Nanum Myeongjo=Nanum Myeongjo;"+
 				        "Nanum Brush Script=Nanum Brush Script;",
+			        font_size_formats : "12pt 14pt 16pt 18pt 20pt 24pt 28pt 36pt 48pt",
                     content_style: "@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&family=Gowun+Dodum&family=Nanum+Brush+Script&family=Nanum+Gothic&family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@100..900&family=Noto+Serif+KR:wght@200..900&family=Orbit&display=swap');",
                	 	file_picker_types: "image",
                	 	file_picker_callback: function(callback, value, meta){
-               	 		
+               	 		const input = document.createElement("input");
+	                    input.setAttribute("type", "file");
+	                    input.setAttribute("accept", "image/*");
+
+	                    input.onchange = async function(){
+	                        const file = this.files[0];
+	                        const formData = new FormData();
+	                        formData.append("image", file);
+
+	                        try{
+	                            const response = await fetch("/image/upload", {
+	                                method: "POST",
+	                                body: formData
+	                            });
+
+	                            if (!response.ok){
+	                                throw new Error("Upload failed");
+	                            }
+
+	                            const path = await response.text();
+
+	                            callback(path, {title: file.name});
+	                        } catch(error){
+	                            console.error("upload failed : ", error);
+	                        }
+	                    }
+	                    input.click();
                	 	}
 				});
 	
