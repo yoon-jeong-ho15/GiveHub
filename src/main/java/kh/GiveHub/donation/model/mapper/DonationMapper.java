@@ -11,4 +11,6 @@ public interface DonationMapper {
     ArrayList<Donation> selectDonaList(int i);
 
     ArrayList<Donation> selectCategory(String category);
+
+    int deleteDona(String no);
 }

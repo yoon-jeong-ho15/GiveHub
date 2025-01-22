@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import kh.GiveHub.member.model.service.RecaptchaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,31 +34,34 @@ public class MemberController {
 
     private final BCryptPasswordEncoder bcrypt;
 
+    private final RecaptchaService recaptchaService;
+
+
     //로그인 화면 연결
     @GetMapping("/member/login")
     public String logIn() {
-    	return "/member/login";
+        return "/member/login";
     }
 
     @PostMapping("/member/login")
     public String login(Member m, Model model) {
-    	System.out.println(bcrypt.encode(m.getMemPwd()));
-    	Member loginUser = mService.login(m);
-    	
-    	if(loginUser != null && bcrypt.matches(m.getMemPwd(), loginUser.getMemPwd())) {
-    		model.addAttribute("loginUser", loginUser);
-    		return "redirect:/";
-    	}else {
-    		throw new MemberException("실패");
-    	}
+        System.out.println(bcrypt.encode(m.getMemPwd()));
+        Member loginUser = mService.login(m);
+
+        if(loginUser != null && bcrypt.matches(m.getMemPwd(), loginUser.getMemPwd())) {
+            model.addAttribute("loginUser", loginUser);
+            return "redirect:/";
+        }else {
+            throw new MemberException("실패");
+        }
     }
 
     //로그아웃
     @GetMapping("/member/logout")
-	   public String logout(SessionStatus session) {
-	      session.setComplete();
-	      return "redirect:/";
-	  }
+    public String logout(SessionStatus session) {
+        session.setComplete();
+        return "redirect:/";
+    }
 
     // 회원가입
     @GetMapping("/member/join")
@@ -70,6 +75,7 @@ public class MemberController {
             m.setMemConfirm("W");
         }else{
             m.setMemConfirm("Y");
+
         }
         m.setMemGrade("UNRANK");
         m.setMemPwd(bcrypt.encode(m.getMemPwd()));
@@ -115,6 +121,38 @@ public class MemberController {
        }
    }*/
 
+
+//    @PostMapping("/member/join")
+//    public String join(@ModelAttribute Member m,
+//                       @RequestParam("recaptchaResponse") String recaptchaResponse, // reCAPTCHA 응답 파라미터 이름 수정
+//                       Model model) {
+//        // 1. reCAPTCHA 검증 수행
+//        if (recaptchaResponse == null || !recaptchaService.verifyRecaptcha(recaptchaResponse)) {
+//            model.addAttribute("error", "reCAPTCHA 인증에 실패했습니다. 다시 시도하세요.");
+//            return "/member/join"; // 회원가입 페이지로 다시 이동
+//        }
+//
+//        // 2. 회원 정보 처리
+//        if ("1".equals(m.getMemType())) {
+//            m.setMemConfirm("W");
+//        } else {
+//            m.setMemConfirm("Y");
+//        }
+//        m.setMemGrade("UNRANK");
+//        m.setMemPwd(bcrypt.encode(m.getMemPwd()));
+//
+//        // 3. 회원가입 수행
+//        int result = mService.memberJoin(m);
+//        if (result > 0) {
+//            return "redirect:/";
+//        }
+//
+//        model.addAttribute("error", "회원가입에 실패했습니다.");
+//        return "/member/join"; // 회원가입 페이지로 다시 이동
+//    }
+
+
+
     @GetMapping("/member/join.id")
     @ResponseBody
     public int checkId(@RequestParam("id") String id) {
@@ -123,7 +161,7 @@ public class MemberController {
 
     @GetMapping("/member/mypage")
     public String mypage() {
-    	return "/member/mypage";
+        return "/member/mypage";
     }
 
 
@@ -166,40 +204,40 @@ public class MemberController {
         }
         throw new MemberException("실패");
     }
-    
+
     @GetMapping("/member/editMyInfo")
     public String MembereditMyInfo() {
-    	return "/member/editmyinfo";
+        return "/member/editmyinfo";
     }
-  
+
     @GetMapping(value="checkEmail",produces="application/json; charset=UTF-8")
     @ResponseBody
     public int checkIdDuplication(@RequestParam("email") String email) {
-    	System.out.println(email);
-    	int result = mService.checkIdDuplication(email);
-    	System.out.println(result);
-    	
-    	return result;
+        System.out.println(email);
+        int result = mService.checkIdDuplication(email);
+        System.out.println(result);
+
+        return result;
     }
-  
+
     @PostMapping("/member/editMyInfo")
     public String editMemberInfo(@ModelAttribute Member m , HttpSession session,Model model) {
-    	Member loginUser = (Member)session.getAttribute("loginUser");
-    	m.setMemNo(loginUser.getMemNo());
-    	
-    	if(m.getMemPwd().trim().equals("")) {
-    		m.setMemPwd(loginUser.getMemPwd());
-    	}else {
-    		m.setMemPwd(bcrypt.encode(m.getMemPwd()));
-    	}
-    	int result = mService.editMemberInfo(m);
-    	
-    	System.out.println(result);
-    	if(result>0) {
-    		model.addAttribute("loginUser",mService.login(m));
-    		return "redirect:/";
-    	}else {
-    		throw new MemberException("회원 정보 수정 중 오류가 남");
-    	}
+        Member loginUser = (Member)session.getAttribute("loginUser");
+        m.setMemNo(loginUser.getMemNo());
+
+        if(m.getMemPwd().trim().equals("")) {
+            m.setMemPwd(loginUser.getMemPwd());
+        }else {
+            m.setMemPwd(bcrypt.encode(m.getMemPwd()));
+        }
+        int result = mService.editMemberInfo(m);
+
+        System.out.println(result);
+        if(result>0) {
+            model.addAttribute("loginUser",mService.login(m));
+            return "redirect:/";
+        }else {
+            throw new MemberException("회원 정보 수정 중 오류가 남");
+        }
     }
 }

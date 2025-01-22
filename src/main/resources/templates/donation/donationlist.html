@@ -6,6 +6,10 @@
 	<title>기부 게시판 조회페이지</title>
 <!--	 <link href="../../static/css/reset.css" rel="stylesheet" type="text/css"> -->
 <!--	 <link href="../../static/css/common.css" rel="stylesheet" type="text/css">-->
+	<link href="/css/reset.css" rel="stylesheet" type="text/css">
+	<link href="/css/common.css" rel="stylesheet" type="text/css">
+	<link href="/css/navBar.css" rel="stylesheet" type="text/css">
+
 </head>
 <style>
 	.doantion_list_wrap h1 {
@@ -65,7 +69,19 @@
 	tr.board td:first-child {
 		padding: 0.7rem 0rem 1rem;
 	}
+	.main_menu_wrap a {
+		color: #1a1a1a !important;
+	}
 
+
+	.login_wrap button {
+		background: none;
+		color: #1a1a1a !important;
+		border: none;
+		font-size: 1rem;
+		font-weight: 500;
+		cursor: pointer;
+	}
 
 
 
@@ -73,6 +89,8 @@
 
 </style>
 <body>
+<div th:replace="~{/common/navbar.html :: navbar}"></div>
+<script src="/js/tinymce/common.js"></script>
 <section class="doantion_list_wrap">
 	<button th:if="${session.loginUser == null}" id="login" type="button" onclick="location.href='/donation/donationWrite'">
 		후원글 작성

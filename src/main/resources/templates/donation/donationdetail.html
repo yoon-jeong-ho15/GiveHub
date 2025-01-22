@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -8,11 +8,28 @@
 	type="text/css">
 <link href="../../static/css/donationDetailPage.css" rel="stylesheet"
 	type="text/css">
+<link href="/css/navBar.css" rel="stylesheet" type="text/css">
+	<style>
+		.main_menu_wrap a {
+			color: #1a1a1a !important;
+		}
+
+
+		.login_wrap button {
+			background: none;
+			color: #1a1a1a !important;
+			border: none;
+			font-size: 1rem;
+			font-weight: 500;
+			cursor: pointer;
+		}
+	</style>
 </head>
 <style>
 </style>
 <body>
-
+<div th:replace="~{/common/navbar.html :: navbar}"></div>
+<script src="/js/tinymce/common.js"></script>
 	<section>
 		<div class="container">
 			<div class="detail_title_wrap">

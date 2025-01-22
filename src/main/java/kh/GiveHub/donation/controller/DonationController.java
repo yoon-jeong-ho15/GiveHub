@@ -31,9 +31,9 @@ public class DonationController {
 	
 	@GetMapping("/finishedList")
 	public String finishedList(HttpSession session) {
-		
-		return "/member/mydonation";
 
+		return "/member/mydonation";
+	}
 
 	@GetMapping("/admin/donaList")
 	public String newsList(Model model) {
