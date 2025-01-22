@@ -9,11 +9,12 @@
 	<link href="/css/reset.css" rel="stylesheet" type="text/css">
 	<link href="/css/common.css" rel="stylesheet" type="text/css">
 	<link href="/css/navBar.css" rel="stylesheet" type="text/css">
-
+	<link href="/css/footer.css" rel="stylesheet" type="text/css">
 </head>
 <style>
 	.doantion_list_wrap h1 {
 		font-size: 2rem;
+		padding-top: 100px;
 		margin-bottom: 2rem;
 	}
 	.category_btn_wrap button {
@@ -93,9 +94,7 @@
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
 <script src="/js/tinymce/common.js"></script>
 <section class="doantion_list_wrap">
-	<button th:if="${session.loginUser == null}" id="login" type="button" onclick="location.href='/donation/donationWrite'">
-		후원글 작성
-	</button>
+	
 	<div class="container">
 		<div class="dCategory">
 			<h1>캠페인</h1>
@@ -149,9 +148,15 @@
 					</tr>
 				</tbody>
 			</table>
+			<button th:if="${session.loginUser == null}" id="login" type="button" onclick="location.href='/donation/donationWrite'">
+				후원글 작성
+			</button>
 		</div>
 	</div>
 </section>
+<footer>
+	<div th:replace="~{/common/footer.html :: footer_bar}"></div>
+</footer>
 </body>
 
 <script th:inline="javascript">
