@@ -185,5 +185,10 @@ public class MemberController {
     	
     }
     
+    @GetMapping("/findmyid")
+    public String findmyIdPage() {
+    	return "/member/findmyid";
+    }
+    
     
 }
