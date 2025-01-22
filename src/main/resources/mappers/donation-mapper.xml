@@ -35,6 +35,22 @@
     </select>
 
 
+    <select id="search">
+        select *
+        from donation
+        join member
+        using(mem_no)
+        <where>
+            <if test="doTitle != null">
+                do_Title like '%${doTitle}%'
+            </if>
+            <if test="memName != null">
+                mem_name like + '%${memName}%'
+            </if>
+        </where>
+    </select>
+
+
 
 
 

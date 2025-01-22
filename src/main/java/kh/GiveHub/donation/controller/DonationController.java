@@ -5,10 +5,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.donation.model.service.DonationService;
@@ -62,6 +59,10 @@ public class DonationController {
 			return "donation/donationWrite";
 		}
 
+
+
+
+
 		@GetMapping("/donation/donationlist")
 		public String donationList(Model model) {
 			ArrayList<Donation> list = dService.selectDonaList(0); // 기본 전체 목록
@@ -83,8 +84,22 @@ public class DonationController {
 		@GetMapping("/order")
 		@ResponseBody
 		public ArrayList<Donation> order(@RequestParam("type") String type) {
-			return dService.orderBy(type); // Service에 type 전달
+			return dService.orderBy(type);
 		}
+
+		@GetMapping("/search")
+		@ResponseBody
+		public ArrayList<Donation> search(@RequestParam("selectItem") String item, @RequestParam("searchInput") String searchInput) {
+			Donation d = new Donation();
+			if (item.equals("doTitle")){
+				d.setDoTitle(searchInput);
+			}else{
+				d.setMemName(searchInput);
+			}
+			return dService.search(d);
+		}
+
+
 
 
 	}
