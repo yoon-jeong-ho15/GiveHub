@@ -31,75 +31,75 @@ public class DonationController {
 		return "/member/mydonation";
 	}
 
-		@GetMapping("/admin/donaList")
-		public String newsList (Model model){
-			ArrayList<Donation> list = dService.selectDonaList(0);
-			model.addAttribute("list", list);
-			return "/admin/donaList";
-		}
-
-		@GetMapping("/admin/donaDelete/{no}")
-		public String deleteDona (@PathVariable("no") String no){
-			int result = dService.deleteDona(no);
-			if (result > 0) {
-				return "redirect:/admin/donaList";
-			} else {
-				throw new MemberException("실패");
-			}
-		}
-
-		@GetMapping("payment")
-		public String paymentPage () {
-			return "page/paymentPage";
-		}
-
-		@GetMapping("/donation/donationWrite")
-		public String donationWrite () {
-			return "donation/donationWrite";
-		}
-
-
-
-
-
-		@GetMapping("/donation/donationlist")
-		public String donationList(Model model) {
-			ArrayList<Donation> list = dService.selectDonaList(0); // 기본 전체 목록
-			model.addAttribute("list", list);
-			return "donation/donationlist";
-		}
-
-		@GetMapping("/category")
-		@ResponseBody
-		public ArrayList<Donation> category (@RequestParam("category") String category){
-//		System.out.println(category);
-			if (category.equals("all")) {
-				return dService.selectDonaList(1);
-			} else {
-				return dService.selectCategory(category);
-			}
-		}
-
-		@GetMapping("/order")
-		@ResponseBody
-		public ArrayList<Donation> order(@RequestParam("type") String type) {
-			return dService.orderBy(type);
-		}
-
-		@GetMapping("/search")
-		@ResponseBody
-		public ArrayList<Donation> search(@RequestParam("selectItem") String item, @RequestParam("searchInput") String searchInput) {
-			Donation d = new Donation();
-			if (item.equals("doTitle")){
-				d.setDoTitle(searchInput);
-			}else{
-				d.setMemName(searchInput);
-			}
-			return dService.search(d);
-		}
-
-
-
-
+	@GetMapping("/admin/donaList")
+	public String newsList (Model model){
+		ArrayList<Donation> list = dService.selectDonaList(0);
+		model.addAttribute("list", list);
+		return "/admin/donaList";
 	}
+
+	@GetMapping("/admin/donaDelete/{no}")
+	public String deleteDona (@PathVariable("no") String no){
+		int result = dService.deleteDona(no);
+		if (result > 0) {
+			return "redirect:/admin/donaList";
+		} else {
+			throw new MemberException("실패");
+		}
+	}
+
+	@GetMapping("payment")
+	public String paymentPage () {
+		return "page/paymentPage";
+	}
+
+	@GetMapping("/donation/donationWrite")
+	public String donationWrite () {
+		return "donation/donationWrite";
+	}
+
+
+
+
+
+	@GetMapping("/donation/donationlist")
+	public String donationList(Model model) {
+		ArrayList<Donation> list = dService.selectDonaList(0); // 기본 전체 목록
+		model.addAttribute("list", list);
+		return "donation/donationlist";
+	}
+
+	@GetMapping("/category")
+	@ResponseBody
+	public ArrayList<Donation> category (@RequestParam("category") String category){
+//		System.out.println(category);
+		if (category.equals("all")) {
+			return dService.selectDonaList(1);
+		} else {
+			return dService.selectCategory(category);
+		}
+	}
+
+	@GetMapping("/order")
+	@ResponseBody
+	public ArrayList<Donation> order(@RequestParam("type") String type) {
+		return dService.orderBy(type);
+	}
+
+	@GetMapping("/search")
+	@ResponseBody
+	public ArrayList<Donation> search(@RequestParam("selectItem") String item, @RequestParam("searchInput") String searchInput) {
+		Donation d = new Donation();
+		if (item.equals("doTitle")){
+			d.setDoTitle(searchInput);
+		}else{
+			d.setMemName(searchInput);
+		}
+		return dService.search(d);
+	}
+
+
+
+
+}
 
