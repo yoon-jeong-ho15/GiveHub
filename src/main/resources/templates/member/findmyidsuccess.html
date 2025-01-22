@@ -5,6 +5,7 @@
 	<link href="/css/reset.css" rel="stylesheet" type="text/css">
 	<link href="/css/common.css" rel="stylesheet" type="text/css">
 	<link href="/css/navBar.css" rel="stylesheet" type="text/css">
+	<link href="/css/footer.css" rel="stylesheet" type="text/css">
 	<style>
 		.main_menu_wrap a {
 			color: #1a1a1a !important;
@@ -33,5 +34,8 @@
 			입력하신 정보로 총 ? 개의 아이디가 검색되었습니다.
 		</div>
 	</div>
+<footer>
+	<div th:replace="~{/common/footer.html :: footer_bar}"></div>
+</footer>
 </body>
 </html>
