@@ -1,6 +1,8 @@
 package kh.GiveHub.donation.model.service;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
@@ -31,4 +33,36 @@ public class DonationService {
     }
 
     public ArrayList<Donation> search(Donation d) { return mapper.search(d);}
+
+
+
+    public Donation selectDonation(int doNo, Integer id) {
+        Donation d = mapper.selectDonation(doNo);
+        if (d != null && id != null && d.getMemNo()==id) {
+            int result = mapper.updateCount(doNo);
+            if (result > 0) {
+                d.setDoViews(d.getDoViews() + 1);
+
+            }
+        }
+        return d;
+    }
+
+	public void setContent(int bid, String content) {
+		Pattern pattern = 
+				Pattern.compile("<img[^>]+?src=\"([^\"]+)\"[^>]*?>");
+		Matcher matcher = pattern.matcher(content);
+		StringBuilder newContent = new StringBuilder(content);
+		while(matcher.find()) {
+			String oldPath = matcher.group(1);
+			String newPath = oldPath.replace("/temp/", "/upload/");
+			int index = newContent.indexOf(oldPath);
+			newContent.replace(index, index+oldPath.length(), newPath);
+		}
+		mapper.setContent(bid, content);
+	}
+
+	public int insertDonation(Donation d) {
+		return mapper.insertDonation(d);
+	}
 }

@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/css/common.css" rel="stylesheet" type="text/css">
+    <link href="/css/navBar.css" rel="stylesheet" type="text/css">
+    <link href="/css/footer.css" rel="stylesheet" type="text/css">
     <title>기부 페이지</title>
     <style>
         body {
@@ -56,7 +61,7 @@
 </head>
 <body>
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
-<script src="/js/tinymce/common.js"></script>
+<script src="/js/common.js"></script>
     <div class="container">
         <form action="/pay" method="post">
             <div>
@@ -83,7 +88,9 @@
             <button type="button" class="submit-btn" id="payBtn">결제 하기</button>
         </form>
     </div>
-    
+<footer>
+    <div th:replace="~{/common/footer.html :: footer_bar}"></div>
+</footer>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script>
     // 아임포트 초기화

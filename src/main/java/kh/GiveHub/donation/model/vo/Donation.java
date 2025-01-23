@@ -21,6 +21,7 @@ public class Donation {
     private int doViews;
     private Date doCreateDate;
     private String doStatus;
-    private String memNo;
+    private int memNo;
     private String memName;
+    private String memId;
 }

@@ -59,5 +59,47 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <select id="selectDonation">
+        select *
+        from donation
+            join member using(mem_no)
+        where do_status = 'Y' and do_no =#{doNo}
+    </select>
+
+    <update id="updateCount">
+        update donation
+        set do_views = do_views + 1
+        where do_no = #{doNo}
+    </update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>
 

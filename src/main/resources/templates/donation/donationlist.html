@@ -9,11 +9,12 @@
 	<link href="/css/reset.css" rel="stylesheet" type="text/css">
 	<link href="/css/common.css" rel="stylesheet" type="text/css">
 	<link href="/css/navBar.css" rel="stylesheet" type="text/css">
-
+	<link href="/css/footer.css" rel="stylesheet" type="text/css">
 </head>
 <style>
 	.doantion_list_wrap h1 {
 		font-size: 2rem;
+		padding-top: 100px;
 		margin-bottom: 2rem;
 	}
 	.category_btn_wrap button {
@@ -91,12 +92,9 @@
 </style>
 <body>
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
-<script src="/js/tinymce/common.js"></script>
+<script src="/js/common.js"></script>
 <section class="doantion_list_wrap">
-	<button th:if="${session.loginUser == null}" id="login" type="button" onclick="location.href='/donation/donationWrite'">
-		후원글 작성
-	</button>
-	<div class="container">
+
 		<div class="dCategory">
 			<h1>캠페인</h1>
 
@@ -140,7 +138,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="d : ${donationList}">
+					<tr th:each="d:${donationList}">
 						<td th:text="${d.doNo}"></td>
 						<td th:text="${d.doTitle}"></td>
 						<td th:text="${d.memNo}"></td>
@@ -149,9 +147,14 @@
 					</tr>
 				</tbody>
 			</table>
+			<button th:if="${session.loginUser == null}" id="login" type="button" onclick="location.href='/donation/donationWrite'">
+				후원글 작성
+			</button>
 		</div>
-	</div>
 </section>
+<footer>
+	<div th:replace="~{/common/footer.html :: footer_bar}"></div>
+</footer>
 </body>
 
 <script th:inline="javascript">
@@ -168,7 +171,21 @@
 				donationList(category);
 			}
 		});
-	};
+
+
+		//디테일 페이지 이동
+		document.querySelector('tbody').addEventListener('click', function (event) {
+			let target = event.target; // 클릭된 요소
+
+			while (target.tagName !== 'TR') {
+				target = target.parentElement;
+				if (!target) return; // 예외 처리 (이벤트 버블링 방지)
+			}
+
+			const doNo = target.cells[0].innerText.trim();
+			location.href = "/donation/donationdetail/" + doNo;
+		});
+	}
 
 	const donationList = (category) => {
 		$.ajax({

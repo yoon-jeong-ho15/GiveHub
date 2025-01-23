@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>기부 내역 조회</title>
+	<link href="/css/reset.css" rel="stylesheet" type="text/css">
+	<link href="/css/common.css" rel="stylesheet" type="text/css">
+	<link href="/css/navBar.css" rel="stylesheet" type="text/css">
+	<link href="/css/footer.css" rel="stylesheet" type="text/css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
 	href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
 	rel="stylesheet">
-<style type="text/css">
-body * {
-	font-family: "inter";
-}
+<style>
 
 #buttonDiv {
 	margin-left: 70px;
@@ -23,7 +24,7 @@ body * {
 	height: 41px;
 	width: 280px;
 	background: #34D28B;
-	border: 0px;
+	border: 0 solid #fff;
 	border-radius: 14px;
 	color: white;
 	font-size: 12pt;
@@ -61,7 +62,7 @@ tr>td:nth-child(4) {
 td>button {
 	background: #edb1b2;
 	color: red;
-	border: 0px;
+	border: 0 solid #fff;
 	border-radius: 3px;
 	width: 40px;
 	height: 25px;
@@ -84,7 +85,7 @@ td>button {
 </head>
 <body>
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
-<script src="/js/tinymce/common.js"></script>
+<script src="/js/common.js"></script>
 	<div id="buttonDiv">
 		<button onclick="ongoingList()">진행중인 후원</button>
 		<button onclick="finishedList()">완료된 후원</button>
@@ -114,6 +115,9 @@ td>button {
 			</tr>
 		</table>
 	</div>
+<footer>
+	<div th:replace="~{/common/footer.html :: footer_bar}"></div>
+</footer>
 			<script type="text/javascript">
 			
 				function ongoingList() {

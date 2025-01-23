@@ -15,10 +15,38 @@
 	href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
 	rel="stylesheet">
 <style>
-form {
-	display: flex;
-	flex-direction: column;
-}
+		form{
+			display: flex;
+			flex-direction: column;
+		}
+		input{
+			height: 28px;
+			padding: 5px;
+			border: 1px solid gray;
+			border-radius: 10px;
+			width: 270px;
+			text-align: justify;
+		}
+		input[name^=rrn]{
+			width: 120px;
+		}
+		span{
+			font-size: 9pt;
+			color: #2ab54c;
+			margin-top: 0;
+			margin-left: 4px;
+			margin-bottom: 10px;
+		}
+		button{
+		 	height: 41px;
+			width: 280px;
+			background: #34D28B;
+			border: 0px;
+			border-radius: 14px;
+			color: white;
+			font-size: 12pt;
+			margin-top: 20px;
+		}
 
 input {
 	height: 28px;
@@ -102,6 +130,15 @@ button {
 	</div>
 
 
+<!-- 	<div th:replace="~{/common/navbar.html :: navbar}"></div> -->
+<script src="/js/common.js"></script>
+	<h1>아이디 찾기</h1>
+	<h3>회원가입 시 입력한 정보로 아이디를 찾을 수 있습니다.</h3>
+	<form action="findMyId" method="post">
+		<input type="text" name="name">
+		<span>회원가입시 등록한 이름을 입력해 주세요</span>
+		<button>확인</button>
+	</form>
 	<footer>
 		<div th:replace="~{/common/footer.html :: footer_bar}"></div>
 	</footer>

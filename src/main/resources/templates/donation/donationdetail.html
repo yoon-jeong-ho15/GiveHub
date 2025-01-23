@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../../static/css/reset.css" rel="stylesheet" type="text/css">
-<link href="../../static/css/common.css" rel="stylesheet"
+<link href="/css/reset.css" rel="stylesheet" type="text/css">
+<link href="/css/common.css" rel="stylesheet"
 	type="text/css">
-<link href="../../static/css/donationDetailPage.css" rel="stylesheet"
+<link href="/css/donationDetailPage.css" rel="stylesheet"
 	type="text/css">
 <link href="/css/navBar.css" rel="stylesheet" type="text/css">
+	<link href="/css/footer.css" rel="stylesheet" type="text/css">
 	<style>
 		.main_menu_wrap a {
 			color: #1a1a1a !important;
@@ -29,18 +30,18 @@
 </style>
 <body>
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
-<script src="/js/tinymce/common.js"></script>
+<script src="/js/common.js"></script>
 	<section>
 		<div class="container">
 			<div class="detail_title_wrap">
 				<p class="title_sub_text">후원</p>
-				<h1 class="donation_detail_text">남다른 돌봄</h1>
-				<p class="page_category">아동/청소년</p>
+				<h1 class="donation_detail_text">[[${d.doTitle}]]</h1>
+				<p class="page_category">[[${d.doCategory}]]</p>
 			</div>
 
 			<div class="donation_info">
 				<div class="donation_img_wrap">
-					<img src="../../static/img/donation_detail_img.jpg" alt="">
+					<img src="/img/donation_detail_img.jpg" alt="">
 				</div>
 				<div class="donation_info_text_wrap">
 					<ul>
@@ -65,9 +66,9 @@
 					<ul class="info_text_second">
 						<li><span><p style="font-weight: 500">목표금액</p></span> <span><p>500,000</p>
 								<span>원</span></span></li>
-						<li><span><p style="font-weight: 500">기부 기간</p></span> <span><p>2025.02.15</p>
+						<li><span><p style="font-weight: 500">기부 기간</p></span> <span><p>[[${d.doStartDate}]]</p>
 								<span>~</span>
-								<p>2025.06.14</p></span></li>
+								<p>[[${d.doEndDate}]]</p></span></li>
 					</ul>
 				</div>
 			</div>
@@ -93,6 +94,9 @@
 
 		</div>
 	</section>
+<footer>
+	<div th:replace="~{/common/footer.html :: footer_bar}"></div>
+</footer>
 
 
 </body>

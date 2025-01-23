@@ -34,4 +34,16 @@ public class NewsController {
 		}
 		throw new MemberException("실패");
 	}
+
+	// 사용자 소식 게시판
+	@GetMapping("/news/newsList")
+	public String nnewsList(Model model) {
+		ArrayList<News> list = nService.nnewsList();
+		model.addAttribute("list", list);
+		return "/news/newsList";
+	}
+
+//	@GetMapping("getList")
+
+
 }
