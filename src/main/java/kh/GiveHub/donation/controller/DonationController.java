@@ -27,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/donation")
 public class DonationController {
 
 	private final DonationService dService;
@@ -65,13 +64,13 @@ public class DonationController {
 		return "page/paymentPage";
 	}
 
-	@GetMapping("/donationWrite")
+	@GetMapping("/donation/donationWrite")
 	public String donationWrite () {
 		return "donation/donationWrite";
 	}
 
 
-	@GetMapping("/donationlist")
+	@GetMapping("/donation/donationlist")
 	public String donationList(Model model) {
 		ArrayList<Donation> list = dService.selectDonaList(0); // 기본 전체 목록
 		model.addAttribute("list", list);
@@ -81,7 +80,7 @@ public class DonationController {
 	@GetMapping("/category")
 	@ResponseBody
 	public ArrayList<Donation> category (@RequestParam("category") String category){
-//		System.out.println(category);
+		System.out.println(category);
 		if (category.equals("all")) {
 			return dService.selectDonaList(1);
 		} else {
