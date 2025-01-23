@@ -101,5 +101,64 @@ public class DonationController {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//기부페이지 상세보기
+	@GetMapping("/donation/donationdetail/{doNo}")
+	public void selectDona(@PathVariable("doNo") int doNo, HttpSession session) {
+		// 글 상세조회 + 조회수 수정(내가 내 글 조회 or 비회원 조회 -> 조회수 올라가지 않음)
+
+
+		//게시글이 존재하면, 게시글 데이터(b)를 donationdetail.html로 전달
+		//게시글이 존재하지 않으면 사용자 정의 예외 발생
+
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		String id = null;
+		if(loginUser != null) {
+			id = loginUser.getMemId();
+		}
+
+		//doNo, memId 를 서비스에 넘겨서 글쓴이 비교 로직 작성
+		Donation d = dService.selectDonation(doNo, id);
+
+
+
+
+
+
+	}
+
+
+
 }
 

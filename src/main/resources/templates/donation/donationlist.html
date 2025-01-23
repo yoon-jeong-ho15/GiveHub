@@ -140,7 +140,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="d : ${donationList}">
+					<tr th:each="d:${donationList}">
 						<td th:text="${d.doNo}"></td>
 						<td th:text="${d.doTitle}"></td>
 						<td th:text="${d.memNo}"></td>
@@ -171,7 +171,21 @@
 				donationList(category);
 			}
 		});
-	};
+
+
+		//디테일 페이지 이동
+		document.querySelector('tbody').addEventListener('click', function (event) {
+			let target = event.target; // 클릭된 요소
+
+			while (target.tagName !== 'TR') {
+				target = target.parentElement;
+				if (!target) return; // 예외 처리 (이벤트 버블링 방지)
+			}
+
+			const doNo = target.cells[0].innerText.trim();
+			location.href = "/donationdetail/" + doNo;
+		});
+	}
 
 	const donationList = (category) => {
 		$.ajax({
