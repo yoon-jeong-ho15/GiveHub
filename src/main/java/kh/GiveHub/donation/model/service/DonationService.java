@@ -1,6 +1,8 @@
 package kh.GiveHub.donation.model.service;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
@@ -39,8 +41,17 @@ public class DonationService {
         return null;
     }
 
-	public void setContent(String content) {
-		// TODO Auto-generated method stub
-		
+	public void setContent(int bid, String content) {
+		Pattern pattern = 
+				Pattern.compile("<img[^>]+?src=\"([^\"]+)\"[^>]*?>");
+		Matcher matcher = pattern.matcher(content);
+		StringBuilder newContent = new StringBuilder(content);
+		while(matcher.find()) {
+			String oldPath = matcher.group(1);
+			String newPath = oldPath.replace("/temp/", "/upload/");
+			int index = newContent.indexOf(oldPath);
+			newContent.replace(index, index+oldPath.length(), newPath);
+		}
+		mapper.setContent(bid, content);
 	}
 }
