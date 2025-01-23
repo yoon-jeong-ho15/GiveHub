@@ -98,6 +98,7 @@ thumbBtn.addEventListener("click",function(){
         thumbPre.src = path;
         pathArr.push(path);
     }
+    input.click();
 });
 
 //이미지 임시 저장
