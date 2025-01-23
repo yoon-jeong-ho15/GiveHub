@@ -125,13 +125,14 @@ const processImage = async function(file, imgName, imgType){
 //////////
 
 /////버튼 관련
-const submitBtn = document.getElementById("submit");
+const submitBtn = document.getElementById("submitBtn");
 const backBtn = document.getElementById("backBtn");
 
 //제출 버튼
 submitBtn.addEventListener("click", async function (e) {
     //카테고리 유뮤 확인
     const doCategory = document.getElementById("doCategory");
+    console.log(doCategory.value);
     if (doCategory.value == null) {
         alert("donation category");
         doCategory.focus();
@@ -142,14 +143,15 @@ submitBtn.addEventListener("click", async function (e) {
     const form = document.querySelector("form");
     let bid;
     try {
-        const response = await fetch("donation/insert",{
+        const response = await fetch("/donation/insert",{
             method: "POST",
             body: new FormData(form)
         });
         if(!response.ok){
-            throw new Error("")
+            throw new Error("failed : insert donation")
         }
         bid = await response.json();
+        console.log(bid);
     } catch (error) {
         console.error
     }
@@ -160,7 +162,7 @@ submitBtn.addEventListener("click", async function (e) {
     const boardType = document.getElementById("boardType").value; 
 
     try {
-        const response = await fetch("image/upload",{
+        const response = await fetch("/image/upload",{
             method: "POST",
             headers:{
                 "Content-Type": "application/json"
@@ -173,9 +175,8 @@ submitBtn.addEventListener("click", async function (e) {
             })
         });
         if(!response.ok){
-            throw new Error("delete temp files failed");
+            throw new Error("failed : save upload");
         }
-
     } catch (error) {
         console.error(error);
     }
@@ -184,7 +185,7 @@ submitBtn.addEventListener("click", async function (e) {
 //뒤로가기 버튼 
 backBtn.addEventListener("click", async function(){
     try{
-        const response = await fetch("image/delete",{
+        const response = await fetch("/image/delete",{
             method: "DELETE",
             headers:{
                 "Content-Type": "application/json"
