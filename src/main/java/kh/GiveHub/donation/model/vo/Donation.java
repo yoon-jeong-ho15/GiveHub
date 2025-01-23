@@ -24,4 +24,5 @@ public class Donation {
     private int memNo;
     private String memName;
     private String memId;
+    private String thumbnailPath;
 }

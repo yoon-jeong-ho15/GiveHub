@@ -42,13 +42,12 @@ public class DonationService {
             int result = mapper.updateCount(doNo);
             if (result > 0) {
                 d.setDoViews(d.getDoViews() + 1);
-
             }
         }
         return d;
     }
 
-	public void setContent(int bid, String content) {
+	public int setContent(int bid, String content) {
 		Pattern pattern = 
 				Pattern.compile("<img[^>]+?src=\"([^\"]+)\"[^>]*?>");
 		Matcher matcher = pattern.matcher(content);
@@ -59,7 +58,7 @@ public class DonationService {
 			int index = newContent.indexOf(oldPath);
 			newContent.replace(index, index+oldPath.length(), newPath);
 		}
-		mapper.setContent(bid, content);
+		return mapper.setContent(bid, content);
 	}
 
 	public int insertDonation(Donation d) {

@@ -18,4 +18,5 @@ public class Image {
 	private String imgReame;
 	private String imgType;
 	private int refNo;
+	private String boardType;
 }

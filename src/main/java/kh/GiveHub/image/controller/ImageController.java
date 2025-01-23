@@ -57,14 +57,19 @@ public class ImageController {
 	public boolean saveUpload(
 			@RequestParam("uploadFileNames") List<String> list,
 			@RequestParam("bid") int bid, 
-			@RequestParam("content") String content,
-			@RequestParam("boardType") String boardType) {
-		if(iService.saveUpload(list, bid)) {
-			if(boardType.equals("donation")) {
-				dService.setContent(bid, content);
+			@RequestParam("boardType") String boardType,
+			@RequestParam("content") String content) {
+		boolean isUploaded = iService.saveUpload(list, bid, boardType);
+		int result = 0;
+		if (isUploaded) {
+			if(boardType.equals("D")) {
+				result = dService.setContent(bid, content);
 			}else {
-				nService.setContent(bid, content);
+				//result = nService.setContent(bid, content);
 			}
+		}
+		if(result>0) {
+			return true;
 		}
 		return false;
 	}
