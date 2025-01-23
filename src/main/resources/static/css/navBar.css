@@ -114,4 +114,20 @@ div#slide_up_menu {
     font-weight: 500;
     cursor: pointer;
 }
+
+/*.logged-in .main_menu_wrap a {*/
+/*    color: #1a1a1a !important;*/
+/*}*/
+
+/*.logged-in .login_wrap button {*/
+/*    background: none;*/
+/*    color: #1a1a1a !important;*/
+/*    border: none;*/
+/*    font-size: 1rem;*/
+/*    font-weight: 500;*/
+/*    cursor: pointer;*/
+/*}*/
+
+
+
 /* header end */

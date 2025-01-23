@@ -1,6 +1,8 @@
 package kh.GiveHub.member.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.member.model.exception.MemberException;
 import kh.GiveHub.member.model.service.MemberService;
+import kh.GiveHub.member.model.service.RecaptchaService;
 import kh.GiveHub.member.model.vo.Member;
 import lombok.RequiredArgsConstructor;
 
@@ -28,46 +31,34 @@ public class MemberController {
 
     private final BCryptPasswordEncoder bcrypt;
 
+    private final RecaptchaService recaptchaService;
+
+
     //로그인 화면 연결
     @GetMapping("/member/login")
     public String logIn() {
-    	return "/member/login";
+        return "/member/login";
     }
-
-    //로그인
-//    @PostMapping("/member/login")
-//    public String login(Member m, HttpSession session) {
-//
-//    	Member loginUser = mService.login(m);
-//    	if(loginUser != null) {
-//    		session.setAttribute("loginUser", loginUser);
-//    		return "redirect:/";
-//    	}else {
-//    		return "";
-//    	}
-//    }
 
     @PostMapping("/member/login")
     public String login(Member m, Model model) {
     	System.out.println(bcrypt.encode(m.getMemPwd()));
     	Member loginUser = mService.login(m);
-    	
-    	if(loginUser != null && bcrypt.matches(m.getMemPwd(), loginUser.getMemPwd())) {
-    		model.addAttribute("loginUser", loginUser);
+        System.out.println(loginUser);
+        model.addAttribute("loginUser", loginUser);
+        if(loginUser != null && bcrypt.matches(m.getMemPwd(), loginUser.getMemPwd()) && !loginUser.getMemType().equals("2")) {
     		return "redirect:/";
     	}else {
-    		throw new MemberException("실패");
+    		return "redirect:/admin/main";
     	}
     }
 
-
     //로그아웃
     @GetMapping("/member/logout")
-	   public String logout(SessionStatus session) {
-	      session.setComplete();
-	      return "redirect:/";
-	}
-
+    public String logout(SessionStatus session) {
+        session.setComplete();
+        return "redirect:/";
+    }
 
     // 회원가입
     @GetMapping("/member/join")
@@ -81,6 +72,7 @@ public class MemberController {
             m.setMemConfirm("W");
         }else{
             m.setMemConfirm("Y");
+
         }
         m.setMemGrade("UNRANK");
         m.setMemPwd(bcrypt.encode(m.getMemPwd()));
@@ -92,21 +84,81 @@ public class MemberController {
         throw new MemberException("실패");
     }
 
+    // reCAPTCHA 검증 로직 추가
+  /* @PostMapping("/member/join")
+   public ResponseEntity<Map<String, Object>> join(@RequestBody MemberDTO memberDTO) {
+       // reCAPTCHA 검증
+       boolean isHuman = mService.verifyRecaptcha(memberDTO.getRecaptchaResponse());
+
+       if (!isHuman) {
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                   .body(Map.of("success", false, "message", "reCAPTCHA 인증 실패"));
+       }
+
+       // 회원가입 로직 유지
+       Member member = new Member();
+       member.setMemId(memberDTO.getMemId());
+       member.setMemPwd(bcrypt.encode(memberDTO.getMemPwd()));
+       member.setMemName(memberDTO.getMemName());
+       member.setMemGrade("UNRANK");
+
+       if ("1".equals(memberDTO.getMemType())) {
+           member.setMemConfirm("W");
+       } else {
+           member.setMemConfirm("Y");
+       }
+
+       int result = mService.memberJoin(member);
+
+       if (result > 0) {
+           return ResponseEntity.ok(Map.of("success", true, "message", "회원가입 성공"));
+       } else {
+           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                   .body(Map.of("success", false, "message", "회원가입 실패"));
+       }
+   }*/
+
+
+//    @PostMapping("/member/join")
+//    public String join(@ModelAttribute Member m,
+//                       @RequestParam("recaptchaResponse") String recaptchaResponse, // reCAPTCHA 응답 파라미터 이름 수정
+//                       Model model) {
+//        // 1. reCAPTCHA 검증 수행
+//        if (recaptchaResponse == null || !recaptchaService.verifyRecaptcha(recaptchaResponse)) {
+//            model.addAttribute("error", "reCAPTCHA 인증에 실패했습니다. 다시 시도하세요.");
+//            return "/member/join"; // 회원가입 페이지로 다시 이동
+//        }
+//
+//        // 2. 회원 정보 처리
+//        if ("1".equals(m.getMemType())) {
+//            m.setMemConfirm("W");
+//        } else {
+//            m.setMemConfirm("Y");
+//        }
+//        m.setMemGrade("UNRANK");
+//        m.setMemPwd(bcrypt.encode(m.getMemPwd()));
+//
+//        // 3. 회원가입 수행
+//        int result = mService.memberJoin(m);
+//        if (result > 0) {
+//            return "redirect:/";
+//        }
+//
+//        model.addAttribute("error", "회원가입에 실패했습니다.");
+//        return "/member/join"; // 회원가입 페이지로 다시 이동
+//    }
+
+
+
     @GetMapping("/member/join.id")
     @ResponseBody
     public int checkId(@RequestParam("id") String id) {
         return mService.checkId(id);
     }
 
-    @PostMapping("/admin/editMyInfo")
-    public String editMyInfo() {
-    	return "editmyinfo";
-    }
-
-
     @GetMapping("/member/mypage")
     public String mypage() {
-    	return "/member/mypage";
+        return "/member/mypage";
     }
 
 
@@ -118,9 +170,12 @@ public class MemberController {
     // 관리자 메인페이지(회원관리 페이지)
     @GetMapping("/admin/main")
     public String adminMain(Model model) {
-        ArrayList<Member> list = mService.selectMemberList();
-        model.addAttribute("list", list);
-        return "/admin/main";
+        if (model.getAttribute("loginUser") != null) {
+            ArrayList<Member> list = mService.selectMemberList();
+            model.addAttribute("list", list);
+            return "/admin/main";
+        }
+        throw new MemberException("실패");
     }
 
     @GetMapping("/admin/selectNo")
@@ -149,46 +204,153 @@ public class MemberController {
         }
         throw new MemberException("실패");
     }
-    
+
     @GetMapping("/member/editMyInfo")
     public String MembereditMyInfo() {
-    	return "/member/editmyinfo";
+        return "/member/editmyinfo";
     }
+
     @GetMapping(value="checkEmail",produces="application/json; charset=UTF-8")
     @ResponseBody
     public int checkIdDuplication(@RequestParam("email") String email) {
-    	System.out.println(email);
-    	int result = mService.checkIdDuplication(email);
-    	System.out.println(result);
-    	
-    	return result;
+        System.out.println(email);
+        int result = mService.checkIdDuplication(email);
+        System.out.println(result);
+
+        return result;
     }
+
     @PostMapping("/member/editMyInfo")
     public String editMemberInfo(@ModelAttribute Member m , HttpSession session,Model model) {
-    	Member loginUser = (Member)session.getAttribute("loginUser");
-    	m.setMemNo(loginUser.getMemNo());
-    	
-    	if(m.getMemPwd().trim().equals("")) {
-    		m.setMemPwd(loginUser.getMemPwd());
-    	}else {
-    		m.setMemPwd(bcrypt.encode(m.getMemPwd()));
-    	}
-    	int result = mService.editMemberInfo(m);
-    	
-    	System.out.println(result);
-    	if(result>0) {
-    		model.addAttribute("loginUser",mService.login(m));
-    		return "redirect:/";
-    	}else {
-    		throw new MemberException("회원 정보 수정 중 오류가 남");
-    	}
-    	
+        Member loginUser = (Member)session.getAttribute("loginUser");
+        m.setMemNo(loginUser.getMemNo());
+
+        if(m.getMemPwd().trim().equals("")) {
+            m.setMemPwd(loginUser.getMemPwd());
+        }else {
+            m.setMemPwd(bcrypt.encode(m.getMemPwd()));
+        }
+        int result = mService.editMemberInfo(m);
+
+        System.out.println(result);
+        if(result>0) {
+            model.addAttribute("loginUser",mService.login(m));
+            return "redirect:/";
+        }else {
+            throw new MemberException("회원 정보 수정 중 오류가 남");
+        }
     }
     
     @GetMapping("/findmyid")
     public String findmyIdPage() {
     	return "/member/findmyid";
     }
+    
+    @PostMapping("/member/findMyId")
+    public void findMyId(@RequestParam("name") String name) {
+    	
+    }
+    
+    @GetMapping("/findmyidsuccess")
+    public String findMyIdSuccess(@RequestParam("email") String email , Model model) {
+    	String memId = mService.findIdByEmail(email);
+    	System.out.println("잘 들어옴" + email);
+    	System.out.println(memId);
+    	model.addAttribute("memId",memId);
+    	
+    	return "/member/findmyidsuccess";
+    	
+    }
+    
+    @GetMapping("/findpassword")
+    public String findpasswordPage() {
+    	return "/member/findpassword";
+    }
+    
+    @PostMapping("/temporaryPwd")
+    @ResponseBody
+    public HashMap<String,String> temporaryPwd(@RequestParam("email") String email) {
+//    	System.out.println("들어온 이메일은 " + email);
+    	
+    	String tempPwd = tempPwdMk();
+    	String encodePwd =  bcrypt.encode(tempPwd);
+    	
+    	
+    	int updatePwdCode = mService.updateTempPwd(email,encodePwd);
+    	String memName = mService.findMemNameByEmail(email);
+    	
+    	HashMap<String,String> result = new HashMap<>();
+    	
+    	result.put("pwd", tempPwd);
+    	result.put("memName", memName);
+    	
+    	System.out.println(updatePwdCode);
+    	System.out.println(memName);
+    	
+    	if(updatePwdCode > 0) {
+    		return result;
+    	}else {
+    		throw new MemberException("오류 발생");
+    	}
+    }
+    
+    
+    @GetMapping("/findmypasswordsuccess")
+    public String findMyPwdSuccess(@RequestParam("pwd") String pwd ,@RequestParam("memName") String memName, Model model) {
+    	System.out.println("잘 들어옴" + pwd);
+    	System.out.println("아주 잘 들어옴 " + memName);
+    	model.addAttribute("memName",memName);
+    	model.addAttribute("memPwd",pwd);
+    	
+    	return "/member/findpasswordsuccess";
+    	
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //임시 비번 생성 메소드
+    private String tempPwdMk() {
+    	int length = 10;
+    	String chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    	StringBuilder password = new StringBuilder();
+    	Random random = new Random();
+    	
+    	for(int i=0;i<length;i++) {
+    		password.append(chars.charAt(random.nextInt(chars.length())));
+    	}
+    	
+    	
+    	return password.toString();
+    	
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
 }

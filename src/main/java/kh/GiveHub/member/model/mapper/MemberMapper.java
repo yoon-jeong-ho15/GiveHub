@@ -1,9 +1,11 @@
 package kh.GiveHub.member.model.mapper;
 
-import kh.GiveHub.member.model.vo.Member;
-import org.apache.ibatis.annotations.Mapper;
-
 import java.util.ArrayList;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import kh.GiveHub.member.model.vo.Member;
 
 @Mapper 
 public interface MemberMapper {
@@ -26,4 +28,10 @@ public interface MemberMapper {
 	int checkIdDuplication(String email);
 
 	int editMemberInfo(Member m);
+
+	String findMyId(String email);
+
+	int updateTempPwd(@Param("email") String email,@Param("encodePwd") String encodePwd);
+
+	String findMemNameByEmail(String email);
 }

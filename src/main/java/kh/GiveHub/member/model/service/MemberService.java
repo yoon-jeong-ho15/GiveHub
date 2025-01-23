@@ -51,4 +51,16 @@ public class MemberService {
 	public int editMemberInfo(Member m) {
 		return mapper.editMemberInfo(m);
 	}
+
+	public String findIdByEmail(String email) {
+		return mapper.findMyId(email);
+	}
+
+	public int updateTempPwd(String email, String encodePwd) {
+		return mapper.updateTempPwd(email,encodePwd);
+	}
+
+	public String findMemNameByEmail(String email) {
+		return mapper.findMemNameByEmail(email);
+	}
 }
