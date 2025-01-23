@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="utf-8">
-	<title>아이디 찾기</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>기부 내역 조회</title><link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-	<link href="/css/reset.css" rel="stylesheet" type="text/css">
-	<link href="/css/common.css" rel="stylesheet" type="text/css">
-	<link href="/css/navBar.css" rel="stylesheet" type="text/css">
-	<link href="/css/footer.css" rel="stylesheet" type="text/css">
-	<style>
+<link href="/css/reset.css" rel="stylesheet" type="text/css">
+<link href="/css/common.css" rel="stylesheet" type="text/css">
+<link href="/css/navBar.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<meta charset="utf-8">
+<title>아이디 찾기</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>기부 내역 조회</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+	rel="stylesheet">
+<style>
 		form{
 			display: flex;
 			flex-direction: column;
@@ -45,22 +48,88 @@
 			margin-top: 20px;
 		}
 
-		.main_menu_wrap a {
-			color: #1a1a1a !important;
-		}
+input {
+	height: 28px;
+	padding: 5px;
+	border: 1px solid gray;
+	border-radius: 10px;
+	width: 270px;
+	text-align: justify;
+}
 
+input[name^=rrn] {
+	width: 120px;
+}
 
-		.login_wrap button {
-			background: none;
-			color: #1a1a1a !important;
-			border: none;
-			font-size: 1rem;
-			font-weight: 500;
-			cursor: pointer;
-		}
-	</style>
+span {
+	font-size: 9pt;
+	color: #2ab54c;
+	margin-top: 0;
+	margin-left: 4px;
+	margin-bottom: 10px;
+}
+
+button {
+	height: 41px;
+	width: 280px;
+	background: #34D28B;
+	border: 0px;
+	border-radius: 14px;
+	color: white;
+	font-size: 12pt;
+	margin-top: 20px;
+}
+
+.main_menu_wrap a {
+	color: #1a1a1a !important;
+}
+
+.login_wrap button {
+	background: none;
+	color: #1a1a1a !important;
+	border: none;
+	font-size: 1rem;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+.container.container_center {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100vh;
+	align-items: center;
+}
+</style>
 </head>
 <body>
+	<!-- 	<div th:replace="~{/common/navbar.html :: navbar}"></div> -->
+	<div th:replace="~{/common/navbar.html :: navbar}"></div>
+
+	<div class="container container_center">
+
+		<h1>아이디 찾기</h1>
+		<h3>회원가입 시 입력한 정보로 아이디를 찾을 수 있습니다.</h3>
+		<form action="findMyId" method="post">
+			<input type="text" id="memName" name="memName"> 
+			<span>회원가입시 등록한 이름을 입력해 주세요</span>
+			<input type="text" id="memEmail" name="memEmail" >
+			<span>회원가입시 등록한 이메일을 입력해 주세요</span>
+			<button type="button" id="prove_btn">인증번호받기</button>
+			<button>확인</button>
+			<div class="form-group" id="mail_number" name="mail_number" style="visibility: hidden">
+                 <input type="text" name="confirmNumber" id="confirmNumber" class="form-control" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
+                 <span id="mail-check-warn"></span>
+                 <button type="button" name="confirmBtn" id="confirmBtn" style="margin-top: 20px">이메일 인증</button>
+                 <br>
+                 <input type="hidden" id="Confirm" name="Confirm" value="">
+            </div>
+			
+		</form>
+
+	</div>
+
+
 <!-- 	<div th:replace="~{/common/navbar.html :: navbar}"></div> -->
 <script src="/js/common.js"></script>
 	<h1>아이디 찾기</h1>
@@ -73,6 +142,54 @@
 	<footer>
 		<div th:replace="~{/common/footer.html :: footer_bar}"></div>
 	</footer>
+	
+	<script type="text/javascript">
+	
+		document.getElementById('prove_btn').addEventListener('click',()=>{
+			$.ajax({
+				url:'/findIdemailCheck',
+				method:'post',
+				data:{email:document.getElementById('memEmail').value},
+				success:data=>{
+                    document.querySelector('#Confirm').value = data;
+                    document.querySelector('#mail_number').style.visibility = 'visible';
+				},
+				error:data=>console.log('실패')
+			});
+		});
+		
+		document.getElementById('confirmBtn').addEventListener('click',()=>{
+			const confirmNumber = document.getElementById('confirmNumber').value;
+			const confirm = document.getElementById('Confirm').value;
+			const email = document.getElementById('memEmail').value;
+			if(confirmNumber == confirm){
+				alert('인증 완료');
+				
+				 window.location.href = `/findmyidsuccess?email=${encodeURIComponent(email)}`;
+				
+			}else{
+				alert('인증 실패');
+			}
+		});
+		
+	</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 </body>
 </html>

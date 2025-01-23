@@ -2,8 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>마이페이지</title>
+<link href="/css/reset.css" rel="stylesheet" type="text/css">
+<link href="/css/common.css" rel="stylesheet" type="text/css">
+<link href="/css/navBar.css" rel="stylesheet" type="text/css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -102,6 +104,7 @@ span {
 <script src="/js/common.js"></script>
 
 	<h1>내 정보 수정</h1>
+	<div class="container container_center">
 	<form action="editMyInfo" method="post">
 		<div class="row">
 			<div class="col" id="labelCol">
@@ -113,7 +116,7 @@ span {
 					<input type="text" name="memName" th:value="${session.loginUser.memName}">
 				</label>
 				<div id="emailDiv">
-					<label for="email"></label><input type="email" name="memId" id="email" th:value="${session.loginUser.memId}">
+					<label for="email"></label><input name="memId" id="email" th:value="${session.loginUser.memId}">
 					<button onclick="checkEmail(event)">중복확인</button>
 				</div>
 				<span id="emailCheckSpan">사용하실수 있는 아이디 입니다.</span>
@@ -127,6 +130,7 @@ span {
 		</div>
 		<button>확인</button>
 	</form>
+	</div>
 	<footer>
 		<div th:replace="~{/common/footer.html :: footer_bar}"></div>
 	</footer>

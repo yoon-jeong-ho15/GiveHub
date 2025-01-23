@@ -1,6 +1,9 @@
 package kh.GiveHub.member.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.member.model.exception.MemberException;
 import kh.GiveHub.member.model.service.MemberService;
+import kh.GiveHub.member.model.service.RecaptchaService;
 import kh.GiveHub.member.model.vo.Member;
 import lombok.RequiredArgsConstructor;
 
@@ -172,4 +176,85 @@ public class MemberController {
     public String findmyIdPage() {
     	return "/member/findmyid";
     }
+    
+    @PostMapping("/member/findMyId")
+    public void findMyId(@RequestParam("name") String name) {
+    	
+    }
+    
+    @GetMapping("/findmyidsuccess")
+    public String findMyIdSuccess(@RequestParam("email") String email , Model model) {
+    	String memId = mService.findIdByEmail(email);
+    	System.out.println("잘 들어옴" + email);
+    	System.out.println(memId);
+    	model.addAttribute("memId",memId);
+    	
+    	return "/member/findmyidsuccess";
+    	
+    }
+    
+    @GetMapping("/findpassword")
+    public String findpasswordPage() {
+    	return "/member/findpassword";
+    }
+    
+    @PostMapping("/temporaryPwd")
+    @ResponseBody
+    public HashMap<String,String> temporaryPwd(@RequestParam("email") String email) {
+//    	System.out.println("들어온 이메일은 " + email);
+    	
+    	String tempPwd = tempPwdMk();
+    	String encodePwd =  bcrypt.encode(tempPwd);
+    	
+    	
+    	int updatePwdCode = mService.updateTempPwd(email,encodePwd);
+    	String memName = mService.findMemNameByEmail(email);
+    	
+    	HashMap<String,String> result = new HashMap<>();
+    	
+    	result.put("pwd", tempPwd);
+    	result.put("memName", memName);
+    	
+    	System.out.println(updatePwdCode);
+    	System.out.println(memName);
+    	
+    	if(updatePwdCode > 0) {
+    		return result;
+    	}else {
+    		throw new MemberException("오류 발생");
+    	}
+    }
+    
+    
+    @GetMapping("/findmypasswordsuccess")
+    public String findMyPwdSuccess(@RequestParam("pwd") String pwd ,@RequestParam("memName") String memName, Model model) {
+    	System.out.println("잘 들어옴" + pwd);
+    	System.out.println("아주 잘 들어옴 " + memName);
+    	model.addAttribute("memName",memName);
+    	model.addAttribute("memPwd",pwd);
+    	
+    	return "/member/findpasswordsuccess";
+    	
+    }
+    
+    
+    
+    //임시 비번 생성 메소드
+    private String tempPwdMk() {
+    	int length = 10;
+    	String chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    	StringBuilder password = new StringBuilder();
+    	Random random = new Random();
+    	
+    	for(int i=0;i<length;i++) {
+    		password.append(chars.charAt(random.nextInt(chars.length())));
+    	}
+    	
+    	
+    	return password.toString();
+    	
+    }
+    
+    
+    
 }
