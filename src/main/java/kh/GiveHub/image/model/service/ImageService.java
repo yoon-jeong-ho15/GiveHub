@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -46,19 +47,29 @@ public class ImageService {
 	}
 
 	public boolean saveUpload(List<String> list, int bid, String BoardType) {
+		String uploadPath ="C:/GiveHub/upload/";
+		File dir = new File(uploadPath);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
 		for(String name : list) {
-			String sourcePath = "C:/GiveHub/temp/"+name;
-			String destPath = "C:/GiveHub/upload/"+name;
-			
+			String fileName = name.substring(name.lastIndexOf("/")+1);
+			String sourcePath = "C:/GiveHub/temp/"+fileName;
+			String destPath = "C:/GiveHub/upload/"+fileName;
+	        
 			try {
-				Files.move(Paths.get(sourcePath), Paths.get(destPath));
+				Files.copy(Paths.get(sourcePath), Paths.get(destPath), StandardCopyOption.REPLACE_EXISTING);
+//				Files.move(Paths.get(sourcePath), Paths.get(destPath));
+				
+				
 				Image img = new Image();
 				img.setImgPath("C:/GiveHub/upload/");
-				img.setImgName(name.substring(name.lastIndexOf("_")+1));
-				img.setImgReame(name);
-				img.setImgType(name.startsWith("T")? "0":"1");
+				img.setImgName(fileName.substring(fileName.lastIndexOf("_")+1));
+				img.setImgRename(fileName);
+				img.setImgType(fileName.startsWith("T")? "0":"1");
 				img.setRefNo(bid);
-				img.setBoardType(BoardType);
+				img.setBoardType(BoardType.equals("donation")? "D":"N");
+				mapper.insertImage(img);
 			} catch (IOException e) {
 				e.printStackTrace();
 				return false;

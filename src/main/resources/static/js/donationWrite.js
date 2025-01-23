@@ -162,17 +162,16 @@ submitBtn.addEventListener("click", async function (e) {
     const boardType = document.getElementById("boardType").value; 
 
     try {
+        const formData = new FormData();
+        pathArr.forEach(fileName=>{
+            formData.append("uploadFileNames", fileName);
+        });
+        formData.append("bid", bid);
+        formData.append("content", content);
+        formData.append("boardType", boardType);
         const response = await fetch("/image/upload",{
             method: "POST",
-            headers:{
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                uploadFileNames: pathArr,
-                bid: bid,
-                content: content,
-                boardType: boardType
-            })
+            body: formData
         });
         if(!response.ok){
             throw new Error("failed : save upload");
@@ -185,12 +184,13 @@ submitBtn.addEventListener("click", async function (e) {
 //뒤로가기 버튼 
 backBtn.addEventListener("click", async function(){
     try{
+        const formData = new FormData();
+        pathArr.forEach(fileName=>{
+            formData.append("uploadFileNames", fileName);
+        });
         const response = await fetch("/image/delete",{
             method: "DELETE",
-            headers:{
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({tempFileNames: pathArr})
+            body: formData
         });
         if (!response.ok){
             throw new Error("delete temp files failed");

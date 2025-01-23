@@ -15,7 +15,7 @@ public class Image {
 	private int imgNo;
 	private String imgPath;
 	private String imgName;
-	private String imgReame;
+	private String imgRename;
 	private String imgType;
 	private int refNo;
 	private String boardType;
