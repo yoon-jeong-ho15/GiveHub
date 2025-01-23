@@ -29,7 +29,7 @@ public class NewsService {
         return mapper.nnewsList();
     }
 
-	public void setContent(String content) {
+	public void setContent(int bid, String content) {
 		
 	}
 

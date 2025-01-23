@@ -43,7 +43,6 @@ public class ImageService {
 		} catch (IllegalStateException | IOException e) {
 			throw new ImageException("failed :  img transfer to /temp");
 		}
-
 	}
 
 	public boolean saveUpload(List<String> list, int bid) {
