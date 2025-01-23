@@ -31,7 +31,7 @@ fakeGoal.addEventListener("input", function () {
 
 
 /////게시글 작성 관련
-
+const pathArr =[];
 //api
 tinymce.init({
     license_key: "gpl",
@@ -72,25 +72,11 @@ tinymce.init({
 
         input.onchange = async function () {
             const file = this.files[0];
-            const formData = new FormData();
-            formData.append("image", file);
-
-            try {
-                const response = await fetch("/image/upload", {
-                    method: "POST",
-                    body: formData
-                });
-
-                if (!response.ok) {
-                    throw new Error("Upload failed");
-                }
-
-                const path = await response.text();
-
-                callback(path, { title: file.name });
-            } catch (error) {
-                console.error("upload failed : ", error);
-            }
+            const imgName = 
+            file.name.substring(file.name.lastIndexOf("/")+1);
+            const path = await processImage(file, imgName, 1);
+            pathArr.push(path);
+            callback(path, { title: file.name });
         }
         input.click();
     }
@@ -110,6 +96,7 @@ thumbBtn.addEventListener("click",function(){
             file.name.substring(file.name.lastIndexOf("/")+1);
         const path = await processImage(file, imgName, 0);
         thumbPre.src = path;
+        pathArr.push(path);
     }
 });
 
@@ -121,7 +108,7 @@ const processImage = async function(file, imgName, imgType){
     formData.append("imgType", imgType);
 
     try {
-        const response = await fetch("/image/upload",{
+        const response = await fetch("/image/temp",{
             method:"POST",
             body:formData
         });
@@ -130,22 +117,23 @@ const processImage = async function(file, imgName, imgType){
         }
         return await response.text();
     } catch (error) {
-        console.error("upload failed : ", error);
+        console.error(error);
     }
 };
 //////////
 
 /////버튼 관련
+const submitBtn = document.getElementById("submit");
+const backBtn = document.getElementById("backBtn");
 
 //제출 버튼
-const submitBtn = document.getElementById("submit");
-
 submitBtn.addEventListener("click", function () {
     //카테고리 확인
     const doCategory = document.getElementById("doCategory");
     if (doCategory.value == null) {
         alert("donation category");
         doCategory.focus();
+        return;
     }
     //제출
     const form = document.querySelector("form");
@@ -155,5 +143,21 @@ submitBtn.addEventListener("click", function () {
 });
 
 //뒤로가기 버튼 
-
+backBtn.addEventListener("click", async function(){
+    try{
+        const response = await fetch("image/delete",{
+            method: "DELETE",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({tempFileNames: pathArr})
+        });
+        const isDeleted = await response.json();
+        if (!isDeleted){
+            throw new Error("delete temp files failed");
+        }
+    }catch(error){
+        console.error(error);
+    }
+});
 //////////
