@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <style>
 @charset "UTF-8";
@@ -72,6 +72,8 @@ button:hover {
 
 </head>
 <body>
+<div th:replace="~{/common/navbar.html :: navbar}"></div>
+<script src="/js/common.js"></script>
     <form id="recruitForm" method="post">
         <table align="center" style="margin-top: 100px;">
 			<tr>        
@@ -149,6 +151,9 @@ button:hover {
 		    </tr>   
     	</table>
     </form>
+<footer>
+	<div th:replace="~{/common/footer.html :: footer_bar}"></div>
+</footer>
 	<script>
 		window.onload = () =>{
 			document.getElementById('recruit').onclick = e =>{
