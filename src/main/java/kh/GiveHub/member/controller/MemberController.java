@@ -1,11 +1,6 @@
 package kh.GiveHub.member.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import kh.GiveHub.member.model.service.RecaptchaService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +17,6 @@ import kh.GiveHub.member.model.exception.MemberException;
 import kh.GiveHub.member.model.service.MemberService;
 import kh.GiveHub.member.model.vo.Member;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 @Controller
 @RequiredArgsConstructor
@@ -33,9 +26,6 @@ public class MemberController {
     private final MemberService mService;
 
     private final BCryptPasswordEncoder bcrypt;
-
-    private final RecaptchaService recaptchaService;
-
 
     //로그인 화면 연결
     @GetMapping("/member/login")
