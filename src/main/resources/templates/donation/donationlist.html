@@ -31,6 +31,7 @@
 				<button id="animal" data-category="animal">동물</button>
 				<button id="environment" data-category="environment">환경</button>
 				<button id="etc" data-category="etc">기타</button>
+				<input type="hidden" id="dataSelect" value="all">
 			</div>
 
 			<div id="searchContainer" class="searchContainer">
@@ -43,8 +44,8 @@
 			</div>
 
 			<div id="sortCategory" class="sortCategory">
-				<input type="radio" id="popular" value="popular" name="type" checked/><label for="popular">인기순</label>
-				<input type="radio" id="recent" value="recent" name="type" /><label for="recent">최신순</label>
+				<input type="radio" id="recent" value="recent" name="type" checked/><label for="recent">최신순</label>
+				<input type="radio" id="popular" value="popular" name="type"/><label for="popular">인기순</label>
 				<input type="radio" id="urgent" value="urgent" name="type" /><label for="urgent">마감임박순</label>
 			</div>
 		</div>
@@ -82,20 +83,15 @@
 </body>
 
 <script th:inline="javascript">
-
 	//카테고리보기
+	let categorySelect = document.getElementById('dataSelect').value;
+	let searchItem = '';
+	let searchInput = null;
+	let optionSelect = 'recent';
 
 	window.onload = () => {
 		// '전체' 데이터를 가져와 렌더링
-		donationList('all');
-
-		document.getElementById('categoryBtn').addEventListener('click', (e) => {
-			if (e.target.tagName === 'BUTTON') {
-				const category = e.target.getAttribute('data-category');
-				donationList(category);
-			}
-		});
-
+		donationList(categorySelect, searchItem, searchInput, optionSelect);
 
 		//디테일 페이지 이동
 		document.querySelector('tbody').addEventListener('click', function (event) {
@@ -109,96 +105,59 @@
 			const doNo = target.cells[0].innerText.trim();
 			location.href = "/donation/donationdetail/" + doNo;
 		});
-	}
 
-	const donationList = (category) => {
-		$.ajax({
-			url: '/category', // 서버 요청 URL
-			data: { category: category },
-			success: (data) => {
-				const tbody = document.querySelector('tbody');
-				tbody.innerHTML = ''; // 기존 내용 초기화
-				for (const d of data) {
-					const tr = document.createElement('tr');
-					tr.innerHTML = `
-                    <td>${d.doNo}</td>
-                    <td>${d.doTitle}</td>
-                    <td>${d.memName}</td>
-                    <td>${d.doCreateDate}</td>
-                    <td>${d.doViews}</td>
-                `;
-					tbody.appendChild(tr);
+		document.getElementById('categoryBtn').addEventListener('click', (e) => {
+			if (e.target.tagName === 'BUTTON') {
+				document.getElementById('dataSelect').value = e.target.getAttribute('data-category');
+				categorySelect = document.getElementById('dataSelect').value;
+				if (categorySelect == 'all'){
+					searchInput = '';
+					document.getElementById('searchInput').value = '';
 				}
-			},
-			error: (xhr, status, error) => {
-				console.error('오류:', error);
+				donationList(categorySelect, searchItem, searchInput, optionSelect);
 			}
 		});
-	};
 
-
-	// 인기순/ 과거 현재순으로 정렬
-
-
-	document.querySelectorAll('input[name="type"]').forEach((radio) => {
-		radio.addEventListener('change', (e) => {
-			const type = e.target.value; // 선택된 라디오 버튼의 value
-			sortList(type); // 정렬 함수 호출
-		});
-	});
-
-	const sortList = (type) => {
-		$.ajax({
-			url: '/order',
-			data: { type: type }, // 선택된 정렬 타입 전달
-			success: (data) => {
-				const tbody = document.querySelector('tbody'); // tbody 선택
-				tbody.innerHTML = ''; // 기존 내용 초기화
-				for (const d of data) {
-					const tr = document.createElement('tr');
-					tr.innerHTML = `
-                    <td>${d.doNo}</td>
-                    <td>${d.doTitle}</td>
-                    <td>${d.memName}</td>
-                    <td>${d.doCreateDate}</td>
-                    <td>${d.doViews}</td>
-                `;
-					tbody.appendChild(tr);
-				}
-			},
-			error: (xhr, status, error) => {
-				console.error('오류:', error); // 오류 처리
-			},
+		// 인기순/ 과거 현재순으로 정렬
+		document.querySelectorAll('input[name="type"]').forEach((radio) => {
+			radio.addEventListener('change', (e) => {
+				optionSelect = e.target.value; // 선택된 라디오 버튼의 value
+				donationList(categorySelect, searchItem, searchInput, optionSelect) // 정렬 함수 호출
+			});
 		});
 
+		// 검색 버튼 클릭 이벤트
+		document.getElementById('searchButton').addEventListener('click', () => {
+			searchItem = document.getElementById('selectItem').value;
+			searchInput = document.getElementById('searchInput').value.trim();
+			donationList(categorySelect, searchItem, searchInput, optionSelect)
+		});
+	}
 
-
-	};
-
-	// 카테고리 + 검색 기능
-
-	const search = (selectItem, searchInput) => {
+	const donationList = (categorySelect, searchItem, searchInput, optionSelect) => {
 		$.ajax({
-			url: '/search', // 서버 요청 URL
-			type: 'GET', // 요청 방식 (GET/POST)
-			data: { selectItem: selectItem, searchInput: searchInput }, // 서버로 보낼 데이터
+			url: '/category', // 서버 요청 URL
+			data: {
+				categorySelect: categorySelect,
+				searchInput: searchInput,
+				optionSelect: optionSelect,
+				searchItem: searchItem
+			},
 			success: (data) => {
 				const tbody = document.querySelector('tbody');
-				tbody.innerHTML = ''; // 기존 내용 초기화
-
-				// 서버에서 받은 데이터를 반복 처리
-				if (data && data.length > 0) {
-					data.forEach(d => {
+				if (data != null) {
+					tbody.innerHTML = ''; // 기존 내용 초기화
+					for (const d of data) {
 						const tr = document.createElement('tr');
 						tr.innerHTML = `
-                        <td>${d.doNo}</td>
-                        <td>${d.doTitle}</td>
-                        <td>${d.memName}</td>
-                        <td>${d.doCreateDate}</td>
-                        <td>${d.doViews}</td>
-                    `;
+										<td>${d.doNo}</td>
+										<td>${d.doTitle}</td>
+										<td>${d.memName}</td>
+										<td>${d.doCreateDate}</td>
+										<td>${d.doViews}</td>
+									`;
 						tbody.appendChild(tr);
-					});
+					}
 				} else {
 					// 검색 결과가 없을 때
 					const tr = document.createElement('tr');
@@ -207,22 +166,10 @@
 				}
 			},
 			error: (xhr, status, error) => {
-				console.error('오류 발생:', error);
+				console.error('오류:', error);
 			}
 		});
 	};
-
-	// 검색 버튼 클릭 이벤트
-	document.getElementById('searchButton').addEventListener('click', () => {
-		const selectItem = document.getElementById('selectItem').value;
-		const searchInput = document.getElementById('searchInput').value.trim();
-		search(selectItem, searchInput);
-	});
-
-
-
-
-
 
 </script>
 </html>
