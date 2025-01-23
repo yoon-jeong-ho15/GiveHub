@@ -7,42 +7,7 @@
 		<link href="/css/footer.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
 		<style>
-			body {
-				font-family: 'Arial', sans-serif;
-				margin: 0;
-				padding: 0;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-				height: 100vh;
-			}
-			#loginTop {
-				margin-bottom: 10px;
-				font-size: 24px;
-				color: #333;
-				text-align: center;
-			}
-			th {
-				font-size: 14px;
-				color: #555;
-				padding-bottom: 10px;
-			}
-			#title,
-			#goal,
-			#category,
-			#deadline,
-			#content
-			{
-				width: 100%;
-				padding: 10px;
-				font-size: 14px;
-				border: 1px solid #ccc;
-				border-radius: 4px;
-				box-sizing: border-box;
-				margin-bottom: 10px;
-			}
-			button {
+			#submitBtn {
 				padding: 10px 20px;
 				font-size: 14px;
 				background-color: #5cc78d;
@@ -51,23 +16,24 @@
 				border-radius: 4px;
 				cursor: pointer;
 			}
-			button:hover {
+			#submitBtn:hover {
 				background-color: #4caf75;
 			}
-			.main_menu_wrap a {
-				color: #1a1a1a !important;
+			.main { 
+				margin-top: 15rem;
+				padding-left: 100px;
+				padding-right: 100px;
+			}
+			#thumbnailDiv{
+				width: 400px;
+				height: 250px;
+			}
+			.sec1{
+				display: flex;
+				flex-direction: row;
+
 			}
 
-
-			.login_wrap button {
-				background: none;
-				color: #1a1a1a !important;
-				border: none;
-				font-size: 1rem;
-				font-weight: 500;
-				cursor: pointer;
-			}
-			.main { margin-top: 60rem;}
 		</style>
 		<meta charset="UTF-8">
 		<title>후원 모집글 작성</title>
@@ -78,8 +44,9 @@
 	
 	<div class="main">
 	<h2>후원 모집</h2>
-	<form>
 		<section class="sec1">
+		<form>
+			<div class="tableDiv">
 			<table>
 				<tr>
 					<td>
@@ -139,16 +106,19 @@
 					</td>
 				</tr>
 			</table>
+		</form>
+			</div>
 			<div>
 				<label>썸네일</label>
 				<button type="button" id="thumbBtn">넣기</button>
-				<div width="425px" height="300px">
+				<div id="thumbnailDiv" width="425px" height="300px">
 					<img id="thumbPre" src="/img/board_img05.jpg">
 				</div>
 			</div>
 		</section>
 		<section class="sec2">
 			<h2>게시글 내용</h2>
+			<input type="hidden" value="donation" name="boardType">
 			<textarea id="doContent" name="doContent" 
 			placeholder="프로젝트에 대한 자세한 설명을 작성하세요" >
 			</textarea>
@@ -156,7 +126,6 @@
 				<button type="button" id="submitBtn">후원 모집</button>
 				<button type="button" id="backBtn">뒤로가기</button>
 			</div>	
-		</form>
 		<footer>
 			<div th:replace="~{/common/footer.html :: footer_bar}"></div>
 		</footer>

@@ -45,4 +45,9 @@ public class DonationService {
         }
         return d;
     }
+
+	public void setContent(String content) {
+		// TODO Auto-generated method stub
+		
+	}
 }
