@@ -18,4 +18,7 @@ public interface DonationMapper {
     ArrayList<Donation> selectOrderBy(String type);
 
     ArrayList<Donation> search(Donation d);
+
+
+    Donation selectDonation(int doNo);
 }

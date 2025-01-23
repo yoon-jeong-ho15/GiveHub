@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,10 +17,6 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
-body * {
-	font-family: "inter";
-}
-
 form {
 	display: flex;
 	flex-direction: column;
@@ -55,7 +51,7 @@ form>button {
 	height: 41px;
 	width: 280px;
 	background: #34D28B;
-	border: 0px;
+	border: 0 solid #fff;
 	border-radius: 14px;
 	color: white;
 	font-size: 12pt;
@@ -112,15 +108,19 @@ span {
 				<label>비밀번호 확인</label>
 			</div>
 			<div class="col" id="inputCol">
-				<input type="text" name="memName" th:value="${session.loginUser.memName}">
+				<label>
+					<input type="text" name="memName" th:value="${session.loginUser.memName}">
+				</label>
 				<div id="emailDiv">
-					<input type="email" name="memId" id="email" th:value="${session.loginUser.memId}">
+					<label for="email"></label><input type="email" name="memId" id="email" th:value="${session.loginUser.memId}">
 					<button onclick="checkEmail(event)">중복확인</button>
 				</div>
-				<span id="emailCheckSpan">사용하실수 있는 아이디 입니다.</span> 
-				<input type="text" name="memAddress" th:value="${session.loginUser.memAddress}"> 
-				<input type="password" id="pwd"name="memPwd"> 
-				<input type="password" name="pwdConfirm" id="pwdConfirm" >
+				<span id="emailCheckSpan">사용하실수 있는 아이디 입니다.</span>
+				<label>
+					<input type="text" name="memAddress" th:value="${session.loginUser.memAddress}">
+				</label>
+				<label for="pwd"></label><input type="password" id="pwd" name="memPwd">
+				<label for="pwdConfirm"></label><input type="password" name="pwdConfirm" id="pwdConfirm" >
 				<span id="pwdCheckSpan">비밀번호가 일치합니다</span>
 			</div>
 		</div>
@@ -186,4 +186,5 @@ span {
 		}
 
 	</script>
+</body>
 </html>
