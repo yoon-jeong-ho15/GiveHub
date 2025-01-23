@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfAR74qAAAAAEi5J95fxzUQHUClaI_P-dZDS0wo"></script>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <link href="/css/reset.css" rel="stylesheet" type="text/css">
@@ -122,7 +122,7 @@
         <tr>
             <th>아이디</th>
             <td>
-                <input type="email" id="mem_id" name="memId" placeholder="사용 하실 아이디(이메일)를 입력하세요." required>
+                <input type="text" id="mem_id" name="memId" placeholder="사용 하실 아이디(이메일)를 입력하세요." required>
             </td>
             <td>
                 <button type="button" id="checkId">아이디 중복확인</button>
@@ -159,6 +159,13 @@
         <tr>
             <td></td>
             <td><label id="confirmText"></label></td>
+        </tr>
+
+        <tr>
+            <th>이메일</th>
+            <td colspan="2">
+                <input type="email" id="mem_email" name="memEmail" placeholder="이메일을 입력하세요" required>
+            </td>
         </tr>
 
         <tr>
@@ -308,13 +315,13 @@
     });
 
     document.querySelector('#sendBtn').addEventListener('click', ()=>{
-        if (document.querySelector('#mem_id').value.trim() === ''){
-            alert('아이디를 입력해 주세요.');
+        if (document.querySelector('#mem_email').value.trim() === ''){
+            alert('이메일을 입력해 주세요.');
         }else{
             $.ajax({
                 url: '/emailCheck',
                 method:'post',
-                data:{email:document.querySelector('#mem_id').value},
+                data:{email:document.querySelector('#mem_email').value},
                 success:data=>{
                     document.querySelector('#Confirm').value = data;
                     document.querySelector('#mail_number').style.visibility = 'visible';
