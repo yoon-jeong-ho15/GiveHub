@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/donation")
 public class DonationController {
 
 	private final DonationService dService;
@@ -61,13 +63,13 @@ public class DonationController {
 		return "page/paymentPage";
 	}
 
-	@GetMapping("/donation/donationWrite")
+	@GetMapping("/donationWrite")
 	public String donationWrite () {
 		return "donation/donationWrite";
 	}
 
 
-	@GetMapping("/donation/donationlist")
+	@GetMapping("/donationlist")
 	public String donationList(Model model) {
 		ArrayList<Donation> list = dService.selectDonaList(0); // 기본 전체 목록
 		model.addAttribute("list", list);
@@ -110,6 +112,7 @@ public class DonationController {
 		d.setMemNo(loginUser.getMemNo());
 		d.setMemName(loginUser.getMemName());
 		int result = dService.insertDonation(d);
+		System.out.println(d);
 		if (result>0) {
 			return ResponseEntity.ok(d.getDoNo());
 		}else {

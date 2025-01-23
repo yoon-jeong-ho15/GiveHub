@@ -71,7 +71,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<button th:if="${session.loginUser == null}" id="login" type="button" onclick="location.href='/donation/donationWrite'">
+			<button th:if="${session.loginUser != null}" id="login" type="button" onclick="location.href='/donation/donationWrite'">
 				후원글 작성
 			</button>
 		</div>
