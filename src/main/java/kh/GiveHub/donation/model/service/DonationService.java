@@ -54,4 +54,8 @@ public class DonationService {
 		}
 		mapper.setContent(bid, content);
 	}
+
+	public int insertDonation(Donation d) {
+		return mapper.insertDonation(d);
+	}
 }

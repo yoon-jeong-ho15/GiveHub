@@ -59,9 +59,6 @@ public class DonationController {
 	}
 
 
-
-
-
 	@GetMapping("/donation/donationlist")
 	public String donationList(Model model) {
 		ArrayList<Donation> list = dService.selectDonaList(0); // 기본 전체 목록
@@ -97,7 +94,16 @@ public class DonationController {
 		}
 		return dService.search(d);
 	}
-
+	
+	@PostMapping("/insert")
+	@ResponseBody
+	public int insertDonation(@ModelAttribute Donation d, HttpSession session) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		d.setMemNo(loginUser.getMemNo());
+		d.setMemName(loginUser.getMemName());
+		return dService.insertDonation(d);
+	}
+	
 
 
 

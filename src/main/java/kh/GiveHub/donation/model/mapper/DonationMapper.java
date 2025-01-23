@@ -23,4 +23,6 @@ public interface DonationMapper {
     Donation selectDonation(int doNo);
 
 	void setContent(int bid, String content);
+
+	int insertDonation(Donation d);
 }
