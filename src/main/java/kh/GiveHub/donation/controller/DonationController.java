@@ -1,6 +1,8 @@
 package kh.GiveHub.donation.controller;
 
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.springframework.http.ResponseEntity;
@@ -104,7 +106,7 @@ public class DonationController {
 		}
 		return dService.search(d);
 	}
-	
+
 	@PostMapping("/insert")
 	@ResponseBody
 	public ResponseEntity<Integer> insertDonation(@ModelAttribute Donation d, HttpSession session) {
@@ -119,7 +121,7 @@ public class DonationController {
 			throw new DonationException("failed : insert donation");
 		}
 	}
-	
+
 
 
 
@@ -168,10 +170,13 @@ public class DonationController {
 
 		//doNo, memId 를 서비스에 넘겨서 글쓴이 비교 로직 작성
 		Donation d = dService.selectDonation(doNo, id);
+		System.out.println(d);
+		long dates = d.getDoEndDate().getTime() - Date.valueOf(LocalDate.now()).getTime();
+		long date = dates / (1000 * 60 * 60 * 24);
 		//게시글이 존재하면, 게시글 데이터(b)를 donationdetail.html로 전달
 		//게시글이 존재하지 않으면 사용자 정의 예외 발생
 		if(d != null) {
-			mv.addObject("d", d).setViewName("donation/donationdetail");
+			mv.addObject("d", d).addObject("date", date).setViewName("donation/donationdetail");
 			return mv;
 		}else {
 			throw new MemberException("게시글 상세보기를 실패하셨습니다.");
@@ -181,4 +186,3 @@ public class DonationController {
 
 
 }
-
