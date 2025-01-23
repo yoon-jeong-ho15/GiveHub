@@ -143,13 +143,15 @@ public class DonationController {
 	//기부페이지 상세보기
 	@GetMapping("/donation/donationdetail/{doNo}")
 	public void selectDona(@PathVariable("doNo") int doNo, HttpSession session) {
+		
+	}
 	public ModelAndView selectDona(@PathVariable("doNo") int doNo,HttpSession session, ModelAndView mv) {
 		// 글 상세조회 + 조회수 수정(내가 내 글 조회 or 비회원 조회 -> 조회수 올라가지 않음)
 
 		Member loginUser = (Member)session.getAttribute("loginUser");
-		String id = null;
+		Integer id = null;
 		if(loginUser != null) {
-			id = String.valueOf(loginUser.getMemNo());
+			id = loginUser.getMemNo();
 		}
 
 		//doNo, memId 를 서비스에 넘겨서 글쓴이 비교 로직 작성

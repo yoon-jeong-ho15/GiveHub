@@ -143,7 +143,8 @@ submitBtn.addEventListener("click", async function () {
     const reponse = await fetch("donation/insert",{
         method: "POST",
         body: new FormData(form)
-    })
+    });
+    
     
     //사진들 temp->upload 이동
     const content = tinymce.get("doContent").getContent();
