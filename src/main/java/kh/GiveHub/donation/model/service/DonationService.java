@@ -36,9 +36,9 @@ public class DonationService {
 
 
 
-    public Donation selectDonation(int doNo, String id) {
+    public Donation selectDonation(int doNo, Integer id) {
         Donation d = mapper.selectDonation(doNo);
-        if (d != null && id != null && !d.getMemNo().equals(id)) {
+        if (d != null && id != null && d.getMemNo()==id) {
             int result = mapper.updateCount(doNo);
             if (result > 0) {
                 d.setDoViews(d.getDoViews() + 1);
