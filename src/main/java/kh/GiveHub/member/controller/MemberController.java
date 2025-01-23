@@ -18,7 +18,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.member.model.exception.MemberException;
 import kh.GiveHub.member.model.service.MemberService;
-import kh.GiveHub.member.model.service.RecaptchaService;
 import kh.GiveHub.member.model.vo.Member;
 import lombok.RequiredArgsConstructor;
 
