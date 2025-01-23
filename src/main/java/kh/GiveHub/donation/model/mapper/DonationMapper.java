@@ -21,4 +21,6 @@ public interface DonationMapper {
 
 
     Donation selectDonation(int doNo);
+
+    int updateCount(int doNo);
 }
