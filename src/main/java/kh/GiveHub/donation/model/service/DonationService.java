@@ -31,4 +31,11 @@ public class DonationService {
     }
 
     public ArrayList<Donation> search(Donation d) { return mapper.search(d);}
+
+
+
+    public Donation selectDonation(int doNo, String id) {
+        Donation d = mapper.selectDonation(doNo);
+        return null;
+    }
 }
