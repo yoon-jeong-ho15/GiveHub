@@ -92,10 +92,9 @@
 </style>
 <body>
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
-<script src="/js/tinymce/common.js"></script>
+<script src="/js/common.js"></script>
 <section class="doantion_list_wrap">
-	
-	<div class="container">
+
 		<div class="dCategory">
 			<h1>캠페인</h1>
 
@@ -152,7 +151,6 @@
 				후원글 작성
 			</button>
 		</div>
-	</div>
 </section>
 <footer>
 	<div th:replace="~{/common/footer.html :: footer_bar}"></div>
@@ -185,7 +183,7 @@
 			}
 
 			const doNo = target.cells[0].innerText.trim();
-			location.href = "/donationdetail/" + doNo;
+			location.href = "/donation/donationdetail/" + doNo;
 		});
 	}
 

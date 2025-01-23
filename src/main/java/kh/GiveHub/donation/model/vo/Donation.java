@@ -23,4 +23,5 @@ public class Donation {
     private String doStatus;
     private int memNo;
     private String memName;
+    private String memId;
 }
