@@ -123,7 +123,7 @@ public class MemberController {
 
     @PostMapping("/admin/memberUpdate")
     public String adminMemberUpdate(Member m) {
-        if (m.getMemType().equals("1")){
+        if (m.getMemType().equals("0")){
             m.setMemConfirm("Y");
         }
         int result = mService.adminMemberUpdate(m);
