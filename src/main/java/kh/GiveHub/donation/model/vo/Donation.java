@@ -25,4 +25,6 @@ public class Donation {
     private String memName;
     private String memId;
     private String thumbnailPath;
+    private int payAmount;
+    private int payCount;
 }

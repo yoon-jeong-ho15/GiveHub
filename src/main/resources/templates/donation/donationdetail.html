@@ -46,25 +46,25 @@
 				<div class="donation_info_text_wrap">
 					<ul>
 						<li>
-							<p>모인 금액</p> <span display="inline-block"><p class="donation_data">5,099,500</p>
+							<p>모인 금액</p> <span display="inline-block"><p class="donation_data" th:text="${d.payAmount}"></p>
 								<span>원</span>
-								<p class="donation_data_small">1019</p>
+								<p class="donation_data_small" th:text="${1.0*d.payAmount/d.doGoal*100}"></p>
 								<span style="font-weight: 900">%</span></span>
 						</li>
 						<li>
 							<p>남은시간</p>
-							<p class="donation_data">11</p>
+							<p class="donation_data" th:text="${date}"></p>
 							<span>일</span>
 						</li>
 						<li>
 							<p>후원자</p>
-							<p class="donation_data">90</p>
+							<p class="donation_data" th:text="${d.payCount}"></p>
 							<span>명</span>
 						</li>
 					</ul>
 
 					<ul class="info_text_second">
-						<li><span><p style="font-weight: 500">목표금액</p></span> <span><p>500,000</p>
+						<li><span><p style="font-weight: 500">목표금액</p></span> <span><p th:text="${d.doGoal}"></p>
 								<span>원</span></span></li>
 						<li><span><p style="font-weight: 500">기부 기간</p></span> <span><p>[[${d.doStartDate}]]</p>
 								<span>~</span>
@@ -74,13 +74,14 @@
 			</div>
 
 			<div class="bar-container">
-				<div id="Content_bar" class="bar" style="width: 55%">bar</div>
-			</div><!-- ajax -->
-			<!-- <script type="text/javascript">
-				$(document).ready(function() {
-					document.getElementById("Content_bar").style.width = '20%';
-				});
-			</script> -->
+				<div id="Content_bar" class="bar" th:width="${(1.0*d.payAmount/d.doGoal*100) <= 100.0 ? (1.0*d.payAmount/d.doGoal*100) + '%' : '100%'}" th:text="${1.0*d.payAmount/d.doGoal*100+'%'}"></div>
+			</div>
+			<!-- ajax -->
+<!--			<script type="text/javascript">-->
+<!--				$(document).ready(function() {-->
+<!--					document.getElementById("Content_bar").style.width = '20%';-->
+<!--				});-->
+<!--			</script>-->
 			<div class="doantion_content">
 			
 			</div>
