@@ -45,7 +45,7 @@ public class ImageService {
 		}
 	}
 
-	public boolean saveUpload(List<String> list, int bid) {
+	public boolean saveUpload(List<String> list, int bid, String BoardType) {
 		for(String name : list) {
 			String sourcePath = "C:/GiveHub/temp/"+name;
 			String destPath = "C:/GiveHub/upload/"+name;
@@ -58,6 +58,7 @@ public class ImageService {
 				img.setImgReame(name);
 				img.setImgType(name.startsWith("T")? "0":"1");
 				img.setRefNo(bid);
+				img.setBoardType(BoardType);
 			} catch (IOException e) {
 				e.printStackTrace();
 				return false;

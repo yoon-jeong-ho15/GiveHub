@@ -22,7 +22,7 @@ public interface DonationMapper {
 
     int updateCount(int doNo);
 
-	void setContent(int bid, String content);
+	int setContent(int bid, String content);
 
 	int insertDonation(Donation d);
 
