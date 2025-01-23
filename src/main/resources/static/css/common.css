@@ -25,5 +25,35 @@ a {
 	box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+	width: 5px;  /* 세로축 스크롤바 폭 너비 */
+}
+body {
+	overflow-y: scroll; /* 세로 스크롤 사용 */
+}
+::-webkit-scrollbar-thumb {
+	background: #34D28B; /* 스크롤바 막대 색상 */
+	border-radius: 12px 12px 12px 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

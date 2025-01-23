@@ -83,7 +83,6 @@ div.slide_up_inner_menu>ul:first-child {
 
 div#slide_up_menu {
     display: flex;
-    position: fl;
     width: 94%;
     padding: 0 3%;
     position: absolute;
