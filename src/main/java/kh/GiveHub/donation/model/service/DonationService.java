@@ -38,4 +38,9 @@ public class DonationService {
         Donation d = mapper.selectDonation(doNo);
         return null;
     }
+
+	public void setContent(String content) {
+		// TODO Auto-generated method stub
+		
+	}
 }
