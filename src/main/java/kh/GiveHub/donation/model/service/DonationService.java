@@ -1,6 +1,7 @@
 package kh.GiveHub.donation.model.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,15 +25,9 @@ public class DonationService {
         return mapper.selectDonaList(i);
     }
 
-    public ArrayList<Donation> selectCategory(String category) {
-        return mapper.selectCategory(category);
+    public ArrayList<Donation> selectCategory(Map<String, Object> map) {
+        return mapper.selectCategory(map);
     }
-
-    public ArrayList<Donation> orderBy(String type) {
-        return mapper.selectOrderBy(type);
-    }
-
-    public ArrayList<Donation> search(Donation d) { return mapper.search(d);}
 
 
 
