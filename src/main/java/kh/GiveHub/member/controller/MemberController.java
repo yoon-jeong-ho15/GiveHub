@@ -87,72 +87,6 @@ public class MemberController {
         throw new MemberException("실패");
     }
 
-    // reCAPTCHA 검증 로직 추가
-  /* @PostMapping("/member/join")
-   public ResponseEntity<Map<String, Object>> join(@RequestBody MemberDTO memberDTO) {
-       // reCAPTCHA 검증
-       boolean isHuman = mService.verifyRecaptcha(memberDTO.getRecaptchaResponse());
-
-       if (!isHuman) {
-           return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                   .body(Map.of("success", false, "message", "reCAPTCHA 인증 실패"));
-       }
-
-       // 회원가입 로직 유지
-       Member member = new Member();
-       member.setMemId(memberDTO.getMemId());
-       member.setMemPwd(bcrypt.encode(memberDTO.getMemPwd()));
-       member.setMemName(memberDTO.getMemName());
-       member.setMemGrade("UNRANK");
-
-       if ("1".equals(memberDTO.getMemType())) {
-           member.setMemConfirm("W");
-       } else {
-           member.setMemConfirm("Y");
-       }
-
-       int result = mService.memberJoin(member);
-
-       if (result > 0) {
-           return ResponseEntity.ok(Map.of("success", true, "message", "회원가입 성공"));
-       } else {
-           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                   .body(Map.of("success", false, "message", "회원가입 실패"));
-       }
-   }*/
-
-
-//    @PostMapping("/member/join")
-//    public String join(@ModelAttribute Member m,
-//                       @RequestParam("recaptchaResponse") String recaptchaResponse, // reCAPTCHA 응답 파라미터 이름 수정
-//                       Model model) {
-//        // 1. reCAPTCHA 검증 수행
-//        if (recaptchaResponse == null || !recaptchaService.verifyRecaptcha(recaptchaResponse)) {
-//            model.addAttribute("error", "reCAPTCHA 인증에 실패했습니다. 다시 시도하세요.");
-//            return "/member/join"; // 회원가입 페이지로 다시 이동
-//        }
-//
-//        // 2. 회원 정보 처리
-//        if ("1".equals(m.getMemType())) {
-//            m.setMemConfirm("W");
-//        } else {
-//            m.setMemConfirm("Y");
-//        }
-//        m.setMemGrade("UNRANK");
-//        m.setMemPwd(bcrypt.encode(m.getMemPwd()));
-//
-//        // 3. 회원가입 수행
-//        int result = mService.memberJoin(m);
-//        if (result > 0) {
-//            return "redirect:/";
-//        }
-//
-//        model.addAttribute("error", "회원가입에 실패했습니다.");
-//        return "/member/join"; // 회원가입 페이지로 다시 이동
-//    }
-
-
-
     @GetMapping("/member/join.id")
     @ResponseBody
     public int checkId(@RequestParam("id") String id) {
@@ -189,7 +123,7 @@ public class MemberController {
 
     @PostMapping("/admin/memberUpdate")
     public String adminMemberUpdate(Member m) {
-        if (m.getMemType().equals("1")){
+        if (m.getMemType().equals("0")){
             m.setMemConfirm("Y");
         }
         int result = mService.adminMemberUpdate(m);

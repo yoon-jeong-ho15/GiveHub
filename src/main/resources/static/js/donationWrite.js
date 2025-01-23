@@ -94,10 +94,12 @@ thumbBtn.addEventListener("click",function(){
         const file = input.files[0];
         const imgName = 
             file.name.substring(file.name.lastIndexOf("/")+1);
+        console.log(imgName);
         const path = await processImage(file, imgName, 0);
         thumbPre.src = path;
         pathArr.push(path);
     }
+    input.click();
 });
 
 //이미지 임시 저장
@@ -127,7 +129,7 @@ const submitBtn = document.getElementById("submit");
 const backBtn = document.getElementById("backBtn");
 
 //제출 버튼
-submitBtn.addEventListener("click", function () {
+submitBtn.addEventListener("click", async function () {
     //카테고리 확인
     const doCategory = document.getElementById("doCategory");
     if (doCategory.value == null) {
@@ -135,11 +137,30 @@ submitBtn.addEventListener("click", function () {
         doCategory.focus();
         return;
     }
+
     //제출
     const form = document.querySelector("form");
     form.action = "/donation/insertDonation";
     form.method = "POST";
     form.submit();
+
+    //사진들 temp->upload 이동
+    const content = tinymce.get("doContent").getContent();
+    const boardType = document.getElementById("boardType").value;
+     try {
+        const isUploaded = await fetch("image/upload",{
+            method: "POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                content: content,
+                boardType: boardType
+            })
+        });
+    } catch (error) {
+        
+    }
 });
 
 //뒤로가기 버튼 

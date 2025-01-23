@@ -14,8 +14,8 @@ import lombok.ToString;
 public class Image {
 	private int imgNo;
 	private String imgPath;
-	private String imgAlt;
 	private String imgName;
+	private String imgReame;
 	private String imgType;
 	private int refNo;
 }
