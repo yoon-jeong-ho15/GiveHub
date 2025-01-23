@@ -8,7 +8,7 @@
     <select id="selectDonaList">
         select * from donation join member using(mem_no)
         <if test="i == 1">
-            where do_status = 'Y'
+            where do_status = 'Y' and do_enddate >= sysdate
         </if>
     </select>
 
@@ -52,11 +52,11 @@
 
 	<insert id="insertDonation">
 		<selectKey order="BEFORE" resultType="_int" keyProperty="doNo">
-			select seq_do_no.nextval from dual
+			select seq_do_no from dual
 		</selectKey>
 		insert into donation
 		values (#{doNo}, #{doTitle}, 'null', #{doGoal}, #{doCategory}, #{doStartDate},
-			#{doEndDate}, default, default, default, #{memNo})
+			#{doEndDate}, default, default, default, #{memNo}, #{memName}, #{memId})
 	</insert>
 
 
@@ -85,6 +85,7 @@
         select *
         from donation
             join member using(mem_no)
+            left join (select do_no, sum(pay_amount) pay_amount, count(*) pay_count from payment where do_no = #{doNo} group by do_no) using(do_no)
         where do_status = 'Y' and do_no =#{doNo}
     </select>
 
