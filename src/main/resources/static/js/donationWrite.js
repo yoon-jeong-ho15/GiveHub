@@ -129,37 +129,53 @@ const submitBtn = document.getElementById("submit");
 const backBtn = document.getElementById("backBtn");
 
 //제출 버튼
-submitBtn.addEventListener("click", async function () {
-    //카테고리 확인
+submitBtn.addEventListener("click", async function (e) {
+    //카테고리 유뮤 확인
     const doCategory = document.getElementById("doCategory");
     if (doCategory.value == null) {
         alert("donation category");
         doCategory.focus();
-        return;
+        e.preventDefault;
     }
 
     //도네이션 insert 
     const form = document.querySelector("form");
-    const reponse = await fetch("donation/insert",{
-        method: "POST",
-        body: new FormData(form)
-    });
-    
-    
-    //사진들 temp->upload 이동
+    let bid;
+    try {
+        const response = await fetch("donation/insert",{
+            method: "POST",
+            body: new FormData(form)
+        });
+        if(!response.ok){
+            throw new Error("")
+        }
+        bid = await response.json();
+    } catch (error) {
+        console.error
+    }
+
+    //1)이미지들 temp->upload로 이동
+    //2)content 넣기
     const content = tinymce.get("doContent").getContent();
-    const boardType = document.getElementById("boardType").value;
-     try {
-        const isUploaded = await fetch("image/upload",{
+    const boardType = document.getElementById("boardType").value; 
+
+    try {
+        const response = await fetch("image/upload",{
             method: "POST",
             headers:{
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
+                uploadFileNames: pathArr,
+                bid: bid,
                 content: content,
                 boardType: boardType
             })
         });
+        if(!response.ok){
+            throw new Error("delete temp files failed");
+        }
+
     } catch (error) {
         console.error(error);
     }
@@ -175,9 +191,12 @@ backBtn.addEventListener("click", async function(){
             },
             body: JSON.stringify({tempFileNames: pathArr})
         });
-        const isDeleted = await response.json();
-        if (!isDeleted){
+        if (!response.ok){
             throw new Error("delete temp files failed");
+        }
+        const isDeleted = await response.json();
+        if (disDeleted){
+            window.history.back();
         }
     }catch(error){
         console.error(error);

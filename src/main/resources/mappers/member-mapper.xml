@@ -42,4 +42,17 @@
 		update member set mem_name=#{memName} , mem_ID=#{memId},MEM_ADDRESS=#{memAddress},MEM_PWD=#{memPwd} where mem_no=#{memNo}
 	</update>
 	
+	<select id="findMyId">
+		select mem_id from member where mem_email=#{email}
+	</select>
+	
+	<update id="updateTempPwd">
+		update member set mem_pwd=#{encodePwd} where mem_email=#{email}
+	</update>
+	
+	<select id="findMemNameByEmail">
+		select mem_name from member where mem_email=#{email}
+	</select>
+	
+	
 </mapper>
