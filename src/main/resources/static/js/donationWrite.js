@@ -138,12 +138,13 @@ submitBtn.addEventListener("click", async function () {
         return;
     }
 
-    //제출
+    //도네이션 insert 
     const form = document.querySelector("form");
-    form.action = "/donation/insertDonation";
-    form.method = "POST";
-    form.submit();
-
+    const reponse = await fetch("donation/insert",{
+        method: "POST",
+        body: new FormData(form)
+    })
+    
     //사진들 temp->upload 이동
     const content = tinymce.get("doContent").getContent();
     const boardType = document.getElementById("boardType").value;
@@ -159,7 +160,7 @@ submitBtn.addEventListener("click", async function () {
             })
         });
     } catch (error) {
-        
+        console.error(error);
     }
 });
 

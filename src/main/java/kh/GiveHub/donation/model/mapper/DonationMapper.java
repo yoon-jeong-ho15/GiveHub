@@ -14,13 +14,16 @@ public interface DonationMapper {
 
     int deleteDona(String no);
 
-
     ArrayList<Donation> selectOrderBy(String type);
 
     ArrayList<Donation> search(Donation d);
 
-
     Donation selectDonation(int doNo);
 
     int updateCount(int doNo);
+
+	void setContent(int bid, String content);
+
+	int insertDonation(Donation d);
+
 }

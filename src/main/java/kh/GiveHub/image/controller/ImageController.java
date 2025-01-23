@@ -61,9 +61,9 @@ public class ImageController {
 			@RequestParam("boardType") String boardType) {
 		if(iService.saveUpload(list, bid)) {
 			if(boardType.equals("donation")) {
-				dService.setContent(content);
+				dService.setContent(bid, content);
 			}else {
-				nService.setContent(content);
+				nService.setContent(bid, content);
 			}
 		}
 		return false;
