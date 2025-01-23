@@ -31,9 +31,6 @@ public class MemberController {
 
     private final BCryptPasswordEncoder bcrypt;
 
-    private final RecaptchaService recaptchaService;
-
-
     //로그인 화면 연결
     @GetMapping("/member/login")
     public String logIn() {

@@ -7,8 +7,11 @@
 <link href="/css/common.css" rel="stylesheet" type="text/css">
 <link href="/css/navBar.css" rel="stylesheet" type="text/css">
 <link href="/css/footer.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
-
+.page_container {
+	padding-top: 12rem;
+}
 .my_info_container {
     width: 25%;
     margin-right: 72px;
@@ -75,7 +78,6 @@ label.delete_user {
     align-items: center;
 }
 .info_detail_wrap {
-    width: 100%;
     padding: 3rem;
     margin-top: 2rem;
     box-shadow: 4px 4px 20px #f1f1f1;
@@ -118,27 +120,128 @@ label.delete_user {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+.col {
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+}
+
+#labelCol>* {
+	font-size: 13pt;
+	margin: 10px;
+	margin-top: 22px;
+}
+
+#labelCol>label:nth-child(3) {
+	margin-top: 28px;
+}
+
+#inputCol input {
+	margin-top: 14px;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+}
+
+form>button {
+	height: 41px;
+	width: 280px;
+	background: #34D28B;
+	border: 0 solid #fff;
+	border-radius: 14px;
+	color: white;
+	font-size: 12pt;
+	margin-left: 80px;
+	margin-top: 20px;
+}
+
+#emailDiv>button {
+	border: 1px solid #34D28B;
+	border-radius: 10px;
+	color: #34D28B;
+	background: white;
+	height: 40px;
+	width: 80px;
+	margin-left: 15px;
+}
+
+input {
+	height: 28px;
+	padding: 5px;
+	border: 1px solid gray;
+	border-radius: 10px;
+	width: 240px;
+	text-align: justify;
+}
+
+input[name^=rrn] {
+	width: 105px;
+}
+
+#inputCol>input[name=address] {
+	margin-top: 2px;
+}
+
+span {
+	font-size: 9pt;
+	color: #2ab54c;
+	margin-top: 0;
+	margin-left: 4px;
+	visibility: hidden;
+}
 </style>
 </head>
 <body>
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
 <script src="/js/common.js"></script>
-	<div class="container info_container">
+
+	<div class="container info_container page_container">
+
 		<div class="my_info_container">
 			<div class="my_info_menu_wrap">
-				<p class="text_color my_info_title">My Profile</p>
-				<button onclick="location.href='editMyInfo'">내 정보 수정</button>
-				<button onclick="location.href='myDonation'">기부 내역 조회</button>
+				<p id="myProfile" class="text_color my_info_title infoMenu">My Profile</p>
+				<button id="editMyInfo" class="infoMenu">내 정보 수정</button><!--onclick="location.href='editMyInfo'"-->
+				<button class="infoMenu" onclick="location.href='myDonation'">기부 내역 조회</button>
 				<hr>
-				<button onclick="location.href='logout'">Log out</button>
+				<button onclick="location.href='/logout'">Log out</button>
 			</div>
 			<div class="my_info_menu_wrap">
 				<label class="delete_user">탈퇴하기</label>
 			</div>
 		</div>
-		<div class="my_info_wrap">
+
+		<div class="my_info_wrap" id="myInfo">
 			<div class="user_intro">
-				<div><img src="../../static/img/test_icon.png"><p>[[${session.loginUser.memName}]]<p>님, 반갑습니다.</div>
+				<div><img src="/img/test_icon.png"><p>[[${session.loginUser.memName}]]<p>님, 반갑습니다.</div>
 				<p>하모니와 함께 아름다운 세상을 만들어갑니다.</p>
 			</div>
 			<div class="info_detail_wrap">
@@ -164,7 +267,122 @@ label.delete_user {
 				</table>
 			</div>		
 		</div>
+
+		<div class="my_info_wrap" id="editInfo">
+			<h1>내 정보 수정</h1>
+			<form action="editMyInfo" method="post">
+				<div class="row">
+					<div class="col" id="labelCol">
+						<label>이름</label><label>아이디</label> <label>주소</label> <label>비밀번호</label>
+						<label>비밀번호 확인</label>
+					</div>
+					<div class="col" id="inputCol">
+						<label>
+							<input type="text" name="memName" th:value="${session.loginUser.memName}">
+						</label>
+						<div id="emailDiv">
+							<label for="email"></label><input type="email" name="memId" id="email" th:value="${session.loginUser.memId}">
+							<button onclick="checkEmail(event)">중복확인</button>
+<!--							<input type="button" value="중복확인" onclick="checkEmail(event)">-->
+
+						</div>
+						<span id="emailCheckSpan">사용하실수 있는 아이디 입니다.</span>
+						<label>
+							<input type="text" name="memAddress" th:value="${session.loginUser.memAddress}">
+						</label>
+						<label for="pwd"></label><input type="password" id="pwd" name="memPwd">
+						<label for="pwdConfirm"></label><input type="password" name="pwdConfirm" id="pwdConfirm" >
+						<span id="pwdCheckSpan">비밀번호가 일치합니다</span>
+					</div>
+				</div>
+				<button>확인</button>
+			</form>
+		</div>
+
 	</div>
+	<script>
+		function checkEmail(event){
+			console.log("checkEmail 실행됨"); // 실행 여부 확인용
+			const email = document.getElementById("email").value;
+			event.preventDefault();
+			$.ajax({
+				url:"/checkEmail",
+				data : {email:email},
+				success : data=>{
+					console.log(data);
+					if (data!=0){
+						//아이디가 있는 경우
+						emailCheckSpan.innerText="이미 사용중인 아이디 입니다.";
+						emailCheckSpan.style.color="red";
+						emailCheckSpan.style.visibility="visible";
+					}else{
+						//아이디가 없는 경우
+						emailCheckSpan.innerText="사용하실수 있는 아이디 입니다.";
+						emailCheckSpan.style.color="#2ab54c";
+						emailCheckSpan.style.visibility="visible";
+					}
+				},
+				error : data=>{
+					console.log("실패");
+				}
+			});
+		}
+
+		document.addEventListener('DOMContentLoaded', function() {
+			const infoContents = document.querySelectorAll('.my_info_wrap');
+
+			// 기본적으로 첫 번째 정보 창만 표시
+			infoContents.forEach((ic, index) => {
+				ic.style.display = index === 0 ? 'block' : 'none';
+			});
+
+			const infoMenu = document.querySelectorAll('.infoMenu');
+
+			// "My Profile" 클릭 시 첫 번째 정보 보이기
+			infoMenu[0].addEventListener('click', function() {
+				infoContents[0].style.display = 'block';
+				infoContents[1].style.display = 'none';
+			});
+
+			// "내 정보 수정" 클릭 시 두 번째 정보 보이기
+			infoMenu[1].addEventListener('click', function() {
+				infoContents[0].style.display = 'none';
+				infoContents[1].style.display = 'block';
+			});
+		});
+
+		const emailCheckSpan= document.getElementById("emailCheckSpan");
+		const pwdCheckSpan= document.getElementById("pwdCheckSpan");
+		const pwd = document.getElementById("pwd");
+		const pwdConfirm = document.getElementById("pwdConfirm");
+
+		pwdConfirm.addEventListener("blur", function(){
+			if(pwd.value == pwdConfirm.value){
+				pwdCheckSpan.innerText="비밀번호가 일치합니다.";
+				pwdCheckSpan.style.color="#2ab54c";
+				pwdCheckSpan.style.visibility="visible";
+			} else{
+				pwdCheckSpan.innerText="비밀번호가 일치하지 않습니다.";
+				pwdCheckSpan.style.color="red";
+				pwdCheckSpan.style.visibility="visible";
+			}
+		});
+		pwd.addEventListener("blur", function(){
+			if(pwd.value == pwdConfirm.value){
+				pwdCheckSpan.innerText="비밀번호가 일치합니다.";
+				pwdCheckSpan.style.color="#2ab54c";
+				pwdCheckSpan.style.visibility="visible";
+			} else{
+				pwdCheckSpan.innerText="비밀번호가 일치하지 않습니다.";
+				pwdCheckSpan.style.color="red";
+				pwdCheckSpan.style.visibility="visible";
+			}
+		});
+
+
+
+
+	</script>
 <footer>
 	<div th:replace="~{/common/footer.html :: footer_bar}"></div>
 </footer>
