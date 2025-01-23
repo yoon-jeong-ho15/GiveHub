@@ -21,4 +21,5 @@ public class Member {
     private String memGrade;
     private String memStatus;
     private String memConfirm;
+    private String memEmail;
 }

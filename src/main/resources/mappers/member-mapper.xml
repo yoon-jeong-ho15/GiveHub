@@ -31,7 +31,7 @@
 	</update>
 
 	<insert id="memberJoin">
-		insert into member values(seq_mem_no.nextval, #{memName}, #{memId}, #{memPwd}, #{memAddress}, #{memType}, #{memGrade}, default, #{memConfirm})
+		insert into member values(seq_mem_no.nextval, #{memName}, #{memId}, #{memPwd}, #{memAddress}, #{memType}, #{memGrade}, default, #{memConfirm}, #{memEmail})
 	</insert>
 	
 	<select id="checkIdDuplication" resultType="_int" parameterType="string">
