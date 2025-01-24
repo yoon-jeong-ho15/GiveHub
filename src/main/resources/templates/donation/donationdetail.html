@@ -72,9 +72,9 @@
 					</ul>
 				</div>
 			</div>
-
+			<div style="text-align: center" class="bar-label" th:text="${1.0*d.payAmount/d.doGoal*100+'%'}"></div>
 			<div class="bar-container">
-				<div id="Content_bar" class="bar" th:style="'width:' + ${1.0*d.payAmount/d.doGoal*100 < 100 ? #strings.toString(1.0*d.payAmount/d.doGoal*100) : '100'} + '%;'" th:text="${1.0*d.payAmount/d.doGoal*100+'%'}"></div>
+				<div id="Content_bar" class="bar" th:style="'width:' + ${1.0*d.payAmount/d.doGoal*100 < 100 ? #strings.toString(1.0*d.payAmount/d.doGoal*100) : '100'} + '%;'"></div>
 			</div>
 			<!-- ajax -->
 <!--			<script type="text/javascript">-->

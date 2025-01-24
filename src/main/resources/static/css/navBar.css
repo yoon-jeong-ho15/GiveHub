@@ -113,7 +113,7 @@ div#slide_up_menu {
     cursor: pointer;
 }
 
-button#myPage {
+button#myPage, button#login {
     transform: translateX(-45%);
 }
 
