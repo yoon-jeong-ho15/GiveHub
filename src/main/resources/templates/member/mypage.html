@@ -285,10 +285,10 @@ span {
 				<button id="editMyInfo" class="infoMenu">내 정보 수정</button>
 				<button id="myDonaList" class="infoMenu">기부 내역 조회</button>
 				<hr>
-				<button onclick="location.href='/logout'">Log out</button>
+<!--				<button onclick="location.href='redirect:/'">Log out</button>-->
 			</div>
 			<div class="my_info_menu_wrap">
-				<label class="delete_user">탈퇴하기</label>
+				<label class="delete_user" onclick="location.href='/member/delete'">탈퇴하기</label>
 			</div>
 		</div>
 
@@ -501,11 +501,16 @@ span {
 						const td4 = document.createElement('td');
 						td4.appendChild(document.createTextNode(year + '년 ' + month + '월 ' + day + '일'));
 
+						const td5 = document.createElement('td');
+						if (p.payStatus == 'Y'){
+							td5.innerHTML = '<td><button onClick="cancleDonation()">취소</button></td>'
+						}
+
 						tr.appendChild(td1);
 						tr.appendChild(td2);
 						tr.appendChild(td3);
 						tr.appendChild(td4);
-						tr.innerHTML += '<td th:if="${p.payStatus == ' + 'Y' + '}"><button onClick="cancleDonation()">취소</button></td>';
+						tr.appendChild(td5);
 
 						tbody.appendChild(tr);
 					}

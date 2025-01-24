@@ -64,12 +64,6 @@ public class DonationController {
 
 	@GetMapping("/donation/donationlist")
 	public String donationList(Model model) {
-		ArrayList<Donation> list = dService.selectDonaList(1);
-		System.out.println(list);
-
-
-	// 기본 전체 목록
-		model.addAttribute("list", list);
 		return "donation/donationlist";
 	}
 
@@ -91,7 +85,10 @@ public class DonationController {
 		map.put("d", d);
 		System.out.println(map);
 
-		return dService.selectCategory(map);
+		ArrayList<Donation> list = dService.selectCategory(map);
+		System.out.println(list);
+
+		return list;
 	}
 
 	@PostMapping("/donation/insert")
@@ -133,8 +130,5 @@ public class DonationController {
 		}else {
 			throw new MemberException("게시글 상세보기를 실패하셨습니다.");
 		}
-
 	}
-
-
 }

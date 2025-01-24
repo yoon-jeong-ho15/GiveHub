@@ -8,7 +8,7 @@
     <select id="selectCategory">
         select * from donation
         join member using(mem_no)
-        join (select '/upload/'||IMG_RENAME as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
+        join (select img_path||IMG_RENAME as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
         <where>
             img_type = '0' and do_enddate <![CDATA[>=]]> sysdate
             <if test="categorySelect != 'all'">
@@ -37,7 +37,7 @@
     <select id="selectDonaList">
         select * from donation join member using(mem_no)
         <if test="i == 1">
-            join (select '/upload/' || IMG_RENAME as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
+            join (select (img_path || IMG_RENAME) as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
             where do_status = 'Y' and do_enddate <![CDATA[>=]]> sysdate order by do_createdate desc
         </if>
     </select>
