@@ -501,11 +501,16 @@ span {
 						const td4 = document.createElement('td');
 						td4.appendChild(document.createTextNode(year + '년 ' + month + '월 ' + day + '일'));
 
+						const td5 = document.createElement('td');
+						if (p.payStatus == 'Y'){
+							td5.innerHTML = '<td><button onClick="cancleDonation()">취소</button></td>'
+						}
+
 						tr.appendChild(td1);
 						tr.appendChild(td2);
 						tr.appendChild(td3);
 						tr.appendChild(td4);
-						tr.innerHTML += '<td th:if="${p.payStatus == ' + 'Y' + '}"><button onClick="cancleDonation()">취소</button></td>';
+						tr.appendChild(td5);
 
 						tbody.appendChild(tr);
 					}
