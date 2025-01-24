@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 
@@ -43,7 +44,11 @@ public class NewsController {
 		return "/news/newsList";
 	}
 
-//	@GetMapping("getList")
-
-
+	// 디테일 페이지로 들어가기
+	@GetMapping("/news/newsdetail/{newsNo}")
+	public String newsDetail(Model model, @PathVariable("newsNo") int newsNo) {
+		News n = nService.newsDetail(newsNo);
+		model.addAttribute("n", n);
+		return "/news/newsdetail";
+	}
 }

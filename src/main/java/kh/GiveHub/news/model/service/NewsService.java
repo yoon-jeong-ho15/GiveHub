@@ -34,4 +34,5 @@ public class NewsService {
 	}
 
 
+    public News newsDetail(int newsNo) {return mapper.newsDetail(newsNo);}
 }

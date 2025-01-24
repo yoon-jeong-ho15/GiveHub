@@ -32,28 +32,50 @@
             <br><br><br><br><br><br>
             <h1 class="admin_title">소식 목록</h1>
             <div class="donationList">
-                <table>
-                    <tr>
-                        <th>번호</th>
-                        <th>프로잭트 이름</th>
-                        <th>새소식 제목</th>
-                        <th>올린 날짜</th>
-                        <th>프로잭트 팀</th>
-                    </tr>
-                    <tr align="center" class="selectlist" th:each="n : ${list}">
-                        <td th:text="${n.newsNo}"></td>
-                        <td th:text="${n.doTitle}"></td>
-                        <td th:text="${n.newsTitle}"></td>
-                        <td th:text="${n.newsCreateDate}"></td>
-                        <td th:text="${n.memName}"></td>
-                    </tr>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>새소식 제목</th>
+                            <th>프로잭트 이름</th>
+                            <th>올린 날짜</th>
+                            <th>프로잭트 팀</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr align="center" class="selectlist" th:each="n : ${list}">
+                            <td th:text="${n.newsNo}"></td>
+                            <td th:text="${n.newsTitle}"></td>
+                            <td th:text="${n.doTitle}"></td>
+                            <td th:text="${n.newsCreateDate}"></td>
+                            <td th:text="${n.memName}"></td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
+    </div>
 
 
 
 <script th:inline="javascript">
+    window.onload = () => {
+        document.querySelector('tbody').addEventListener('click', function (event) {
+            let target = event.target; // 클릭된 요소
+
+            // 클릭된 요소가 <tr>까지 올라갈 수 있도록 처리
+            while (target.tagName !== 'TR') {
+                target = target.parentElement;
+                if (!target) return; // 예외 처리 (이벤트 버블링 방지)
+            }
+
+            // 클릭된 <tr>의 첫 번째 셀(번호)에서 newsNo 가져오기
+            const newsNo = target.cells[0].innerText.trim();
+
+            // newsNo 값을 포함하여 페이지 이동
+            location.href = "/news/newsdetail/" + newsNo;
+        });
+    }
 
 
 
