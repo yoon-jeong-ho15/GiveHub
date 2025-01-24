@@ -2,6 +2,7 @@ package kh.GiveHub.member.model.mapper;
 
 import java.util.ArrayList;
 
+import kh.GiveHub.payment.model.vo.Payment;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -34,4 +35,6 @@ public interface MemberMapper {
 	int updateTempPwd(@Param("email") String email,@Param("encodePwd") String encodePwd);
 
 	String findMemNameByEmail(String email);
+
+    ArrayList<Payment> selectDonationList(@Param("no") int no, @Param("type") int type);
 }

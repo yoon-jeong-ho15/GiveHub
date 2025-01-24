@@ -5,19 +5,14 @@
         delete from donation where do_no = #{no}
     </delete>
 
-    <select id="selectDonaList">
-        select * from donation join member using(mem_no)
-        <if test="i == 1">
-            where do_status = 'Y' and do_enddate >= sysdate order by do_createdate desc
-        </if>
-    </select>
-
     <select id="selectCategory">
         select * from donation
         join member using(mem_no)
+        join (select '/upload/'||IMG_RENAME as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
         <where>
+            img_type = '0' and do_enddate <![CDATA[>=]]> sysdate
             <if test="categorySelect != 'all'">
-                do_category = #{categorySelect}
+                and do_category = #{categorySelect}
             </if>
             <if test="d.doTitle != null">
                 and do_Title like '%${d.doTitle}%'
@@ -25,7 +20,6 @@
             <if test="d.memName != null">
                 and mem_name like '%${d.memName}%'
             </if>
-            and do_enddate >= sysdate
         </where>
         <choose>
             <when test="optionSelect == 'popular'">
@@ -38,6 +32,10 @@
                 order by do_enddate asc
             </when>
         </choose>
+    </select>
+
+    <select id="selectDonaList">
+        select * from donation join member using(mem_no)
     </select>
 
 	<insert id="insertDonation">

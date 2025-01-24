@@ -34,17 +34,6 @@ public class DonationController {
 
 	private final DonationService dService;
 
-	@GetMapping("/ongoingList")
-	public String ongoingList(HttpSession session) {
-		Member loginUser = (Member) session.getAttribute("loginUser");
-		return "/member/mydonation";
-	}
-
-	@GetMapping("/finishedList")
-	public String finishedList(HttpSession session) {
-		return "/member/mydonation";
-	}
-
 	@GetMapping("/admin/donaList")
 	public String newsList (Model model){
 		ArrayList<Donation> list = dService.selectDonaList(0);
@@ -75,8 +64,6 @@ public class DonationController {
 
 	@GetMapping("/donation/donationlist")
 	public String donationList(Model model) {
-		ArrayList<Donation> list = dService.selectDonaList(0); // 기본 전체 목록
-		model.addAttribute("list", list);
 		return "donation/donationlist";
 	}
 
@@ -98,7 +85,10 @@ public class DonationController {
 		map.put("d", d);
 		System.out.println(map);
 
-		return dService.selectCategory(map);
+		ArrayList<Donation> list = dService.selectCategory(map);
+		System.out.println(list);
+
+		return list;
 	}
 
 	@PostMapping("/donation/insert")
@@ -115,41 +105,6 @@ public class DonationController {
 			throw new DonationException("failed : insert donation");
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	//기부페이지 상세보기
 	@GetMapping("/donation/donationdetail/{doNo}")

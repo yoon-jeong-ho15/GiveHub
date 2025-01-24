@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import kh.GiveHub.payment.model.vo.Payment;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,14 +89,26 @@ public class MemberController {
     }
 
     @GetMapping("/member/mypage")
-    public String mypage() {
+    public String mypage(Model model) {
+        int no = ((Member) model.getAttribute("loginUser")).getMemNo();
+        model.addAttribute("list", mService.selectDonationList(no, 0));
         return "/member/mypage";
     }
 
+    @GetMapping("/ongoingList")
+    @ResponseBody
+    public ArrayList<Payment> ongoingList(Model model) {
+        int no = ((Member) model.getAttribute("loginUser")).getMemNo();
+        ArrayList<Payment> list = mService.selectDonationList(no, 0);
+        System.out.println(list);
+        return list;
+    }
 
-    @GetMapping("/admin/myDonation")
-    public String myDonation(){
-        return "mydonation";
+    @GetMapping("/finishedList")
+    @ResponseBody
+    public ArrayList<Payment> finishedList(Model model) {
+        int no = ((Member) model.getAttribute("loginUser")).getMemNo();
+        return mService.selectDonationList(no, 1);
     }
 
     // 관리자 메인페이지(회원관리 페이지)
@@ -133,11 +147,6 @@ public class MemberController {
             return "redirect:/admin/main";
         }
         throw new MemberException("실패");
-    }
-
-    @GetMapping("/member/editMyInfo")
-    public String MembereditMyInfo() {
-        return "/member/editmyinfo";
     }
 
     @GetMapping(value="checkEmail",produces="application/json; charset=UTF-8")
