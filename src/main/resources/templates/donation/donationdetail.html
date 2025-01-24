@@ -39,7 +39,7 @@
 
 			<div class="donation_info">
 				<div class="donation_img_wrap">
-					<img src="/img/donation_detail_img.jpg" alt="">
+					<img th:src="@{/upload/}+${d.thumbnailPath}" alt="">
 				</div>
 				<div class="donation_info_text_wrap">
 					<ul>
@@ -72,7 +72,7 @@
 			</div>
 
 			<div class="bar-container">
-				<div id="Content_bar" class="bar" th:width="${(1.0*d.payAmount/d.doGoal*100) <= 100.0 ? (1.0*d.payAmount/d.doGoal*100) + '%' : '100%'}" th:text="${1.0*d.payAmount/d.doGoal*100+'%'}"></div>
+				<div id="Content_bar" class="bar" th:style="'width:' + ${1.0*d.payAmount/d.doGoal*100 < 100 ? #strings.toString(1.0*d.payAmount/d.doGoal*100) : '100'} + '%;'" th:text="${1.0*d.payAmount/d.doGoal*100+'%'}"></div>
 			</div>
 			<!-- ajax -->
 <!--			<script type="text/javascript">-->

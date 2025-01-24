@@ -50,5 +50,11 @@ public class NewsController {
 		News n = nService.newsDetail(newsNo);
 		model.addAttribute("n", n);
 		return "/news/newsdetail";
+  }
+
+	//뉴스 작성 기능 (윤정호)
+	@GetMapping("/news/write")
+	public String toWrite() {
+		return "/news/newsWrite";
 	}
 }

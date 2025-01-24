@@ -284,10 +284,15 @@ section#section_02 {
    margin-right: 0 !important;
 }
 
+.custom_board_wrap {
+   display: flex;
+   justify-content: space-between;
+}
+
 .custom_board_contents {
-   width: 47.3%;
+   width: 47%;
    display: inline-block;
-   margin-right: 72px;
+   margin-right: 6%;
 }
 
 .category.category_green {

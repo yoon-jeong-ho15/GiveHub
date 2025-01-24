@@ -61,9 +61,9 @@ nav#main_menu ul li a {
 }
 
 nav#main_menu {
-   width: 60%;
+    width: 70%;
+    padding-left: 7%;
 }
-
 div.slide_up_inner_menu>ul:first-child {
    margin-right: 8rem;
 }
@@ -83,8 +83,7 @@ div.slide_up_inner_menu>ul:first-child {
 
 div#slide_up_menu {
     display: flex;
-    width: 94%;
-    padding: 0 3%;
+    width: 100%;
     position: absolute;
     top: -270px;
     z-index: 0;
@@ -92,7 +91,8 @@ div#slide_up_menu {
     justify-content: center;
 }
 .slide_up_inner_menu {
-    width: 66%;
+    width: 100%;
+    padding-left: 18.8%;
 }
 .slide_up_inner_menu a>li {
 	color:#fff;
@@ -102,7 +102,6 @@ div#slide_up_menu {
 }
 .login_wrap {
 	display: flex;
-	width: 10%;
 	justify-content: space-between;
 }
 .login_wrap button {
@@ -114,19 +113,8 @@ div#slide_up_menu {
     cursor: pointer;
 }
 
-/*.logged-in .main_menu_wrap a {*/
-/*    color: #1a1a1a !important;*/
-/*}*/
-
-/*.logged-in .login_wrap button {*/
-/*    background: none;*/
-/*    color: #1a1a1a !important;*/
-/*    border: none;*/
-/*    font-size: 1rem;*/
-/*    font-weight: 500;*/
-/*    cursor: pointer;*/
-/*}*/
-
-
+button#myPage {
+    transform: translateX(-45%);
+}
 
 /* header end */

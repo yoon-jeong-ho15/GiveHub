@@ -60,10 +60,13 @@ public class ImageController {
 			@RequestParam("boardType") String boardType,
 			@RequestParam("content") String content) {
 		boolean isUploaded = iService.saveUpload(list, bid, boardType);
+		System.out.println(content);
+		System.out.println(boardType);
+		System.out.println(bid);
 		System.out.println(isUploaded);
 		int result = 0;
 		if (isUploaded) {
-			if(boardType.equals("D")) {
+			if(boardType.equals("donation")) {
 				result = dService.setContent(bid, content);
 			}else {
 				//result = nService.setContent(bid, content);
