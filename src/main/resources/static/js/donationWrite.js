@@ -25,7 +25,6 @@ const fakeGoal = document.getElementById("fakeGoal");
 fakeGoal.addEventListener("input", function () {
     const multiplied = fakeGoal.value * 10000;
     doGoal.value = multiplied;
-    console.log(doGoal.value);
 });
 //////////
 
@@ -94,7 +93,6 @@ thumbBtn.addEventListener("click",function(){
         const file = input.files[0];
         const imgName = 
             file.name.substring(file.name.lastIndexOf("/")+1);
-        console.log(imgName);
         const path = await processImage(file, imgName, 0);
         thumbPre.src = path;
         pathArr.push(path);
@@ -132,7 +130,6 @@ const backBtn = document.getElementById("backBtn");
 submitBtn.addEventListener("click", async function (e) {
     //카테고리 유뮤 확인
     const doCategory = document.getElementById("doCategory");
-    console.log(doCategory.value);
     if (doCategory.value == null) {
         alert("donation category");
         doCategory.focus();
