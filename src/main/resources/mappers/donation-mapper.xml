@@ -46,8 +46,14 @@
 		</selectKey>
 		insert into donation
 		values (#{doNo}, #{doTitle}, 'null', #{doGoal}, #{doCategory}, #{doStartDate},
-			#{doEndDate}, default, default, default, #{memNo}, #{memName}, #{memId})
+			#{doEndDate}, default, default, default, #{memNo})
 	</insert>
+	
+	<update id="setContent">
+		update donation
+		set do_content = #{content}
+		where do_no = #{doNo}
+	</update>
 
 
 

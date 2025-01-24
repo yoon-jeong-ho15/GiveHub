@@ -21,4 +21,6 @@ public interface NewsMapper {
 	int insertNews(News n);
 
 	int setContent(@Param("newsNo")int newsNo,@Param("newContent") String newContent);
+
+    News newsDetail(int newsNo);
 }

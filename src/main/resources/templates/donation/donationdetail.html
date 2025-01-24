@@ -4,12 +4,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="/css/reset.css" rel="stylesheet" type="text/css">
-<link href="/css/common.css" rel="stylesheet"
-	type="text/css">
-<link href="/css/donationDetailPage.css" rel="stylesheet"
-	type="text/css">
+<link href="/css/common.css" rel="stylesheet" type="text/css">
+<link href="/css/donationDetailPage.css" rel="stylesheet" type="text/css">
 <link href="/css/navBar.css" rel="stylesheet" type="text/css">
-	<link href="/css/footer.css" rel="stylesheet" type="text/css">
+<link href="/css/footer.css" rel="stylesheet" type="text/css">
 	<style>
 		.main_menu_wrap a {
 			color: #1a1a1a !important;
@@ -41,7 +39,7 @@
 
 			<div class="donation_info">
 				<div class="donation_img_wrap">
-					<img src="/img/donation_detail_img.jpg" alt="">
+					<img th:src="@{/upload/}+${d.thumbnailPath}" alt="">
 				</div>
 				<div class="donation_info_text_wrap">
 					<ul>
@@ -72,9 +70,9 @@
 					</ul>
 				</div>
 			</div>
-
+			<div style="text-align: center" class="bar-label" th:text="${1.0*d.payAmount/d.doGoal*100+'%'}"></div>
 			<div class="bar-container">
-				<div id="Content_bar" class="bar" th:style="'width:' + ${1.0*d.payAmount/d.doGoal*100 < 100 ? #strings.toString(1.0*d.payAmount/d.doGoal*100) : '100'} + '%;'" th:text="${1.0*d.payAmount/d.doGoal*100+'%'}"></div>
+				<div id="Content_bar" class="bar" th:style="'width:' + ${1.0*d.payAmount/d.doGoal*100 < 100 ? #strings.toString(1.0*d.payAmount/d.doGoal*100) : '100'} + '%;'"></div>
 			</div>
 			<!-- ajax -->
 <!--			<script type="text/javascript">-->

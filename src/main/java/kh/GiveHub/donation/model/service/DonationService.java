@@ -53,7 +53,9 @@ public class DonationService {
 			int index = newContent.indexOf(oldPath);
 			newContent.replace(index, index+oldPath.length(), newPath);
 		}
-		return mapper.setContent(doNo, newContent.toString());
+		int result = mapper.setContent(doNo, content);
+		System.out.println(result);
+		return result;
 	}
 
 	public int insertDonation(Donation d) {

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.member.model.exception.MemberException;
@@ -50,8 +52,13 @@ public class NewsController {
 		return "/news/newsList";
 	}
 
-//	@GetMapping("getList")
-
+	// 디테일 페이지로 들어가기
+	@GetMapping("/news/newsdetail/{newsNo}")
+	public String newsDetail(Model model, @PathVariable("newsNo") int newsNo) {
+		News n = nService.newsDetail(newsNo);
+		model.addAttribute("n", n);
+		return "/news/newsdetail";
+  }
 	
 	//뉴스 작성 (윤정호)
 	@GetMapping("/news/write")

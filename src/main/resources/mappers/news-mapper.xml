@@ -36,4 +36,12 @@
 		set news_content = #{newContent}
 		where news_no = #{newsNo}
 	</update>
+
+	<select id="newsDetail">
+		select *
+		from news
+		join donation using(do_no)
+		where news_no = #{newsNo}
+	</select>
+	
 </mapper>

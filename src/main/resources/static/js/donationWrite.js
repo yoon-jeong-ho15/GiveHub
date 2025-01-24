@@ -93,7 +93,6 @@ thumbBtn.addEventListener("click",function(){
         const file = input.files[0];
         const imgName = 
             file.name.substring(file.name.lastIndexOf("/")+1);
-        console.log(imgName);
         const path = await processImage(file, imgName, 0);
         thumbPre.src = path;
         pathArr.push(path);
