@@ -106,15 +106,15 @@ public class DonationController {
 		return dService.search(d);
 	}
 
-	@PostMapping("/insert")
+	@PostMapping("/donation/insert")
 	@ResponseBody
 	public ResponseEntity<Integer> insertDonation(@ModelAttribute Donation d, HttpSession session) {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		d.setMemNo(loginUser.getMemNo());
 		d.setMemName(loginUser.getMemName());
 		int result = dService.insertDonation(d);
-		System.out.println(d);
 		if (result>0) {
+			System.out.println(d.getDoNo());
 			return ResponseEntity.ok(d.getDoNo());
 		}else {
 			throw new DonationException("failed : insert donation");

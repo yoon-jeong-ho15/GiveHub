@@ -21,11 +21,38 @@
             font-weight: 500;
             cursor: pointer;
         }
-
+        .main{
+            margin-top: 15rem;
+        }
     </style>
 </head>
 <body>
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
+<div class="main">
+    <div>
+        <div>
+            <form>
+            <table>
+                <tr>
+                <td>제목</td>
+                <td>
+                    <input type="text" name="newsTitle" id="newsTitle">
+                </td> 
+                </tr>
+                <tr>
+
+                </tr>
+            </table>
+            </form>
+        </div>
+        <div id="thumbnailDiv">
+
+        </div>
+    </div>
+    <div>
+
+    </div>
+</section>
 <script src="/js/common.js"></script>
 <footer>
     <div th:replace="~{/common/footer.html :: footer_bar}"></div>

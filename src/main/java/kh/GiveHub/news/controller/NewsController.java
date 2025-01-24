@@ -45,5 +45,9 @@ public class NewsController {
 
 //	@GetMapping("getList")
 
-
+	//뉴스 작성 기능 (윤정호)
+	@GetMapping("/news/write")
+	public String toWrite() {
+		return "/news/newsWrite";
+	}
 }
