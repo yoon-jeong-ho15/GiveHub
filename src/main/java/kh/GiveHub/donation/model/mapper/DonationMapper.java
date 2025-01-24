@@ -3,8 +3,10 @@ package kh.GiveHub.donation.model.mapper;
 import java.util.ArrayList;
 import java.util.Map;
 
-import kh.GiveHub.donation.model.vo.Donation;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import kh.GiveHub.donation.model.vo.Donation;
 
 @Mapper
 public interface DonationMapper {
@@ -19,7 +21,7 @@ public interface DonationMapper {
 
     int updateCount(int doNo);
 
-	int setContent(int bid, String content);
+    int setContent(@Param("doNo") int doNo, @Param("content") String content);
 
 	int insertDonation(Donation d);
 
