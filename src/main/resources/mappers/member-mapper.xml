@@ -68,4 +68,10 @@
 
 		</if>
 	</select>
+
+	<update id="deleteMember">
+		update member
+		set mem_status = 'N'
+		where mem_id = #{memId}
+	</update>
 </mapper>

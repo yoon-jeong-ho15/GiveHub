@@ -69,4 +69,6 @@ public class MemberService {
     public ArrayList<Payment> selectDonationList(int no, int type) {
 		return mapper.selectDonationList(no, type);
     }
+
+	public int deleteMember(String login) { return mapper.deleteMember(login);}
 }
