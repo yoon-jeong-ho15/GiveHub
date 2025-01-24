@@ -130,8 +130,5 @@ public class DonationController {
 		}else {
 			throw new MemberException("게시글 상세보기를 실패하셨습니다.");
 		}
-
 	}
-
-
 }
