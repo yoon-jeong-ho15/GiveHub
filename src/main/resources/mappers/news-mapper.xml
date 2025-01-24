@@ -22,4 +22,18 @@
 		join donation d on (n.do_no = d.do_no)
 		join member m on (d.mem_no = m.mem_no)
 	</select>
+
+	<insert id="insertNews">
+		<selectKey order="BEFORE" resultType="_int" keyProperty="newsNo">
+			select seq_news_no.nextval from dual
+		</selectKey>
+		insert into news
+		values (#{newsNo}, #{newsTitle}, 'null', default,
+		 default, #{memNo}, #{doNo})
+	</insert>
+	<update id="setContent">
+		update news
+		set news_content = #{newContent}
+		where news_no = #{newsNo}
+	</update>
 </mapper>

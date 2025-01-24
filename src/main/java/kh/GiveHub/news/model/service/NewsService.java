@@ -1,12 +1,14 @@
 package kh.GiveHub.news.model.service;
 
-import kh.GiveHub.news.model.vo.News;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.springframework.stereotype.Service;
 
 import kh.GiveHub.news.model.mapper.NewsMapper;
+import kh.GiveHub.news.model.vo.News;
 import lombok.RequiredArgsConstructor;
-
-import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
@@ -29,8 +31,22 @@ public class NewsService {
         return mapper.nnewsList();
     }
 
-	public void setContent(int bid, String content) {
-		
+	public int setContent(int newsNo, String content) {
+		StringBuilder newContent = new StringBuilder();
+		Pattern pattern = 
+				Pattern.compile("<img[^>]+?src=\"([^\"]+)\"[^>]*?>");
+		Matcher matcher = pattern.matcher(content);
+		while(matcher.find()) {
+			String oldPath = matcher.group(1);
+			String newPath = oldPath.replace("/temp/", "/upload/");
+			int index = newContent.indexOf(oldPath);
+			newContent.replace(index, index+oldPath.length(), newPath);
+		}
+		return mapper.setContent(newsNo, newContent.toString());
+	}
+
+	public int insertNews(News n) {
+		return mapper.insertNews(n);
 	}
 
 

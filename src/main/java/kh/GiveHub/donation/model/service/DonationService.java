@@ -42,7 +42,7 @@ public class DonationService {
         return d;
     }
 
-	public int setContent(int bid, String content) {
+	public int setContent(int doNo, String content) {
 		Pattern pattern = 
 				Pattern.compile("<img[^>]+?src=\"([^\"]+)\"[^>]*?>");
 		Matcher matcher = pattern.matcher(content);
@@ -53,7 +53,7 @@ public class DonationService {
 			int index = newContent.indexOf(oldPath);
 			newContent.replace(index, index+oldPath.length(), newPath);
 		}
-		return mapper.setContent(bid, content);
+		return mapper.setContent(doNo, newContent.toString());
 	}
 
 	public int insertDonation(Donation d) {

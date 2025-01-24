@@ -112,7 +112,7 @@ public class DonationController {
 		if (result>0) {
 			return ResponseEntity.ok(d.getDoNo());
 		}else {
-			throw new DonationException("failed : insert donation");
+			throw new DonationException("failed : insert donation to db");
 		}
 	}
 

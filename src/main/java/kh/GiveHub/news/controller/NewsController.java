@@ -1,16 +1,23 @@
 package kh.GiveHub.news.controller;
 
-import kh.GiveHub.member.model.exception.MemberException;
-import kh.GiveHub.news.model.vo.News;
-import org.springframework.stereotype.Controller;
+import java.util.ArrayList;
 
-import kh.GiveHub.news.model.service.NewsService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
+import jakarta.servlet.http.HttpSession;
+import kh.GiveHub.member.model.exception.MemberException;
+import kh.GiveHub.member.model.vo.Member;
+import kh.GiveHub.news.model.exception.NewsException;
+import kh.GiveHub.news.model.service.NewsService;
+import kh.GiveHub.news.model.vo.News;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
@@ -45,5 +52,26 @@ public class NewsController {
 
 //	@GetMapping("getList")
 
-
+	
+	//뉴스 작성 (윤정호)
+	@GetMapping("/news/write")
+	public String newsWrite() {
+		return "/news/newsWrite";
+	}
+	
+	@PostMapping("/news/insert")
+	@ResponseBody
+	public ResponseEntity<Integer> insertNews(@ModelAttribute News n,
+			HttpSession session) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		n.setMemNo(loginUser.getMemNo());
+		n.setMemName(loginUser.getMemName());
+		int result = nService.insertNews(n);
+		System.out.println(n.getNewsNo());
+		if (result>0) {
+			return ResponseEntity.ok(n.getNewsNo());
+		}else {
+			throw new NewsException("failed : insert news to db");
+		}
+	}
 }
