@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 /////게시글 작성 관련
 const pathArr = [];
 //api
@@ -165,5 +163,4 @@ backBtn.addEventListener("click", async function () {
     }
 });
 //////////
-=======
->>>>>>> refs/heads/main
+
