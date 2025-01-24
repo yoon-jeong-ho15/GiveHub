@@ -122,21 +122,72 @@ label.delete_user {
 }
 
 
+#buttonDiv {
+	margin-left: 70px;
+	margin-top: 20px;
+}
+
+#buttonDiv>button {
+	height: 41px;
+	width: 280px;
+	background: #34D28B;
+	border: 0 solid #fff;
+	border-radius: 14px;
+	color: white;
+	font-size: 12pt;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+table {
+	display: flex;
+	margin-top: 30px;
+	margin-left: 40px;
+}
+
+table td {
+	padding: 3px;
+	margin-top: 10px;
+}
+
+tr>td:nth-child(1) {
+	width: 300px;
+}
+
+tr>td:nth-child(2) {
+	width: 80px;
+}
+
+tr>td:nth-child(3) {
+	width: 90px;
+}
+
+tr>td:nth-child(4) {
+	width: 150px;
+}
+
+td>button {
+	background: #edb1b2;
+	color: red;
+	border: 0 solid #fff;
+	border-radius: 3px;
+	width: 40px;
+	height: 25px;
+}
+
+.main_menu_wrap a {
+	color: #1a1a1a !important;
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+.login_wrap button {
+	background: none;
+	color: #1a1a1a !important;
+	border: none;
+	font-size: 1rem;
+	font-weight: 500;
+	cursor: pointer;
+}
 
 
 
@@ -231,8 +282,8 @@ span {
 		<div class="my_info_container">
 			<div class="my_info_menu_wrap">
 				<p id="myProfile" class="text_color my_info_title infoMenu">My Profile</p>
-				<button id="editMyInfo" class="infoMenu">내 정보 수정</button><!--onclick="location.href='editMyInfo'"-->
-				<button class="infoMenu" onclick="location.href='myDonation'">기부 내역 조회</button>
+				<button id="editMyInfo" class="infoMenu">내 정보 수정</button>
+				<button id="myDonaList" class="infoMenu">기부 내역 조회</button>
 				<hr>
 				<button onclick="location.href='/logout'">Log out</button>
 			</div>
@@ -285,7 +336,6 @@ span {
 						<div id="emailDiv">
 							<label for="email"></label><input type="email" name="memId" id="email" th:value="${session.loginUser.memId}">
 							<button onclick="checkEmail(event)">중복확인</button>
-<!--							<input type="button" value="중복확인" onclick="checkEmail(event)">-->
 
 						</div>
 						<span id="emailCheckSpan">사용하실수 있는 아이디 입니다.</span>
@@ -301,6 +351,34 @@ span {
 			</form>
 		</div>
 
+		<div class="my_info_wrap" id="donaList">
+			<div id="buttonDiv">
+				<button onclick="ongoingList()">진행중인 후원</button>
+				<button onclick="finishedList()">완료된 후원</button>
+			</div>
+			<div id="tableDiv">
+				<table class="table">
+					<thead>
+						<tr>
+							<td>제목</td>
+							<td>이름</td>
+							<td>후원 금액</td>
+							<td>후원한 날짜</td>
+							<td>결제 취소</td>
+						</tr>
+					</thead>
+					<tbody id="myDonaTbody">
+						<tr th:each="p:${list}">
+							<td th:text="${p.doTitle}"></td>
+							<td th:text="${p.memName}"></td>
+							<td th:text="${p.payAmount}+'원'"></td>
+							<td th:text="${#dates.format(p.payCreatedate, 'yyyy년 MM월 dd일')}"></td>
+							<td th:if="${p.payStatus == 'Y'}"><button onclick="cancleDonation()">취소</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 	<script>
 		function checkEmail(event){
@@ -344,12 +422,21 @@ span {
 			infoMenu[0].addEventListener('click', function() {
 				infoContents[0].style.display = 'block';
 				infoContents[1].style.display = 'none';
+				infoContents[2].style.display = 'none';
 			});
 
 			// "내 정보 수정" 클릭 시 두 번째 정보 보이기
 			infoMenu[1].addEventListener('click', function() {
 				infoContents[0].style.display = 'none';
 				infoContents[1].style.display = 'block';
+				infoContents[2].style.display = 'none';
+			});
+
+			// "기부 내역 조회" 클릭 시 세 번째 정보 보이기
+			infoMenu[2].addEventListener('click', function() {
+				infoContents[0].style.display = 'none';
+				infoContents[1].style.display = 'none';
+				infoContents[2].style.display = 'block';
 			});
 		});
 
@@ -381,9 +468,88 @@ span {
 			}
 		});
 
+		const ongoingList = () =>{
+			$.ajax({
+				url:'/ongoingList',
+				data: {no:/*[[${session.loginUser.memNo}]]*/100},
+				success:data=>{
+					const tbody = document.querySelector('#myDonaTbody');
+					tbody.innerHTML = ''; // 기존 내용 초기화
+					for (const p of data) {
+						const tr = document.createElement('tr');
 
+						const td1 = document.createElement('td');
+						td1.appendChild(document.createTextNode(p.doTitle));
 
+						const td2 = document.createElement('td');
+						td2.appendChild(document.createTextNode(p.memName));
 
+						const td3 = document.createElement('td');
+						td3.appendChild(document.createTextNode(p.payAmount+'원'));
+
+						let objectDate = new Date(p.payCreatedate);
+						console.log(objectDate);
+
+						let day = objectDate.getDate();
+						let month = objectDate.getMonth() + 1;
+						let year = objectDate.getFullYear();
+
+						const td4 = document.createElement('td');
+						td4.appendChild(document.createTextNode(year + '년 ' + month + '월 ' + day + '일'));
+
+						tr.appendChild(td1);
+						tr.appendChild(td2);
+						tr.appendChild(td3);
+						tr.appendChild(td4);
+						tr.innerHTML += '<td th:if="${p.payStatus == ' + 'Y' + '}"><button onClick="cancleDonation()">취소</button></td>';
+
+						tbody.appendChild(tr);
+					}
+				},
+				error:data=>console.log(data)
+			});
+		}
+
+		const finishedList = () =>{
+			$.ajax({
+				url:'/finishedList',
+				data: {no:/*[[${session.loginUser.memNo}]]*/100},
+				success:data=>{
+					const tbody = document.querySelector('#myDonaTbody');
+					tbody.innerHTML = ''; // 기존 내용 초기화
+					for (const p of data) {
+						const tr = document.createElement('tr');
+
+						const td1 = document.createElement('td');
+						td1.appendChild(document.createTextNode(p.doTitle));
+
+						const td2 = document.createElement('td');
+						td2.appendChild(document.createTextNode(p.memName));
+
+						const td3 = document.createElement('td');
+						td3.appendChild(document.createTextNode(p.payAmount+'원'));
+
+						let objectDate = new Date(p.payCreatedate);
+						console.log(objectDate);
+
+						let day = objectDate.getDate();
+						let month = objectDate.getMonth() + 1;
+						let year = objectDate.getFullYear();
+
+						const td4 = document.createElement('td');
+						td4.appendChild(document.createTextNode(year + '년 ' + month + '월 ' + day + '일'));
+
+						tr.appendChild(td1);
+						tr.appendChild(td2);
+						tr.appendChild(td3);
+						tr.appendChild(td4);
+
+						tbody.appendChild(tr);
+					}
+				},
+				error:data=>console.log(data)
+			});
+		}
 	</script>
 <footer>
 	<div th:replace="~{/common/footer.html :: footer_bar}"></div>
