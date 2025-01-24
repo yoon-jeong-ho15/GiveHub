@@ -37,4 +37,6 @@ public interface MemberMapper {
 	String findMemNameByEmail(String email);
 
     ArrayList<Payment> selectDonationList(@Param("no") int no, @Param("type") int type);
+
+    int deleteMember(String login);
 }
