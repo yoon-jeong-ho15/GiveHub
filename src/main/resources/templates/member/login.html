@@ -23,7 +23,7 @@
     #loginTop {
         margin-bottom: 10px;
         font-size: 24px;
-        color: #333;
+        color: #1a1a1a;
         text-align: center;
     }
 
@@ -90,6 +90,27 @@
         cursor: pointer;
     }
 
+    .find_btn_wrap {
+        margin-top: 1rem;
+    }
+
+    .find_btn_wrap button {
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+
+    .find_btn_wrap button:first-child::after {
+        content: '';
+        width: 1px;
+        height: 17px;
+        display: inline-block;
+        background: #cdcdcd;
+        margin-left: 1.15rem;
+        transform: translateY(3px);
+    }
+
 </style>
 </head>
 <body>
@@ -99,16 +120,16 @@
 
     <form id="loginForm" method="post" action="/member/login">
 
-        <table align="center" style="margin-top: 100px;">
+        <table text-align="center">
             <tr>
-                <td colspan="2" align="center">
+                <td colspan="2">
                     <h2 id="loginTop">로그인</h2>
                     <p class="subtitle">더 나은 세상을 위한 한 걸음 기부, 함께 만드는 기적</p>
                 </td>
             </tr>
 
             <tr>
-                <th align="left">
+                <th text-align="left">
                     <label for="mem_id">아이디</label>
                 </th>
                 <td>
@@ -119,7 +140,7 @@
             </tr>
 
             <tr>
-                <th align="left">
+                <th text-align="left">
                     <label for="mem_pwd">비밀번호</label>
                 </th>
                 <td>
@@ -134,17 +155,10 @@
             </tr>
         </table>
     </form>
-	<tr>
-		<td colspan="2">
-			<button type="button" onclick="location.href='/findmyid'">아이디 찾기</button>
-		</td>
-	</tr>
-		
-	<tr>
-		<td colspan="2" align="center">
-			<button type="button" onclick="location.href='/findpassword'"> 비밀번호 찾기</button>
-		</td>
-	<tr>
+    <div class="find_btn_wrap">
+        <button type="button" onclick="location.href='/findmyid'">아이디 찾기</button>
+        <button type="button" onclick="location.href='/findpassword'"> 비밀번호 찾기</button>
+    </div>
 </div>
 <footer>
     <div th:replace="~{/common/footer.html :: footer_bar}"></div>
