@@ -64,7 +64,11 @@ public class DonationController {
 
 	@GetMapping("/donation/donationlist")
 	public String donationList(Model model) {
-		ArrayList<Donation> list = dService.selectDonaList(0); // 기본 전체 목록
+		ArrayList<Donation> list = dService.selectDonaList(1);
+		System.out.println(list);
+
+
+	// 기본 전체 목록
 		model.addAttribute("list", list);
 		return "donation/donationlist";
 	}
