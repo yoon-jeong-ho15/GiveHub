@@ -1,27 +1,20 @@
 package kh.GiveHub.member.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-
-import kh.GiveHub.payment.model.vo.Payment;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
-
 import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.member.model.exception.MemberException;
 import kh.GiveHub.member.model.service.MemberService;
 import kh.GiveHub.member.model.vo.Member;
+import kh.GiveHub.payment.model.vo.Payment;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 @Controller
 @RequiredArgsConstructor
@@ -39,10 +32,10 @@ public class MemberController {
     }
 
     @PostMapping("/member/login")
-    public String login(Member m, Model model) {
-    	System.out.println(bcrypt.encode(m.getMemPwd()));
+    public String login(Member m, Model model,HttpSession session) {
+//    	System.out.println(bcrypt.encode(m.getMemPwd()));
     	Member loginUser = mService.login(m);
-        System.out.println(loginUser);
+//        System.out.println(loginUser);
         model.addAttribute("loginUser", loginUser);
         if(loginUser != null && bcrypt.matches(m.getMemPwd(), loginUser.getMemPwd()) && !loginUser.getMemType().equals("2")) {
     		return "redirect:/";
@@ -261,6 +254,18 @@ public class MemberController {
     	
     	return password.toString();
     	
+    }
+
+    @GetMapping("/member/delete")
+    public String delete(HttpSession session) {
+        int result= mService.deleteMember(((Member)session.getAttribute("loginUser")).getMemId());
+
+        if(result > 0) {
+            return "redirect:/member/logout";
+        }else {
+            throw new MemberException("삭제  실패 ㅋㅋㅋ");
+        }
+
     }
     
     
