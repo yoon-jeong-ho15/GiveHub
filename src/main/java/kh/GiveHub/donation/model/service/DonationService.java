@@ -42,20 +42,26 @@ public class DonationService {
         return d;
     }
 
-	public int setContent(int doNo, String content) {
-		Pattern pattern = 
-				Pattern.compile("<img[^>]+?src=\"([^\"]+)\"[^>]*?>");
-		Matcher matcher = pattern.matcher(content);
+    public int setContent(int doNo, String content) {
 		StringBuilder newContent = new StringBuilder(content);
+        Pattern pattern = Pattern.compile("<img[^>]+?src=\"([^\"]+)\"[^>]*?>");
+        Matcher matcher = pattern.matcher(content);
+        
+        int offset = 0;
+        
 		while(matcher.find()) {
 			String oldPath = matcher.group(1);
 			String newPath = oldPath.replace("/temp/", "/upload/");
-			int index = newContent.indexOf(oldPath);
-			newContent.replace(index, index+oldPath.length(), newPath);
+            
+            int startIndex = matcher.start(1) + offset;
+            int endIndex = matcher.end(1) + offset;
+            
+            newContent.replace(startIndex, endIndex, newPath);
+            
+            offset += newPath.length() - oldPath.length();
 		}
-		int result = mapper.setContent(doNo, content);
-		System.out.println(result);
-		return result;
+        
+        return mapper.setContent(doNo, newContent.toString());
 	}
 
 	public int insertDonation(Donation d) {
