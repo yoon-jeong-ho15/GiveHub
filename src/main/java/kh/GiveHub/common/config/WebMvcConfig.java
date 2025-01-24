@@ -10,7 +10,7 @@ public class WebMvcConfig implements WebMvcConfigurer{
 		registry.addResourceHandler("/temp/**")
 			.addResourceLocations("file:///c:/GiveHub/temp/");
 		registry.addResourceHandler("/upload/**")
-			.addResourceLocations("file:///c:/GiveHub/upload/");
+			.addResourceLocations("file:///c:/GiveHub/");
 		registry.addResourceHandler("/**")
 			.addResourceLocations("classpath:/static/");
 
