@@ -27,6 +27,42 @@
 <body>
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
 <script src="/js/common.js"></script>
+
+<section>
+    <div class="container">
+        <div class="detail_title_wrap">
+            <p class="title_sub_text">후원</p>
+            <h1 class="donation_detail_text">[[${n.doTitle}]]</h1>
+        </div>
+
+        <div class="donation_info">
+            <div class="donation_info_text_wrap">
+                <ul>
+                    <li>
+                        <p>새소식</p>
+                        <span display="inline-block"><p class="donation_data" th:text="${n.newsTitle}"></span>
+                    </li>
+                    <li>
+                        <p>프로젝트 팀</p>
+                        <p class="donation_data" th:text="${n.memName}"></p>
+                    </li>
+                    <li>
+                        <p>내용</p>
+                        <p class="donation_data" th:text="${n.newsContent}"></p>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
 <footer>
     <div th:replace="~{/common/footer.html :: footer_bar}"></div>
 </footer>

@@ -22,4 +22,12 @@
 		join donation d on (n.do_no = d.do_no)
 		join member m on (d.mem_no = m.mem_no)
 	</select>
+
+	<select id="newsDetail">
+		select *
+		from news
+		join donation using(do_no)
+		where news_no = #{newsNo}
+	</select>
+
 </mapper>
