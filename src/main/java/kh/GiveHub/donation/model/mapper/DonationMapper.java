@@ -1,6 +1,7 @@
 package kh.GiveHub.donation.model.mapper;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,13 +13,9 @@ public interface DonationMapper {
 
     ArrayList<Donation> selectDonaList(int i);
 
-    ArrayList<Donation> selectCategory(String category);
+    ArrayList<Donation> selectCategory(Map<String, Object> map);
 
     int deleteDona(String no);
-
-    ArrayList<Donation> selectOrderBy(String type);
-
-    ArrayList<Donation> search(Donation d);
 
     Donation selectDonation(int doNo);
 

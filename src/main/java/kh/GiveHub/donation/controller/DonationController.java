@@ -4,6 +4,9 @@ package kh.GiveHub.donation.controller;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -79,31 +82,23 @@ public class DonationController {
 
 	@GetMapping("/category")
 	@ResponseBody
-	public ArrayList<Donation> category (@RequestParam("category") String category){
-		System.out.println(category);
-		if (category.equals("all")) {
-			return dService.selectDonaList(1);
-		} else {
-			return dService.selectCategory(category);
-		}
-	}
-
-	@GetMapping("/order")
-	@ResponseBody
-	public ArrayList<Donation> order(@RequestParam("type") String type) {
-		return dService.orderBy(type);
-	}
-
-	@GetMapping("/search")
-	@ResponseBody
-	public ArrayList<Donation> search(@RequestParam("selectItem") String item, @RequestParam("searchInput") String searchInput) {
+	public ArrayList<Donation> category (@RequestParam("categorySelect") String categorySelect, @RequestParam("searchItem") String searchItem, @RequestParam("searchInput") String searchInput, @RequestParam("optionSelect") String optionSelect){
+		System.out.println(categorySelect);
+		Map<String, Object> map = new HashMap<>();
+		map.put("categorySelect", categorySelect);
+		map.put("optionSelect", optionSelect);
 		Donation d = new Donation();
-		if (item.equals("doTitle")){
-			d.setDoTitle(searchInput);
-		}else{
-			d.setMemName(searchInput);
+		if (!searchInput.equals("")) {
+			if (searchItem.equals("doTitle")){
+				d.setDoTitle(searchInput);
+			}else{
+				d.setMemName(searchInput);
+			}
 		}
-		return dService.search(d);
+		map.put("d", d);
+		System.out.println(map);
+
+		return dService.selectCategory(map);
 	}
 
 	@PostMapping("/donation/insert")

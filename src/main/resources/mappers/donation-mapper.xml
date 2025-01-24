@@ -8,46 +8,36 @@
     <select id="selectDonaList">
         select * from donation join member using(mem_no)
         <if test="i == 1">
-            where do_status = 'Y' and do_enddate >= sysdate
+            where do_status = 'Y' and do_enddate >= sysdate order by do_createdate desc
         </if>
     </select>
 
     <select id="selectCategory">
         select * from donation
         join member using(mem_no)
-        where do_category = #{category}
-    </select>
-
-    <select id="selectOrderBy" >
-        select * from donation
-        join member using(mem_no)
+        <where>
+            <if test="categorySelect != 'all'">
+                do_category = #{categorySelect}
+            </if>
+            <if test="d.doTitle != null">
+                and do_Title like '%${d.doTitle}%'
+            </if>
+            <if test="d.memName != null">
+                and mem_name like '%${d.memName}%'
+            </if>
+            and do_enddate >= sysdate
+        </where>
         <choose>
-            <when test="type == 'popular'">
+            <when test="optionSelect == 'popular'">
                 order by do_views desc
             </when>
-            <when test="type == 'recent'">
+            <when test="optionSelect == 'recent'">
                 order by do_createdate desc
             </when>
-            <when test="type == 'urgent'">
+            <when test="optionSelect == 'urgent'">
                 order by do_enddate asc
             </when>
         </choose>
-    </select>
-
-
-    <select id="search">
-        select *
-        from donation
-        join member
-        using(mem_no)
-        <where>
-            <if test="doTitle != null">
-                do_Title like '%${doTitle}%'
-            </if>
-            <if test="memName != null">
-                mem_name like '%${memName}%'
-            </if>
-        </where>
     </select>
 
 	<insert id="insertDonation">
