@@ -67,4 +67,28 @@ public class DonationService {
 	public int insertDonation(Donation d) {
 		return mapper.insertDonation(d);
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public ArrayList<Donation> selectNew() {
+        return mapper.selectNew();
+    }
 }

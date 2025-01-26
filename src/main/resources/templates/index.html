@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <link href="/css/reset.css" rel="stylesheet" type="text/css">
     <link href="/css/common.css" rel="stylesheet" type="text/css">
     <link href="/css/index.css" rel="stylesheet" type="text/css">
@@ -47,36 +47,36 @@
 
         <div id="slide_visual" class="visual_img">
             <div id="slide_wrap" class="slide_img_wrap">
-                <div class="img_wrap">
-                    <div class="slide_img">
-                        <img src="img/Baby_wearing_a_head_correction_helmet.jpg">
-                    </div>
-                    <div class="text_wrap">
-                        <p class="category category_white">아동/청소년</p>
-                        <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>
-                        <a href="#">도움주러가기↗</a>
-                    </div>
-                </div>
-                <div class="img_wrap">
-                    <div class="slide_img">
-                        <img src="img/baby_looking_out_the_window.jpg">
-                    </div>
-                    <div class="text_wrap">
-                        <p class="category category_white">아동/청소년</p>
-                        <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>
-                        <a href="#">도움주러가기↗</a>
-                    </div>
-                </div>
-                <div class="img_wrap">
-                    <div class="slide_img">
-                        <img src="img/Korean_War_Veteran_Grandpa.jpg">
-                    </div>
-                    <div class="text_wrap">
-                        <p class="category category_white">아동/청소년</p>
-                        <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>
-                        <a href="#">도움주러가기↗</a>
-                    </div>
-                </div>
+<!--                <div class="img_wrap">-->
+<!--                    <div class="slide_img">-->
+<!--                        <img src="img/Baby_wearing_a_head_correction_helmet.jpg">-->
+<!--                    </div>-->
+<!--                    <div class="text_wrap">-->
+<!--                        <p class="category category_white">아동/청소년</p>-->
+<!--                        <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>-->
+<!--                        <a href="#">도움주러가기↗</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="img_wrap">-->
+<!--                    <div class="slide_img">-->
+<!--                        <img src="img/baby_looking_out_the_window.jpg">-->
+<!--                    </div>-->
+<!--                    <div class="text_wrap">-->
+<!--                        <p class="category category_white">아동/청소년</p>-->
+<!--                        <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>-->
+<!--                        <a href="#">도움주러가기↗</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="img_wrap">-->
+<!--                    <div class="slide_img">-->
+<!--                        <img src="img/Korean_War_Veteran_Grandpa.jpg">-->
+<!--                    </div>-->
+<!--                    <div class="text_wrap">-->
+<!--                        <p class="category category_white">아동/청소년</p>-->
+<!--                        <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>-->
+<!--                        <a href="#">도움주러가기↗</a>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
@@ -202,6 +202,38 @@
     <a href="/donation/donationlist">후원하기</a>
 </div>
 <script>
+    window.onload = () =>{
+        $.ajax({
+           url: '/donation/new',
+           //dataType:'json',
+            success : data=>{
+               console.log(data);
+
+                const donationContainer = $("#slide_wrap");
+                donationContainer.empty(); // 기존 데이터 삭제
+
+               for(const d of data){
+                   const donationHTML = `
+                    <div class="img_wrap">
+                        <div class="slide_img">
+                            <img src="/img/${donation.imagePath}" alt="donation image">
+                        </div>
+                        <div class="text_wrap">
+                            <p class="category category_white">${donation.doCategory}</p>
+                            <h3 class="board_title">${donation.doTitle}</h3>
+                            <a href="/donation/${donation.id}">도움주러가기↗</a>
+                        </div>
+                    </div>`;
+                   donationContainer.append(donationHTML);
+               }
+            },
+            error: data => console.log(data)
+        });
+
+
+
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
         const floatingBtn = document.getElementById("floating_btn");
         const footer = document.querySelector("footer");
