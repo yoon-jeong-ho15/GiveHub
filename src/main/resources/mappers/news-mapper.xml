@@ -21,6 +21,9 @@
 		from news n
 		join donation d on (n.do_no = d.do_no)
 		join member m on (d.mem_no = m.mem_no)
+		<if test="i != 0">
+			where n.do_no = #{i}
+		</if>
 	</select>
 
 	<insert id="insertNews">

@@ -119,6 +119,8 @@ public class DonationController {
 	@GetMapping("/donation/donationdetail/{doNo}")
 	public ModelAndView selectDona(@PathVariable("doNo") int doNo,HttpSession session, ModelAndView mv) {
 		// 글 상세조회 + 조회수 수정(내가 내 글 조회 or 비회원 조회 -> 조회수 올라가지 않음)
+		ArrayList<News> list = nService.nnewsList(doNo);
+		model.addAttribute("list", list);
 
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		Integer id = null;
