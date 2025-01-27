@@ -56,9 +56,10 @@ public class DonationController {
 	}
 
 	@GetMapping("payment")
-	public String paymentPage (HttpSession session , Model model) {
+	public String paymentPage (HttpSession session , Model model , @RequestParam("doNo") String doNo) {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		model.addAttribute("memName",loginUser.getMemName());
+		model.addAttribute("doNo",doNo);
 		return "page/paymentPage";
 	}
 
@@ -133,7 +134,8 @@ public class DonationController {
 		//게시글이 존재하면, 게시글 데이터(b)를 donationdetail.html로 전달
 		//게시글이 존재하지 않으면 사용자 정의 예외 발생
 		if(d != null) {
-			mv.addObject("d", d).addObject("date", date).setViewName("donation/donationdetail");
+			mv.addObject("d", d).addObject("date", date).setViewName("/donation/donationdetail");
+			
 			return mv;
 		}else {
 			throw new MemberException("게시글 상세보기를 실패하셨습니다.");

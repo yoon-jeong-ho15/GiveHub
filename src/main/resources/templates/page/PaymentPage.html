@@ -66,8 +66,9 @@
         <form action="/pay" method="post">
             <div>
                 <label for="donor-name">기부자</label>
-                <input type="text" id="donor-name" name="donater" placeholder="이름 입력" th:value="${memName}" readonly> 님
+                <input type="text" id="donor-name" name="donater" placeholder="이름 입력" th:value="${memName}" readonly>님
             </div>
+            <p id="doNo" hidden>[[${doNo}]]</p>
             <div>
                 <input type="radio" id="amount1" name="amount" value="10000">
                 <label for="amount1">1만원</label>
@@ -95,7 +96,10 @@
 <script>
     // 아임포트 초기화
     IMP.init("imp64726784");
-
+    const doNo = document.getElementById("doNo").textContent;
+    const doName = document.getElementById("donor-name").value;
+	
+    
     document.getElementById("payBtn").addEventListener("click", function() {
         const amountList = document.getElementsByName('amount');
         let amount = null;
@@ -124,10 +128,9 @@
             pg: "html5_inicis.INIpayTest", // 사용할 PG사
             pay_method: "card", // 결제 방식
             merchant_uid: "order_" + new Date().getTime(), // 주문 고유 번호
-            name: "기부금 결제", // 결제 상품명
+            name: doNo, // 결제 테이블 번호
             amount: amount, // 결제 금액
-            buyer_email: "user@example.com", // 구매자 이메일
-            buyer_name: "홍길동" // 구매자 이름
+            buyer_name: doName // 구매자 이름
         }, function(rsp) {
             if (rsp.success) {
                 alert("결제가 완료되었습니다. 결제 금액: " + rsp.paid_amount);
@@ -138,8 +141,11 @@
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        imp_uid: rsp.imp_uid,
-                        merchant_uid: rsp.merchant_uid
+                        impuid: rsp.imp_uid,
+                        merchantuid: rsp.merchant_uid,
+                        amount : rsp.paid_amount,
+                        name:doName,
+                        doNo:doNo
                     })
                 }).then(response => {
                     if (response.ok) {

@@ -1,21 +1,15 @@
 package kh.GiveHub.payment.model.vo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.sql.Date;
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
 public class Payment {
-    int payNo;
-    int payAmount;
-    Date payCreatedate;
-    String payStatus;
-    int memNo;
-    int doNo;
-    String memName;
-    String doTitle;
+	private int payNo;
+    private String donorName; // 기부자 이름
+    private int donationNo; // 게시글 번호
+    private int amount; // 결제 금액
+    private boolean success; // 결제 성공 여부
 }
+

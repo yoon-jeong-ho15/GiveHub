@@ -36,6 +36,7 @@
 				<h1 class="donation_detail_text">[[${d.doTitle}]]</h1>
 				<p class="page_category">[[${d.doCategory}]]</p>
 			</div>
+				<p id="doNo" hidden>[[${d.doNo}]]</p>
 
 			<div class="donation_info">
 				<div class="donation_img_wrap">
@@ -91,7 +92,7 @@
 			</div>
 			
 			<div id="floating_btn" class="dona_btn">
-				<a href="/payment">후원하기</a>
+				<button id="doanteBtn">후원하기</button>
 			</div>
 			
 
@@ -127,6 +128,24 @@
 <footer>
 	<div th:replace="~{/common/footer.html :: footer_bar}"></div>
 </footer>
+
+	<script type="text/javascript">
+		document.getElementById("doanteBtn").addEventListener("click",function(){
+			const doNo = document.getElementById("doNo").textContent;
+			
+			const paymentUrl = `/payment?doNo=${encodeURIComponent(doNo)}`;
+			window.location.href=paymentUrl;
+			
+		});
+	</script>
+
+
+
+
+
+
+
+
 
 
 </body>
