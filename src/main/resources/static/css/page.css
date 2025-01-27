@@ -11,7 +11,7 @@ form p.subtitle {
     font-size: 1.1rem;
     color: #0a0a0a;
     font-weight: 400;
-    margin-bottom: 20px;
+    margin-bottom: 3.5rem;
 }
 
 .page_container table th {
@@ -94,11 +94,33 @@ td.text_style input {
 }
 
 [type="checkbox"] {
-    accent-color: #34D28B;
-    width: 15px;
-    height: 15px;
+    width: 1.4em;
+    height: 1.4em;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 1px solid gray;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-[type="checkbox"] checked {
-
+[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    box-sizing: border-box;
+    width: 30%;
+    height: 55%;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-70%) rotateZ(40deg);
+    border-right: 1.7px solid gray;
+    border-bottom: 1.7px solid gray;
+}
+[type="checkbox"]:checked  {
+    border-color:  yellowgreen;
+    background-color: yellowgreen;
+}
+[type="checkbox"]:checked {
+    border-color: #fff;
 }
