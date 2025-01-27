@@ -7,6 +7,7 @@
     <link href="/css/common.css" rel="stylesheet" type="text/css">
     <link href="/css/navBar.css" rel="stylesheet" type="text/css">
     <link href="/css/footer.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
     <style>
         .main_menu_wrap a {
             color: #1a1a1a !important;
@@ -22,11 +23,51 @@
             cursor: pointer;
         }
 
+        #main{
+            padding-top: 25rem;
+        }
+        .row{
+            display: flex;
+            flex-direction: row;
+        }
+        #thumbnailDiv{
+            width: 400px;
+            height: auto;  
+        }
     </style>
 </head>
 <body>
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
+
+<div id="main">
+    <div class="row">
+        <div id="inputDiv">
+        <form>
+            제목<br>
+            <input type="text" id="newsTitle" name="newsTitle">
+            <input type="hidden" id="doNo" name="doNo" value="26">
+        </form>
+        </div>
+        <div>
+            썸네일 <button id="thumbBtn">넣기</button>
+            <div id="thumbnailDiv">
+                <img id="thumbImg" src="/img/board_img05.jpg">
+            </div>
+        </div>
+    </div>
+    <div>
+        <h2>게시글 내용</h2>
+        <textarea id="newsContent" name="newsContent">
+        </textarea>
+        <input type="hidden" name="boardType" id="boardType" value="news">
+        <div id="buttonDiv">
+            <button type="button" id="submitBtn">submit</button>
+            <button type="button" id="backBtn">back</button>
+        </div>
+    </div>
+</div>
 <script src="/js/common.js"></script>
+<script src="/js/newsWrite.js"></script>
 <footer>
     <div th:replace="~{/common/footer.html :: footer_bar}"></div>
 </footer>

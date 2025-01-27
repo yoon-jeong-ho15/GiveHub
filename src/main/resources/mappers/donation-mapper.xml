@@ -5,19 +5,14 @@
         delete from donation where do_no = #{no}
     </delete>
 
-    <select id="selectDonaList">
-        select * from donation join member using(mem_no)
-        <if test="i == 1">
-            where do_status = 'Y' and do_enddate >= sysdate order by do_createdate desc
-        </if>
-    </select>
-
     <select id="selectCategory">
         select * from donation
         join member using(mem_no)
+        join (select '/upload/'||IMG_RENAME as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
         <where>
+            img_type = '0' and do_enddate <![CDATA[>=]]> sysdate
             <if test="categorySelect != 'all'">
-                do_category = #{categorySelect}
+                and do_category = #{categorySelect}
             </if>
             <if test="d.doTitle != null">
                 and do_Title like '%${d.doTitle}%'
@@ -25,7 +20,6 @@
             <if test="d.memName != null">
                 and mem_name like '%${d.memName}%'
             </if>
-            and do_enddate >= sysdate
         </where>
         <choose>
             <when test="optionSelect == 'popular'">
@@ -40,41 +34,30 @@
         </choose>
     </select>
 
+    <select id="selectDonaList">
+        select * from donation join member using(mem_no)
+    </select>
+
 	<insert id="insertDonation">
 		<selectKey order="BEFORE" resultType="_int" keyProperty="doNo">
-			select seq_do_no from dual
+			select seq_do_no.nextval from dual
 		</selectKey>
 		insert into donation
 		values (#{doNo}, #{doTitle}, 'null', #{doGoal}, #{doCategory}, #{doStartDate},
-			#{doEndDate}, default, default, default, #{memNo}, #{memName}, #{memId})
+			#{doEndDate}, default, default, default, #{memNo})
 	</insert>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+	<update id="setContent">
+		update donation
+		set do_content = #{content}
+		where do_no = #{doNo}
+	</update>
 
     <select id="selectDonation">
         select *
         from donation
             join member using(mem_no)
+            join (select '/upload/'||IMG_RENAME as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
             left join (select do_no, sum(pay_amount) pay_amount, count(*) pay_count from payment where do_no = #{doNo} group by do_no) using(do_no)
         where do_status = 'Y' and do_no =#{doNo}
     </select>
@@ -84,21 +67,5 @@
         set do_views = do_views + 1
         where do_no = #{doNo}
     </update>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </mapper>
 

@@ -15,7 +15,7 @@ public class News {
     private String newsContent;
     private Date newsCreateDate;
     private String newsStatus;
-    private String memNo;
+    private int memNo;
     private String doNo;
     private String doTitle;
     private String memName;

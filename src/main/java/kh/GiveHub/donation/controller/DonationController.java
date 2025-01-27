@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import kh.GiveHub.news.model.service.NewsService;
+import kh.GiveHub.news.model.vo.News;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,17 +35,8 @@ import lombok.RequiredArgsConstructor;
 public class DonationController {
 
 	private final DonationService dService;
+	private final NewsService nService;
 
-	@GetMapping("/ongoingList")
-	public String ongoingList(HttpSession session) {
-		Member loginUser = (Member) session.getAttribute("loginUser");
-		return "/member/mydonation";
-	}
-
-	@GetMapping("/finishedList")
-	public String finishedList(HttpSession session) {
-		return "/member/mydonation";
-	}
 
 	@GetMapping("/admin/donaList")
 	public String newsList (Model model){
@@ -77,8 +70,6 @@ public class DonationController {
 
 	@GetMapping("/donation/donationlist")
 	public String donationList(Model model) {
-		ArrayList<Donation> list = dService.selectDonaList(0); // 기본 전체 목록
-		model.addAttribute("list", list);
 		return "donation/donationlist";
 	}
 
@@ -100,63 +91,33 @@ public class DonationController {
 		map.put("d", d);
 		System.out.println(map);
 
-		return dService.selectCategory(map);
+		ArrayList<Donation> list = dService.selectCategory(map);
+		System.out.println(list);
+
+		return list;
 	}
 
-	@PostMapping("/insert")
+	@PostMapping("/donation/insert")
 	@ResponseBody
 	public ResponseEntity<Integer> insertDonation(@ModelAttribute Donation d, HttpSession session) {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		d.setMemNo(loginUser.getMemNo());
 		d.setMemName(loginUser.getMemName());
 		int result = dService.insertDonation(d);
-		System.out.println(d);
 		if (result>0) {
+			System.out.println(d.getDoNo());
 			return ResponseEntity.ok(d.getDoNo());
 		}else {
 			throw new DonationException("failed : insert donation");
 		}
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	//기부페이지 상세보기
 	@GetMapping("/donation/donationdetail/{doNo}")
-	public ModelAndView selectDona(@PathVariable("doNo") int doNo,HttpSession session, ModelAndView mv) {
+	public ModelAndView selectDona(@PathVariable("doNo") int doNo,HttpSession session, ModelAndView mv , Model model) {
 		// 글 상세조회 + 조회수 수정(내가 내 글 조회 or 비회원 조회 -> 조회수 올라가지 않음)
+		ArrayList<News> list = nService.selectNewsList();
+		model.addAttribute("list", list);
 
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		Integer id = null;
@@ -178,7 +139,8 @@ public class DonationController {
 			throw new MemberException("게시글 상세보기를 실패하셨습니다.");
 		}
 
+
+
+
 	}
-
-
 }

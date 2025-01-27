@@ -1,40 +1,9 @@
-/////날짜 관련 함수
-const today = new Date().toISOString().substring(0, 10);
-const tomorrow = new Date(Date.now() + 86400000).toISOString().substring(0, 10);
-
-document.getElementById("doStartDate").value = tomorrow;
-document.getElementById("doStartDate").addEventListener("change", function () {
-    if (this.value < today) {
-        alert("start date < today");
-        this.value = tomorrow;
-    }
-})
-
-document.getElementById("doEndDate").addEventListener("change", function () {
-    const start = document.getElementById("doStartDate").value;
-    if (this.value < start) {
-        alert("start date > end date");
-        this.value = null;
-    }
-});
-//////////
-
-/////금액 관련 함수
-const doGoal = document.getElementById("doGoal");
-const fakeGoal = document.getElementById("fakeGoal");
-fakeGoal.addEventListener("input", function () {
-    const multiplied = fakeGoal.value * 10000;
-    doGoal.value = multiplied;
-});
-//////////
-
-
 /////게시글 작성 관련
-const pathArr =[];
+const pathArr = [];
 //api
 tinymce.init({
     license_key: "gpl",
-    selector: "#doContent",
+    selector: "#newsContent",
     resize: "both",
     height: 600,
     plugins: "image media emoticons",
@@ -71,8 +40,8 @@ tinymce.init({
 
         input.onchange = async function () {
             const file = this.files[0];
-            const imgName = 
-            file.name.substring(file.name.lastIndexOf("/")+1);
+            const imgName =
+                file.name.substring(file.name.lastIndexOf("/") + 1);
             const path = await processImage(file, imgName, 1);
             pathArr.push(path);
             callback(path, { title: file.name });
@@ -83,36 +52,37 @@ tinymce.init({
 
 //썸네일
 const thumbBtn = document.getElementById("thumbBtn");
-thumbBtn.addEventListener("click",function(){
+thumbBtn.addEventListener("click", function () {
     const input = document.createElement("input");
-    const thumbPre = document.getElementById("thumbPre");
+    const thumbImg = document.getElementById("thumbImg");
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/*");
 
-    input.onchange = async function(){
+    input.onchange = async function () {
         const file = input.files[0];
-        const imgName = 
-            file.name.substring(file.name.lastIndexOf("/")+1);
+        const imgName =
+            file.name.substring(file.name.lastIndexOf("/") + 1);
+        console.log(imgName);
         const path = await processImage(file, imgName, 0);
-        thumbPre.src = path;
+        thumbImg.src = path;
         pathArr.push(path);
     }
     input.click();
 });
 
 //이미지 임시 저장
-const processImage = async function(file, imgName, imgType){
+const processImage = async function (file, imgName, imgType) {
     const formData = new FormData();
     formData.append("image", file);
     formData.append("imgName", imgName);
     formData.append("imgType", imgType);
 
     try {
-        const response = await fetch("/image/temp",{
-            method:"POST",
-            body:formData
+        const response = await fetch("/image/temp", {
+            method: "POST",
+            body: formData
         });
-        if(!response.ok){
+        if (!response.ok) {
             throw new Error("Upload failed : !response.ok");
         }
         return await response.text();
@@ -128,24 +98,16 @@ const backBtn = document.getElementById("backBtn");
 
 //제출 버튼
 submitBtn.addEventListener("click", async function (e) {
-    //카테고리 유뮤 확인
-    const doCategory = document.getElementById("doCategory");
-    if (doCategory.value == null) {
-        alert("donation category");
-        doCategory.focus();
-        e.preventDefault;
-    }
-
     //도네이션 insert 
     const form = document.querySelector("form");
     let bid;
     try {
-        const response = await fetch("/donation/insert",{
+        const response = await fetch("/news/insert", {
             method: "POST",
             body: new FormData(form)
         });
-        if(!response.ok){
-            throw new Error("failed : insert donation")
+        if (!response.ok) {
+            throw new Error("failed : insert news")
         }
         bid = await response.json();
         console.log(bid);
@@ -155,22 +117,22 @@ submitBtn.addEventListener("click", async function (e) {
 
     //1)이미지들 temp->upload로 이동
     //2)content 넣기
-    const content = tinymce.get("doContent").getContent();
-    const boardType = document.getElementById("boardType").value; 
+    const content = tinymce.get("newsContent").getContent();
+    const boardType = document.getElementById("boardType").value;
 
     try {
         const formData = new FormData();
-        pathArr.forEach(fileName=>{
+        pathArr.forEach(fileName => {
             formData.append("uploadFileNames", fileName);
         });
         formData.append("bid", bid);
         formData.append("content", content);
         formData.append("boardType", boardType);
-        const response = await fetch("/image/upload",{
+        const response = await fetch("/image/upload", {
             method: "POST",
             body: formData
         });
-        if(!response.ok){
+        if (!response.ok) {
             throw new Error("failed : save upload");
         }
     } catch (error) {
@@ -179,25 +141,26 @@ submitBtn.addEventListener("click", async function (e) {
 });
 
 //뒤로가기 버튼 
-backBtn.addEventListener("click", async function(){
-    try{
+backBtn.addEventListener("click", async function () {
+    try {
         const formData = new FormData();
-        pathArr.forEach(fileName=>{
+        pathArr.forEach(fileName => {
             formData.append("uploadFileNames", fileName);
         });
-        const response = await fetch("/image/delete",{
+        const response = await fetch("/image/delete", {
             method: "DELETE",
             body: formData
         });
-        if (!response.ok){
+        if (!response.ok) {
             throw new Error("delete temp files failed");
         }
         const isDeleted = await response.json();
-        if (disDeleted){
+        if (disDeleted) {
             window.history.back();
         }
-    }catch(error){
+    } catch (error) {
         console.error(error);
     }
 });
 //////////
+

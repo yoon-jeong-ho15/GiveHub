@@ -1,6 +1,8 @@
 package kh.GiveHub.member.model.service;
 
 import kh.GiveHub.member.model.vo.Member;
+import kh.GiveHub.payment.model.vo.Payment;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import kh.GiveHub.member.model.mapper.MemberMapper;
@@ -63,4 +65,10 @@ public class MemberService {
 	public String findMemNameByEmail(String email) {
 		return mapper.findMemNameByEmail(email);
 	}
+
+    public ArrayList<Payment> selectDonationList(int no, int type) {
+		return mapper.selectDonationList(no, type);
+    }
+
+	public int deleteMember(String login) { return mapper.deleteMember(login);}
 }
