@@ -68,7 +68,7 @@
                   from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
             WHERE do_status = 'Y'
             ORDER BY do_createdate DESC)
-        WHERE ROWNUM <= 5
+        WHERE ROWNUM <= 3
         ]]>
     </select>
 

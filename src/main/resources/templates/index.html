@@ -47,36 +47,36 @@
 
         <div id="slide_visual" class="visual_img">
             <div id="slide_wrap" class="slide_img_wrap">
-                    <div class="img_wrap">
-                        <div class="slide_img">
-                            <img src="img/Baby_wearing_a_head_correction_helmet.jpg">
-                        </div>
-                        <div class="text_wrap">
-                            <p class="category category_white">아동/청소년</p>
-                            <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>
-                            <a href="#">도움주러가기↗</a>
-                        </div>
-                    </div>
-                    <div class="img_wrap">
-                        <div class="slide_img">
-                            <img src="img/baby_looking_out_the_window.jpg">
-                        </div>
-                        <div class="text_wrap">
-                            <p class="category category_white">아동/청소년</p>
-                            <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>
-                            <a href="#">도움주러가기↗</a>
-                        </div>
-                    </div>
-                    <div class="img_wrap">
-                        <div class="slide_img">
-                            <img src="img/Korean_War_Veteran_Grandpa.jpg">
-                        </div>
-                        <div class="text_wrap">
-                            <p class="category category_white">아동/청소년</p>
-                            <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>
-                            <a href="#">도움주러가기↗</a>
-                        </div>
-                    </div>
+<!--                    <div class="img_wrap">-->
+<!--                        <div class="slide_img">-->
+<!--                            <img src="img/Baby_wearing_a_head_correction_helmet.jpg">-->
+<!--                        </div>-->
+<!--                        <div class="text_wrap">-->
+<!--                            <p class="category category_white">아동/청소년</p>-->
+<!--                            <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>-->
+<!--                            <a href="#">도움주러가기↗</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="img_wrap">-->
+<!--                        <div class="slide_img">-->
+<!--                            <img src="img/baby_looking_out_the_window.jpg">-->
+<!--                        </div>-->
+<!--                        <div class="text_wrap">-->
+<!--                            <p class="category category_white">아동/청소년</p>-->
+<!--                            <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>-->
+<!--                            <a href="#">도움주러가기↗</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="img_wrap">-->
+<!--                        <div class="slide_img">-->
+<!--                            <img src="img/Korean_War_Veteran_Grandpa.jpg">-->
+<!--                        </div>-->
+<!--                        <div class="text_wrap">-->
+<!--                            <p class="category category_white">아동/청소년</p>-->
+<!--                            <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>-->
+<!--                            <a href="#">도움주러가기↗</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
             </div>
         </div>
     </div>
@@ -218,13 +218,16 @@
 
                         imgWrap.innerHTML = `
                         <div class="slide_img">
-                            <img src="${d.thumbnailPath}" alt="donation image">
+                            <a href="/donation/donationdetail/${d.doNo}">
+                                <img src="${d.thumbnailPath}" alt="donation image">
+                            <div class="text_wrap">
+                                <p class="category category_white">${d.doCategory}</p>
+                                <h3 class="board_title">${d.doTitle}</h3>
+                                <a href="/donation/donationdetail/${d.doNo}">도움주러가기↗</a>
+                            </div>
+                            </a>
                         </div>
-                        <div class="text_wrap">
-                            <p class="category category_white">${d.doCategory}</p>
-                            <h3 class="board_title">${d.doTitle}</h3>
-                            <a href="/donation/donationdetail/${d.doNo}">도움주러가기↗</a>
-                        </div>`;
+                        `;
 
                         donationContainer.appendChild(imgWrap); // 변수명 오류 수정
                     }
