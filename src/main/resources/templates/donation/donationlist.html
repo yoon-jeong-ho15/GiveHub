@@ -102,7 +102,7 @@
 				if (!target) return; // 예외 처리 (이벤트 버블링 방지)
 			}
 
-			const doNo = target.cells[0].innerText.trim();
+			const doNo = target.cells[1].innerText.trim();
 			location.href = "/donation/donationdetail/" + doNo;
 		});
 
