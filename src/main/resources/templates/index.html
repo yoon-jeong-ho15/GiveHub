@@ -47,36 +47,36 @@
 
         <div id="slide_visual" class="visual_img">
             <div id="slide_wrap" class="slide_img_wrap">
-                <!--                <div class="img_wrap">-->
-                <!--                    <div class="slide_img">-->
-                <!--                        <img src="img/Baby_wearing_a_head_correction_helmet.jpg">-->
-                <!--                    </div>-->
-                <!--                    <div class="text_wrap">-->
-                <!--                        <p class="category category_white">아동/청소년</p>-->
-                <!--                        <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>-->
-                <!--                        <a href="#">도움주러가기↗</a>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!--                <div class="img_wrap">-->
-                <!--                    <div class="slide_img">-->
-                <!--                        <img src="img/baby_looking_out_the_window.jpg">-->
-                <!--                    </div>-->
-                <!--                    <div class="text_wrap">-->
-                <!--                        <p class="category category_white">아동/청소년</p>-->
-                <!--                        <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>-->
-                <!--                        <a href="#">도움주러가기↗</a>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!--                <div class="img_wrap">-->
-                <!--                    <div class="slide_img">-->
-                <!--                        <img src="img/Korean_War_Veteran_Grandpa.jpg">-->
-                <!--                    </div>-->
-                <!--                    <div class="text_wrap">-->
-                <!--                        <p class="category category_white">아동/청소년</p>-->
-                <!--                        <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>-->
-                <!--                        <a href="#">도움주러가기↗</a>-->
-                <!--                    </div>-->
-                <!--                </div>-->
+                    <div class="img_wrap">
+                        <div class="slide_img">
+                            <img src="img/Baby_wearing_a_head_correction_helmet.jpg">
+                        </div>
+                        <div class="text_wrap">
+                            <p class="category category_white">아동/청소년</p>
+                            <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>
+                            <a href="#">도움주러가기↗</a>
+                        </div>
+                    </div>
+                    <div class="img_wrap">
+                        <div class="slide_img">
+                            <img src="img/baby_looking_out_the_window.jpg">
+                        </div>
+                        <div class="text_wrap">
+                            <p class="category category_white">아동/청소년</p>
+                            <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>
+                            <a href="#">도움주러가기↗</a>
+                        </div>
+                    </div>
+                    <div class="img_wrap">
+                        <div class="slide_img">
+                            <img src="img/Korean_War_Veteran_Grandpa.jpg">
+                        </div>
+                        <div class="text_wrap">
+                            <p class="category category_white">아동/청소년</p>
+                            <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>
+                            <a href="#">도움주러가기↗</a>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -202,38 +202,38 @@
     <a href="/donation/donationlist">후원하기</a>
 </div>
 <script>
-    window.onload = () =>{
+    window.onload = () => {
         $.ajax({
             url: '/donation/new',
-            //dataType:'json',
-            success : data=>{
+            dataType: 'json',
+            success: data => {
                 console.log(data);
 
-                const donationContainer = $("#slide_wrap");
-                donationContainer.empty(); // 기존 데이터 삭제
+                const donationContainer = document.getElementById('slide_wrap');
+                if (data != null) {
+                    donationContainer.innerHTML = '';
+                    for (const d of data) {
+                        const imgWrap = document.createElement('div');
+                        imgWrap.classList.add('img_wrap'); // 클래스 추가
 
-                for(const d of data){
-
-                    const donationHTML = `
-                    <div class="img_wrap">
+                        imgWrap.innerHTML = `
                         <div class="slide_img">
-                            <img src="/img/${donation.imagePath}" alt="donation image">
+                            <img src="${d.thumbnailPath}" alt="donation image">
                         </div>
                         <div class="text_wrap">
-                            <p class="category category_white">${donation.doCategory}</p>
-                            <h3 class="board_title">${donation.doTitle}</h3>
-                            <a href="/donation/${donation.id}">도움주러가기↗</a>
-                        </div>
-                    </div>`;
-                    donationContainer.append(donationHTML);
+                            <p class="category category_white">${d.doCategory}</p>
+                            <h3 class="board_title">${d.doTitle}</h3>
+                            <a href="/donation/${d.doId}">도움주러가기↗</a>
+                        </div>`;
+
+                        donationContainer.appendChild(imgWrap); // 변수명 오류 수정
+                    }
                 }
             },
             error: data => console.log(data)
         });
+    };
 
-
-
-    }
 
     document.addEventListener("DOMContentLoaded", function () {
         const floatingBtn = document.getElementById("floating_btn");
