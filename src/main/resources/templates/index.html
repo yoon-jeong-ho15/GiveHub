@@ -218,13 +218,16 @@
 
                         imgWrap.innerHTML = `
                         <div class="slide_img">
-                            <img src="${d.thumbnailPath}" alt="donation image">
+                            <a href="/donation/donationdetail/${d.doNo}">
+                                <img src="${d.thumbnailPath}" alt="donation image">
+                            <div class="text_wrap">
+                                <p class="category category_white">${d.doCategory}</p>
+                                <h3 class="board_title">${d.doTitle}</h3>
+                                <a href="/donation/donationdetail/${d.doNo}">도움주러가기↗</a>
+                            </div>
+                            </a>
                         </div>
-                        <div class="text_wrap">
-                            <p class="category category_white">${d.doCategory}</p>
-                            <h3 class="board_title">${d.doTitle}</h3>
-                            <a href="/donation/donationdetail/${d.doNo}">도움주러가기↗</a>
-                        </div>`;
+                        `;
 
                         donationContainer.appendChild(imgWrap); // 변수명 오류 수정
                     }
