@@ -69,7 +69,7 @@ public class ImageController {
 			if(boardType.equals("donation")) {
 				result = dService.setContent(bid, content);
 			}else {
-				//result = nService.setContent(bid, content);
+				result = nService.setContent(bid, content);
 			}
 		}
 		if(result>0) {
