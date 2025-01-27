@@ -36,26 +36,29 @@ public class ImageController {
 		return ResponseEntity.ok("/temp/"+tempname);
 	}
 	
-	@DeleteMapping("/delete")
+	@PostMapping("/delete")
 	@ResponseBody
 	public boolean deleteTemp(
-			@RequestParam("tempFileNames") List<String> list) {
+			@RequestParam("tempFiles") List<String> list) {
 		int length = list.size();
+		System.out.println(length);
+		System.out.println(list);
 		int i = 0;
 		for(String name : list) {
-			File tempFile = new File("/temp/"+name);
+			File tempFile = new File("C:/GiveHub"+name);
 			if (tempFile.exists()) {
 				tempFile.delete();
+				i++;
 			}
-			i++;
 		}
+		System.out.println(i);
 		return length==i? true:false;
 	}
 	
 	@PostMapping("/upload")
 	@ResponseBody
 	public boolean saveUpload(
-			@RequestParam("uploadFileNames") List<String> list,
+			@RequestParam("uploadFiles") List<String> list,
 			@RequestParam("bid") int bid, 
 			@RequestParam("boardType") String boardType,
 			@RequestParam("content") String content) {
