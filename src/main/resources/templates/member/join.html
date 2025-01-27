@@ -3,12 +3,11 @@
 <link href="/css/reset.css" rel="stylesheet" type="text/css">
 <link href="/css/common.css" rel="stylesheet" type="text/css">
 <link href="/css/navBar.css" rel="stylesheet" type="text/css">
-<link href="/css/footer.css" rel="stylesheet" type="text/css">
+<link href="/css/page.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <head>
     <style>
         form {
-            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
@@ -18,42 +17,25 @@
         }
 
 
-        #loginTop {
-            margin-bottom: 10px;
-            font-size: 24px;
-            color: #333;
-            text-align: center;
-        }
 
 
-        .subtitle {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 20px;
-        }
 
 
-        th {
-            font-size: 14px;
-            color: #555;
-            padding-bottom: 10px;
 
-        }
-
-        #mem_id,
-        #mem_name,
-        #mem_email,
-        #mem_address,
-        #mem_pwd,
-        #passwordConfirm {
-            width: 100%;
-            padding: 10px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-        }
+        /*#mem_id,*/
+        /*#mem_name,*/
+        /*#mem_email,*/
+        /*#mem_address,*/
+        /*#mem_pwd,*/
+        /*#passwordConfirm {*/
+        /*    width: 100%;*/
+        /*    padding: 10px;*/
+        /*    font-size: 14px;*/
+        /*    border: 1px solid #ccc;*/
+        /*    border-radius: 4px;*/
+        /*    box-sizing: border-box;*/
+        /*    margin-bottom: 10px;*/
+        /*}*/
 
 
         table button {
@@ -92,6 +74,7 @@
 <body>
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
 <script src="/js/common.js"></script>
+<div class="container page_container">
 <form id="joinForm" method="post" action="/member/join">
     <table align="center" style="margin-top: 100px;">
         <tr>
@@ -111,21 +94,21 @@
 
         <tr>
             <th>이름</th>
-            <td colspan="2">
+            <td colspan="2" class="text_style">
                 <input type="text" id="mem_name" name="memName" placeholder="이름을 입력하세요" required>
             </td>
         </tr>
 
         <tr>
             <th>아이디</th>
-            <td>
+            <td class="text_style">
                 <input type="text" id="mem_id" name="memId" placeholder="사용 하실 아이디를 입력하세요." required>
             </td>
-            <td>
+            <td class="check_btn">
                 <button type="button" id="checkId">아이디 중복확인</button>
             </td>
         </tr>
-        <tr>
+        <tr class="confirm_text">
             <td></td>
             <td>
                 <label id="confirmId"></label>
@@ -133,35 +116,38 @@
         </tr>
         <tr>
             <th>주소</th>
-            <td colspan="2">
+            <td colspan="2" class="text_style">
                 <input type="text" id="mem_address" name="memAddress" placeholder="주소를 입력하세요" required>
             </td>
         </tr>
 
         <tr>
             <th>비밀번호</th>
-            <td colspan="2">
+            <td colspan="2" class="text_style">
                 <input type="password" id="mem_pwd" name="memPwd" placeholder="비밀번호를 입력하세요" required>
             </td>
         </tr>
 
         <tr>
             <th>비밀번호 확인</th>
-            <td colspan="2">
+            <td colspan="2" class="text_style">
                 <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호를 한번 더 입력하세요"
                        required>
             </td>
         </tr>
 
-        <tr>
+        <tr class="confirm_text">
             <td></td>
             <td><label id="confirmText"></label></td>
         </tr>
 
         <tr>
             <th>이메일</th>
-            <td colspan="2">
+            <td colspan="2" class="text_style">
                 <input type="email" id="mem_email" name="memEmail" placeholder="이메일을 입력하세요" required>
+            </td>
+            <td class="check_btn">
+            <button type="button" id="sendBtn" name="sendBtn">인증번호 받기</button>
             </td>
         </tr>
 
@@ -190,7 +176,7 @@
         <tr>
             <td colspan="3">
                 <br>
-                <button type="button" id="sendBtn" name="sendBtn">인증번호</button>
+
                 <div class="form-group" id="mail_number" name="mail_number" style="visibility: hidden">
                     <input type="text" name="confirmNumber" id="confirmNumber" class="form-control" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
                     <span id="mail-check-warn"></span>
@@ -208,6 +194,7 @@
 
     </table>
 </form>
+</div>
 <br><br><br><br><br>
 <footer>
     <div th:replace="~{/common/footer.html :: footer_bar}"></div>
@@ -235,14 +222,14 @@
     });
 
     document.querySelector('#mem_id').addEventListener('change', () => {
-        document.querySelector('#confirmId').innerText = '다시 확인하세요.';
+        document.querySelector('#confirmId').innerText = '아이디를 다시 확인해주세요.';
         document.querySelector('#confirmId').style.color = 'red';
         idCheck = false;
         confirmCheck = false;
     });
 
     document.querySelector('#mem_pwd').addEventListener('change', () => {
-        document.querySelector('#confirmText').innerText = '다시 확인하세요.';
+        document.querySelector('#confirmText').innerText = '비밀번호를 다시 확인해주세요.';
         document.querySelector('#confirmText').style.color = 'red';
         pwdCheck = false;
     });
