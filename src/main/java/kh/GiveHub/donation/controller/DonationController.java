@@ -181,6 +181,7 @@ public class DonationController {
 
 
 	@GetMapping("/donation/new")
+	@ResponseBody
 	public String selectNew(HttpServletResponse response) {
 		System.out.println("테스트");
 		ArrayList<Donation> list = dService.selectNew();
