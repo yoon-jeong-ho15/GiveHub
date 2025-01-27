@@ -11,6 +11,8 @@ import java.util.Objects;
 import jakarta.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import kh.GiveHub.news.model.service.NewsService;
+import kh.GiveHub.news.model.vo.News;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -134,90 +136,4 @@ public class DonationController {
 			throw new MemberException("게시글 상세보기를 실패하셨습니다.");
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	@GetMapping(value="/donation/new", produces="application/json; charset=UTF-8")
-	@ResponseBody
-	public String selectNew(/*HttpServletResponse response*/){
-		System.out.println("📌 selectNew() 실행됨");
-		ArrayList<Donation> list = dService.selectNew();
-		System.out.println("📌 list: " + list);
-		JSONArray array = new JSONArray();
-		for(Donation d : list){
-			JSONObject json = new JSONObject();
-			json.put("doCategory", d.getDoCategory());
-			json.put("doTitle", d.getDoTitle());
-
-			array.put(json);
-		}
-		//response.setContentType("application/json; charset=UTF-8");
-		return array.toString();
-
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
