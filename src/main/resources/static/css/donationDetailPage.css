@@ -77,7 +77,22 @@ p.donation_data_small {
     line-height: 15px;
 }
 
-
+.donation_img_wrap {
+    display: inline-block;
+    margin-right: 72px;
+    height: 490px;
+    overflow: hidden;
+    border-radius: 17px;
+    position: relative;
+}
+.donation_img_wrap img {
+    height: 100%;
+    width: auto !important;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
 
 
