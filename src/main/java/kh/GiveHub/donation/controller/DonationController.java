@@ -38,6 +38,8 @@ import lombok.RequiredArgsConstructor;
 public class DonationController {
 
 	private final DonationService dService;
+	private final NewsService nService;
+
 
 	@GetMapping("/admin/donaList")
 	public String newsList (Model model){
@@ -113,8 +115,10 @@ public class DonationController {
 
 	//기부페이지 상세보기
 	@GetMapping("/donation/donationdetail/{doNo}")
-	public ModelAndView selectDona(@PathVariable("doNo") int doNo,HttpSession session, ModelAndView mv) {
+	public ModelAndView selectDona(@PathVariable("doNo") int doNo,HttpSession session, ModelAndView mv , Model model) {
 		// 글 상세조회 + 조회수 수정(내가 내 글 조회 or 비회원 조회 -> 조회수 올라가지 않음)
+		ArrayList<News> list = nService.selectNewsList();
+		model.addAttribute("list", list);
 
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		Integer id = null;
@@ -135,5 +139,9 @@ public class DonationController {
 		}else {
 			throw new MemberException("게시글 상세보기를 실패하셨습니다.");
 		}
+
+
+
+
 	}
 }
