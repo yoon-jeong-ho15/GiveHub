@@ -75,6 +75,7 @@ tinymce.init({
             file.name.substring(file.name.lastIndexOf("/")+1);
             const path = await processImage(file, imgName, 1);
             pathArr.push(path);
+            console.log(pathArr);
             callback(path, { title: file.name });
         }
         input.click();
@@ -96,6 +97,7 @@ thumbBtn.addEventListener("click",function(){
         const path = await processImage(file, imgName, 0);
         thumbPre.src = path;
         pathArr.push(path);
+        console.log(pathArr);
     }
     input.click();
 });
@@ -160,8 +162,8 @@ submitBtn.addEventListener("click", async function (e) {
 
     try {
         const formData = new FormData();
-        pathArr.forEach(fileName=>{
-            formData.append("uploadFileNames", fileName);
+        pathArr.forEach(path=>{
+            formData.append("uploadFiles", path);
         });
         formData.append("bid", bid);
         formData.append("content", content);
@@ -180,20 +182,22 @@ submitBtn.addEventListener("click", async function (e) {
 
 //뒤로가기 버튼 
 backBtn.addEventListener("click", async function(){
+    console.log(pathArr);
     try{
         const formData = new FormData();
-        pathArr.forEach(fileName=>{
-            formData.append("uploadFileNames", fileName);
+        pathArr.forEach(path=>{
+            formData.append("tempFiles", path);
         });
         const response = await fetch("/image/delete",{
-            method: "DELETE",
+            method: "POST",
             body: formData
         });
         if (!response.ok){
             throw new Error("delete temp files failed");
         }
         const isDeleted = await response.json();
-        if (disDeleted){
+        console.log(isDeleted);
+        if (isDeleted){
             window.history.back();
         }
     }catch(error){
