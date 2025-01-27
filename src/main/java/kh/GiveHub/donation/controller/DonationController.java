@@ -63,7 +63,9 @@ public class DonationController {
 	}
 
 	@GetMapping("payment")
-	public String paymentPage () {
+	public String paymentPage (HttpSession session , Model model) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		model.addAttribute("memName",loginUser.getMemName());
 		return "page/paymentPage";
 	}
 
