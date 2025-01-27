@@ -138,4 +138,70 @@ public class DonationController {
 			throw new MemberException("게시글 상세보기를 실패하셨습니다.");
 		}
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	@GetMapping("/donation/new")
+	public String selectNew(HttpServletResponse response) {
+		System.out.println("테스트");
+		ArrayList<Donation> list = dService.selectNew();
+		System.out.println(list);
+		JSONArray array = new JSONArray();
+		for(Donation d : list) {
+			JSONObject json = new JSONObject();
+			json.put("doCategory", d.getDoCategory());
+			json.put("doTitle", d.getDoTitle());
+			json.put("doNo", d.getDoNo());
+			json.put("thumbnailPath", d.getThumbnailPath());
+			array.put(json);
+		}
+		response.setContentType("application/json; charset=UTF-8");
+		return array.toString();
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

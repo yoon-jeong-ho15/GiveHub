@@ -64,9 +64,11 @@
         FROM (
             SELECT *
             FROM donation
+            join (select (img_path || IMG_RENAME) as thumbnailPath, REF_NO, img_type
+                  from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
             WHERE do_status = 'Y'
             ORDER BY do_createdate DESC)
-        WHERE ROWNUM <= 5;
+        WHERE ROWNUM <= 5
         ]]>
     </select>
 
