@@ -8,9 +8,9 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	private String getBasePath() {
 		String os = System.getProperty("os.name").toLowerCase();
 		if (os.contains("win")) {
-			return "file:///c:/GiveHub/";
+			return "file:///c:/GiveHub";
 		}else {
-			return "file:///GiveHub.";
+			return "file:///GiveHub";
 		}
 	}
 	@Override
@@ -18,9 +18,9 @@ public class WebMvcConfig implements WebMvcConfigurer{
 		String basePath = getBasePath();
 		
 		registry.addResourceHandler("/temp/**")
-			.addResourceLocations(basePath+"temp/");
+			.addResourceLocations(basePath+"/temp/");
 		registry.addResourceHandler("/upload/**")
-			.addResourceLocations(basePath+"upload/");
+			.addResourceLocations(basePath+"/upload/");
 		registry.addResourceHandler("/**")
 			.addResourceLocations("classpath:/static/");
 
