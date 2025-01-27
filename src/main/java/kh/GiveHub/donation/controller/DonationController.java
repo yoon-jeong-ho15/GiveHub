@@ -40,6 +40,8 @@ import lombok.RequiredArgsConstructor;
 public class DonationController {
 
 	private final DonationService dService;
+	private final NewsService nService;
+
 
 	@GetMapping("/admin/donaList")
 	public String newsList (Model model){
@@ -137,6 +139,10 @@ public class DonationController {
 		}else {
 			throw new MemberException("게시글 상세보기를 실패하셨습니다.");
 		}
+
+
+
+
 	}
 
 
