@@ -8,10 +8,11 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/temp/**")
-			.addResourceLocations("file:///C:/GiveHub/temp/");
+			.addResourceLocations("file:///c:/GiveHub/temp/");
 		registry.addResourceHandler("/upload/**")
-				.addResourceLocations("file:///c:/GiveHub/upload/");
+			.addResourceLocations("file:///c:/GiveHub/upload/");
 		registry.addResourceHandler("/**")
 			.addResourceLocations("classpath:/static/");
+
 	}
 }

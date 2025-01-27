@@ -8,7 +8,7 @@
     <select id="selectCategory">
         select * from donation
         join member using(mem_no)
-        join (select '/upload/'||IMG_RENAME as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
+        join (select img_path||IMG_RENAME as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
         <where>
             img_type = '0' and do_enddate <![CDATA[>=]]> sysdate
             <if test="categorySelect != 'all'">
@@ -36,6 +36,10 @@
 
     <select id="selectDonaList">
         select * from donation join member using(mem_no)
+        <if test="i == 1">
+            join (select (img_path || IMG_RENAME) as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
+            where do_status = 'Y' and do_enddate <![CDATA[>=]]> sysdate order by do_createdate desc
+        </if>
     </select>
 
 	<insert id="insertDonation">
@@ -53,11 +57,43 @@
 		where do_no = #{doNo}
 	</update>
 
+
+    <select id="selectNew" resultType="donation">
+        <![CDATA[
+        SELECT *
+        FROM (
+            SELECT *
+            FROM donation
+            WHERE do_status = 'Y'
+            ORDER BY do_createdate DESC)
+        WHERE ROWNUM <= 5;
+        ]]>
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <select id="selectDonation">
         select *
         from donation
             join member using(mem_no)
-            join (select '/upload/'||IMG_RENAME as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
             left join (select do_no, sum(pay_amount) pay_amount, count(*) pay_count from payment where do_no = #{doNo} group by do_no) using(do_no)
         where do_status = 'Y' and do_no =#{doNo}
     </select>
@@ -67,5 +103,21 @@
         set do_views = do_views + 1
         where do_no = #{doNo}
     </update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>
 
