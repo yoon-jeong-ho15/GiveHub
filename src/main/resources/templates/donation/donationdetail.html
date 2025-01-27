@@ -30,6 +30,7 @@
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
 <script src="/js/common.js"></script>
 	<section>
+
 		<div class="container">
 			<div class="detail_title_wrap">
 				<p class="title_sub_text">후원</p>
@@ -68,6 +69,7 @@
 								<span>~</span>
 								<p>[[${d.doEndDate}]]</p></span></li>
 					</ul>
+
 				</div>
 			</div>
 			<div style="text-align: center" class="bar-label" th:text="${1.0*d.payAmount/d.doGoal*100+'%'}"></div>
@@ -88,6 +90,10 @@
 				<table class="content_board">
 				</table>
 			</div>
+
+			<button th:if="${session.loginUser != null}" id="login" type="button" onclick="location.href='/donation/donationWrite'">
+				소식글 작성
+			</button>
 
 
 
