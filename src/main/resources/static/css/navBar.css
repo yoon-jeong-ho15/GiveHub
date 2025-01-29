@@ -19,6 +19,9 @@ header {
 	height: 80px;
     z-index: 1;
 }
+div#logo {
+    width: 65px;
+}
 .logo_main a {
 	height: 100%;
     display: flex;
