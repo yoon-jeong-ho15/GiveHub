@@ -36,6 +36,10 @@
 
     <select id="selectDonaList">
         select * from donation join member using(mem_no)
+        <if test="i == 1">
+            join (select ('/upload/' || IMG_RENAME) as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
+            where do_status = 'Y' and do_enddate <![CDATA[>=]]> sysdate order by do_createdate desc
+        </if>
     </select>
 
 	<insert id="insertDonation">
@@ -52,6 +56,41 @@
 		set do_content = #{content}
 		where do_no = #{doNo}
 	</update>
+
+
+    <select id="selectNew" resultType="donation">
+        <![CDATA[
+        SELECT *
+        FROM (
+            SELECT *
+            FROM donation
+            join (select ('/upload/' || IMG_RENAME) as thumbnailPath, REF_NO, img_type
+                  from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
+            WHERE do_status = 'Y'
+            ORDER BY do_createdate DESC)
+        WHERE ROWNUM <= 3
+        ]]>
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <select id="selectDonation">
         select *

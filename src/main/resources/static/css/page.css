@@ -1,0 +1,126 @@
+.page_container {
+    padding-top: 7rem;
+}
+
+form h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.8rem;
+}
+
+form p.subtitle {
+    font-size: 1.1rem;
+    color: #0a0a0a;
+    font-weight: 400;
+    margin-bottom: 3.5rem;
+}
+
+.page_container table th {
+    padding-right: 1.5rem;
+    font-size: 1.1rem;
+    color: #0a0a0a;
+    text-align: justify;
+    line-height: 1.2rem;
+}
+
+[type="radio"] {
+    appearance: none;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    width: 1.3em;
+    height: 1.3em;
+    transition: all 0.3s;
+    transform: translateY(2px);
+    margin: 0 5px 0 0;
+}
+[type="radio"]:checked {
+    border: 0.4em solid #34D28B;
+}
+
+[type="radio"]:focus-visible {
+    outline-offset: 2px;
+    outline: 2px dotted #34D28B;
+}
+
+[type="radio"]:hover {
+    box-shadow: 0 0 0 4px #f5f5f5;
+    cursor: pointer;
+}
+
+[type="radio"]:disabled {
+    background-color: lightgray;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+[type="radio"] + span {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+}
+
+td.text_style input {
+    padding: 0.6rem 0.8rem;
+    border-radius: 7px;
+    border: 1px solid #d5d5d5;
+}
+
+.page_container table td {
+    padding-bottom: 1rem;
+}
+
+.confirm_text td {
+    padding-bottom: 0 !important;
+    line-height: 1em;
+    font-size: 0.8rem;
+    transform: translateY(-10px);
+}
+
+.check_btn button {
+    background: transparent;
+    color: #4caf75;
+    border: 1px solid #4caf75;
+    border-radius: 9px;
+    padding: 0.5rem 0.8rem;
+    margin-left: 1rem;
+}
+
+.check_btn button:hover {
+    background: transparent;
+    color: #4caf75;
+    font-weight: 500;
+}
+
+.page_container td.text_style {
+    display: block;
+}
+
+[type="checkbox"] {
+    width: 1.4em;
+    height: 1.4em;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 1px solid gray;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    box-sizing: border-box;
+    width: 30%;
+    height: 55%;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-70%) rotateZ(40deg);
+    border-right: 1.7px solid gray;
+    border-bottom: 1.7px solid gray;
+}
+[type="checkbox"]:checked  {
+    border-color:  yellowgreen;
+    background-color: yellowgreen;
+}
+[type="checkbox"]:checked {
+    border-color: #fff;
+}

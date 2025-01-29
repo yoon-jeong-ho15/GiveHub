@@ -136,7 +136,7 @@ section#section_02 {
 }
 
 .img_wrap {
-   width: 24%;
+   /*width: 24%;*/
    margin-right: 72px;
    position: relative;
    overflow: hidden;
