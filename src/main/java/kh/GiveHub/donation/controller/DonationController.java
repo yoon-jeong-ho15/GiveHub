@@ -8,14 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import jakarta.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import jakarta.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import kh.GiveHub.news.model.service.NewsService;
-import kh.GiveHub.news.model.vo.News;
 import kh.GiveHub.news.model.service.NewsService;
 import kh.GiveHub.news.model.vo.News;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +35,8 @@ import lombok.RequiredArgsConstructor;
 public class DonationController {
 
 	private final DonationService dService;
+	private final NewsService nService;
+
 
 	@GetMapping("/admin/donaList")
 	public String newsList (Model model){
