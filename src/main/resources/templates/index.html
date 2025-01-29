@@ -148,24 +148,25 @@
                 const donationContainer = document.getElementById('slide_wrap');
                 if (data != null) {
                     donationContainer.innerHTML = '';
+
                     for (const d of data) {
                         const imgWrap = document.createElement('div');
                         imgWrap.classList.add('img_wrap'); // 클래스 추가
 
                         imgWrap.innerHTML = `
-                        <div class="slide_img">
-                            <a href="/donation/donationdetail/${d.doNo}">
+                        <a href="/donation/donationdetail/${d.doNo}">
+                            <div class="slide_img">
                                 <img src="${d.thumbnailPath}" alt="donation image">
+                            </div>
                             <div class="text_wrap">
                                 <p class="category category_white">${d.doCategory}</p>
                                 <h3 class="board_title">${d.doTitle}</h3>
-                                <a href="/donation/donationdetail/${d.doNo}">도움주러가기↗</a>
+                                <span class="link_text">도움주러가기↗</span>
                             </div>
-                            </a>
-                        </div>
-                        `;
+                        </a>
+                    `;
 
-                        donationContainer.appendChild(imgWrap); // 변수명 오류 수정
+                        donationContainer.appendChild(imgWrap);
                     }
                 }
             },

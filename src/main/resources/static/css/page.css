@@ -1,6 +1,22 @@
 .page_container {
     padding-top: 7rem;
 }
+form {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+tbody {
+    display: block;
+}
+
+.page_container input::placeholder {
+    font-size: 0.9rem;
+    line-height: 1em;
+}
 
 form h2 {
     font-size: 2.5rem;
@@ -57,14 +73,16 @@ form p.subtitle {
     margin-left: 0.5rem;
 }
 
-td.text_style input {
-    padding: 0.6rem 0.8rem;
+td.text_style input, .form-control {
+    width: 16rem;
+    font-size: 1.1rem;
+    padding: 0.8rem 0.9rem;
     border-radius: 7px;
     border: 1px solid #d5d5d5;
 }
 
 .page_container table td {
-    padding-bottom: 1rem;
+    padding-bottom: 1.3rem;
 }
 
 .confirm_text td {
@@ -74,16 +92,16 @@ td.text_style input {
     transform: translateY(-10px);
 }
 
-.check_btn button {
+.check_btn button, #confirmBtn {
     background: transparent;
     color: #4caf75;
     border: 1px solid #4caf75;
     border-radius: 9px;
-    padding: 0.5rem 0.8rem;
+    padding: 0.8rem 0.8rem;
     margin-left: 1rem;
 }
 
-.check_btn button:hover {
+.check_btn button:hover, #confirmBtn:hover {
     background: transparent;
     color: #4caf75;
     font-weight: 500;
@@ -93,34 +111,75 @@ td.text_style input {
     display: block;
 }
 
-[type="checkbox"] {
-    width: 1.4em;
-    height: 1.4em;
-    border-radius: 50%;
-    background-color: #fff;
-    border: 1px solid gray;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
+.terms-container legend {
+    margin-bottom: 1rem;
 }
 
-[type="checkbox"]::before {
+/* 체크박스 커스텀 */
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    padding-left: 25px;
+}
+
+/* 기본 체크박스 숨김 */
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    left: 0;
+    top: -2px;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    transition: 0.3s;
+    border: 1px solid #BDBDBD;
+}
+
+.custom-checkbox input:checked + .checkmark {
+    background-color: #34D28B;
+    border: 1px solid #34D28B;
+}
+
+.checkmark::after {
     content: "";
     position: absolute;
-    box-sizing: border-box;
-    width: 30%;
-    height: 55%;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-70%) rotateZ(40deg);
-    border-right: 1.7px solid gray;
-    border-bottom: 1.7px solid gray;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 9px;
+    border: solid #BDBDBD;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
 }
-[type="checkbox"]:checked  {
-    border-color:  yellowgreen;
-    background-color: yellowgreen;
+.custom-checkbox input:checked + .checkmark::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 9px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
 }
-[type="checkbox"]:checked {
-    border-color: #fff;
+
+table .submitBtn {
+    padding: 1rem 3.2rem;
+    font-size: 1.1rem;
+    background-color: #5cc78d;
+    font-weight: 500;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
