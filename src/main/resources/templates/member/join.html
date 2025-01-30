@@ -3,97 +3,18 @@
 <link href="/css/reset.css" rel="stylesheet" type="text/css">
 <link href="/css/common.css" rel="stylesheet" type="text/css">
 <link href="/css/navBar.css" rel="stylesheet" type="text/css">
-<link href="/css/footer.css" rel="stylesheet" type="text/css">
+<link href="/css/page.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <head>
-    <style>
-        form {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 80vh;
-        }
-
-
-        #loginTop {
-            margin-bottom: 10px;
-            font-size: 24px;
-            color: #333;
-            text-align: center;
-        }
-
-
-        .subtitle {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 20px;
-        }
-
-
-        th {
-            font-size: 14px;
-            color: #555;
-            padding-bottom: 10px;
-
-        }
-
-        #mem_id,
-        #mem_name,
-        #mem_email,
-        #mem_address,
-        #mem_pwd,
-        #passwordConfirm {
-            width: 100%;
-            padding: 10px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-        }
-
-
-        table button {
-            padding: 10px 20px;
-            font-size: 14px;
-            background-color: #5cc78d;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        table button:hover {
-            background-color: #4caf75;
-        }
-
-
-        .main_menu_wrap a {
-            color: #1a1a1a !important;
-        }
-
-
-        .login_wrap button {
-            background: none;
-            color: #1a1a1a !important;
-            border: none;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-    </style>
     <meta charset="UTF-8">
     <title>Insert title here</title>
 </head>
 <body>
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
 <script src="/js/common.js"></script>
+<div class="container page_container">
 <form id="joinForm" method="post" action="/member/join">
-    <table align="center" style="margin-top: 100px;">
+    <table align="center">
         <tr>
             <td colspan="3" align="center">
                 <h2 id="joinTop">회원가입</h2>
@@ -111,21 +32,21 @@
 
         <tr>
             <th>이름</th>
-            <td colspan="2">
+            <td colspan="2" class="text_style">
                 <input type="text" id="mem_name" name="memName" placeholder="이름을 입력하세요" required>
             </td>
         </tr>
 
         <tr>
             <th>아이디</th>
-            <td>
+            <td class="text_style">
                 <input type="text" id="mem_id" name="memId" placeholder="사용 하실 아이디를 입력하세요." required>
             </td>
-            <td>
+            <td class="check_btn">
                 <button type="button" id="checkId">아이디 중복확인</button>
             </td>
         </tr>
-        <tr>
+        <tr class="confirm_text">
             <td></td>
             <td>
                 <label id="confirmId"></label>
@@ -133,64 +54,68 @@
         </tr>
         <tr>
             <th>주소</th>
-            <td colspan="2">
+            <td colspan="2" class="text_style">
                 <input type="text" id="mem_address" name="memAddress" placeholder="주소를 입력하세요" required>
             </td>
         </tr>
 
         <tr>
             <th>비밀번호</th>
-            <td colspan="2">
+            <td colspan="2" class="text_style">
                 <input type="password" id="mem_pwd" name="memPwd" placeholder="비밀번호를 입력하세요" required>
             </td>
         </tr>
 
         <tr>
             <th>비밀번호 확인</th>
-            <td colspan="2">
+            <td colspan="2" class="text_style">
                 <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호를 한번 더 입력하세요"
                        required>
             </td>
         </tr>
 
-        <tr>
+        <tr class="confirm_text">
             <td></td>
             <td><label id="confirmText"></label></td>
         </tr>
 
         <tr>
             <th>이메일</th>
-            <td colspan="2">
+            <td colspan="2" class="text_style">
                 <input type="email" id="mem_email" name="memEmail" placeholder="이메일을 입력하세요" required>
+            </td>
+            <td class="check_btn">
+            <button type="button" id="sendBtn" name="sendBtn">인증번호 받기</button>
             </td>
         </tr>
 
         <tr>
             <td colspan="3">
-                <fieldset>
+                <fieldset class="terms-container">
                     <legend>약관 동의</legend>
-                    <label>
+                    <label class="custom-checkbox">
                         <input type="checkbox" id="allCheckbox" name="terms">
-                        전체 동의
+                        <span class="checkmark"></span> 전체 동의
                     </label>
                     <br>
-                    <label>
+                    <label class="custom-checkbox">
                         <input type="checkbox" id="termsCheckbox" name="terms" required>
-                        (필수) 온라인 서비스 이용약관
+                        <span class="checkmark"></span> (필수) 온라인 서비스 이용약관
                     </label>
                     <br>
-                    <label>
+                    <label class="custom-checkbox">
                         <input type="checkbox" id="agreeCheckbox" name="terms" required>
-                        (필수) 온라인 서비스 이용을 위한 개인정보 수집 이용 동의
+                        <span class="checkmark"></span> (필수) 온라인 서비스 이용을 위한 개인정보 수집 이용 동의
                     </label>
                 </fieldset>
             </td>
         </tr>
 
         <tr>
-            <td colspan="3">
+            <th></th>
+            <td colspan="2">
                 <br>
-                <button type="button" id="sendBtn" name="sendBtn">인증번호</button>
+
                 <div class="form-group" id="mail_number" name="mail_number" style="visibility: hidden">
                     <input type="text" name="confirmNumber" id="confirmNumber" class="form-control" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
                     <span id="mail-check-warn"></span>
@@ -202,12 +127,13 @@
         </tr>
         <tr>
             <td colspan="3" align="center">
-                <button type="button" onclick="joinBtn()" id="join">회원가입</button>
+                <button type="button" onclick="joinBtn()" id="join" class="submitBtn">회원가입</button>
             </td>
         </tr>
 
     </table>
 </form>
+</div>
 <br><br><br><br><br>
 <footer>
     <div th:replace="~{/common/footer.html :: footer_bar}"></div>
@@ -235,14 +161,14 @@
     });
 
     document.querySelector('#mem_id').addEventListener('change', () => {
-        document.querySelector('#confirmId').innerText = '다시 확인하세요.';
+        document.querySelector('#confirmId').innerText = '아이디를 다시 확인해주세요.';
         document.querySelector('#confirmId').style.color = 'red';
         idCheck = false;
         confirmCheck = false;
     });
 
     document.querySelector('#mem_pwd').addEventListener('change', () => {
-        document.querySelector('#confirmText').innerText = '다시 확인하세요.';
+        document.querySelector('#confirmText').innerText = '비밀번호를 다시 확인해주세요.';
         document.querySelector('#confirmText').style.color = 'red';
         pwdCheck = false;
     });

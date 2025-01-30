@@ -1,0 +1,185 @@
+.page_container {
+    padding-top: 7rem;
+}
+form {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+tbody {
+    display: block;
+}
+
+.page_container input::placeholder {
+    font-size: 0.9rem;
+    line-height: 1em;
+}
+
+form h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.8rem;
+}
+
+form p.subtitle {
+    font-size: 1.1rem;
+    color: #0a0a0a;
+    font-weight: 400;
+    margin-bottom: 3.5rem;
+}
+
+.page_container table th {
+    padding-right: 1.5rem;
+    font-size: 1.1rem;
+    color: #0a0a0a;
+    text-align: justify;
+    line-height: 1.2rem;
+}
+
+[type="radio"] {
+    appearance: none;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    width: 1.3em;
+    height: 1.3em;
+    transition: all 0.3s;
+    transform: translateY(2px);
+    margin: 0 5px 0 0;
+}
+[type="radio"]:checked {
+    border: 0.4em solid #34D28B;
+}
+
+[type="radio"]:focus-visible {
+    outline-offset: 2px;
+    outline: 2px dotted #34D28B;
+}
+
+[type="radio"]:hover {
+    box-shadow: 0 0 0 4px #f5f5f5;
+    cursor: pointer;
+}
+
+[type="radio"]:disabled {
+    background-color: lightgray;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+[type="radio"] + span {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+}
+
+td.text_style input, .form-control {
+    width: 16rem;
+    font-size: 1.1rem;
+    padding: 0.8rem 0.9rem;
+    border-radius: 7px;
+    border: 1px solid #d5d5d5;
+}
+
+.page_container table td {
+    padding-bottom: 1.3rem;
+}
+
+.confirm_text td {
+    padding-bottom: 0 !important;
+    line-height: 1em;
+    font-size: 0.8rem;
+    transform: translateY(-10px);
+}
+
+.check_btn button, #confirmBtn {
+    background: transparent;
+    color: #4caf75;
+    border: 1px solid #4caf75;
+    border-radius: 9px;
+    padding: 0.8rem 0.8rem;
+    margin-left: 1rem;
+}
+
+.check_btn button:hover, #confirmBtn:hover {
+    background: transparent;
+    color: #4caf75;
+    font-weight: 500;
+}
+
+.page_container td.text_style {
+    display: block;
+}
+
+.terms-container legend {
+    margin-bottom: 1rem;
+}
+
+/* 체크박스 커스텀 */
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    padding-left: 25px;
+}
+
+/* 기본 체크박스 숨김 */
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    left: 0;
+    top: -2px;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    transition: 0.3s;
+    border: 1px solid #BDBDBD;
+}
+
+.custom-checkbox input:checked + .checkmark {
+    background-color: #34D28B;
+    border: 1px solid #34D28B;
+}
+
+.checkmark::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 9px;
+    border: solid #BDBDBD;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+.custom-checkbox input:checked + .checkmark::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 9px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+table .submitBtn {
+    padding: 1rem 3.2rem;
+    font-size: 1.1rem;
+    background-color: #5cc78d;
+    font-weight: 500;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
