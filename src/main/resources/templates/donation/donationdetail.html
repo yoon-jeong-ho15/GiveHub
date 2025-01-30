@@ -37,6 +37,7 @@
 				<h1 class="donation_detail_text">[[${d.doTitle}]]</h1>
 				<p class="page_category">[[${d.doCategory}]]</p>
 			</div>
+				<p id="doNo" hidden>[[${d.doNo}]]</p>
 
 			<div class="donation_info">
 				<div class="donation_img_wrap">
@@ -82,6 +83,7 @@
 <!--					document.getElementById("Content_bar").style.width = '20%';-->
 <!--				});-->
 <!--			</script>-->
+			
 			<div class="doantion_content">
 			
 			</div>
@@ -90,6 +92,11 @@
 				<table class="content_board">
 				</table>
 			</div>
+			
+			<div id="floating_btn" class="dona_btn">
+				<button id="doanteBtn">후원하기</button>
+			</div>
+			
 
 			<button th:if="${session.loginUser != null}" id="login" type="button" onclick="location.href='/donation/donationWrite'">
 				소식글 작성
@@ -128,6 +135,24 @@
 <footer>
 	<div th:replace="~{/common/footer.html :: footer_bar}"></div>
 </footer>
+
+	<script type="text/javascript">
+		document.getElementById("doanteBtn").addEventListener("click",function(){
+			const doNo = document.getElementById("doNo").textContent;
+			
+			const paymentUrl = `/payment?doNo=${encodeURIComponent(doNo)}`;
+			window.location.href=paymentUrl;
+			
+		});
+	</script>
+
+
+
+
+
+
+
+
 
 
 </body>
