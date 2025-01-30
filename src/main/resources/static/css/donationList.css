@@ -1,165 +1,121 @@
-/* 공통 스타일 */
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
-    margin-top: 80px;
+.main_menu_wrap a {
+    color: #1a1a1a !important;
 }
 
-.container {
-    max-width: 1200px; /* 최대 너비 설정 */
-    margin: 0 auto; /* 중앙 정렬 */
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 카드 스타일 */
-    border-radius: 8px; /* 둥근 모서리 */
-}
 
-/* 제목 스타일 */
-h1.title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 15px;
-}
-
-/* 테이블 스타일 */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-table th, table td {
-    padding: 15px;
-    text-align: center;
-    border: 1px solid #ddd;
-    font-size: 1rem;
-}
-
-table th {
-    background-color: #4CAF50;
-    color: white;
-    font-weight: bold;
-}
-
-table tr:nth-child(even) {
-    background-color: #e9ffe7;
-}
-
-table tr:hover {
-    background-color: #f2f2f2;
-    cursor: pointer;
-}
-
-/* 버튼 스타일 */
-button {
-    background-color: #4CAF50;
-    color: white;
+.login_wrap button {
+    background: none;
+    color: #1a1a1a !important;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s;
+}
+/*page header color*/
+
+.doantion_list_wrap {
+    width: 75%;
+    margin: 0 auto;
+    height: 100%;
+    padding: 4rem 0;
+    box-sizing: border-box;
 }
 
-button:hover {
-    background-color: #45a049;
+.list_container {
+    padding: 3rem 0 0;
 }
 
-.category_btn_wrap button {
+.list_container h1 {
+    font-size: 2.3rem;
+    margin-bottom: 1rem;
+}
+
+.categoryBtn {
+    margin: 2rem 0 1rem;
+}
+
+.categoryBtn button {
+    border: 1px solid #E0E0E0;
+    border-radius: 50px;
+    padding: 0.4rem 1rem;
+    margin-right: 0.5rem;
     background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 100px;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
     font-weight: 400;
-    transition: background-color 0.3s, color 0.3s;
 }
 
-.category_btn_wrap button:hover {
-    color: #34D28B;
+[type="radio"] {
+    appearance: none;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    width: 1.3em;
+    height: 1.3em;
+    transition: all 0.3s;
+    transform: translateY(2px);
+    margin: 0 5px 0 0;
+}
+[type="radio"]:checked {
+    border: 0.4em solid #34D28B;
+}
+.categoryBtn button.active {
     border-color: #34D28B;
+    color: #34D28B;
 }
 
-/* 검색 창 스타일 */
-.searchContainer {
+.category_custom{
+    float: right;
+}
+
+.list_container tr {
+    width: 30%;
     display: flex;
-    align-items: center;
-    margin: 20px 0;
+    flex-direction: column;
+    margin: 0 1.5%;
 }
 
-.searchContainer input[type="text"] {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-right: 10px;
-    width: 250px;
-}
-
-.searchContainer button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.searchContainer button:hover {
-    background-color: #45a049;
-}
-
-/* 라디오 버튼 스타일 */
-.sortCategory {
+.list_container tbody {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    margin: 20px 0;
 }
 
-.sortCategory input[type="radio"] {
-    margin-right: 5px;
+table.table {
+    width: 100%;
+    scale: 1.04;
+    margin-top: 2.6rem;
 }
 
-.sortCategory label {
-    margin-right: 15px;
+.search_custom {
+    display: inline-block;
+    width: 27rem;
+    border: 2px solid #e8e8e8;
+    border-radius: 50px;
+    padding: 0.6rem;
+}
+select#selectItem {
+    border: none;
+}
+input#searchInput {
+    border: none;
+    margin-left: 0.4rem;
+    width: 80%;
     font-size: 1rem;
+}
+button#searchButton {
+    background: #34D28B;
+    border: 1px solid #34D28B;
+    border-radius: 30px;
+    padding: 0.8rem 1.5rem;
+    color: #fff;
+    font-size: 0.9rem;
     cursor: pointer;
+    font-weight: 500;
+}
+input#searchInput:focus {
+    outline:none;
 }
 
-/* 반응형 디자인 */
-@media screen and (max-width: 768px) {
-    .container {
-        margin: 10px;
-        padding: 10px;
-    }
-
-    h1.title {
-        font-size: 1.8rem;
-    }
-
-    table th, table td {
-        font-size: 0.9rem;
-        padding: 10px;
-    }
-
-    .searchContainer input[type="text"] {
-        width: 200px;
-    }
-
-    .sortCategory {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+#searchInput:focus + .search_custom,
+.search_custom:has(#searchInput:focus) {
+    border-color: #34D28B;
 }

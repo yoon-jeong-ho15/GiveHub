@@ -9,7 +9,6 @@
 	<link href="/css/reset.css" rel="stylesheet" type="text/css">
 	<link href="/css/common.css" rel="stylesheet" type="text/css">
 	<link href="/css/navBar.css" rel="stylesheet" type="text/css">
-	<link href="/css/footer.css" rel="stylesheet" type="text/css">
 	<link href="/css/donationList.css" rel="stylesheet" type="text/css">
 </head>
 <style>
@@ -19,6 +18,7 @@
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
 <script src="/js/common.js"></script>
 <section class="doantion_list_wrap">
+	<div class="list_container">
 		<div class="dCategory">
 			<h1>캠페인</h1>
 
@@ -35,15 +35,17 @@
 			</div>
 
 			<div id="searchContainer" class="searchContainer">
-				<select id="selectItem" name="selectItem" required>
-					<option value="doTitle">글제목</option>
-					<option value="memName">작성자</option>
-				</select>
-				<input type="text" id="searchInput" name="searchInput" placeholder="검색어를 입력하세요">
-				<button id="searchButton">검색</button>
+				<div class="search_custom">
+					<select id="selectItem" name="selectItem" required>
+						<option value="doTitle">글제목</option>
+						<option value="memName">작성자</option>
+					</select>
+					<input type="text" id="searchInput" name="searchInput" placeholder="검색어를 입력하세요">
+				</div>
+					<button id="searchButton">검색</button>
 			</div>
 
-			<div id="sortCategory" class="sortCategory">
+			<div id="sortCategory" class="sortCategory category_custom">
 				<input type="radio" id="recent" value="recent" name="type" checked/><label for="recent">최신순</label>
 				<input type="radio" id="popular" value="popular" name="type"/><label for="popular">인기순</label>
 				<input type="radio" id="urgent" value="urgent" name="type" /><label for="urgent">마감임박순</label>
@@ -56,11 +58,11 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th width="50px">글 번호 </th>
-						<th> 글제목 </th>
-						<th width="200px">작성자</th>
-						<th width="200px">작성일자</th>
-						<th width="100px">조회수</th>
+						<th width="50px"><!--글 번호 --></th>
+						<th> <!--글제목 --></th>
+						<th width="200px"><!--작성자--></th>
+						<th width="200px"><!--작성일자--></th>
+						<th width="100px"><!--조회수--></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -71,11 +73,7 @@
 				후원글 작성
 			</button>
 		</div>
-
-
-
-
-
+	</div>
 </section>
 <footer>
 	<div th:replace="~{/common/footer.html :: footer_bar}"></div>
@@ -174,6 +172,27 @@
 			}
 		});
 	};
+
+
+
+
+	document.addEventListener("DOMContentLoaded", () => {
+		const buttons = document.querySelectorAll(".categoryBtn button");
+		const dataSelect = document.getElementById("dataSelect");
+
+		buttons.forEach(button => {
+			button.addEventListener("click", () => {
+				// 모든 버튼의 'active' 클래스 제거
+				buttons.forEach(btn => btn.classList.remove("active"));
+
+				// 클릭된 버튼에 'active' 클래스 추가
+				button.classList.add("active");
+
+				// 선택된 카테고리를 input 값에 저장
+				dataSelect.value = button.dataset.category;
+			});
+		});
+	});
 
 </script>
 </html>
