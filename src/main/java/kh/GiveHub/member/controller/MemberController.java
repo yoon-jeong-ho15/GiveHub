@@ -37,11 +37,13 @@ public class MemberController {
     	Member loginUser = mService.login(m);
 //        System.out.println(loginUser);
         model.addAttribute("loginUser", loginUser);
-        if(loginUser != null && bcrypt.matches(m.getMemPwd(), loginUser.getMemPwd()) && !loginUser.getMemType().equals("2")) {
-    		return "redirect:/";
-    	}else {
-    		return "redirect:/admin/main";
+        if(loginUser != null && bcrypt.matches(m.getMemPwd(), loginUser.getMemPwd())) {
+            if (loginUser.getMemType().equals("2")){
+                return "redirect:/admin/main";
+            }
+            return "redirect:/";
     	}
+        throw new MemberException("실패");
     }
 
     //로그아웃
