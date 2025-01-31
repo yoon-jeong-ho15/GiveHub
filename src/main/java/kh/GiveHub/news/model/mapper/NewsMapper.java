@@ -23,4 +23,6 @@ public interface NewsMapper {
 	int setContent(@Param("newsNo")int newsNo,@Param("newContent") String newContent);
 
     News newsDetail(int newsNo);
+
+    ArrayList<News> selectNewsNew();
 }

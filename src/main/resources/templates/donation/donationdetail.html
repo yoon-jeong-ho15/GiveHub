@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="/css/reset.css" rel="stylesheet" type="text/css">
-<link href="/css/common.css" rel="stylesheet" type="text/css">
-<link href="/css/donationDetailPage.css" rel="stylesheet" type="text/css">
-<link href="/css/navBar.css" rel="stylesheet" type="text/css">
-<link href="/css/footer.css" rel="stylesheet" type="text/css">
-	<style>
-		.main_menu_wrap a {
-			color: #1a1a1a !important;
-		}
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link href="/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/css/common.css" rel="stylesheet" type="text/css">
+    <link href="/css/donationDetailPage.css" rel="stylesheet" type="text/css">
+    <link href="/css/navBar.css" rel="stylesheet" type="text/css">
+    <link href="/css/footer.css" rel="stylesheet" type="text/css">
+    <style>
+        .main_menu_wrap a {
+            color: #1a1a1a !important;
+        }
 
 
-		.login_wrap button {
-			background: none;
-			color: #1a1a1a !important;
-			border: none;
-			font-size: 1rem;
-			font-weight: 500;
-			cursor: pointer;
-		}
-	</style>
+        .login_wrap button {
+            background: none;
+            color: #1a1a1a !important;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <style>
 </style>
@@ -51,23 +51,23 @@
 								<span>원</span>
 								<p class="donation_data_small" th:text="${1.0*d.payAmount/d.doGoal*100}"></p>
 								<span style="font-weight: 900">%</span></span>
-						</li>
-						<li>
-							<p>남은시간</p>
-							<p class="donation_data" th:text="${date}"></p>
-							<span>일</span>
-						</li>
-						<li>
-							<p>후원자</p>
-							<p class="donation_data" th:text="${d.payCount}"></p>
-							<span>명</span>
-						</li>
-					</ul>
+                    </li>
+                    <li>
+                        <p>남은시간</p>
+                        <p class="donation_data" th:text="${date}"></p>
+                        <span>일</span>
+                    </li>
+                    <li>
+                        <p>후원자</p>
+                        <p class="donation_data" th:text="${d.payCount}"></p>
+                        <span>명</span>
+                    </li>
+                </ul>
 
-					<ul class="info_text_second">
-						<li><span><p style="font-weight: 500">목표금액</p></span> <span><p th:text="${d.doGoal}"></p>
+                <ul class="info_text_second">
+                    <li><span><p style="font-weight: 500">목표금액</p></span> <span><p th:text="${d.doGoal}"></p>
 								<span>원</span></span></li>
-						<li><span><p style="font-weight: 500">기부 기간</p></span> <span><p>[[${d.doStartDate}]]</p>
+                    <li><span><p style="font-weight: 500">기부 기간</p></span> <span><p>[[${d.doStartDate}]]</p>
 								<span>~</span>
 								<p>[[${d.doEndDate}]]</p></span></li>
 					</ul>
@@ -137,26 +137,18 @@
 
 	</section>
 <footer>
-	<div th:replace="~{/common/footer.html :: footer_bar}"></div>
+    <div th:replace="~{/common/footer.html :: footer_bar}"></div>
 </footer>
 
-	<script type="text/javascript">
-		document.getElementById("doanteBtn").addEventListener("click",function(){
-			const doNo = document.getElementById("doNo").textContent;
-			
-			const paymentUrl = `/payment?doNo=${encodeURIComponent(doNo)}`;
-			window.location.href=paymentUrl;
-			
-		});
-	</script>
+<script type="text/javascript">
+    document.getElementById("doanteBtn").addEventListener("click", function () {
+        const doNo = document.getElementById("doNo").textContent;
 
+        const paymentUrl = `/payment?doNo=${encodeURIComponent(doNo)}`;
+        window.location.href = paymentUrl;
 
-
-
-
-
-
-
+    });
+</script>
 
 
 </body>

@@ -2,6 +2,9 @@ package kh.GiveHub.news.controller;
 
 import java.util.ArrayList;
 
+import jakarta.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -80,4 +83,67 @@ public class NewsController {
 			throw new NewsException("failed : insert news to db");
 		}
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	@GetMapping("/donation/newNews")
+	@ResponseBody
+	public String selectNewsNew(HttpServletResponse response) {
+		System.out.println("테스트");
+		ArrayList<News> list = nService.selectNewsNew();
+		System.out.println(list);
+		JSONArray array = new JSONArray();
+
+		for (News n : list) {
+			JSONObject news = new JSONObject();
+			news.put("doCategory", n.getDoCategory());
+			news.put("newsTitle", n.getNewsTitle());
+			news.put("newsNo", n.getNewsNo());
+			news.put("thumbnailPath", n.getThumbnailPath());
+			news.put("newsCreateDate", n.getNewsCreateDate()); // 추가
+			news.put("memName", n.getMemName()); // 추가
+
+			array.put(news);
+		}
+
+		response.setContentType("application/json; charset=UTF-8");
+		return array.toString();
+	}
+
 }

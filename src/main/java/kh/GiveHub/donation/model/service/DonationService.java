@@ -51,7 +51,7 @@ public class DonationService {
         
 		while(matcher.find()) {
 			String oldPath = matcher.group(1);
-			String newPath = oldPath.replace("/temp/", "/upload/");
+			String newPath = oldPath.replace("../temp/", "/upload/");
             
             int startIndex = matcher.start(1) + offset;
             int endIndex = matcher.end(1) + offset;

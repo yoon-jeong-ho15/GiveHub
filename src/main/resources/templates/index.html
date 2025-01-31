@@ -95,7 +95,7 @@
 
         </div>
         <div id="board_visual" class="visual_board">
-            <div class="board_img_wrap">
+            <div id="board_img_wrap" class="board_img_wrap">
 
             </div>
         </div>
@@ -163,10 +163,44 @@
                                 <h3 class="board_title">${d.doTitle}</h3>
                                 <span class="link_text">도움주러가기↗</span>
                             </div>
-                        </a>
-                    `;
+                        </a>`;
 
                         donationContainer.appendChild(imgWrap);
+                    }
+                }
+            },
+            error: data => console.log(data)
+        });
+
+
+
+        $.ajax({
+            url: '/donation/newNews',
+            dataType: 'json',
+            success: data => {
+                console.log(data);
+
+                const newsContainer = document.getElementById('board_img_wrap');
+                if (data != null) {
+                    newsContainer.innerHTML = '';
+
+                    for (const n of data) {
+                        const newsWrap = document.createElement('div');
+                        newsWrap.classList.add('board_contents');
+
+                        newsWrap.innerHTML = `
+                        <a href="/newsList/newsDetail/${n.newsNo}">
+                            <div class="board_img">
+                                <img src="${n.thumbnailPath}" alt="donation image">
+                            </div>
+                            <div class="board_content_text_wrap">
+                                <div class="category category_green">${n.doCategory}</div>
+                                <div class="title">${n.newsTitle}</div>
+                                <div class="fun_period">${n.newsCreateDate}</div>
+                                <div class="organizer">${n.memName}</div>
+                            </div>
+                        </a>`;
+                        newsContainer.appendChild(newsWrap);
                     }
                 }
             },

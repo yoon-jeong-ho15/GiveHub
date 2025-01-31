@@ -233,9 +233,9 @@ public class DonationController {
 	@GetMapping("/donation/new")
 	@ResponseBody
 	public String selectNew(HttpServletResponse response) {
-		System.out.println("테스트");
+//		System.out.println("테스트");
 		ArrayList<Donation> list = dService.selectNew();
-		System.out.println(list);
+//		System.out.println(list);
 		JSONArray array = new JSONArray();
 
 		for (Donation d : list) {
@@ -251,6 +251,9 @@ public class DonationController {
 		response.setContentType("application/json; charset=UTF-8");
 		return array.toString();
 	}
+
+
+
 
 
 
