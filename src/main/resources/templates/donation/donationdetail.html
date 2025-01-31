@@ -37,7 +37,7 @@
             <h1 class="donation_detail_text">[[${d.doTitle}]]</h1>
             <p class="page_category">[[${d.doCategory}]]</p>
         </div>
-        <!--				<p id="doNo" hidden>[[${d.doNo}]]</p>-->
+        				<p id="doNo" hidden>[[${d.doNo}]]</p>
         <!--				<p>[[${session.loginUser.memNo}]]</p>-->
 
         <div class="donation_info">
@@ -101,7 +101,7 @@
         </div>
 
 
-        <button th:if="${session.loginUser != null}" id="login" type="button" onclick="location.href='/news/newsWrite'">
+        <button th:if="${session.loginUser != null}" id="newsWriteBtn" type="button">
             소식글 작성
         </button>
 
@@ -144,7 +144,10 @@
 
         const paymentUrl = `/payment?doNo=${encodeURIComponent(doNo)}`;
         window.location.href = paymentUrl;
-
+    });
+    document.getElementById("newsWriteBtn").addEventListener("click", function(){
+        const doNo = document.getElementById("doNo").textContent;
+        window.location.href= "/news/write/"+doNo;
     });
 </script>
 </body>
