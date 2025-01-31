@@ -107,6 +107,7 @@
 			location.href = "/donation/donationdetail/" + doNo;
 		});
 
+		// 버튼으로 카테고리 선택
 		document.getElementById('categoryBtn').addEventListener('click', (e) => {
 			if (e.target.tagName === 'BUTTON') {
 				document.getElementById('dataSelect').value = e.target.getAttribute('data-category'); // 클릭함으로서 카테고리를 선택
@@ -152,11 +153,11 @@
 						const tr = document.createElement('tr');
 						tr.innerHTML = `
 										<td><img src="`+d.thumbnailPath+`" width="100%" height="100%"/></td>
-										<td>${d.doNo}</td>
+										<td>${d.doCategory}</td>
 										<td>${d.doTitle}</td>
-										<td>${d.memName}</td>
-										<td>${d.doCreateDate}</td>
-										<td>${d.doViews}</td>
+										<td>${d.doCreateDate}~${d.doEndDate}</td>
+										<td>주최자 ${d.memName}</td>
+										<td>조회수 ${d.doViews}</td>
 									`;
 						tbody.appendChild(tr);
 					}
