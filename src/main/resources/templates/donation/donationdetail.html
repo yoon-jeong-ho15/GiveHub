@@ -104,6 +104,9 @@
         <button th:if="${session.loginUser != null}" id="newsWriteBtn" type="button">
             소식글 작성
         </button>
+        <button th:if="${session.loginUser != null && session.loginUser.memNo == d.memNo}" id="editBtn" type="button">
+            수정
+        </button>
 
 
         <br><br><br><br>
@@ -148,6 +151,10 @@
     document.getElementById("newsWriteBtn").addEventListener("click", function(){
         const doNo = document.getElementById("doNo").textContent;
         window.location.href= "/news/write/"+doNo;
+    });
+    document.getElementById("editBtn").addEventListener("click", function(){
+        const doNo = document.getElementById("doNo").textContent;
+        window.location.href="/donation/edit"+"?doNo="+doNo;
     });
 </script>
 </body>
