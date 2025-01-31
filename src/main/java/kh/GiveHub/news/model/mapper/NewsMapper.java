@@ -25,4 +25,6 @@ public interface NewsMapper {
     News newsDetail(int newsNo);
 
     ArrayList<News> selectNewsNew();
+
+    News selectNewsDetail(String newsNo);
 }

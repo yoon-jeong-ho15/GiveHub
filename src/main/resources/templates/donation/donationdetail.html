@@ -124,13 +124,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr align="center" class="selectlist" th:each="n : ${list}">
-                    <td th:text="${n.newsNo}"></td>
-                    <td th:text="${n.newsTitle}"></td>
-                    <td th:text="${n.doTitle}"></td>
-                    <td th:text="${n.newsCreateDate}"></td>
-                    <td th:text="${n.memName}"></td>
-                </tr>
+					<tr align="center" class="selectlist" th:each="n : ${list}" onclick="newsDetails(${n.newsNo})">
+						<td th:text="${n.newsNo}"></td>
+						<td th:text="${n.newsTitle}"></td>
+						<td th:text="${n.doTitle}"></td>
+						<td th:text="${n.newsCreateDate}"></td>
+						<td th:text="${n.memName}"></td>
+					</tr>
                 </tbody>
             </table>
         </div>
@@ -156,6 +156,24 @@
         const doNo = document.getElementById("doNo").textContent;
         window.location.href="/donation/edit"+"?doNo="+doNo;
     });
+
+	window.onload = () => {
+		const tbody = document.querySelector('tbody');
+
+		tbody.addEventListener('click', function(event) {
+			// 클릭된 td 요소가 아닌 tr을 찾음
+			const clickedTd = event.target.closest('td');
+
+			// td가 null이 아니면 실행
+			if (clickedTd) {
+				const trTds = clickedTd.parentElement.querySelectorAll('td');
+				const newsNo = trTds[0].innerText; // 첫 번째 td에서 newsNo 가져오기
+
+				// 해당 newsNo로 URL을 이동
+				location.href = "/news/newsDetail/" + newsNo;
+			}
+		});
+	};
 </script>
 </body>
 </html>

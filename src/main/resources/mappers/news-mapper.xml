@@ -62,5 +62,11 @@
 		where ROWNUM <= 3
 		]]>
 	</select>
+
+	<select id="selectNewsDetail">
+		select *
+		from news
+		where news_no = #{newsNo}
+	</select>
 	
 </mapper>

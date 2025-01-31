@@ -63,4 +63,7 @@ public class NewsService {
     public ArrayList<News> selectNewsNew() {
         return mapper.selectNewsNew();
     }
+
+    public News selectNewsDetail(String newsNo) {return mapper.selectNewsDetail(newsNo);
+    }
 }
