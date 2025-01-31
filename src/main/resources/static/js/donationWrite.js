@@ -127,6 +127,7 @@ const processImage = async function(file, imgName, imgType){
 /////버튼 관련
 const submitBtn = document.getElementById("submitBtn");
 const backBtn = document.getElementById("backBtn");
+const editBtn = document.getElementById("editBtn");
 
 //제출 버튼
 submitBtn.addEventListener("click", async function (e) {
@@ -178,6 +179,10 @@ submitBtn.addEventListener("click", async function (e) {
     } catch (error) {
         console.error(error);
     }
+});
+//수정 완료 버튼
+editBtn.addEventListener("click", function(){
+    const formData = new FormData();
 });
 
 //뒤로가기 버튼 
