@@ -63,8 +63,9 @@ public class NewsController {
   }
 	
 	//뉴스 작성 (윤정호)
-	@GetMapping("/news/write")
-	public String newsWrite() {
+	@GetMapping("/news/write/{doNo}")
+	public String newsWrite(@PathVariable("doNo") int doNo, Model model) {
+		model.addAttribute("doNo", doNo);
 		return "/news/newsWrite";
 	}
 	

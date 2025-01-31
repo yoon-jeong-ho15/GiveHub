@@ -54,7 +54,7 @@
                 </td>
                 <td>
                     <input type="text" id="doTitle" name="doTitle" 
-                    value="${d.doTitle}" required>
+                    th:value="${d.doTitle}" required>
                 </td>
             </tr>
             <tr>
@@ -64,9 +64,9 @@
                 <td>
                     <input type="number" id="fakeGoal" 
                     placeholder="목표 금액을 입력하세요" 
-                    step="100" min="0" value="${d.doGoal/10000}">
+                    step="100" min="0" th:value="${d.doGoal/10000}">
                     <input type="hidden" id="doGoal" 
-                    name="doGoal" value="${d.doGoal}">
+                    name="doGoal" th:value="${d.doGoal}">
                     <label>만원</label>
                 </td>
             </tr>
@@ -77,13 +77,13 @@
                 <td>
                     <select id="doCategory" name="doCategory">
                         <option value=null>-----------------------------------</option>
-                        <option value="아동/청소년" th:if="${d.doCategory == '아동/청소년'}">아동/청소년</option>
-                        <option value="동물" th:if="${d.doCategory == '동물'}">동물</option>
-                        <option value="어르신" th:if="${d.doCategory == '어르신'}">어르신</option>
-                        <option value="해외" th:if="${d.doCategory == '해외'}">해외</option>
-                        <option value="장애인" th:if="${d.doCategory == '장애인'}">장애인</option>
-                        <option value="환경" th:if="${d.doCategory == '환경'}">환경</option>
-                        <option value="다문화" th:if="${d.doCategory == '다문화'}">다문화</option>
+                        <option value="child" th:selected="${d.doCategory} == 'child'">아동/청소년</option>
+                        <option value="animal" th:selected="${d.doCategory} == 'animal'">동물</option>
+                        <option value="old" th:selected="${d.doCategory} == 'old'">어르신</option>
+                        <option value="family" th:selected="${d.doCategory} == 'family'">가족</option>
+                        <option value="handicap" th:selected="${d.doCategory} == 'handicap'">장애인</option>
+                        <option value="environment" th:selected="${d.doCategory} == 'environment'">환경</option>
+                        <option value="etc" th:selected="${d.doCategory} == 'etc'">기타</option>
                     </select>
                 </td>
             </tr>
@@ -92,7 +92,7 @@
                     <label>후원 시작일</label>
                 </td>
                 <td>
-                    <input type="date" id="doStartDate" name="doStartDate" value="${d.doStartDate}">
+                    <input type="date" id="doStartDate" name="doStartDate" th:value="${d.doStartDate}">
                     부터
                 </td>
             </tr>
@@ -101,7 +101,7 @@
                     <label for="doEndDate">후원 마감일</label>
                 </td>
                 <td>
-                    <input type="date" id="doEndDate" name="doEndDate" value="${d.doEndDate}" required>
+                    <input type="date" id="doEndDate" name="doEndDate" th:value="${d.doEndDate}" required>
                     까지
                 </td>
             </tr>
@@ -112,26 +112,25 @@
             <label>썸네일</label>
             <button type="button" id="thumbBtn">넣기</button>
             <div id="thumbnailDiv" width="425px" height="300px">
-                <img id="thumbPre" th:src="">
+                <img id="thumbPre" th:src="${d.thumbnailPath}">
             </div>
         </div>
     </section>
     <section class="sec2">
         <h2>게시글 내용</h2>
         <input type="hidden" value="donation" id="boardType">
-        <textarea id="doContent" name="doContent" 
-        th:="" >
+        <textarea id="doContent" name="doContent">
         </textarea>
         <div class="buttonDiv">
-            <button type="button" id="submitBtn">후원 모집</button>
+            <button type="button" id="EditBtn">수정 완료</button>
             <button type="button" id="backBtn">뒤로가기</button>
         </div>	
     <footer>
         <div th:replace="~{/common/footer.html :: footer_bar}"></div>
     </footer>
-    <script>
+    <script th:inline="javascript">
         window.onload=()=>{
-            tinymce.getContent("doContent").getBody().innerHTML = /*"[[${d.doContent}]]"*/"";  
+            tinymce.get("doContent").setContent(/*[[${d.doContent}]]*/"");
         }
     </script>
     <script src="/js/donationWrite.js" th:inline="javascript"></script>
