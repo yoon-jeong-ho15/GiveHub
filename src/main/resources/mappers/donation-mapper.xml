@@ -73,25 +73,6 @@
     </select>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <select id="selectDonation">
         select *
         from donation
