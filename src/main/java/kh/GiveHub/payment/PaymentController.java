@@ -1,21 +1,28 @@
 package kh.GiveHub.payment;
 
+import kh.GiveHub.payment.model.service.PaymentService;
+import kh.GiveHub.payment.model.vo.PaymentRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import kh.GiveHub.member.model.exception.MemberException;
+<<<<<<< HEAD
 import kh.GiveHub.payment.model.service.PaymentService;
 //import kh.GiveHub.payment.model.service.PaymentService;
+=======
+>>>>>>> branch 'main' of https://github.com/shpark47/GiveHub.git
 import kh.GiveHub.payment.model.vo.Payment;
+<<<<<<< HEAD
 import kh.GiveHub.payment.model.vo.PaymentRequest;
 //import kh.GiveHub.payment.model.vo.PaymentRequest;
+=======
+>>>>>>> branch 'main' of https://github.com/shpark47/GiveHub.git
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-//@RequestMapping("/pay")
 public class PaymentController {
 	
 	private final PaymentService pService;
@@ -46,9 +53,5 @@ public class PaymentController {
     	}else {
     		throw new MemberException("결제 실패");
     	}
-
-        // 여기에서 결제 정보를 서버에서 처리하고 저장할 수 있습니다.
-        // 예를 들어 결제 완료 상태를 DB에 저장하거나, 알림을 보낼 수 있습니다.
-
     }
 }

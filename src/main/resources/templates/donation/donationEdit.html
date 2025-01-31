@@ -129,6 +129,11 @@
     <footer>
         <div th:replace="~{/common/footer.html :: footer_bar}"></div>
     </footer>
+    <script>
+        window.onload=()=>{
+            tinymce.getContent("doContent").getBody().innerHTML = /*"[[${d.doContent}]]"*/"";  
+        }
+    </script>
     <script src="/js/donationWrite.js" th:inline="javascript"></script>
 </body>
 </html>
