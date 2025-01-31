@@ -6,11 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
-import jakarta.servlet.http.HttpServletResponse;
-import kh.GiveHub.news.model.service.NewsService;
-import kh.GiveHub.news.model.vo.News;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
@@ -20,17 +16,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.donation.model.exception.DonationException;
 import kh.GiveHub.donation.model.service.DonationService;
 import kh.GiveHub.donation.model.vo.Donation;
 import kh.GiveHub.member.model.exception.MemberException;
 import kh.GiveHub.member.model.vo.Member;
+import kh.GiveHub.news.model.service.NewsService;
+import kh.GiveHub.news.model.vo.News;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -145,89 +143,6 @@ public class DonationController {
 
 
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	@GetMapping("/donation/new")
 	@ResponseBody

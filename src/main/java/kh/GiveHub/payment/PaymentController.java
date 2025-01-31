@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import kh.GiveHub.member.model.exception.MemberException;
+import kh.GiveHub.payment.model.service.PaymentService;
 //import kh.GiveHub.payment.model.service.PaymentService;
 import kh.GiveHub.payment.model.vo.Payment;
+import kh.GiveHub.payment.model.vo.PaymentRequest;
 //import kh.GiveHub.payment.model.vo.PaymentRequest;
 import lombok.RequiredArgsConstructor;
 
@@ -23,10 +25,10 @@ public class PaymentController {
         // 결제 완료 후 처리
     	Payment payment = new Payment();
     	
-    	System.out.println(request.getAmount());
-    	System.out.println(request.getName());
-    	System.out.println(request.getDoNo());
-    	System.out.println("멤버 번호는 ? = = = " + request.getMemNo());
+//    	System.out.println(request.getAmount());
+//    	System.out.println(request.getName());
+//    	System.out.println(request.getDoNo());
+//    	System.out.println("멤버 번호는 ? = = = " + request.getMemNo());
     	
     	payment.setAmount(request.getAmount());
     	payment.setDonorName(request.getName());
