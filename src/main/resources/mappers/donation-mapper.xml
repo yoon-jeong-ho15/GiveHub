@@ -58,7 +58,7 @@
 	</update>
 
 
-    <select id="selectNew" resultType="donation">
+    <select id="selectNew">
         <![CDATA[
         SELECT *
         FROM (
