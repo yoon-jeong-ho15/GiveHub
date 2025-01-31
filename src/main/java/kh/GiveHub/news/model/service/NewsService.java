@@ -27,8 +27,8 @@ public class NewsService {
         return mapper.deleteNews(nNo);
     }
 
-    public ArrayList<News> nnewsList() {
-        return mapper.nnewsList();
+    public ArrayList<News> nnewsList(int i) {
+        return mapper.nnewsList(i);
     }
 
     public int setContent(int newsNo, String content) {

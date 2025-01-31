@@ -19,6 +19,9 @@ header {
 	height: 80px;
     z-index: 1;
 }
+div#logo {
+    width: 65px;
+}
 .logo_main a {
 	height: 100%;
     display: flex;
@@ -118,3 +121,31 @@ button#myPage, button#login {
 }
 
 /* header end */
+
+/* footer */
+footer {
+    background: #31BC7E;
+}
+
+footer .logo_white {
+    width: 70px;
+}
+
+footer .footer_text01 a, footer span {
+    color: #fff;
+}
+
+footer .footer_text01 a {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+footer span {
+    font-size: 1rem;
+}
+
+.footer_text {
+    padding: 1.9rem 0 0;
+}
+/* footer end */

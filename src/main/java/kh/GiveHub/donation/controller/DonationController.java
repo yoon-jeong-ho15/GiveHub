@@ -8,8 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import jakarta.servlet.http.HttpServletResponse;
 import kh.GiveHub.news.model.service.NewsService;
 import kh.GiveHub.news.model.vo.News;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,7 +80,6 @@ public class DonationController {
 	@GetMapping("/category")
 	@ResponseBody
 	public ArrayList<Donation> category (@RequestParam("categorySelect") String categorySelect, @RequestParam("searchItem") String searchItem, @RequestParam("searchInput") String searchInput, @RequestParam("optionSelect") String optionSelect){
-		System.out.println(categorySelect);
 		Map<String, Object> map = new HashMap<>();
 		map.put("categorySelect", categorySelect);
 		map.put("optionSelect", optionSelect);
@@ -90,10 +92,8 @@ public class DonationController {
 			}
 		}
 		map.put("d", d);
-		System.out.println(map);
 
 		ArrayList<Donation> list = dService.selectCategory(map);
-		System.out.println(list);
 
 		return list;
 	}
@@ -145,4 +145,120 @@ public class DonationController {
 
 
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	@GetMapping("/donation/new")
+	@ResponseBody
+	public String selectNew(HttpServletResponse response) {
+		System.out.println("테스트");
+		ArrayList<Donation> list = dService.selectNew();
+		System.out.println(list);
+		JSONArray array = new JSONArray();
+
+		for (Donation d : list) {
+			JSONObject json = new JSONObject();
+			json.put("doCategory", d.getDoCategory());
+			json.put("doTitle", d.getDoTitle());
+			json.put("doNo", d.getDoNo()); //
+			json.put("thumbnailPath", d.getThumbnailPath());
+
+			array.put(json);
+		}
+
+		response.setContentType("application/json; charset=UTF-8");
+		return array.toString();
+	}
+
+
+
+
+
+
+
+
+
+
+
 }

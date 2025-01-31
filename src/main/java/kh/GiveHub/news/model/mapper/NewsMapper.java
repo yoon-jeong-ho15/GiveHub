@@ -16,7 +16,7 @@ public interface NewsMapper {
 
     int deleteNews(String nNo);
 
-    ArrayList<News> nnewsList();
+    ArrayList<News> nnewsList(int i);
 
 	int insertNews(News n);
 

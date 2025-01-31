@@ -4,6 +4,7 @@
 <link href="/css/reset.css" rel="stylesheet" type="text/css">
 <link href="/css/common.css" rel="stylesheet" type="text/css">
 <link href="/css/navBar.css" rel="stylesheet" type="text/css">
+<link href="/css/page.css" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="utf-8">
 <title>아이디 찾기</title>
@@ -15,133 +16,114 @@
 	href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
 	rel="stylesheet">
 <style>
-		form{
-			display: flex;
-			flex-direction: column;
-		}
-		input{
-			height: 28px;
-			padding: 5px;
-			border: 1px solid gray;
-			border-radius: 10px;
-			width: 270px;
-			text-align: justify;
-		}
-		input[name^=rrn]{
-			width: 120px;
-		}
-		span{
-			font-size: 9pt;
-			color: #2ab54c;
-			margin-top: 0;
-			margin-left: 4px;
-			margin-bottom: 10px;
-		}
-		button{
-		 	height: 41px;
-			width: 280px;
-			background: #34D28B;
-			border: 0px;
-			border-radius: 14px;
-			color: white;
-			font-size: 12pt;
-			margin-top: 20px;
-		}
 
-input {
-	height: 28px;
-	padding: 5px;
-	border: 1px solid gray;
-	border-radius: 10px;
-	width: 270px;
-	text-align: justify;
-}
+/*		input{*/
+/*			height: 28px;*/
+/*			padding: 5px;*/
+/*			border: 1px solid gray;*/
+/*			border-radius: 10px;*/
+/*			width: 270px;*/
+/*			text-align: justify;*/
+/*		}*/
+/*		input[name^=rrn]{*/
+/*			width: 120px;*/
+/*		}*/
+/*		span{*/
+/*			font-size: 9pt;*/
+/*			color: #2ab54c;*/
+/*			margin-top: 0;*/
+/*			margin-left: 4px;*/
+/*			margin-bottom: 10px;*/
+/*		}*/
+/*		button{*/
+/*			background: #34D28B;*/
+/*			border: 0px;*/
+/*			border-radius: 14px;*/
+/*			color: white;*/
+/*			font-size: 12pt;*/
+/*			margin-top: 20px;*/
+/*		}*/
 
-input[name^=rrn] {
-	width: 120px;
-}
+/*input {*/
+/*	height: 28px;*/
+/*	padding: 5px;*/
+/*	border: 1px solid gray;*/
+/*	border-radius: 10px;*/
+/*	width: 270px;*/
+/*	text-align: justify;*/
+/*}*/
 
-span {
-	font-size: 9pt;
-	color: #2ab54c;
-	margin-top: 0;
-	margin-left: 4px;
-	margin-bottom: 10px;
-}
+/*input[name^=rrn] {*/
+/*	width: 120px;*/
+/*}*/
 
-button {
-	height: 41px;
-	width: 280px;
-	background: #34D28B;
-	border: 0px;
-	border-radius: 14px;
-	color: white;
-	font-size: 12pt;
-	margin-top: 20px;
-}
 
-.main_menu_wrap a {
-	color: #1a1a1a !important;
-}
 
-.login_wrap button {
-	background: none;
-	color: #1a1a1a !important;
-	border: none;
-	font-size: 1rem;
-	font-weight: 500;
-	cursor: pointer;
-}
 
-.container.container_center {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	height: 100vh;
-	align-items: center;
-}
+
+/*.login_wrap button {*/
+/*	background: none;*/
+/*	color: #1a1a1a !important;*/
+/*	border: none;*/
+/*	font-size: 1rem;*/
+/*	font-weight: 500;*/
+/*	cursor: pointer;*/
+/*}*/
+
+/*.container.container_center {*/
+/*	display: flex;*/
+/*	flex-direction: column;*/
+/*	justify-content: center;*/
+/*	height: 100vh;*/
+/*	align-items: center;*/
+/*}*/
 </style>
 </head>
 <body>
-	<!-- 	<div th:replace="~{/common/navbar.html :: navbar}"></div> -->
 	<div th:replace="~{/common/navbar.html :: navbar}"></div>
+	<script src="/js/common.js"></script>
+	<div class="container page_container">
+		<div class="inner_container">
+			<h2>아이디 찾기</h2>
+			<p class="subtitle">회원가입 시 입력한 정보로 아이디를 찾을 수 있습니다.</p>
+			<form action="findMyId" method="post">
+				<span class="text_style">
+				<input id="memName" name="memName" type="text">
+					</span>
+				<span class="notice_text">회원가입시 등록한 이름을 입력해 주세요</span>
+				<span class="text_style">
+					<input type="text" id="memEmail" name="memEmail" ></span>
+				<span class="notice_text">회원가입시 등록한 이메일을 입력해 주세요</span>
+				<span class="check_btn">
+				<button type="button" id="prove_btn" class="page_btn">인증번호받기</button></span>
+				<button class="submitBtn findBtn">확인</button>
+				<div class="form-group" id="mail_number" name="mail_number" style="visibility: hidden">
+					<span class="text_style">
+					 <input type="text" name="confirmNumber" id="confirmNumber" class="form-control" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
+					</span>
+						<span id="mail-check-warn"></span>
+					 <button type="button" name="confirmBtn" id="confirmBtn" style="margin-top: 20px">이메일 인증</button>
+					 <br>
+					<span class="text_style">
+					 <input type="hidden" id="Confirm" name="Confirm" value="">
+					</span>
+				</div>
 
-	<div class="container container_center">
-
-		<h1>아이디 찾기</h1>
-		<h3>회원가입 시 입력한 정보로 아이디를 찾을 수 있습니다.</h3>
-		<form action="findMyId" method="post">
-			<input type="text" id="memName" name="memName"> 
-			<span>회원가입시 등록한 이름을 입력해 주세요</span>
-			<input type="text" id="memEmail" name="memEmail" >
-			<span>회원가입시 등록한 이메일을 입력해 주세요</span>
-			<button type="button" id="prove_btn">인증번호받기</button>
-			<button>확인</button>
-			<div class="form-group" id="mail_number" name="mail_number" style="visibility: hidden">
-                 <input type="text" name="confirmNumber" id="confirmNumber" class="form-control" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
-                 <span id="mail-check-warn"></span>
-                 <button type="button" name="confirmBtn" id="confirmBtn" style="margin-top: 20px">이메일 인증</button>
-                 <br>
-                 <input type="hidden" id="Confirm" name="Confirm" value="">
-            </div>
-			
-		</form>
-
+			</form>
+		</div>
 	</div>
-
-
-<!-- 	<div th:replace="~{/common/navbar.html :: navbar}"></div> -->
-<script src="/js/common.js"></script>
-	<h1>아이디 찾기</h1>
-	<h3>회원가입 시 입력한 정보로 아이디를 찾을 수 있습니다.</h3>
-	<form action="findMyId" method="post">
-		<input type="text" name="name">
-		<span>회원가입시 등록한 이름을 입력해 주세요</span>
-		<button>확인</button>
-	</form>
 	<footer>
 		<div th:replace="~{/common/footer.html :: footer_bar}"></div>
 	</footer>
+
+<!--<h1>아이디 찾기</h1>-->
+<!--	<h3>회원가입 시 입력한 정보로 아이디를 찾을 수 있습니다.</h3>-->
+<!--	<form action="findMyId" method="post">-->
+<!--		<input type="text" name="name">-->
+<!--		<span>회원가입시 등록한 이름을 입력해 주세요</span>-->
+<!--		<button>확인</button>-->
+<!--	</form>-->
+
 	
 	<script type="text/javascript">
 	

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 import jakarta.servlet.http.HttpSession;
@@ -47,7 +46,7 @@ public class NewsController {
 	// 사용자 소식 게시판
 	@GetMapping("/news/newsList")
 	public String nnewsList(Model model) {
-		ArrayList<News> list = nService.nnewsList();
+		ArrayList<News> list = nService.nnewsList(0);
 		model.addAttribute("list", list);
 		return "/news/newsList";
 	}
