@@ -68,7 +68,10 @@
                 <label for="donor-name">기부자</label>
                 <input type="text" id="donor-name" name="donater" placeholder="이름 입력" th:value="${memName}" readonly>님
             </div>
+            <p>[[${session.loginUser.memNo}]]</p>
             <p id="doNo" hidden>[[${doNo}]]</p>
+            <p id="memNo" hidden>[[${session.loginUser.memNo}]]</p>
+            
             <div>
                 <input type="radio" id="amount1" name="amount" value="10000">
                 <label for="amount1">1만원</label>
@@ -98,6 +101,7 @@
     IMP.init("imp64726784");
     const doNo = document.getElementById("doNo").textContent;
     const doName = document.getElementById("donor-name").value;
+    const memNo = document.getElementById("memNo").textContent;
 	
     
     document.getElementById("payBtn").addEventListener("click", function() {
@@ -143,9 +147,10 @@
                     body: JSON.stringify({
                         impuid: rsp.imp_uid,
                         merchantuid: rsp.merchant_uid,
-                        amount : rsp.paid_amount,
+                        amount : parseInt(rsp.paid_amount, 10),
                         name:doName,
-                        doNo:doNo
+                        doNo:parseInt(doNo, 10),
+                        memNo: parseInt(memNo, 10)
                     })
                 }).then(response => {
                     if (response.ok) {
