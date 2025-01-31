@@ -77,7 +77,7 @@
         select *
         from donation
             join member using(mem_no)
-            join (select '/upload/'||IMG_RENAME as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
+            left join (select '/upload/'||IMG_RENAME as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
             left join (select do_no, sum(pay_amount) pay_amount, count(*) pay_count from payment where do_no = #{doNo} group by do_no) using(do_no)
         where do_status = 'Y' and do_no =#{doNo}
     </select>
