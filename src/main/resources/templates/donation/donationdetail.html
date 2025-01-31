@@ -37,8 +37,8 @@
 				<h1 class="donation_detail_text">[[${d.doTitle}]]</h1>
 				<p class="page_category">[[${d.doCategory}]]</p>
 			</div>
-				<p id="doNo" hidden>[[${d.doNo}]]</p>
-				<p>[[${session.loginUser.memNo}]]</p>
+<!--				<p id="doNo" hidden>[[${d.doNo}]]</p>-->
+<!--				<p>[[${session.loginUser.memNo}]]</p>-->
 
 			<div class="donation_info">
 				<div class="donation_img_wrap">
@@ -100,7 +100,7 @@
 			</div>
 			
 
-			<button th:if="${session.loginUser != null}" id="login" type="button" onclick="location.href='/donation/donationWrite'">
+			<button th:if="${session.loginUser != null}" id="login" type="button" onclick="location.href='/news/newsWrite'">
 				소식글 작성
 			</button>
 
