@@ -124,6 +124,9 @@ section#section_02 {
     float: right;
     padding: 2rem 0 4rem;
 }
+span.link_text {
+   color: #fff;
+}
 
 #section_02 .title_wrap {
    width: 75%;
