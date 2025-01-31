@@ -95,46 +95,5 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--    <select id="selectNew" resultType="donation">-->
-<!--        <![CDATA[-->
-<!--        SELECT *-->
-<!--        FROM (-->
-<!--            SELECT *-->
-<!--            FROM donation-->
-<!--            WHERE do_status = 'Y'-->
-<!--            ORDER BY do_createdate DESC)-->
-<!--        WHERE ROWNUM <= 5;-->
-<!--        ]]>-->
-<!--    </select>-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </mapper>
 
