@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 	<title>기부 게시판 조회페이지</title>
-<!--	 <link href="../../static/css/reset.css" rel="stylesheet" type="text/css"> -->
-<!--	 <link href="../../static/css/common.css" rel="stylesheet" type="text/css">-->
+	<!--    <link href="../../static/css/reset.css" rel="stylesheet" type="text/css"> -->
+	<!--    <link href="../../static/css/common.css" rel="stylesheet" type="text/css">-->
 	<link href="/css/reset.css" rel="stylesheet" type="text/css">
 	<link href="/css/common.css" rel="stylesheet" type="text/css">
 	<link href="/css/navBar.css" rel="stylesheet" type="text/css">
@@ -42,7 +42,7 @@
 					</select>
 					<input type="text" id="searchInput" name="searchInput" placeholder="검색어를 입력하세요">
 				</div>
-					<button id="searchButton">검색</button>
+				<button id="searchButton">검색</button>
 			</div>
 
 			<div id="sortCategory" class="sortCategory category_custom">
@@ -56,14 +56,14 @@
 		<div class="list_wrap">
 			<table class="table">
 				<thead>
-					<tr>
-						<th></th>
-						<th width="50px"><!--글 번호 --></th>
-						<th> <!--글제목 --></th>
-						<th width="200px"><!--작성자--></th>
-						<th width="200px"><!--작성일자--></th>
-						<th width="100px"><!--조회수--></th>
-					</tr>
+				<tr>
+					<th></th>
+					<th width="50px"><!--글 번호 --></th>
+					<th> <!--글제목 --></th>
+					<th width="200px"><!--작성자--></th>
+					<th width="200px"><!--작성일자--></th>
+					<th width="100px"><!--조회수--></th>
+				</tr>
 				</thead>
 				<tbody>
 
@@ -103,7 +103,7 @@
 				if (!target) return; // 예외 처리 (이벤트 버블링 방지)
 			}
 
-			const doNo = target.cells[1].innerText.trim();
+			const doNo = target.cells[0].children[0].value;
 			location.href = "/donation/donationdetail/" + doNo;
 		});
 
@@ -152,13 +152,14 @@
 					for (const d of data) {
 						const tr = document.createElement('tr');
 						tr.innerHTML = `
-										<td><img src="`+d.thumbnailPath+`" width="100%" height="100%"/></td>
-										<td>${d.doCategory}</td>
-										<td>${d.doTitle}</td>
-										<td>${d.doCreateDate}~${d.doEndDate}</td>
-										<td>주최자 ${d.memName}</td>
-										<td>조회수 ${d.doViews}</td>
-									`;
+                              <td><input type="hidden" value="` + d.doNo + `"></td>
+                              <td><img src="`+d.thumbnailPath+`" width="100%" height="100%"/></td>
+                              <td>${d.doCategory}</td>
+                              <td>${d.doTitle}</td>
+                              <td>${d.doCreateDate}~${d.doEndDate}</td>
+                              <td>주최자 ${d.memName}</td>
+                              <td>조회수 ${d.doViews}</td>
+                           `;
 						tbody.appendChild(tr);
 					}
 				} else {
