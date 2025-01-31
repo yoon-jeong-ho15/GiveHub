@@ -99,6 +99,7 @@ const processImage = async function (file, imgName, imgType) {
 /////버튼 관련
 const submitBtn = document.getElementById("submitBtn");
 const backBtn = document.getElementById("backBtn");
+const editBtn = document.getElementById("editBtn");
 
 //제출 버튼
 submitBtn.addEventListener("click", async function (e) {

@@ -80,4 +80,22 @@ public class ImageController {
 		}
 		return false;
 	}
+	
+	//updateBoard(){
+	//똑같이 iService.saveUpload(list, bid, boardType)로 사진 저장.
+	//	- 그러면 리스트에 있는 사진들을 /upload/로 보냄
+	//	- 그리고 db에 이미지 테이블에 정보 입력
+	// 반환값이 true라면 -> compareContent(bid, boardType,  content) 를 사용
+	//	- bid, boardType로 oldContent 가져와서 비교
+	//	- oldcontent에서 <img src="/upload/a.png"> matcher로 찾음
+	//	- 사진 a, b, c가 나오면 그게 newcontent에 있는지 확인 (a, b는 없고 c, +d, +e 만 있다고 가정)
+	//	- a랑 b를 리스트에 담아서 compare() -> delete(list)로 보낸다.
+	//	- delete에서 c:/GiveHub/upload 에 있는 a랑 b를 if exists해서 지운다.
+	//	- 다 지워지면 db에도 지운 사진 반영 delete(list)-> deleteDB(list).
+	//	- 완료되면 updateBoard()<- compare() <- delete() <- deleteDB() 로 돌아옴
+	//	- updateBoard() -> setContent(bid, content)
+	//	- 여기 컨텐트에는 /upload/ 1개 /temp/ 2개가 있음.
+	// 	- pattern, matcher로 StringBuilder newContent 에 ../temp/ 를 /upload/로 바꿔버리고
+	//	- db에 저장.
+	
 }
