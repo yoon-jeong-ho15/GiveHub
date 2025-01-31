@@ -79,7 +79,8 @@ public class DonationController {
 
 	@GetMapping("/category")
 	@ResponseBody
-	public ArrayList<Donation> category (@RequestParam("categorySelect") String categorySelect, @RequestParam("searchItem") String searchItem, @RequestParam("searchInput") String searchInput, @RequestParam("optionSelect") String optionSelect){
+	public ArrayList<Donation> category (@RequestParam("categorySelect") String categorySelect, @RequestParam("searchItem") String searchItem,
+										 @RequestParam("searchInput") String searchInput, @RequestParam("optionSelect") String optionSelect){
 		Map<String, Object> map = new HashMap<>();
 		map.put("categorySelect", categorySelect);
 		map.put("optionSelect", optionSelect);

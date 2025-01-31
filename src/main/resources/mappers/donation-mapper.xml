@@ -8,7 +8,8 @@
     <select id="selectCategory">
         select * from donation
         join member using(mem_no)
-        left join (select '/upload/'||IMG_RENAME as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
+        left join (select '/upload/'||IMG_RENAME as thumbnailPath, REF_NO,
+        img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
         <where>
             do_enddate <![CDATA[>=]]> sysdate
             <if test="categorySelect != 'all'">

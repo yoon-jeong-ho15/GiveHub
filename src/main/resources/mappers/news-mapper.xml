@@ -9,7 +9,10 @@
 	</select>
 
 	<select id="selectNewsList">
-		select * from news join donation using(do_no)
+		select *
+		from news
+		left join donation using(do_no)
+		left join member on(donation.mem_no=member.mem_no)
 	</select>
 
 	<delete id="deleteNews">
