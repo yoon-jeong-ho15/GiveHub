@@ -128,15 +128,17 @@ const processImage = async function(file, imgName, imgType){
 const submitBtn = document.getElementById("submitBtn");
 const backBtn = document.getElementById("backBtn");
 const editBtn = document.getElementById("editBtn");
-
+document.getElementById("doCategory").addEventListener("change", function(){
+    console.log(doCategory.value);
+});
 //제출 버튼
-submitBtn.addEventListener("click", async function (e) {
+submitBtn.addEventListener("click", async function(e) {
     //카테고리 유뮤 확인
     const doCategory = document.getElementById("doCategory");
-    if (doCategory.value == null) {
+    if (doCategory.value == "null") {
+        console.log(doCategory.value);
         alert("donation category");
-        doCategory.focus();
-        e.preventDefault;
+        return;
     }
 
     //도네이션 insert 
@@ -183,6 +185,7 @@ submitBtn.addEventListener("click", async function (e) {
 //수정 완료 버튼
 editBtn.addEventListener("click", function(){
     const formData = new FormData();
+    pathArr
 });
 
 //뒤로가기 버튼 
