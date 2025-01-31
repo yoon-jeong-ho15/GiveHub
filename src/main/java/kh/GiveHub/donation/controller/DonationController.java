@@ -80,7 +80,6 @@ public class DonationController {
 	@GetMapping("/category")
 	@ResponseBody
 	public ArrayList<Donation> category (@RequestParam("categorySelect") String categorySelect, @RequestParam("searchItem") String searchItem, @RequestParam("searchInput") String searchInput, @RequestParam("optionSelect") String optionSelect){
-		System.out.println(categorySelect);
 		Map<String, Object> map = new HashMap<>();
 		map.put("categorySelect", categorySelect);
 		map.put("optionSelect", optionSelect);
@@ -93,10 +92,8 @@ public class DonationController {
 			}
 		}
 		map.put("d", d);
-		System.out.println(map);
 
 		ArrayList<Donation> list = dService.selectCategory(map);
-		System.out.println(list);
 
 		return list;
 	}
