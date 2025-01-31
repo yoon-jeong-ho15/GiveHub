@@ -32,7 +32,7 @@ public class ImageController {
 		@RequestParam("imgType") String imgType,
 		@RequestParam("imgName") String imgName) {
 		String tempname = iService.saveTemp(file, imgName, imgType);
-		
+		System.out.println("/temp/"+tempname);
 		return ResponseEntity.ok("/temp/"+tempname);
 	}
 	
