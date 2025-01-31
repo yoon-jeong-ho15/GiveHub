@@ -32,7 +32,6 @@ fakeGoal.addEventListener("input", function () {
 /////게시글 작성 관련
 const pathArr =[];
 //api
-tinymce.getContent("doContent").getBody().innerHTML = /*"[[${d.doContent}]]"*/""; 
 tinymce.init({
     license_key: "gpl",
     selector: "#doContent",
