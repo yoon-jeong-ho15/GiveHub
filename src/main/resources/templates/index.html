@@ -47,6 +47,36 @@
 
         <div id="slide_visual" class="visual_img">
             <div id="slide_wrap" class="slide_img_wrap">
+<!--                <div class="img_wrap">-->
+<!--                    <div class="slide_img">-->
+<!--                        <img src="img/Baby_wearing_a_head_correction_helmet.jpg">-->
+<!--                    </div>-->
+<!--                    <div class="text_wrap">-->
+<!--                        <p class="category category_white">아동/청소년</p>-->
+<!--                        <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>-->
+<!--                        <a href="#">도움주러가기↗</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="img_wrap">-->
+<!--                    <div class="slide_img">-->
+<!--                        <img src="img/baby_looking_out_the_window.jpg">-->
+<!--                    </div>-->
+<!--                    <div class="text_wrap">-->
+<!--                        <p class="category category_white">아동/청소년</p>-->
+<!--                        <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>-->
+<!--                        <a href="#">도움주러가기↗</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="img_wrap">-->
+<!--                    <div class="slide_img">-->
+<!--                        <img src="img/Korean_War_Veteran_Grandpa.jpg">-->
+<!--                    </div>-->
+<!--                    <div class="text_wrap">-->
+<!--                        <p class="category category_white">아동/청소년</p>-->
+<!--                        <h3 class="board_title">"엄마가 세상에서 제일 좋아요" 희귀암 투병중인 별이</h3>-->
+<!--                        <a href="#">도움주러가기↗</a>-->
+<!--                    </div>-->
+<!--                </div>-->
                     <!--ajax list 구현-->
             </div>
         </div>
@@ -118,24 +148,25 @@
                 const donationContainer = document.getElementById('slide_wrap');
                 if (data != null) {
                     donationContainer.innerHTML = '';
+
                     for (const d of data) {
                         const imgWrap = document.createElement('div');
                         imgWrap.classList.add('img_wrap'); // 클래스 추가
 
                         imgWrap.innerHTML = `
-                        <div class="slide_img">
-                            <a href="/donation/donationdetail/${d.doNo}">
+                        <a href="/donation/donationdetail/${d.doNo}">
+                            <div class="slide_img">
                                 <img src="${d.thumbnailPath}" alt="donation image">
+                            </div>
                             <div class="text_wrap">
                                 <p class="category category_white">${d.doCategory}</p>
                                 <h3 class="board_title">${d.doTitle}</h3>
-                                <a href="/donation/donationdetail/${d.doNo}">도움주러가기↗</a>
+                                <span class="link_text">도움주러가기↗</span>
                             </div>
-                            </a>
-                        </div>
-                        `;
+                        </a>
+                    `;
 
-                        donationContainer.appendChild(imgWrap); // 변수명 오류 수정
+                        donationContainer.appendChild(imgWrap);
                     }
                 }
             },

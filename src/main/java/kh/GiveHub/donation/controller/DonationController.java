@@ -9,12 +9,10 @@ import java.util.Map;
 import java.util.Objects;
 
 import jakarta.servlet.http.HttpServletResponse;
+import kh.GiveHub.news.model.service.NewsService;
+import kh.GiveHub.news.model.vo.News;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import kh.GiveHub.news.model.service.NewsService;
-import kh.GiveHub.news.model.vo.News;
-import kh.GiveHub.news.model.service.NewsService;
-import kh.GiveHub.news.model.vo.News;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,7 +59,10 @@ public class DonationController {
 	}
 
 	@GetMapping("payment")
-	public String paymentPage () {
+	public String paymentPage (HttpSession session , Model model , @RequestParam("doNo") String doNo) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		model.addAttribute("memName",loginUser.getMemName());
+		model.addAttribute("doNo",doNo);
 		return "page/paymentPage";
 	}
 
@@ -117,9 +118,9 @@ public class DonationController {
 
 	//기부페이지 상세보기
 	@GetMapping("/donation/donationdetail/{doNo}")
-	public ModelAndView selectDona(@PathVariable("doNo") int doNo,HttpSession session, ModelAndView mv, Model model) {
+	public ModelAndView selectDona(@PathVariable("doNo") int doNo,HttpSession session, ModelAndView mv , Model model) {
 		// 글 상세조회 + 조회수 수정(내가 내 글 조회 or 비회원 조회 -> 조회수 올라가지 않음)
-		ArrayList<News> list = nService.nnewsList(doNo);
+		ArrayList<News> list = nService.selectNewsList();
 		model.addAttribute("list", list);
 
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -136,7 +137,8 @@ public class DonationController {
 		//게시글이 존재하면, 게시글 데이터(b)를 donationdetail.html로 전달
 		//게시글이 존재하지 않으면 사용자 정의 예외 발생
 		if(d != null) {
-			mv.addObject("d", d).addObject("date", date).setViewName("donation/donationdetail");
+			mv.addObject("d", d).addObject("date", date).setViewName("/donation/donationdetail");
+			
 			return mv;
 		}else {
 			throw new MemberException("게시글 상세보기를 실패하셨습니다.");
@@ -180,6 +182,56 @@ public class DonationController {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	@GetMapping("/donation/new")
 	@ResponseBody
 	public String selectNew(HttpServletResponse response) {
@@ -187,21 +239,20 @@ public class DonationController {
 		ArrayList<Donation> list = dService.selectNew();
 		System.out.println(list);
 		JSONArray array = new JSONArray();
-		for(Donation d : list) {
+
+		for (Donation d : list) {
 			JSONObject json = new JSONObject();
 			json.put("doCategory", d.getDoCategory());
 			json.put("doTitle", d.getDoTitle());
-			json.put("doNo", d.getDoNo());
+			json.put("doNo", d.getDoNo()); //
 			json.put("thumbnailPath", d.getThumbnailPath());
+
 			array.put(json);
 		}
+
 		response.setContentType("application/json; charset=UTF-8");
 		return array.toString();
 	}
-
-
-
-
 
 
 

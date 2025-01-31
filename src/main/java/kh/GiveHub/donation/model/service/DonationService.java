@@ -33,7 +33,7 @@ public class DonationService {
 
     public Donation selectDonation(int doNo, Integer id) {
         Donation d = mapper.selectDonation(doNo);
-        if (d != null && id != null && d.getMemNo()==id) {
+        if (d != null && id != null && d.getMemNo()!=id) {
             int result = mapper.updateCount(doNo);
             if (result > 0) {
                 d.setDoViews(d.getDoViews() + 1);
@@ -43,49 +43,30 @@ public class DonationService {
     }
 
     public int setContent(int doNo, String content) {
-        StringBuilder newContent = new StringBuilder(content);
+		StringBuilder newContent = new StringBuilder(content);
         Pattern pattern = Pattern.compile("<img[^>]+?src=\"([^\"]+)\"[^>]*?>");
         Matcher matcher = pattern.matcher(content);
-
+        
         int offset = 0;
-
-        while(matcher.find()) {
-            String oldPath = matcher.group(1);
-            String newPath = oldPath.replace("/temp/", "/upload/");
-
+        
+		while(matcher.find()) {
+			String oldPath = matcher.group(1);
+			String newPath = oldPath.replace("/temp/", "/upload/");
+            
             int startIndex = matcher.start(1) + offset;
             int endIndex = matcher.end(1) + offset;
-
+            
             newContent.replace(startIndex, endIndex, newPath);
-
+            
             offset += newPath.length() - oldPath.length();
-        }
-
+		}
+        
         return mapper.setContent(doNo, newContent.toString());
-    }
+	}
 
-    public int insertDonation(Donation d) {
-        return mapper.insertDonation(d);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	public int insertDonation(Donation d) {
+		return mapper.insertDonation(d);
+	}
 
 
     public ArrayList<Donation> selectNew() {
