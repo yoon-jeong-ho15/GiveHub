@@ -105,32 +105,33 @@
 
 
 
-		</div>
+
 
 		<br><br><br><br>
-		<h1 class="admin_title">소식 목록</h1>
-		<div class="donationList">
-			<table class="table">
-				<thead>
-				<tr>
-					<th>번호</th>
-					<th>새소식 제목</th>
-					<th>프로잭트 이름</th>
-					<th>올린 날짜</th>
-					<th>프로잭트 팀</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr align="center" class="selectlist" th:each="n : ${list}">
-					<td th:text="${n.newsNo}"></td>
-					<td th:text="${n.newsTitle}"></td>
-					<td th:text="${n.doTitle}"></td>
-					<td th:text="${n.newsCreateDate}"></td>
-					<td th:text="${n.memName}"></td>
+			<h1 class="admin_title">소식 목록</h1>
 
-				</tr>
-				</tbody>
-			</table>
+			<div class="donationList">
+				<table class="table">
+					<thead>
+					<tr>
+						<th>번호</th>
+						<th>새소식 제목</th>
+						<th>프로잭트 이름</th>
+						<th>올린 날짜</th>
+						<th>프로잭트 팀</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr align="center" class="selectlist" th:each="n : ${list}">
+							<td th:text="${n.newsNo}"></td>
+							<td th:text="${n.newsTitle}"></td>
+							<td th:text="${n.doTitle}"></td>
+							<td th:text="${n.newsCreateDate}"></td>
+							<td th:text="${n.memName}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 
 	</section>
