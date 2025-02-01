@@ -40,7 +40,9 @@
                 <ul>
                     <li>
                         <p>새소식</p>
-                        <span display="inline-block"><p class="donation_data" th:text="${n.newsTitle}"></span>
+                        <span display="inline-block">
+                            <p class="donation_data" th:text="${n.newsTitle}">
+                        </span>
                     </li>
                     <li>
                         <p>프로젝트 팀</p>
@@ -51,7 +53,6 @@
                         <p class="donation_data" th:text="${n.newsContent}"></p>
                     </li>
                 </ul>
-
             </div>
         </div>
     </div>

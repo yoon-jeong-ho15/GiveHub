@@ -118,7 +118,6 @@
                 <tr>
                     <th>번호</th>
                     <th>새소식 제목</th>
-                    <th>프로잭트 이름</th>
                     <th>올린 날짜</th>
                     <th>프로잭트 팀</th>
                 </tr>
@@ -127,7 +126,6 @@
 					<tr align="center" class="selectlist" th:each="n : ${list}" onclick="newsDetails(${n.newsNo})">
 						<td th:text="${n.newsNo}"></td>
 						<td th:text="${n.newsTitle}"></td>
-						<td th:text="${n.doTitle}"></td>
 						<td th:text="${n.newsCreateDate}"></td>
 						<td th:text="${n.memName}"></td>
 					</tr>

@@ -58,6 +58,7 @@ public class NewsController {
 	@GetMapping("/news/newsdetail/{newsNo}")
 	public String newsDetail(Model model, @PathVariable("newsNo") int newsNo) {
 		News n = nService.newsDetail(newsNo);
+		System.out.println(n);
 		model.addAttribute("n", n);
 		return "/news/newsdetail";
   }

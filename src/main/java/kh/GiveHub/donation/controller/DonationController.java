@@ -116,7 +116,6 @@ public class DonationController {
 		d.setMemName(loginUser.getMemName());
 		int result = dService.insertDonation(d);
 		if (result>0) {
-			System.out.println(d.getDoNo());
 			return ResponseEntity.ok(d.getDoNo());
 		}else {
 			throw new DonationException("failed : insert donation");
@@ -138,7 +137,6 @@ public class DonationController {
 
 		//doNo, memId 를 서비스에 넘겨서 글쓴이 비교 로직 작성
 		Donation d = dService.selectDonation(doNo, id);
-		System.out.println(d);
 		long dates = d.getDoEndDate().getTime() - Date.valueOf(LocalDate.now()).getTime();
 		long date = dates / (1000 * 60 * 60 * 24);
 		//게시글이 존재하면, 게시글 데이터(b)를 donationdetail.html로 전달
@@ -164,7 +162,6 @@ public class DonationController {
 		}
 		Donation d = dService.selectDonation(doNo, id);
 		model.addAttribute("d",d);
-		System.out.println(d.getDoContent());
 		return "/donation/donationEdit";
 	}
 
