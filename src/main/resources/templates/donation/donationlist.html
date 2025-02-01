@@ -18,14 +18,14 @@
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
 <script src="/js/common.js"></script>
 <section class="doantion_list_wrap">
-	<div class="list_container">
+	<div class="list_container dona_list_container">
 		<div class="dCategory">
 			<h1>캠페인</h1>
 
 			<div id="searchContainer" class="searchContainer">
 				<div class="search_custom">
 					<select id="selectItem" name="selectItem" required>
-						<option value="doTitle">글제목</option>
+						<option value="doTitle">글 제목</option>
 						<option value="memName">작성자</option>
 					</select>
 					<input type="text" id="searchInput" name="searchInput" placeholder="검색어를 입력하세요">
@@ -160,7 +160,7 @@
                               <td class="list_title_custom">${d.doTitle}</td>
                               <td>${d.memName}</td>
                               <td class="dona_date">${d.doCreateDate}~${d.doEndDate}</td>
-                              <td>조회수 ${d.doViews}</td>
+                              <td class="views_custom">조회수 ${d.doViews}</td>
                            `;
 						tbody.appendChild(tr);
 					}

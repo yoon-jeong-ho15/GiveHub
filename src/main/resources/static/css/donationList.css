@@ -25,9 +25,24 @@
     padding: 3rem 0 0;
 }
 
-.list_container h1 {
+.dCategory h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+}
+.dCategory h1:before {
+    content: "";
+    display: block;
+    background-image: url(../img/leaves_icon.svg);
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    top: -1.8rem;
+    right: -1.9rem;
+    width: 52px;
+    height: 100%;
+    z-index: 6;
 }
 .dCategory {
     margin-top: 2rem;
@@ -44,18 +59,31 @@ div.searchContainer {
 }
 
 .categoryBtn button, td.list_category_custom {
-    border: 1px solid #dfdfdf;
+    border: 1px solid #cfcfcf;
     border-radius: 50px;
-    padding: 0.4rem 1rem !important;
     margin-right: 0.5rem;
     background: #fff;
     font-weight: 400;
+    cursor: pointer;
+}
+td.list_category_custom {
     font-size: 0.9rem;
+    padding: 0.8rem 0 0.1rem 0.4rem !important;
+}
+.categoryBtn button{
+    font-size: 1.1rem;
+    padding: 0.5rem 1.1rem !important;
+}
+.category_custom input, .category_custom label {
+    cursor: pointer;
 }
 
-td.list_category_custom {
+td.list_category_custom{
     margin-left: 0.4rem !important;
     border-color: #34D28B !important;
+}
+
+td.list_category_custom, .news_category_custom {
     color: #34D28B !important;
 }
 
@@ -79,17 +107,24 @@ td.list_category_custom {
 
 .category_custom{
     float: right;
-    margin: 2rem 0 1rem;
+    margin: 2.7rem 0 1rem;
+}
+
+div.sortCategory input {
+    margin-left: 0.6rem;
 }
 
 .list_container tr {
-    width: 30%;
+    width: 28%;
     display: flex;
     flex-direction: column;
-    margin: 0 1.5% 2rem;
+    margin: 0 2.6% 2rem;
+    cursor: pointer;
     align-items: flex-start;
 }
-
+td.list_category_custom {
+    margin: 0.8rem 0 0.1rem !important;
+}
 .list_container tbody {
     display: flex;
     flex-direction: row;
@@ -108,9 +143,15 @@ table.table {
     width: 27rem;
     border: 2px solid #e8e8e8;
     border-radius: 50px;
-    padding: 0.6rem;
+    padding: 0.9rem;
 }
 select#selectItem {
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+#selectItem:focus {
     border: none;
 }
 input#searchInput {
@@ -164,6 +205,7 @@ td.img_custom img {
 }
 
 td.list_title_custom {
+    font-size: 1.2rem;
     line-height: 1.2em;
     letter-spacing: -0.5px;
     width: 100%;
@@ -171,14 +213,15 @@ td.list_title_custom {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-td.dona_date {
-    color: #393939;
+td.dona_date, .dona_title_custom {
+    color: #6b6b6b;
+    font-size: 0.9rem !important;
 }
 
-.list_container tr td:nth-child(2) {
+.dona_list_container tr td:nth-child(2) {
     padding: 0 !important;
 }
-.list_container tr td {
+.dona_list_container tr td {
     padding: 0 0.4rem;
 }
 .img_custom {
@@ -198,4 +241,25 @@ td.dona_date {
     background-position: inherit;
     filter: blur(40px);
     z-index: -1;
+}
+
+td.views_custom {
+    font-size: 0.8rem;
+    margin-top: 0.8rem;
+    color: #6b6b6b;
+}
+/*donaList end*/
+.newsList_custom .select_list {
+    border: 1px solid #dfdfdf;
+    border-radius: 19px;
+    padding: 1.6rem 1.8rem;
+    box-sizing: border-box;
+    text-align: justify;
+    margin-bottom: 4rem;
+    transition-duration: 0.2s;
+}
+
+.newsList_custom .select_list:hover {
+    border: 1px solid #34D28B;
+    transition-duration: 0.2s;
 }
