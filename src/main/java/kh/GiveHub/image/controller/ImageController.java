@@ -69,7 +69,7 @@ public class ImageController {
 		boolean isUploaded = iService.saveUpload(list, bid, boardType);
 		System.out.println("boardType : "+boardType);
 		System.out.println("bid : "+bid);
-		System.out.println("content before db :\n"+content+"\n------------");
+		System.out.println("content before insert into db ----------\n"+content+"\n----------");
 		System.out.println("isUploaded : "+isUploaded);
 		int result = 0;
 		if (isUploaded) {
@@ -102,4 +102,30 @@ public class ImageController {
 	// 	- pattern, matcher로 StringBuilder newContent 에 ../temp/ 를 /upload/로 바꿔버리고
 	//	- db에 저장.
 	
+	public boolean updateBoard(
+			@RequestParam("uploadFiles") List<String> list,
+			@RequestParam("bid") int bid,
+			@RequestParam("BoardType") String boardType,
+			@RequestParam("content") String content) {
+		boolean isUploaded = iService.saveUpload(list, bid, boardType);
+		System.out.println("boardType : "+boardType);
+		System.out.println("bid : "+bid);
+		System.out.println("content before insert into db----------\n"+content+"\n----------");
+		System.out.println("isUploaded : "+isUploaded);
+		//참고
+		//oldContent 는 수정 전의 content를 말한다.
+		//content는 작성한 내용(내용 안에 img src가  "/temp/"로 시작하는 content).
+		//newContent는 content와 사실상 동일한 내용인데 img src가 "/upload/"로 시작.
+		if (isUploaded) {
+			if(boardType.equals("donation")) {
+				String oldcontent = dService.getContent(bid);
+				System.out.println("oldcontent ----------\n"+oldcontent+"\n----------");
+				boolean isCompared = iService.compareContent(bid,boardType,
+						content, oldcontent);
+				
+			}
+
+		}
+		return false;
+	}
 }

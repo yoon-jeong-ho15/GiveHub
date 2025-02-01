@@ -49,7 +49,7 @@ public class ImageService {
 		}
 	}
 
-	public boolean saveUpload(List<String> list, int bid, String BoardType) {
+	public boolean saveUpload(List<String> list, int bid, String boardType) {
 		File dir = new File(uploadPath);
 		if (!dir.exists()) {
 			dir.mkdirs();
@@ -60,8 +60,8 @@ public class ImageService {
 			String destPath = uploadPath+fileName;
 	        
 			try {
-				Files.copy(Paths.get(sourcePath), Paths.get(destPath), StandardCopyOption.REPLACE_EXISTING);
-				
+				Files.copy(Paths.get(sourcePath), Paths.get(destPath),
+						StandardCopyOption.REPLACE_EXISTING);
 				
 				Image img = new Image();
 				img.setImgPath(uploadPath);
@@ -69,7 +69,7 @@ public class ImageService {
 				img.setImgRename(fileName);
 				img.setImgType(fileName.startsWith("T")? "0":"1");
 				img.setRefNo(bid);
-				img.setBoardType(BoardType.equals("donation")? "D":"N");
+				img.setBoardType(boardType.equals("donation")? "D":"N");
 				mapper.insertImage(img);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -77,5 +77,11 @@ public class ImageService {
 			}
 		}
 		return true;
+	}
+
+	public boolean compareContent(int bid, String boardType, String content,
+			String oldcontent) {
+		
+		return false;
 	}
 }
