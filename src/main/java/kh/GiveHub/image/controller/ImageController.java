@@ -117,14 +117,20 @@ public class ImageController {
 		//content는 작성한 내용(내용 안에 img src가  "/temp/"로 시작하는 content).
 		//newContent는 content와 사실상 동일한 내용인데 img src가 "/upload/"로 시작.
 		if (isUploaded) {
+			String oldcontent = null;
 			if(boardType.equals("donation")) {
-				String oldcontent = dService.getContent(bid);
-				System.out.println("oldcontent ----------\n"+oldcontent+"\n----------");
-				boolean isCompared = iService.compareContent(bid,boardType,
-						content, oldcontent);
-				
+				oldcontent = dService.getOldContent(bid);
+			}else {
+				oldcontent = nService.getOldContent(bid);
 			}
-
+			System.out.println("oldcontent ----------\n"+oldcontent+"\n----------");
+			List<String> delFiles = iService.compareContent(content, oldcontent);
+			System.out.println("delFiles : "+ delFiles);
+			boolean isDeleted = iService.deleteImage(delFiles);
+			System.out.println("isDeleted : "+ isDeleted);
+			if (isDeleted) {
+				return true;
+			}
 		}
 		return false;
 	}

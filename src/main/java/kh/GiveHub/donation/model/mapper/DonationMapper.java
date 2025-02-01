@@ -27,5 +27,5 @@ public interface DonationMapper {
 
     ArrayList<Donation> selectNew();
 
-	String getContent(int doNo);
+	String getOldContent(int doNo);
 }

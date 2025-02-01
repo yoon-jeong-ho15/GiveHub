@@ -42,7 +42,11 @@
 		set news_content = #{newContent}
 		where news_no = #{newsNo}
 	</update>
-
+	<select id="getOldContent">
+		select news_content
+		from news
+		where news_no = #{newsNo}
+	</select>
 	<select id="newsDetail">
 		select *
 		from news

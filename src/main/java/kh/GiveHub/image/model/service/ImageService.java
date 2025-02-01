@@ -6,8 +6,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -79,9 +82,38 @@ public class ImageService {
 		return true;
 	}
 
-	public boolean compareContent(int bid, String boardType, String content,
-			String oldcontent) {
-		
+	public List<String> compareContent(String content, String oldcontent) {
+		List<String> oldFiles = new ArrayList<String>();
+        List<String> delFiles = new ArrayList<>();
+		Pattern pattern = Pattern.compile("<img[^>]+?src=\"/upload/([^\"]+)\"[^>]*?>");
+        Matcher matcher = pattern.matcher(oldcontent);
+        while (matcher.find()) {
+        	String filename = matcher.group(1);
+        	oldFiles.add(filename);
+        }
+        
+        for (String oldFile : oldFiles) {
+        	if(!content.contains(oldFile)) {
+        		delFiles.add(oldFile);
+        	}
+        }
+        return delFiles;
+	}
+
+	public boolean deleteImage(List<String> delFiles) {
+		int delcount = 0;
+        for (String filename : delFiles) {
+        	File file = new File(uploadPath+filename);
+        	if(file.exists()) {
+        		file.delete();
+        	}
+        	delcount += mapper.deleteImage(filename);
+        }
+        System.out.println("delCount : "+delcount);
+        System.out.println("delFiles.size() : "+delFiles.size());
+        if (delcount == delFiles.size()) {
+        	return true;
+        }
 		return false;
 	}
 }

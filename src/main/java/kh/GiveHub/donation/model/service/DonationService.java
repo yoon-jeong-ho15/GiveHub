@@ -73,7 +73,7 @@ public class DonationService {
         return mapper.selectNew();
     }
 
-	public String getContent(int doNo) {
-		return mapper.getContent(doNo);
+	public String getOldContent(int doNo) {
+		return mapper.getOldContent(doNo);
 	}
 }

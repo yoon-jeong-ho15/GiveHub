@@ -58,7 +58,7 @@
 		where do_no = #{doNo}
 	</update>
 	
-	<select id="getContent">
+	<select id="getOldContent">
 		select do_content
 		from donation
 		where do_no = #{doNo}
