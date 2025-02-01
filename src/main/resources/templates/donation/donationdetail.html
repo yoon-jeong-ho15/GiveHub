@@ -30,15 +30,15 @@
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
 <script src="/js/common.js"></script>
 <section>
-
     <div class="container">
         <div class="detail_title_wrap">
             <p class="title_sub_text">후원</p>
             <h1 class="donation_detail_text">[[${d.doTitle}]]</h1>
             <p class="page_category">[[${d.doCategory}]]</p>
         </div>
-        				<p id="doNo" hidden>[[${d.doNo}]]</p>
-        <!--				<p>[[${session.loginUser.memNo}]]</p>-->
+
+        <p id="doNo" hidden>[[${d.doNo}]]</p>
+        <p hidden>[[${session.loginUser != null ? session.loginUser.memNo : ''}]]</p>
 
         <div class="donation_info">
             <div class="donation_img_wrap">
@@ -100,14 +100,14 @@
             <button id="doanteBtn">후원하기</button>
         </div>
 
-
-        <button th:if="${session.loginUser != null}" id="newsWriteBtn" type="button">
-            소식글 작성
-        </button>
-        <button th:if="${session.loginUser != null && session.loginUser.memNo == d.memNo}" id="editBtn" type="button">
-            수정
-        </button>
-
+        <th:block th:if="${session.loginUser != null}">
+            <button id="newsWriteBtn" type="button">
+                소식글 작성
+            </button>
+            <button th:if="${session.loginUser.memNo == d.memNo}" id="editBtn" type="button">
+                수정
+            </button>
+        </th:block>
 
         <br><br><br><br>
         <h1 class="admin_title">소식 목록</h1>
