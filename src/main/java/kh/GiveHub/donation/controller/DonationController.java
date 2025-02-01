@@ -1,36 +1,45 @@
 package kh.GiveHub.donation.controller;
 
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
+import com.google.gson.Gson;
 import jakarta.servlet.http.HttpServletResponse;
-import kh.GiveHub.news.model.service.NewsService;
-import kh.GiveHub.news.model.vo.News;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
 import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.donation.model.exception.DonationException;
 import kh.GiveHub.donation.model.service.DonationService;
 import kh.GiveHub.donation.model.vo.Donation;
 import kh.GiveHub.member.model.exception.MemberException;
 import kh.GiveHub.member.model.vo.Member;
+import kh.GiveHub.news.model.service.NewsService;
+import kh.GiveHub.news.model.vo.News;
+import lombok.RequiredArgsConstructor;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import kh.GiveHub.donation.model.exception.DonationException;
+import kh.GiveHub.donation.model.service.DonationService;
+import kh.GiveHub.donation.model.vo.Donation;
+import kh.GiveHub.member.model.exception.MemberException;
+import kh.GiveHub.member.model.vo.Member;
+import kh.GiveHub.news.model.service.NewsService;
+import kh.GiveHub.news.model.vo.News;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -79,8 +88,8 @@ public class DonationController {
 
 	@GetMapping("/category")
 	@ResponseBody
-	public ArrayList<Donation> category (@RequestParam("categorySelect") String categorySelect, @RequestParam("searchItem") String searchItem, @RequestParam("searchInput") String searchInput, @RequestParam("optionSelect") String optionSelect){
-		System.out.println(categorySelect);
+	public ArrayList<Donation> category (@RequestParam("categorySelect") String categorySelect, @RequestParam("searchItem") String searchItem,
+										 @RequestParam("searchInput") String searchInput, @RequestParam("optionSelect") String optionSelect){
 		Map<String, Object> map = new HashMap<>();
 		map.put("categorySelect", categorySelect);
 		map.put("optionSelect", optionSelect);
@@ -93,10 +102,8 @@ public class DonationController {
 			}
 		}
 		map.put("d", d);
-		System.out.println(map);
 
 		ArrayList<Donation> list = dService.selectCategory(map);
-		System.out.println(list);
 
 		return list;
 	}
@@ -109,7 +116,6 @@ public class DonationController {
 		d.setMemName(loginUser.getMemName());
 		int result = dService.insertDonation(d);
 		if (result>0) {
-			System.out.println(d.getDoNo());
 			return ResponseEntity.ok(d.getDoNo());
 		}else {
 			throw new DonationException("failed : insert donation");
@@ -131,7 +137,6 @@ public class DonationController {
 
 		//doNo, memId 를 서비스에 넘겨서 글쓴이 비교 로직 작성
 		Donation d = dService.selectDonation(doNo, id);
-		System.out.println(d);
 		long dates = d.getDoEndDate().getTime() - Date.valueOf(LocalDate.now()).getTime();
 		long date = dates / (1000 * 60 * 60 * 24);
 		//게시글이 존재하면, 게시글 데이터(b)를 donationdetail.html로 전달
@@ -145,89 +150,20 @@ public class DonationController {
 		}
 
 
-
-
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	@GetMapping("/donation/edit")
+	public String toEdit(@RequestParam("doNo") int doNo,
+			HttpSession session, Model model) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		Integer id = null;
+		if(loginUser != null) {
+			id = loginUser.getMemNo();
+		}
+		Donation d = dService.selectDonation(doNo, id);
+		model.addAttribute("d",d);
+		return "/donation/donationEdit";
+	}
 
 
 
@@ -235,9 +171,7 @@ public class DonationController {
 	@GetMapping("/donation/new")
 	@ResponseBody
 	public String selectNew(HttpServletResponse response) {
-		System.out.println("테스트");
 		ArrayList<Donation> list = dService.selectNew();
-		System.out.println(list);
 		JSONArray array = new JSONArray();
 
 		for (Donation d : list) {
@@ -253,6 +187,18 @@ public class DonationController {
 		response.setContentType("application/json; charset=UTF-8");
 		return array.toString();
 	}
+
+
+	@GetMapping("/news/newsDetail/{newsNo}")
+	public String selectNews(@PathVariable("newsNo") String newsNo, Model model) {
+		News news = nService.selectNewsDetail(newsNo);
+		model.addAttribute("n", news);
+
+		return "/news/newsDetail";
+	}
+
+
+
 
 
 

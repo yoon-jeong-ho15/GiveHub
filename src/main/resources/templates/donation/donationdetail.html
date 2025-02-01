@@ -1,159 +1,177 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="/css/reset.css" rel="stylesheet" type="text/css">
-<link href="/css/common.css" rel="stylesheet" type="text/css">
-<link href="/css/donationDetailPage.css" rel="stylesheet" type="text/css">
-<link href="/css/navBar.css" rel="stylesheet" type="text/css">
-<link href="/css/footer.css" rel="stylesheet" type="text/css">
-	<style>
-		.main_menu_wrap a {
-			color: #1a1a1a !important;
-		}
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link href="/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/css/common.css" rel="stylesheet" type="text/css">
+    <link href="/css/donationDetailPage.css" rel="stylesheet" type="text/css">
+    <link href="/css/navBar.css" rel="stylesheet" type="text/css">
+    <link href="/css/footer.css" rel="stylesheet" type="text/css">
+    <style>
+        .main_menu_wrap a {
+            color: #1a1a1a !important;
+        }
 
 
-		.login_wrap button {
-			background: none;
-			color: #1a1a1a !important;
-			border: none;
-			font-size: 1rem;
-			font-weight: 500;
-			cursor: pointer;
-		}
-	</style>
+        .login_wrap button {
+            background: none;
+            color: #1a1a1a !important;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <style>
 </style>
 <body>
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
 <script src="/js/common.js"></script>
-	<section>
+<section>
+    <div class="container">
+        <div class="detail_title_wrap">
+            <p class="title_sub_text">후원</p>
+            <h1 class="donation_detail_text">[[${d.doTitle}]]</h1>
+            <p class="page_category">[[${d.doCategory}]]</p>
+        </div>
 
-		<div class="container">
-			<div class="detail_title_wrap">
-				<p class="title_sub_text">후원</p>
-				<h1 class="donation_detail_text">[[${d.doTitle}]]</h1>
-				<p class="page_category">[[${d.doCategory}]]</p>
-			</div>
-				<p id="doNo" hidden>[[${d.doNo}]]</p>
+        <p id="doNo" hidden>[[${d.doNo}]]</p>
+        <p hidden>[[${session.loginUser != null ? session.loginUser.memNo : ''}]]</p>
 
-			<div class="donation_info">
-				<div class="donation_img_wrap">
-					<img th:src="@{${d.thumbnailPath}}" alt="">
-				</div>
-				<div class="donation_info_text_wrap">
-					<ul>
-						<li>
-							<p>모인 금액</p> <span display="inline-block"><p class="donation_data" th:text="${d.payAmount}"></p>
+        <div class="donation_info">
+            <div class="donation_img_wrap">
+                <img th:src="@{${d.thumbnailPath}}" alt="">
+            </div>
+            <div class="donation_info_text_wrap">
+                <ul>
+                    <li>
+                        <p>모인 금액</p> <span display="inline-block"><p class="donation_data" th:text="${d.payAmount}"></p>
 								<span>원</span>
 								<p class="donation_data_small" th:text="${1.0*d.payAmount/d.doGoal*100}"></p>
 								<span style="font-weight: 900">%</span></span>
-						</li>
-						<li>
-							<p>남은시간</p>
-							<p class="donation_data" th:text="${date}"></p>
-							<span>일</span>
-						</li>
-						<li>
-							<p>후원자</p>
-							<p class="donation_data" th:text="${d.payCount}"></p>
-							<span>명</span>
-						</li>
-					</ul>
+                    </li>
+                    <li>
+                        <p>남은시간</p>
+                        <p class="donation_data" th:text="${date}"></p>
+                        <span>일</span>
+                    </li>
+                    <li>
+                        <p>후원자</p>
+                        <p class="donation_data" th:text="${d.payCount}"></p>
+                        <span>명</span>
+                    </li>
+                </ul>
 
-					<ul class="info_text_second">
-						<li><span><p style="font-weight: 500">목표금액</p></span> <span><p th:text="${d.doGoal}"></p>
+                <ul class="info_text_second">
+                    <li><span><p style="font-weight: 500">목표금액</p></span> <span><p th:text="${d.doGoal}"></p>
 								<span>원</span></span></li>
-						<li><span><p style="font-weight: 500">기부 기간</p></span> <span><p>[[${d.doStartDate}]]</p>
+                    <li><span><p style="font-weight: 500">기부 기간</p></span> <span><p>[[${d.doStartDate}]]</p>
 								<span>~</span>
 								<p>[[${d.doEndDate}]]</p></span></li>
-					</ul>
+                </ul>
 
-				</div>
-			</div>
-			<div style="text-align: center" class="bar-label" th:text="${1.0*d.payAmount/d.doGoal*100+'%'}"></div>
-			<div class="bar-container">
-				<div id="Content_bar" class="bar" th:style="'width:' + ${1.0*d.payAmount/d.doGoal*100 < 100 ? #strings.toString(1.0*d.payAmount/d.doGoal*100) : '100'} + '%;'"></div>
-			</div>
-			<!-- ajax -->
-<!--			<script type="text/javascript">-->
-<!--				$(document).ready(function() {-->
-<!--					document.getElementById("Content_bar").style.width = '20%';-->
-<!--				});-->
-<!--			</script>-->
-			
-			<div class="doantion_content">
-			
-			</div>
-			
-			<div class="content_board_wrap">
-				<table class="content_board">
-				</table>
-			</div>
-			
-			<div id="floating_btn" class="dona_btn">
-				<button id="doanteBtn">후원하기</button>
-			</div>
-			
+            </div>
+        </div>
+        <div style="text-align: center" class="bar-label" th:text="${1.0*d.payAmount/d.doGoal*100+'%'}"></div>
+        <div class="bar-container">
+            <div id="Content_bar" class="bar"
+                 th:style="'width:' + ${1.0*d.payAmount/d.doGoal*100 < 100 ? #strings.toString(1.0*d.payAmount/d.doGoal*100) : '100'} + '%;'"></div>
+        </div>
+        <!-- ajax -->
+        <!--			<script type="text/javascript">-->
+        <!--				$(document).ready(function() {-->
+        <!--					document.getElementById("Content_bar").style.width = '20%';-->
+        <!--				});-->
+        <!--			</script>-->
 
-			<button th:if="${session.loginUser != null}" id="login" type="button" onclick="location.href='/donation/donationWrite'">
-				소식글 작성
-			</button>
+        <br><br>
+        <div class="doantion_content" th:utext="${d.doContent}">
 
+        </div>
+        <br><br>
+        <div class="content_board_wrap">
+            <table class="content_board">
+            </table>
+        </div>
 
+        <div id="floating_btn" class="dona_btn">
+            <button id="doanteBtn">후원하기</button>
+        </div>
 
-		</div>
+        <th:block th:if="${session.loginUser != null}">
+            <button id="newsWriteBtn" type="button">
+                소식글 작성
+            </button>
+            <button th:if="${session.loginUser.memNo == d.memNo}" id="editBtn" type="button">
+                수정
+            </button>
+        </th:block>
 
-		<br><br><br><br>
-		<h1 class="admin_title">소식 목록</h1>
-		<div class="donationList">
-			<table class="table">
-				<thead>
-				<tr>
-					<th>번호</th>
-					<th>새소식 제목</th>
-					<th>프로잭트 이름</th>
-					<th>올린 날짜</th>
-					<th>프로잭트 팀</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr align="center" class="selectlist" th:each="n : ${list}">
-					<td th:text="${n.newsNo}"></td>
-					<td th:text="${n.newsTitle}"></td>
-					<td th:text="${n.doTitle}"></td>
-					<td th:text="${n.newsCreateDate}"></td>
-					<td th:text="${n.memName}"></td>
-				</tr>
-				</tbody>
-			</table>
-		</div>
+        <br><br><br><br>
+        <h1 class="admin_title">소식 목록</h1>
 
-	</section>
+        <div class="donationList">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>새소식 제목</th>
+                    <th>올린 날짜</th>
+                    <th>프로잭트 팀</th>
+                </tr>
+                </thead>
+                <tbody>
+					<tr align="center" class="selectlist" th:each="n : ${list}" onclick="newsDetails(${n.newsNo})">
+						<td th:text="${n.newsNo}"></td>
+						<td th:text="${n.newsTitle}"></td>
+						<td th:text="${n.newsCreateDate}"></td>
+						<td th:text="${n.memName}"></td>
+					</tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
 <footer>
-	<div th:replace="~{/common/footer.html :: footer_bar}"></div>
+    <div th:replace="~{/common/footer.html :: footer_bar}"></div>
 </footer>
 
-	<script type="text/javascript">
-		document.getElementById("doanteBtn").addEventListener("click",function(){
-			const doNo = document.getElementById("doNo").textContent;
-			
-			const paymentUrl = `/payment?doNo=${encodeURIComponent(doNo)}`;
-			window.location.href=paymentUrl;
-			
+<script type="text/javascript">
+    document.getElementById("doanteBtn").addEventListener("click", function () {
+        const doNo = document.getElementById("doNo").textContent;
+
+        const paymentUrl = `/payment?doNo=${encodeURIComponent(doNo)}`;
+        window.location.href = paymentUrl;
+    });
+    document.getElementById("newsWriteBtn").addEventListener("click", function(){
+        const doNo = document.getElementById("doNo").textContent;
+        window.location.href= "/news/write/"+doNo;
+    });
+    document.getElementById("editBtn").addEventListener("click", function(){
+        const doNo = document.getElementById("doNo").textContent;
+        window.location.href="/donation/edit"+"?doNo="+doNo;
+    });
+
+	window.onload = () => {
+		const tbody = document.querySelector('tbody');
+
+		tbody.addEventListener('click', function(event) {
+			// 클릭된 td 요소가 아닌 tr을 찾음
+			const clickedTd = event.target.closest('td');
+
+			// td가 null이 아니면 실행
+			if (clickedTd) {
+				const trTds = clickedTd.parentElement.querySelectorAll('td');
+				const newsNo = trTds[0].innerText; // 첫 번째 td에서 newsNo 가져오기
+
+				// 해당 newsNo로 URL을 이동
+				location.href = "/news/newsDetail/" + newsNo;
+			}
 		});
-	</script>
-
-
-
-
-
-
-
-
-
-
+	};
+</script>
 </body>
 </html>

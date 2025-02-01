@@ -124,6 +124,9 @@ section#section_02 {
     float: right;
     padding: 2rem 0 4rem;
 }
+span.link_text {
+   color: #fff;
+}
 
 #section_02 .title_wrap {
    width: 75%;
@@ -142,6 +145,10 @@ section#section_02 {
    overflow: hidden;
    border-radius: 17px;
    transition-duration: 0.5s;
+}
+.slide_img_wrap {
+   display: flex;
+   transition: transform 0.5s ease-in-out;
 }
 
 .slide_img_wrap .text_wrap {

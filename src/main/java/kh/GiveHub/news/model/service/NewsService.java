@@ -40,7 +40,7 @@ public class NewsService {
         
         while(matcher.find()) {
             String oldPath = matcher.group(1);
-            String newPath = oldPath.replace("/temp/", "/upload/");
+            String newPath = oldPath.replace("../../temp/", "/upload/");
             
             int startIndex = matcher.start(1) + offset;
             int endIndex = matcher.end(1) + offset;
@@ -59,4 +59,11 @@ public class NewsService {
 
 
     public News newsDetail(int newsNo) {return mapper.newsDetail(newsNo);}
+
+    public ArrayList<News> selectNewsNew() {
+        return mapper.selectNewsNew();
+    }
+
+    public News selectNewsDetail(String newsNo) {return mapper.selectNewsDetail(newsNo);
+    }
 }

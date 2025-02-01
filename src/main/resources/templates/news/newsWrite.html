@@ -45,13 +45,13 @@
         <form>
             제목<br>
             <input type="text" id="newsTitle" name="newsTitle">
-            <input type="hidden" id="doNo" name="doNo" value="26">
+            <input type="hidden" id="doNo" name="doNo" th:value="${doNo}">
         </form>
         </div>
         <div>
             썸네일 <button id="thumbBtn">넣기</button>
             <div id="thumbnailDiv">
-                <img id="thumbImg" src="/img/board_img05.jpg">
+                <img id="thumbPre" src="/img/board_img05.jpg">
             </div>
         </div>
     </div>

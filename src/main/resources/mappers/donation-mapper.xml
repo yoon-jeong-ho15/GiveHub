@@ -8,9 +8,10 @@
     <select id="selectCategory">
         select * from donation
         join member using(mem_no)
-        join (select '/upload/'||IMG_RENAME as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
+        left join (select '/upload/'||IMG_RENAME as thumbnailPath, REF_NO,
+        img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
         <where>
-            img_type = '0' and do_enddate <![CDATA[>=]]> sysdate
+            do_enddate <![CDATA[>=]]> sysdate
             <if test="categorySelect != 'all'">
                 and do_category = #{categorySelect}
             </if>
@@ -58,7 +59,7 @@
 	</update>
 
 
-    <select id="selectNew" resultType="donation">
+    <select id="selectNew">
         <![CDATA[
         SELECT *
         FROM (
@@ -73,30 +74,11 @@
     </select>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <select id="selectDonation">
         select *
         from donation
             join member using(mem_no)
-            join (select '/upload/'||IMG_RENAME as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
+            left join (select '/upload/'||IMG_RENAME as thumbnailPath, REF_NO, img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
             left join (select do_no, sum(pay_amount) pay_amount, count(*) pay_count from payment where do_no = #{doNo} group by do_no) using(do_no)
         where do_status = 'Y' and do_no =#{doNo}
     </select>
@@ -106,47 +88,6 @@
         set do_views = do_views + 1
         where do_no = #{doNo}
     </update>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--    <select id="selectNew" resultType="donation">-->
-<!--        <![CDATA[-->
-<!--        SELECT *-->
-<!--        FROM (-->
-<!--            SELECT *-->
-<!--            FROM donation-->
-<!--            WHERE do_status = 'Y'-->
-<!--            ORDER BY do_createdate DESC)-->
-<!--        WHERE ROWNUM <= 5;-->
-<!--        ]]>-->
-<!--    </select>-->
-
-
-
-
-
-
-
-
-
-
 
 
 

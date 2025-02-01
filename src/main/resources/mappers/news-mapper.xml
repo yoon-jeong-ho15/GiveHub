@@ -9,7 +9,10 @@
 	</select>
 
 	<select id="selectNewsList">
-		select * from news join donation using(do_no)
+		select *
+		from news
+		left join donation using(do_no)
+		left join member on(donation.mem_no=member.mem_no)
 	</select>
 
 	<delete id="deleteNews">
@@ -44,6 +47,25 @@
 		select *
 		from news
 		join donation using(do_no)
+		where news_no = #{newsNo}
+	</select>
+
+	<select id="selectNewsNew">
+		<![CDATA[
+		select * from (
+		SELECT *
+		FROM news
+		join (select ('/upload/' || IMG_RENAME) as thumbnailPath, REF_NO, img_type
+		from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
+		WHERE NEWS_STATUS = 'Y'
+		ORDER BY NEWS_CREATEDATE DESC)
+		where ROWNUM <= 3
+		]]>
+	</select>
+
+	<select id="selectNewsDetail">
+		select *
+		from news
 		where news_no = #{newsNo}
 	</select>
 	

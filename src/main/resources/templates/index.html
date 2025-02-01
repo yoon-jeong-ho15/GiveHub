@@ -65,7 +65,7 @@
 
         </div>
         <div id="board_visual" class="visual_board">
-            <div class="board_img_wrap">
+            <div id="board_img_wrap" class="board_img_wrap">
 
             </div>
         </div>
@@ -133,8 +133,7 @@
                                 <h3 class="board_title">${d.doTitle}</h3>
                                 <span class="link_text">도움주러가기↗</span>
                             </div>
-                        </a>
-                    `;
+                        </a>`;
 
                         donationContainer.appendChild(imgWrap);
                     }
@@ -142,7 +141,95 @@
             },
             error: data => console.log(data)
         });
-    };
+
+
+
+        $.ajax({
+            url: '/donation/newNews',
+            dataType: 'json',
+            success: data => {
+                console.log(data);
+
+                const newsContainer = document.getElementById('board_img_wrap');
+                if (data != null) {
+                    newsContainer.innerHTML = '';
+
+                    for (const n of data) {
+                        const newsWrap = document.createElement('div');
+                        newsWrap.classList.add('board_contents');
+
+                        newsWrap.innerHTML = `
+                        <a href="/newsList/newsDetail/${n.newsNo}">
+                            <div class="board_img">
+                                <img src="${n.thumbnailPath}" alt="donation image">
+                            </div>
+                            <div class="board_content_text_wrap">
+                                <div class="category category_green">${n.doCategory}</div>
+                                <div class="title">${n.newsTitle}</div>
+                                <div class="fun_period">${n.newsCreateDate}</div>
+                                <div class="organizer">${n.memName}</div>
+                            </div>
+                        </a>`;
+                        newsContainer.appendChild(newsWrap);
+                    }
+                }
+            },
+            error: data => console.log(data)
+        });
+
+
+
+
+
+
+
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const slideWrap = document.getElementById("slide_wrap");
+            const slides = document.querySelectorAll(".img_wrap");
+            const rightArrow = document.querySelector(".right_arrow");
+            const leftArrow = document.querySelector(".left_arrow");
+
+            let currentIndex = 0;
+            let slideWidth = slides[0].offsetWidth; // 첫 번째 슬라이드의 너비 기준
+            let interval;
+
+            /** 슬라이드 이동 함수 */
+            function moveSlide(index) {
+                slideWidth = slides[0].offsetWidth; // 슬라이드 크기 다시 계산 (동적 대응)
+                slideWrap.style.transform = `translateX(${-index * slideWidth}px)`;
+                currentIndex = index;
+            }
+
+            /** 자동 슬라이드 (3초마다 이동) */
+            function startAutoSlide() {
+                interval = setInterval(() => {
+                    let nextIndex = (currentIndex + 1) % slides.length; // 무한 반복
+                    moveSlide(nextIndex);
+                }, 3000);
+            }
+
+            /** 화살표 클릭 이벤트 */
+            rightArrow.addEventListener("click", function () {
+                clearInterval(interval); // 자동 슬라이드 중지
+                let nextIndex = (currentIndex + 1) % slides.length;
+                moveSlide(nextIndex);
+                startAutoSlide(); // 다시 자동 슬라이드 시작
+            });
+
+            leftArrow.addEventListener("click", function () {
+                clearInterval(interval);
+                let prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+                moveSlide(prevIndex);
+                startAutoSlide();
+            });
+
+            // 초기 실행
+            startAutoSlide();
+        });
+    };/*window.onload end*/
 
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -187,6 +274,21 @@
             }
         });
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 
 <footer>

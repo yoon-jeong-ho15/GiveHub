@@ -32,7 +32,6 @@ fakeGoal.addEventListener("input", function () {
 /////게시글 작성 관련
 const pathArr =[];
 //api
-tinymce.getContent("doContent").getBody().innerHTML = /*"[[${d.doContent}]]"*/""; 
 tinymce.init({
     license_key: "gpl",
     selector: "#doContent",
@@ -128,15 +127,18 @@ const processImage = async function(file, imgName, imgType){
 /////버튼 관련
 const submitBtn = document.getElementById("submitBtn");
 const backBtn = document.getElementById("backBtn");
-
+const editBtn = document.getElementById("editBtn");
+document.getElementById("doCategory").addEventListener("change", function(){
+    console.log(doCategory.value);
+});
 //제출 버튼
-submitBtn.addEventListener("click", async function (e) {
+submitBtn.addEventListener("click", async function(e) {
     //카테고리 유뮤 확인
     const doCategory = document.getElementById("doCategory");
-    if (doCategory.value == null) {
+    if (doCategory.value == "null") {
+        console.log(doCategory.value);
         alert("donation category");
-        doCategory.focus();
-        e.preventDefault;
+        return;
     }
 
     //도네이션 insert 
@@ -179,6 +181,11 @@ submitBtn.addEventListener("click", async function (e) {
     } catch (error) {
         console.error(error);
     }
+});
+//수정 완료 버튼
+editBtn.addEventListener("click", function(){
+    const formData = new FormData();
+    pathArr
 });
 
 //뒤로가기 버튼 

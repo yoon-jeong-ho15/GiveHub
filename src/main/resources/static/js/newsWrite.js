@@ -43,6 +43,9 @@ tinymce.init({
             const imgName =
                 file.name.substring(file.name.lastIndexOf("/") + 1);
             const path = await processImage(file, imgName, 1);
+            console.log(file.name);
+            console.log(path);
+            console.log(window.location.href);
             pathArr.push(path);
             callback(path, { title: file.name });
         }
@@ -54,7 +57,7 @@ tinymce.init({
 const thumbBtn = document.getElementById("thumbBtn");
 thumbBtn.addEventListener("click", function () {
     const input = document.createElement("input");
-    const thumbImg = document.getElementById("thumbImg");
+    const thumbPre = document.getElementById("thumbPre");
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/*");
 
@@ -64,8 +67,9 @@ thumbBtn.addEventListener("click", function () {
             file.name.substring(file.name.lastIndexOf("/") + 1);
         console.log(imgName);
         const path = await processImage(file, imgName, 0);
-        thumbImg.src = path;
+        thumbPre.src = path;
         pathArr.push(path);
+        console.log(pathArr);
     }
     input.click();
 });
@@ -95,6 +99,7 @@ const processImage = async function (file, imgName, imgType) {
 /////버튼 관련
 const submitBtn = document.getElementById("submitBtn");
 const backBtn = document.getElementById("backBtn");
+const editBtn = document.getElementById("editBtn");
 
 //제출 버튼
 submitBtn.addEventListener("click", async function (e) {
@@ -122,8 +127,8 @@ submitBtn.addEventListener("click", async function (e) {
 
     try {
         const formData = new FormData();
-        pathArr.forEach(fileName => {
-            formData.append("uploadFileNames", fileName);
+        pathArr.forEach(path => {
+            formData.append("uploadFiles", path);
         });
         formData.append("bid", bid);
         formData.append("content", content);
