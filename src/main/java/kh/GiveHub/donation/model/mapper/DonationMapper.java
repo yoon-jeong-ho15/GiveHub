@@ -26,4 +26,6 @@ public interface DonationMapper {
 	int insertDonation(Donation d);
 
     ArrayList<Donation> selectNew();
+
+	String getOldContent(int doNo);
 }

@@ -73,10 +73,8 @@ tinymce.init({
             const file = this.files[0];
             const imgName = 
             file.name.substring(file.name.lastIndexOf("/")+1);
-            const path = await processImage(file, imgName, 1);
-            pathArr.push(path);
-            console.log(pathArr);
-            callback(path, { title: file.name });
+            const temppath = await processImage(file, imgName, 1);
+            callback(temppath, { title: file.name });
         }
         input.click();
     }
@@ -94,10 +92,8 @@ thumbBtn.addEventListener("click",function(){
         const file = input.files[0];
         const imgName = 
             file.name.substring(file.name.lastIndexOf("/")+1);
-        const path = await processImage(file, imgName, 0);
-        thumbPre.src = path;
-        pathArr.push(path);
-        console.log(pathArr);
+        const temppath = await processImage(file, imgName, 0);
+        thumbPre.src = temppath;
     }
     input.click();
 });
@@ -117,7 +113,9 @@ const processImage = async function(file, imgName, imgType){
         if(!response.ok){
             throw new Error("Upload failed : !response.ok");
         }
-        return await response.text();
+        const temppath = await response.text();
+        pathArr.push(temppath);
+        console.log(pathArr);
     } catch (error) {
         console.error(error);
     }
@@ -165,8 +163,8 @@ submitBtn.addEventListener("click", async function(e) {
 
     try {
         const formData = new FormData();
-        pathArr.forEach(path=>{
-            formData.append("uploadFiles", path);
+        pathArr.forEach(temppath=>{
+            formData.append("uploadFiles", temppath);
         });
         formData.append("bid", bid);
         formData.append("content", content);

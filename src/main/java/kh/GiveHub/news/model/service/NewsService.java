@@ -66,4 +66,8 @@ public class NewsService {
 
     public News selectNewsDetail(String newsNo) {return mapper.selectNewsDetail(newsNo);
     }
+
+	public String getOldContent(int newsNo) {
+		return mapper.getOldContent(newsNo);
+	}
 }

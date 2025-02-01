@@ -6,8 +6,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,7 +52,7 @@ public class ImageService {
 		}
 	}
 
-	public boolean saveUpload(List<String> list, int bid, String BoardType) {
+	public boolean saveUpload(List<String> list, int bid, String boardType) {
 		File dir = new File(uploadPath);
 		if (!dir.exists()) {
 			dir.mkdirs();
@@ -60,8 +63,8 @@ public class ImageService {
 			String destPath = uploadPath+fileName;
 	        
 			try {
-				Files.copy(Paths.get(sourcePath), Paths.get(destPath), StandardCopyOption.REPLACE_EXISTING);
-				
+				Files.copy(Paths.get(sourcePath), Paths.get(destPath),
+						StandardCopyOption.REPLACE_EXISTING);
 				
 				Image img = new Image();
 				img.setImgPath(uploadPath);
@@ -69,7 +72,7 @@ public class ImageService {
 				img.setImgRename(fileName);
 				img.setImgType(fileName.startsWith("T")? "0":"1");
 				img.setRefNo(bid);
-				img.setBoardType(BoardType.equals("donation")? "D":"N");
+				img.setBoardType(boardType.equals("donation")? "D":"N");
 				mapper.insertImage(img);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -77,5 +80,40 @@ public class ImageService {
 			}
 		}
 		return true;
+	}
+
+	public List<String> compareContent(String content, String oldcontent) {
+		List<String> oldFiles = new ArrayList<String>();
+        List<String> delFiles = new ArrayList<>();
+		Pattern pattern = Pattern.compile("<img[^>]+?src=\"/upload/([^\"]+)\"[^>]*?>");
+        Matcher matcher = pattern.matcher(oldcontent);
+        while (matcher.find()) {
+        	String filename = matcher.group(1);
+        	oldFiles.add(filename);
+        }
+        
+        for (String oldFile : oldFiles) {
+        	if(!content.contains(oldFile)) {
+        		delFiles.add(oldFile);
+        	}
+        }
+        return delFiles;
+	}
+
+	public boolean deleteImage(List<String> delFiles) {
+		int delcount = 0;
+        for (String filename : delFiles) {
+        	File file = new File(uploadPath+filename);
+        	if(file.exists()) {
+        		file.delete();
+        	}
+        	delcount += mapper.deleteImage(filename);
+        }
+        System.out.println("delCount : "+delcount);
+        System.out.println("delFiles.size() : "+delFiles.size());
+        if (delcount == delFiles.size()) {
+        	return true;
+        }
+		return false;
 	}
 }

@@ -27,4 +27,6 @@ public interface NewsMapper {
     ArrayList<News> selectNewsNew();
 
     News selectNewsDetail(String newsNo);
+
+	String getOldContent(int newsNo);
 }
