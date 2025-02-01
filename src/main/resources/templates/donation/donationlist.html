@@ -22,6 +22,17 @@
 		<div class="dCategory">
 			<h1>캠페인</h1>
 
+			<div id="searchContainer" class="searchContainer">
+				<div class="search_custom">
+					<select id="selectItem" name="selectItem" required>
+						<option value="doTitle">글제목</option>
+						<option value="memName">작성자</option>
+					</select>
+					<input type="text" id="searchInput" name="searchInput" placeholder="검색어를 입력하세요">
+				</div>
+				<button id="searchButton">검색</button>
+			</div>
+
 			<div id="categoryBtn" class="categoryBtn">
 				<button id="all" data-category="all">전체</button>
 				<button id="child" data-category="child">아동/청소년</button>
@@ -34,16 +45,7 @@
 				<input type="hidden" id="dataSelect" value="all">
 			</div>
 
-			<div id="searchContainer" class="searchContainer">
-				<div class="search_custom">
-					<select id="selectItem" name="selectItem" required>
-						<option value="doTitle">글제목</option>
-						<option value="memName">작성자</option>
-					</select>
-					<input type="text" id="searchInput" name="searchInput" placeholder="검색어를 입력하세요">
-				</div>
-				<button id="searchButton">검색</button>
-			</div>
+
 
 			<div id="sortCategory" class="sortCategory category_custom">
 				<input type="radio" id="recent" value="recent" name="type" checked/><label for="recent">최신순</label>
@@ -65,7 +67,7 @@
 					<th width="100px"><!--조회수--></th>
 				</tr>
 				</thead>
-				<tbody>
+				<tbody class="list_custom">
 
 				</tbody>
 			</table>
@@ -153,11 +155,11 @@
 						const tr = document.createElement('tr');
 						tr.innerHTML = `
                               <td><input type="hidden" value="` + d.doNo + `"></td>
-                              <td><img src="`+d.thumbnailPath+`" width="100%" height="100%"/></td>
-                              <td>${d.doCategory}</td>
-                              <td>${d.doTitle}</td>
-                              <td>주최자 ${d.memName}</td>
-                              <td>${d.doCreateDate}~${d.doEndDate}</td>
+                              <td class="img_custom" style="background-image: url('${d.thumbnailPath}');"><img src="`+d.thumbnailPath+`" width="100%" height="100%"/></td>
+                              <td class="list_category_custom">${d.doCategory}</td>
+                              <td class="list_title_custom">${d.doTitle}</td>
+                              <td>${d.memName}</td>
+                              <td class="dona_date">${d.doCreateDate}~${d.doEndDate}</td>
                               <td>조회수 ${d.doViews}</td>
                            `;
 						tbody.appendChild(tr);
