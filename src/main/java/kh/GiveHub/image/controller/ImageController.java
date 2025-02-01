@@ -46,17 +46,17 @@ public class ImageController {
 		int length = list.size();
 		System.out.println("list.size() : "+length);
 		System.out.println("list : "+list);
-		int i = 0;
+		int delcount = 0;
 		//name은 "/temp/" + 파일이름 으로 되어있다.
 		for(String name : list) {
 			File tempFile = new File(basePath+name);
 			if (tempFile.exists()) {
 				tempFile.delete();
-				i++;
+				delcount++;
 			}
 		}
-		System.out.println("deleted images : "+i);
-		return length==i? true:false;
+		System.out.println("delcount : "+delcount);
+		return length==delcount? true:false;
 	}
 	
 	@PostMapping("/upload")
@@ -117,18 +117,32 @@ public class ImageController {
 		//content는 작성한 내용(내용 안에 img src가  "/temp/"로 시작하는 content).
 		//newContent는 content와 사실상 동일한 내용인데 img src가 "/upload/"로 시작.
 		if (isUploaded) {
+			int result = 0;
+			boolean isDeleted = false;
 			String oldcontent = null;
 			if(boardType.equals("donation")) {
 				oldcontent = dService.getOldContent(bid);
+				System.out.println("oldcontent ----------\n"+oldcontent+"\n----------");
+				List<String> delFiles = iService.compareContent(content, oldcontent);
+				System.out.println("delFiles : "+ delFiles);
+				isDeleted = iService.deleteImage(delFiles);
+				System.out.println("isDeleted : "+ isDeleted);
+				if (isDeleted) {
+					result = dService.setContent(bid, content);
+				}
 			}else {
 				oldcontent = nService.getOldContent(bid);
+				System.out.println("oldcontent ----------\n"+oldcontent+"\n----------");
+				List<String> delFiles = iService.compareContent(content, oldcontent);
+				System.out.println("delFiles : "+ delFiles);
+				isDeleted = iService.deleteImage(delFiles);
+				System.out.println("isDeleted : "+ isDeleted);
+				if (isDeleted) {
+					result = nService.setContent(bid, content);
+				}
 			}
-			System.out.println("oldcontent ----------\n"+oldcontent+"\n----------");
-			List<String> delFiles = iService.compareContent(content, oldcontent);
-			System.out.println("delFiles : "+ delFiles);
-			boolean isDeleted = iService.deleteImage(delFiles);
-			System.out.println("isDeleted : "+ isDeleted);
-			if (isDeleted) {
+			System.out.println("setContent() result : "+result);
+			if (result == 1) {
 				return true;
 			}
 		}
