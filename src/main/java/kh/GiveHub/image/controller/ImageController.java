@@ -34,9 +34,9 @@ public class ImageController {
 		@RequestParam("image") MultipartFile file,
 		@RequestParam("imgType") String imgType,
 		@RequestParam("imgName") String imgName) {
-		String tempname = "/temp/"+ iService.saveTemp(file, imgName, imgType);
-		System.out.println("tempname : "+tempname);
-		return ResponseEntity.ok(tempname);
+		String temppath = "/temp/"+ iService.saveTemp(file, imgName, imgType);
+		System.out.println("temppath : "+temppath);
+		return ResponseEntity.ok(temppath);
 	}
 	
 	@PostMapping("/delete")
@@ -69,7 +69,7 @@ public class ImageController {
 		boolean isUploaded = iService.saveUpload(list, bid, boardType);
 		System.out.println("boardType : "+boardType);
 		System.out.println("bid : "+bid);
-		System.out.println("content before insert into db ----------\n"+content+"\n----------");
+		System.out.println("--content before insert into db --\n"+content+"\n----------");
 		System.out.println("isUploaded : "+isUploaded);
 		int result = 0;
 		if (isUploaded) {
@@ -110,7 +110,7 @@ public class ImageController {
 		boolean isUploaded = iService.saveUpload(list, bid, boardType);
 		System.out.println("boardType : "+boardType);
 		System.out.println("bid : "+bid);
-		System.out.println("content before insert into db----------\n"+content+"\n----------");
+		System.out.println("--content before insert into db--\n"+content+"\n----------");
 		System.out.println("isUploaded : "+isUploaded);
 		//참고
 		//oldContent 는 수정 전의 content를 말한다.
