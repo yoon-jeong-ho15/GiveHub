@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kh.GiveHub.common.config.WebMvcConfig;
 import kh.GiveHub.donation.model.service.DonationService;
 import kh.GiveHub.image.model.service.ImageService;
 import kh.GiveHub.news.model.service.NewsService;
@@ -24,6 +25,8 @@ public class ImageController {
 	private final ImageService iService;
 	private final DonationService dService;
 	private final NewsService nService;
+	private String basePath = WebMvcConfig.getBasePath();
+	private String tempPath = basePath+"/temp/";
 	
 	@PostMapping("/temp")
 	@ResponseBody
@@ -31,9 +34,9 @@ public class ImageController {
 		@RequestParam("image") MultipartFile file,
 		@RequestParam("imgType") String imgType,
 		@RequestParam("imgName") String imgName) {
-		String tempname = iService.saveTemp(file, imgName, imgType);
-		System.out.println("/temp/"+tempname);
-		return ResponseEntity.ok("/temp/"+tempname);
+		String tempname = "/temp/"+ iService.saveTemp(file, imgName, imgType);
+		System.out.println("tempname : "+tempname);
+		return ResponseEntity.ok(tempname);
 	}
 	
 	@PostMapping("/delete")
@@ -41,17 +44,18 @@ public class ImageController {
 	public boolean deleteTemp(
 			@RequestParam("tempFiles") List<String> list) {
 		int length = list.size();
-		System.out.println(length);
-		System.out.println(list);
+		System.out.println("list.size() : "+length);
+		System.out.println("list : "+list);
 		int i = 0;
+		//name은 "/temp/" + 파일이름 으로 되어있다.
 		for(String name : list) {
-			File tempFile = new File("C:/GiveHub"+name);
+			File tempFile = new File(basePath+name);
 			if (tempFile.exists()) {
 				tempFile.delete();
 				i++;
 			}
 		}
-		System.out.println(i);
+		System.out.println("deleted images : "+i);
 		return length==i? true:false;
 	}
 	
@@ -63,10 +67,10 @@ public class ImageController {
 			@RequestParam("boardType") String boardType,
 			@RequestParam("content") String content) {
 		boolean isUploaded = iService.saveUpload(list, bid, boardType);
-		System.out.println(content);
-		System.out.println(boardType);
-		System.out.println(bid);
-		System.out.println(isUploaded);
+		System.out.println("boardType : "+boardType);
+		System.out.println("bid : "+bid);
+		System.out.println("content before db :\n"+content+"\n------------");
+		System.out.println("isUploaded : "+isUploaded);
 		int result = 0;
 		if (isUploaded) {
 			if(boardType.equals("donation")) {

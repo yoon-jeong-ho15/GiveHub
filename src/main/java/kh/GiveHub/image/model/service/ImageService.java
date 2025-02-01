@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import kh.GiveHub.common.config.WebMvcConfig;
 import kh.GiveHub.image.model.exception.ImageException;
 import kh.GiveHub.image.model.mapper.ImageMapper;
 import kh.GiveHub.image.model.vo.Image;
@@ -21,12 +22,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ImageService {
 	private final ImageMapper mapper;
-
+	private String basePath = WebMvcConfig.getBasePath();
+	private String tempPath = basePath + "/temp/";
+	private String uploadPath =basePath + "/upload/";
+	
 	public String saveTemp(MultipartFile file,
 			String imgName, String imgType) {
 			
 		try {
-			String tempPath ="C:/GiveHub/temp/";
 			File dir = new File(tempPath);
 			if(!dir.exists()) {
 				dir.mkdirs();
@@ -47,22 +50,21 @@ public class ImageService {
 	}
 
 	public boolean saveUpload(List<String> list, int bid, String BoardType) {
-		String uploadPath ="C:/GiveHub/upload/";
 		File dir = new File(uploadPath);
 		if (!dir.exists()) {
 			dir.mkdirs();
 		}
 		for(String name : list) {
 			String fileName = name.substring(name.lastIndexOf("/")+1);
-			String sourcePath = "C:/GiveHub/temp/"+fileName;
-			String destPath = "C:/GiveHub/upload/"+fileName;
+			String sourcePath = tempPath+fileName;
+			String destPath = uploadPath+fileName;
 	        
 			try {
 				Files.copy(Paths.get(sourcePath), Paths.get(destPath), StandardCopyOption.REPLACE_EXISTING);
 				
 				
 				Image img = new Image();
-				img.setImgPath("C:/GiveHub/upload/");
+				img.setImgPath(uploadPath);
 				img.setImgName(fileName.substring(fileName.lastIndexOf("_")+1));
 				img.setImgRename(fileName);
 				img.setImgType(fileName.startsWith("T")? "0":"1");
