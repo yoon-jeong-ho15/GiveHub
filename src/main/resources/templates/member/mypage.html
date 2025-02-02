@@ -386,7 +386,7 @@ span {
 
 		<div class="my_info_wrap" id="donaList">
 			<div class="user_intro">
-				<div><img src="/img/grade_BRONZE.svg"><p>[[${session.loginUser.memName}]]<p>님, 반갑습니다.</div>
+				<div><img th:src="@{'/img/grade_' + ${session.loginUser.memGrade} + '.svg'}"><p>[[${session.loginUser.memName}]]<p>님, 반갑습니다.</div>
 				<p>하모니와 함께 아름다운 세상을 만들어갑니다.</p>
 			</div>
 			<div class="info_detail_wrap">
