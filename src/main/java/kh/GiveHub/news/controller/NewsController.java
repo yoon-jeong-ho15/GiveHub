@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import jakarta.servlet.http.HttpSession;
+import kh.GiveHub.donation.model.exception.DonationException;
 import kh.GiveHub.member.model.exception.MemberException;
 import kh.GiveHub.member.model.vo.Member;
 import kh.GiveHub.news.model.exception.NewsException;
@@ -91,7 +92,34 @@ public class NewsController {
 			throw new NewsException("failed : insert news to db");
 		}
 	}
-
+	
+	@GetMapping("/news/edit/{newsNo}")
+	public String toEdit(@PathVariable("newsNo") int newsNo,
+			Model model, HttpSession session
+			) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		News n = nService.selectNews(newsNo);
+		model.addAttribute("n",n);
+		return "/news/newsEdit";
+	}
+	
+	@PostMapping("/news/update")
+	@ResponseBody
+	public ResponseEntity<Integer> updateNews(@ModelAttribute News n,
+			HttpSession session) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		int result = 0;
+		if (loginUser != null && loginUser.getMemNo()==n.getMemNo()) {
+			result = nService.updateNews(n);
+			if (result==1) {
+				return ResponseEntity.ok(result);
+			}else {
+				throw new NewsException("failed : update news - result != 1");
+			}
+		}else {
+			throw new NewsException("failed : update news - memNo != loginUser");
+		}
+	}
 
 
 

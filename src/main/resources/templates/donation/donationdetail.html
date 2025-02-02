@@ -21,6 +21,12 @@
             font-weight: 500;
             cursor: pointer;
         }
+
+        tbody .selectlist:hover {
+            background-color: #f2f2f2; /* 배경색 변경 */
+            cursor: pointer; /* 마우스 커서 변경 */
+        }
+        table.table{width: 60%}
     </style>
 </head>
 <style>
@@ -106,6 +112,7 @@
             <button th:if="${session.loginUser.memNo == d.memNo}" id="editBtn" type="button" onclick="doEdit()">
                 수정
             </button>
+            <button id="deleteBtn" type="button" onclick="doDelete()">삭제</button>
         </th:block>
 
         <br><br><br><br>
