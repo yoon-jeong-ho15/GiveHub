@@ -110,7 +110,7 @@ if(submitBtn){
                 body: new FormData(form)
             });
             if(!response.ok){
-                throw new Error("failed : insert donation")
+                throw new Error("failed : insert news")
             }
             bid = await response.json();
             console.log(bid);
@@ -136,7 +136,7 @@ if(submitBtn){
                 body: formData
             });
             if(!response.ok){
-                throw new Error("failed : save upload (upload donation content)");
+                throw new Error("failed : save upload (upload news content)");
             }
             const isUploaded = await response.json();
             if(isUploaded){
@@ -161,7 +161,7 @@ if(editBtn){
                 body: new FormData(form)
             });
             if(!response.ok){
-                throw new Error("failed : insert donation")
+                throw new Error("failed : insert news")
             }
             result = await response.json();
             console.log("update result : "+result);
@@ -174,7 +174,7 @@ if(editBtn){
             try {
                 const formData = new FormData();
                 const bid = document.getElementById("newsNo").value;
-                const content = tinymce.get("doContent").getContent();
+                const content = tinymce.get("newsContent").getContent();
                 pathArr.forEach(temppath => {
                     formData.append("updateFiles", temppath);
                 });
@@ -186,7 +186,7 @@ if(editBtn){
                     body: formData
                 });
                 if(!response.ok){
-                    throw new Error("failed : save upload (update donation content)");
+                    throw new Error("failed : save upload (update news content)");
                 }
                 const isUpdated = await response.json();
                 if(isUpdated){
@@ -200,24 +200,26 @@ if(editBtn){
 }
 //뒤로가기 버튼 
 if(backBtn){
-    backBtn.addEventListener("click", async function () {
-        try {
+    backBtn.addEventListener("click", async function(){
+        console.log(pathArr);
+        try{
             const formData = new FormData();
-            pathArr.forEach(fileName => {
-                formData.append("uploadFileNames", fileName);
+            pathArr.forEach(path=>{
+                formData.append("tempFiles", path);
             });
-            const response = await fetch("/image/delete", {
-                method: "DELETE",
+            const response = await fetch("/image/delete",{
+                method: "POST",
                 body: formData
             });
-            if (!response.ok) {
+            if (!response.ok){
                 throw new Error("delete temp files failed");
             }
             const isDeleted = await response.json();
-            if (disDeleted) {
+            console.log(isDeleted);
+            if (isDeleted){
                 window.history.back();
             }
-        } catch (error) {
+        }catch(error){
             console.error(error);
         }
     });

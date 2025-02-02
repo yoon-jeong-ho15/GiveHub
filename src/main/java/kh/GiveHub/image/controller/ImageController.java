@@ -42,7 +42,7 @@ public class ImageController {
 	@PostMapping("/delete")
 	@ResponseBody
 	public boolean deleteTemp(
-			@RequestParam("tempFiles") List<String> list) {
+			@RequestParam(value="tempFiles", required=false) List<String> list) {
 		int length = list.size();
 		System.out.println("list.size() : "+length);
 		System.out.println("list : "+list);
@@ -62,7 +62,7 @@ public class ImageController {
 	@PostMapping("/upload")
 	@ResponseBody
 	public boolean saveUpload(
-			@RequestParam("uploadFiles") List<String> list,
+			@RequestParam(value="uploadFiles", required=false) List<String> list,
 			@RequestParam("bid") int bid, 
 			@RequestParam("boardType") String boardType,
 			@RequestParam("content") String content) {
@@ -106,11 +106,14 @@ public class ImageController {
 	@PostMapping("/update")
 	@ResponseBody
 	public boolean update(
-			@RequestParam("updateFiles") List<String> list,
+			@RequestParam(value = "updateFiles", required=false) List<String> list,
 			@RequestParam("bid") int bid,
 			@RequestParam("boardType") String boardType,
 			@RequestParam("content") String content) {
-		boolean isUploaded = iService.saveUpload(list, bid, boardType);
+		boolean isUploaded = true;
+		if (list != null) {
+			isUploaded = iService.saveUpload(list, bid, boardType);
+		}
 		System.out.println("==========update()==========");
 		System.out.println("boardType : "+boardType);
 		System.out.println("bid : "+bid);
