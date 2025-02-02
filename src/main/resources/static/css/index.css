@@ -46,7 +46,7 @@ p.category.category_white {
 h3.board_title {
     font-size: 2rem;
     font-weight: 400;
-    width: 60%;
+    width: 80%;
     letter-spacing: -1.5px;
     line-height: 1.2em;
     margin-bottom: 1.2rem;
@@ -65,7 +65,9 @@ h3.board_title {
 
 .slide_img, .board_img {
    display: flex;
+   height: 100%;
 }
+
 /* 공통영역 end */
 
 
@@ -161,6 +163,10 @@ span.link_text {
    opacity: 0;
    color: #fff;
 }
+.img_wrap a {
+   height: 100% !important;
+   display: block;
+}
 
 .slide_img_wrap .text_wrap a {
    color: #fff;
@@ -175,6 +181,8 @@ span.link_text {
 
 .img_wrap img, .custom_board_img img {
    transition-duration: 1s;
+   border-right: 19px;
+   width: auto;
 }
 
 .img_wrap:hover img, .custom_board_img:hover img {
@@ -189,7 +197,7 @@ span.link_text {
 }
 
 .img_wrap:hover img {
-   filter: brightness(0.7);
+   filter: brightness(0.5);
 }
 
 .right_arrow:after {
