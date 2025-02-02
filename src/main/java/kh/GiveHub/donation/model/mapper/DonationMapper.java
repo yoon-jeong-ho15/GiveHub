@@ -32,7 +32,7 @@ public interface DonationMapper {
 
     ArrayList<Donation> selectMostCategoryList(String mostCategory);
 
-    ArrayList<Donation> selectDeadLinelist();
+    ArrayList<Donation> selectDeadLineList();
 
 	int updateDonation(Donation d);
 }
