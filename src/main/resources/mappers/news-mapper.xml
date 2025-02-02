@@ -13,6 +13,7 @@
 		from news
 		left join donation using(do_no)
 		left join member on(donation.mem_no=member.mem_no)
+		order by news_no DESC
 	</select>
 
 	<delete id="deleteNews">
