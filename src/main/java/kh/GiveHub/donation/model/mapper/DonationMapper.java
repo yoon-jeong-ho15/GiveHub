@@ -29,5 +29,9 @@ public interface DonationMapper {
 
 	String getOldContent(int doNo);
 
+    List<Donation> selectMostCategoryList(String mostCategory);
+
+    List<Donation> selectDeadLinelist();
+
 	int updateDonation(Donation d);
 }
