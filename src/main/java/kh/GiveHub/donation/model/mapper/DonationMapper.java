@@ -30,9 +30,9 @@ public interface DonationMapper {
 
 	String getOldContent(int doNo);
 
-    List<Donation> selectMostCategoryList(String mostCategory);
+    ArrayList<Donation> selectMostCategoryList(String mostCategory);
 
-    List<Donation> selectDeadLineList();
+    ArrayList<Donation> selectDeadLinelist();
 
 	int updateDonation(Donation d);
 }

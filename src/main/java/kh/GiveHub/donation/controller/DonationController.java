@@ -262,7 +262,7 @@ public class DonationController {
 				maxCount = entry.getValue();
 			}
 		}
-		List<Donation> donations = null;
+		ArrayList<Donation> donations = null;
 		if(mostCategory != null) {
 			donations = dService.selectMostCategoryList(mostCategory);
 		}else{

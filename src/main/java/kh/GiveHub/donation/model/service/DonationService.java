@@ -78,12 +78,12 @@ public class DonationService {
 		return mapper.getOldContent(doNo);
 	}
 
-    public List<Donation> selectMostCategoryList(String mostCategory) {
+    public ArrayList<Donation> selectMostCategoryList(String mostCategory) {
         return mapper.selectMostCategoryList(mostCategory);
     }
 
-    public List<Donation> selectDeadLineList() {
-        return mapper.selectDeadLineList();
+    public ArrayList<Donation> selectDeadLineList() {
+        return mapper.selectDeadLinelist();
     }
 
     public int updateDonation(Donation d) {
