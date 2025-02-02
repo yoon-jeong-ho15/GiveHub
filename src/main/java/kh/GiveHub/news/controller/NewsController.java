@@ -127,9 +127,7 @@ public class NewsController {
 	@GetMapping("/donation/newNews")
 	@ResponseBody
 	public String selectNewsNew(HttpServletResponse response) {
-		System.out.println("테스트");
 		ArrayList<News> list = nService.selectNewsNew();
-		System.out.println(list);
 		JSONArray array = new JSONArray();
 
 		for (News n : list) {
