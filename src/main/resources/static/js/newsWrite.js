@@ -152,18 +152,11 @@ if(editBtn){
     console.log("editBtn loaded");
     editBtn.addEventListener("click", async function(){
 
-        const doCategory = document.getElementById("doCategory");
-        if (doCategory.value == "null") {
-            console.log(doCategory.value);
-            alert("donation category");
-            return;
-        }
-
-        //도네이션 update
+        //뉴스 update
         const form = document.querySelector("form");
         let result = 0;
         try {
-            const response = await fetch("/donation/update",{
+            const response = await fetch("/news/update",{
                 method: "POST",
                 body: new FormData(form)
             });
@@ -176,7 +169,7 @@ if(editBtn){
             console.error
         }
 
-        //
+        // 
         if(result == 1){
             try {
                 const formData = new FormData();
