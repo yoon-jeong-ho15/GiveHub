@@ -7,7 +7,6 @@
     <link href="/css/common.css" rel="stylesheet" type="text/css">
     <link href="/css/donationDetailPage.css" rel="stylesheet" type="text/css">
     <link href="/css/navBar.css" rel="stylesheet" type="text/css">
-    <link href="/css/footer.css" rel="stylesheet" type="text/css">
     <style>
         .main_menu_wrap a {
             color: #1a1a1a !important;
@@ -101,10 +100,10 @@
         </div>
 
         <th:block th:if="${session.loginUser != null}">
-            <button id="newsWriteBtn" type="button">
+            <button id="newsWriteBtn" type="button" onclick="newsWrite()">
                 소식글 작성
             </button>
-            <button th:if="${session.loginUser.memNo == d.memNo}" id="editBtn" type="button">
+            <button th:if="${session.loginUser.memNo == d.memNo}" id="editBtn" type="button" onclick="doEdit()">
                 수정
             </button>
         </th:block>
@@ -119,11 +118,11 @@
                     <th>번호</th>
                     <th>새소식 제목</th>
                     <th>올린 날짜</th>
-                    <th>프로잭트 팀</th>
+                    <th>프로젝트 팀</th>
                 </tr>
                 </thead>
                 <tbody>
-					<tr align="center" class="selectlist" th:each="n : ${list}" onclick="newsDetails(${n.newsNo})">
+					<tr align="center" class="selectlist" th:each="n : ${list}">
 						<td th:text="${n.newsNo}"></td>
 						<td th:text="${n.newsTitle}"></td>
 						<td th:text="${n.newsCreateDate}"></td>
@@ -140,37 +139,32 @@
 </footer>
 
 <script type="text/javascript">
-    document.getElementById("doanteBtn").addEventListener("click", function () {
-        const doNo = document.getElementById("doNo").textContent;
-
-        const paymentUrl = `/payment?doNo=${encodeURIComponent(doNo)}`;
-        window.location.href = paymentUrl;
-    });
-    document.getElementById("newsWriteBtn").addEventListener("click", function(){
+    const newsWrite = () => {
         const doNo = document.getElementById("doNo").textContent;
         window.location.href= "/news/write/"+doNo;
-    });
-    document.getElementById("editBtn").addEventListener("click", function(){
+    };
+
+    const doEdit = () => {
         const doNo = document.getElementById("doNo").textContent;
         window.location.href="/donation/edit"+"?doNo="+doNo;
-    });
+    };
 
 	window.onload = () => {
-		const tbody = document.querySelector('tbody');
+        document.getElementById("doanteBtn").addEventListener("click", function () {
+            const doNo = document.getElementById("doNo").textContent;
 
-		tbody.addEventListener('click', function(event) {
-			// 클릭된 td 요소가 아닌 tr을 찾음
-			const clickedTd = event.target.closest('td');
+            const paymentUrl = `/payment?doNo=${encodeURIComponent(doNo)}`;
+            window.location.href = paymentUrl;
+        });
 
-			// td가 null이 아니면 실행
-			if (clickedTd) {
-				const trTds = clickedTd.parentElement.querySelectorAll('td');
-				const newsNo = trTds[0].innerText; // 첫 번째 td에서 newsNo 가져오기
 
-				// 해당 newsNo로 URL을 이동
-				location.href = "/news/newsDetail/" + newsNo;
-			}
-		});
+        document.querySelectorAll('.selectlist').forEach((tr) => {
+            tr.addEventListener('click', () => {
+                const newsNo = tr.children[0].innerText; // 첫 번째 td에서 newsNo 가져오기
+                // 해당 newsNo로 URL을 이동
+                location.href = "/news/newsDetail/" + newsNo;
+            });
+        });
 	};
 </script>
 </body>
