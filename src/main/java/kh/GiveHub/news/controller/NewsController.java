@@ -92,7 +92,7 @@ public class NewsController {
 			throw new NewsException("failed : insert news to db");
 		}
 	}
-	
+	//뉴스 수정 페이지로 이동(윤정호)
 	@GetMapping("/news/edit/{newsNo}")
 	public String toEdit(@PathVariable("newsNo") int newsNo,
 			Model model, HttpSession session
@@ -102,7 +102,7 @@ public class NewsController {
 		model.addAttribute("n",n);
 		return "/news/newsEdit";
 	}
-	
+	//뉴스 db에 업데이트(윤정호)
 	@PostMapping("/news/update")
 	@ResponseBody
 	public ResponseEntity<Integer> updateNews(@ModelAttribute News n,
