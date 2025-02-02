@@ -15,8 +15,8 @@ import lombok.RequiredArgsConstructor;
 public class NewsService {
     private final NewsMapper mapper;
 
-    public News selectNews(String nNo) {
-        return mapper.selectNews(nNo);
+    public News selectNews(int newsNo) {
+        return mapper.selectNews(newsNo);
     }
 
     public ArrayList<News> selectNewsList() {
@@ -76,5 +76,9 @@ public class NewsService {
 
 	public String getOldContent(int newsNo) {
 		return mapper.getOldContent(newsNo);
+	}
+
+	public int updateNews(News n) {
+		return mapper.updateNews(n);
 	}
 }
