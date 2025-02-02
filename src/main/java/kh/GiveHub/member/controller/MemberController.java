@@ -32,18 +32,20 @@ public class MemberController {
     }
 
     @PostMapping("/member/login")
-    public String login(Member m, Model model,HttpSession session) {
-//    	System.out.println(bcrypt.encode(m.getMemPwd()));
-    	Member loginUser = mService.login(m);
-//        System.out.println(loginUser);
-        model.addAttribute("loginUser", loginUser);
-        if(loginUser != null && bcrypt.matches(m.getMemPwd(), loginUser.getMemPwd())) {
-            if (loginUser.getMemType().equals("2")){
+    public String login(Member m, Model model, HttpSession session) {
+        Member loginUser = mService.login(m);
+
+        if (loginUser != null && bcrypt.matches(m.getMemPwd(), loginUser.getMemPwd())) {
+            session.setAttribute("loginUser", loginUser);
+            if (loginUser.getMemType().equals("2")) {
                 return "redirect:/admin/main";
             }
             return "redirect:/";
-    	}
-        throw new MemberException("실패");
+        }
+
+        model.addAttribute("loginError", "로그인 실패");
+
+        return "/member/login";
     }
 
     //로그아웃
