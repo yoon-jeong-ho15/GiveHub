@@ -198,5 +198,12 @@
 		});
 	});
 
+	document.getElementById('searchInput').addEventListener('keydown', (event) => {
+		if (event.key === 'Enter') {
+			event.preventDefault(); // 기본 제출 방지
+			document.getElementById('searchButton').click();
+		}
+	});
+
 </script>
 </html>
