@@ -49,8 +49,13 @@ public class NewsController {
 	// 사용자 소식 게시판
 	@GetMapping("/news/newsList")
 	public String nnewsList(Model model) {
-		ArrayList<News> list = nService.nnewsList(0);
-		model.addAttribute("list", list);
+		ArrayList<News> nlist = nService.nnewsList(0);
+		model.addAttribute("nlist", nlist);
+		System.out.println("==========nList==========");
+		for (News n : nlist) {
+			System.out.println(n.getNewsNo()+" : "+ n.getThumbnailPath());
+		}
+		System.out.println("============================");
 		return "/news/newsList";
 	}
 
@@ -60,7 +65,7 @@ public class NewsController {
 		News n = nService.newsDetail(newsNo);
 		System.out.println(n);
 		model.addAttribute("n", n);
-		return "/news/newsdetail";
+		return "/news/newsdetail/" + newsNo;
   }
 	
 	//뉴스 작성 (윤정호)
@@ -70,6 +75,7 @@ public class NewsController {
 		return "/news/newsWrite";
 	}
 	
+	//뉴스 작성 (윤정호)
 	@PostMapping("/news/insert")
 	@ResponseBody
 	public ResponseEntity<Integer> insertNews(@ModelAttribute News n,
@@ -127,9 +133,7 @@ public class NewsController {
 	@GetMapping("/donation/newNews")
 	@ResponseBody
 	public String selectNewsNew(HttpServletResponse response) {
-		System.out.println("테스트");
 		ArrayList<News> list = nService.selectNewsNew();
-		System.out.println(list);
 		JSONArray array = new JSONArray();
 
 		for (News n : list) {

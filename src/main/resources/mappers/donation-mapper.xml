@@ -64,6 +64,12 @@
 		where do_no = #{doNo}
 	</select>
 
+	<update id="updateDonation">
+		update Donation
+		set do_title = #{doTitle}, do_goal = ${doGoal},
+			do_category = #{doCategory}, do_enddate = #{doEndDate}
+		where do_no = #{doNo}
+	</update>
 
     <select id="selectNew">
         <![CDATA[

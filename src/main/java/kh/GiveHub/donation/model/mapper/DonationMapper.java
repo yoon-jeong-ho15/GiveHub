@@ -1,7 +1,6 @@
 package kh.GiveHub.donation.model.mapper;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -33,4 +32,6 @@ public interface DonationMapper {
     List<Donation> selectMostCategoryList(String mostCategory);
 
     List<Donation> selectDeadLinelist();
+
+	int updateDonation(Donation d);
 }

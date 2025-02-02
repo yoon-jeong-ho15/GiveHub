@@ -55,6 +55,10 @@
                 <td>
                     <input type="text" id="doTitle" name="doTitle" 
                     th:value="${d.doTitle}" required>
+                    <input type="hidden" id="doNo" name="doNo"
+                    th:value="${d.doNo}">
+                    <input type="hidden" id="memNo" name="memNo"
+                    th:value="${d.memNo}">
                 </td>
             </tr>
             <tr>
@@ -122,7 +126,7 @@
         <textarea id="doContent" name="doContent">
         </textarea>
         <div class="buttonDiv">
-            <button type="button" id="EditBtn">수정 완료</button>
+            <button type="button" id="editBtn">수정 완료</button>
             <button type="button" id="backBtn">뒤로가기</button>
         </div>	
     <footer>

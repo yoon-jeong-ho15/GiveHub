@@ -116,7 +116,8 @@ public class DonationController {
 
 	@PostMapping("/donation/insert")
 	@ResponseBody
-	public ResponseEntity<Integer> insertDonation(@ModelAttribute Donation d, HttpSession session) {
+	public ResponseEntity<Integer> insertDonation(@ModelAttribute Donation d,
+			HttpSession session) {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		d.setMemNo(loginUser.getMemNo());
 		d.setMemName(loginUser.getMemName());
@@ -127,12 +128,30 @@ public class DonationController {
 			throw new DonationException("failed : insert donation");
 		}
 	}
+	
+	@PostMapping("/donation/update")
+	@ResponseBody
+	public ResponseEntity<Integer> updateDonation(@ModelAttribute Donation d,
+			HttpSession session) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		int result = 0;
+		if (loginUser != null && loginUser.getMemNo() == d.getMemNo()) {
+			result = dService.updateDonation(d);
+			if (result == 1) {
+				return ResponseEntity.ok(result);
+			}else {
+				throw new DonationException("failed : update donation - result != 1");
+			}
+		}else {
+			throw new DonationException("failed : update donation - memNo != loginUser");
+		}
+	}
 
 	//기부페이지 상세보기
 	@GetMapping("/donation/donationdetail/{doNo}")
 	public ModelAndView selectDona(@PathVariable("doNo") int doNo,HttpSession session, ModelAndView mv , Model model) {
 		// 글 상세조회 + 조회수 수정(내가 내 글 조회 or 비회원 조회 -> 조회수 올라가지 않음)
-		ArrayList<News> list = nService.selectNewsList();
+		ArrayList<News> list = nService.nnewsList(doNo);
 		model.addAttribute("list", list);
 
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -158,8 +177,8 @@ public class DonationController {
 
 	}
 
-	@GetMapping("/donation/edit")
-	public String toEdit(@RequestParam("doNo") int doNo,
+	@GetMapping("/donation/edit/{doNo}")
+	public String toEdit(@PathVariable("doNo") int doNo,
 			HttpSession session, Model model) {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		Integer id = null;

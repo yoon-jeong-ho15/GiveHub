@@ -1,7 +1,6 @@
 package kh.GiveHub.donation.model.service;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -85,4 +84,8 @@ public class DonationService {
     public List<Donation> selectDeadLineList() {
         return mapper.selectDeadLinelist();
     }
+
+	public int updateDonation(Donation d) {
+		return mapper.updateDonation(d);
+	}
 }
