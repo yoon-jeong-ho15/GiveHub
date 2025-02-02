@@ -4,7 +4,7 @@
 <mapper namespace="kh.GiveHub.news.model.mapper.NewsMapper">
 	<select id="selectNews">
 		select * from news_view
-		where news_no = #{nNo}
+		where news_no = #{newsNo}
 	</select>
 
 	<select id="selectNewsList">
@@ -34,11 +34,19 @@
 		values (#{newsNo}, #{newsTitle}, 'null', default,
 		 default, #{memNo}, #{doNo})
 	</insert>
+	
 	<update id="setContent">
 		update news
 		set news_content = #{newContent}
 		where news_no = #{newsNo}
 	</update>
+	
+	<update id="updateNews">
+		update news
+		set news_title = #{newsTitle}
+		where news_no = #{newsNo}
+	</update>
+	
 	<select id="getOldContent">
 		select news_content
 		from news
