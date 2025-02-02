@@ -72,4 +72,8 @@ public class DonationService {
     public ArrayList<Donation> selectNew() {
         return mapper.selectNew();
     }
+
+	public String getOldContent(int doNo) {
+		return mapper.getOldContent(doNo);
+	}
 }

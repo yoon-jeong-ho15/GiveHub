@@ -57,6 +57,12 @@
 		set do_content = #{content}
 		where do_no = #{doNo}
 	</update>
+	
+	<select id="getOldContent">
+		select do_content
+		from donation
+		where do_no = #{doNo}
+	</select>
 
 
     <select id="selectNew">

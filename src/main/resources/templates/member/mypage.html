@@ -374,16 +374,14 @@ span {
 						<thead>
 							<tr>
 								<td>제목</td>
-								<td>이름</td>
 								<td>후원 금액</td>
 								<td>후원한 날짜</td>
-								<td>결제 취소</td>
+								<td>결제 상태</td>
 							</tr>
 						</thead>
 						<tbody id="myDonaTbody">
 							<tr th:each="p:${list}">
 								<td th:text="${p.doTitle}"></td>
-								<td th:text="${p.memName}"></td>
 								<td th:text="${p.payAmount}+'원'"></td>
 								<td th:text="${#dates.format(p.payCreatedate, 'yyyy년 MM월 dd일')}"></td>
 								<td th:if="${p.payStatus == 'Y'}"><button onclick="cancleDonation()">취소</button></td>

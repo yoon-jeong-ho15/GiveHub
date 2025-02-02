@@ -34,9 +34,9 @@ public class ImageController {
 		@RequestParam("image") MultipartFile file,
 		@RequestParam("imgType") String imgType,
 		@RequestParam("imgName") String imgName) {
-		String tempname = "/temp/"+ iService.saveTemp(file, imgName, imgType);
-		System.out.println("tempname : "+tempname);
-		return ResponseEntity.ok(tempname);
+		String temppath = "/temp/"+ iService.saveTemp(file, imgName, imgType);
+		System.out.println("temppath : "+temppath);
+		return ResponseEntity.ok(temppath);
 	}
 	
 	@PostMapping("/delete")
@@ -46,17 +46,17 @@ public class ImageController {
 		int length = list.size();
 		System.out.println("list.size() : "+length);
 		System.out.println("list : "+list);
-		int i = 0;
+		int delcount = 0;
 		//name은 "/temp/" + 파일이름 으로 되어있다.
 		for(String name : list) {
 			File tempFile = new File(basePath+name);
 			if (tempFile.exists()) {
 				tempFile.delete();
-				i++;
+				delcount++;
 			}
 		}
-		System.out.println("deleted images : "+i);
-		return length==i? true:false;
+		System.out.println("delcount : "+delcount);
+		return length==delcount? true:false;
 	}
 	
 	@PostMapping("/upload")
@@ -69,7 +69,7 @@ public class ImageController {
 		boolean isUploaded = iService.saveUpload(list, bid, boardType);
 		System.out.println("boardType : "+boardType);
 		System.out.println("bid : "+bid);
-		System.out.println("content before db :\n"+content+"\n------------");
+		System.out.println("--content before insert into db --\n"+content+"\n----------");
 		System.out.println("isUploaded : "+isUploaded);
 		int result = 0;
 		if (isUploaded) {
@@ -102,4 +102,50 @@ public class ImageController {
 	// 	- pattern, matcher로 StringBuilder newContent 에 ../temp/ 를 /upload/로 바꿔버리고
 	//	- db에 저장.
 	
+	public boolean updateBoard(
+			@RequestParam("uploadFiles") List<String> list,
+			@RequestParam("bid") int bid,
+			@RequestParam("BoardType") String boardType,
+			@RequestParam("content") String content) {
+		boolean isUploaded = iService.saveUpload(list, bid, boardType);
+		System.out.println("boardType : "+boardType);
+		System.out.println("bid : "+bid);
+		System.out.println("--content before insert into db--\n"+content+"\n----------");
+		System.out.println("isUploaded : "+isUploaded);
+		//참고
+		//oldContent 는 수정 전의 content를 말한다.
+		//content는 작성한 내용(내용 안에 img src가  "/temp/"로 시작하는 content).
+		//newContent는 content와 사실상 동일한 내용인데 img src가 "/upload/"로 시작.
+		if (isUploaded) {
+			int result = 0;
+			boolean isDeleted = false;
+			String oldcontent = null;
+			if(boardType.equals("donation")) {
+				oldcontent = dService.getOldContent(bid);
+				System.out.println("oldcontent ----------\n"+oldcontent+"\n----------");
+				List<String> delFiles = iService.compareContent(content, oldcontent);
+				System.out.println("delFiles : "+ delFiles);
+				isDeleted = iService.deleteImage(delFiles);
+				System.out.println("isDeleted : "+ isDeleted);
+				if (isDeleted) {
+					result = dService.setContent(bid, content);
+				}
+			}else {
+				oldcontent = nService.getOldContent(bid);
+				System.out.println("oldcontent ----------\n"+oldcontent+"\n----------");
+				List<String> delFiles = iService.compareContent(content, oldcontent);
+				System.out.println("delFiles : "+ delFiles);
+				isDeleted = iService.deleteImage(delFiles);
+				System.out.println("isDeleted : "+ isDeleted);
+				if (isDeleted) {
+					result = nService.setContent(bid, content);
+				}
+			}
+			System.out.println("setContent() result : "+result);
+			if (result == 1) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
