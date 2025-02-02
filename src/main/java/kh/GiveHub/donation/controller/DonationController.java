@@ -236,8 +236,10 @@ public class DonationController {
 
 
 	@GetMapping("/donation/customNews")
-	public ResponseEntity<List<Donation>> getCustomNews(@RequestParam("userId") int userId){
+	public ResponseEntity<List<Donation>> getCustomNews(@RequestParam(value = "userId" , required = false,defaultValue = "0") int userId){
 		ArrayList<Payment> list = mService.selectDonationList(userId,0);
+
+		System.out.println(userId);
 
 		//카테고리만 추출해서 배열에 담음
 		 String[] categories = new String[list.size()];
