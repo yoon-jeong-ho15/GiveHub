@@ -46,7 +46,32 @@ tinymce.init({
             callback(temppath, { title: file.name });
         }
         input.click();
+    },
+    //이건 기능과 상관 없는 확인용 코드임.
+    //무엇을 확인? - 이미지 경로 관련.
+    setup: function(editor) {
+        console.log('현재 URL:', window.location.pathname);
+        console.log('TinyMCE base URL:', editor.documentBaseUrl);
+        console.log('TinyMCE settings:', editor.settings);
+        
+        editor.on('BeforeSetContent', function(e) {
+            console.log('Content before processing:', e.content);
+        });
+        
+        editor.on('SetContent', function(e) {
+            console.log('Content after processing:', e.content);
+            // DOM에서 직접 img 태그들을 찾아서 경로 확인
+            const images = editor.getBody().getElementsByTagName('img');
+            Array.from(images).forEach((img, i) => {
+                console.log(`Image ${i + 1}:`, {
+                    src: img.getAttribute('src'),
+                    'data-mce-src': img.getAttribute('data-mce-src'),
+                    baseURI: img.baseURI
+                });
+            });
+        });
     }
+
 });
 
 //썸네일
@@ -83,9 +108,12 @@ const processImage = async function(file, imgName, imgType){
         if(!response.ok){
             throw new Error("Upload failed : !response.ok");
         }
+        //경로 확인용
         const temppath = await response.text();
+        console.log('서버에서 받은 경로:', temppath);
         pathArr.push(temppath);
-        console.log(pathArr);
+        console.log('callback에 전달하기 전 경로:', temppath);
+        //
         return temppath;
     } catch (error) {
         console.error(error);
