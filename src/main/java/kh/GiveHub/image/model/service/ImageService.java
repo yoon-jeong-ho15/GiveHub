@@ -85,8 +85,12 @@ public class ImageService {
 	public List<String> compareContent(String content, String oldcontent) {
 		List<String> oldFiles = new ArrayList<String>();
         List<String> delFiles = new ArrayList<>();
-		Pattern pattern = Pattern.compile("<img[^>]+?src=\"/upload/([^\"]+)\"[^>]*?>");
+		//Pattern pattern = Pattern.compile("<img[^>]+?src=\"/upload/([^\"]+)\"[^>]*?>");
+        //Pattern pattern = Pattern.compile("<img[^>]+?src=\"(?:/upload/|../upload/)([^\"]+)\"[^>]*?>");
+        Pattern pattern = Pattern.compile("<"
+        		+ "img[^>]+?src=\"(?:/upload/|\\.\\./upload/|\\.\\./\\.\\./upload/)([^\"]+)\"[^>]*?>");
         Matcher matcher = pattern.matcher(oldcontent);
+        
         while (matcher.find()) {
         	String filename = matcher.group(1);
         	oldFiles.add(filename);

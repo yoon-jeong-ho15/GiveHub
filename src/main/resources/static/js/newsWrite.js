@@ -75,21 +75,24 @@ thumbBtn.addEventListener("click", function () {
 });
 
 //이미지 임시 저장
-const processImage = async function (file, imgName, imgType) {
+const processImage = async function(file, imgName, imgType){
     const formData = new FormData();
     formData.append("image", file);
     formData.append("imgName", imgName);
     formData.append("imgType", imgType);
 
     try {
-        const response = await fetch("/image/temp", {
-            method: "POST",
-            body: formData
+        const response = await fetch("/image/temp",{
+            method:"POST",
+            body:formData
         });
-        if (!response.ok) {
+        if(!response.ok){
             throw new Error("Upload failed : !response.ok");
         }
-        return await response.text();
+        const temppath = await response.text();
+        pathArr.push(temppath);
+        console.log(pathArr);
+        return temppath;
     } catch (error) {
         console.error(error);
     }

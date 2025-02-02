@@ -67,10 +67,12 @@ public class ImageController {
 			@RequestParam("boardType") String boardType,
 			@RequestParam("content") String content) {
 		boolean isUploaded = iService.saveUpload(list, bid, boardType);
+		System.out.println("==========saveUpload==========");
 		System.out.println("boardType : "+boardType);
 		System.out.println("bid : "+bid);
 		System.out.println("--content before insert into db --\n"+content+"\n----------");
 		System.out.println("isUploaded : "+isUploaded);
+		System.out.println("==============================");
 		int result = 0;
 		if (isUploaded) {
 			if(boardType.equals("donation")) {
@@ -101,13 +103,15 @@ public class ImageController {
 	//	- 여기 컨텐트에는 /upload/ 1개 /temp/ 2개가 있음.
 	// 	- pattern, matcher로 StringBuilder newContent 에 ../temp/ 를 /upload/로 바꿔버리고
 	//	- db에 저장.
-	
-	public boolean updateBoard(
-			@RequestParam("uploadFiles") List<String> list,
+	@PostMapping("/update")
+	@ResponseBody
+	public boolean update(
+			@RequestParam("updateFiles") List<String> list,
 			@RequestParam("bid") int bid,
-			@RequestParam("BoardType") String boardType,
+			@RequestParam("boardType") String boardType,
 			@RequestParam("content") String content) {
 		boolean isUploaded = iService.saveUpload(list, bid, boardType);
+		System.out.println("==========update()==========");
 		System.out.println("boardType : "+boardType);
 		System.out.println("bid : "+bid);
 		System.out.println("--content before insert into db--\n"+content+"\n----------");
@@ -142,6 +146,7 @@ public class ImageController {
 				}
 			}
 			System.out.println("setContent() result : "+result);
+			System.out.println("==============================");
 			if (result == 1) {
 				return true;
 			}
