@@ -52,6 +52,9 @@
         </div>
     </div>
 </section>
+
+<p hidden="hidden" id="userId" th:text="${session.loginUser != null ? session.loginUser.memNo : ''}"></p>
+
 <section id="section_03">
     <div class="container">
         <div class="title_container">
@@ -89,26 +92,21 @@
                         <div class="organizer">생태지평연구소</div>
                     </div>
                 </div>
-                <div class="custom_board_contents">
-                    <div class="custom_board_img">
-                        <img src="img/custom_board_img02.jpg">
-                    </div>
-                    <div class="board_content_text_wrap">
-                        <div class="category category_green">아동/청소년</div>
-                        <div class="title">무심코 버린 비닐봉지 거북이가 먹어버려요!</div>
-                        <div class="fun_period">2025.01.10~2025.04.20</div>
-                        <div class="organizer">환경재단</div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </section>
+
 <div id="floating_btn" class="dona_btn">
     <a href="/donation/donationlist">후원하기</a>
 </div>
+
+
 <script>
     window.onload = () => {
+
+
+
         $.ajax({
             url: '/donation/new',
             dataType: 'json',
@@ -159,7 +157,7 @@
                         newsWrap.classList.add('board_contents');
 
                         newsWrap.innerHTML = `
-                        <a href="/newsList/newsDetail/${n.newsNo}">
+                        <a href="/news/newsDetail/${n.newsNo}">
                             <div class="board_img">
                                 <img src="${n.thumbnailPath}" alt="donation image">
                             </div>
@@ -275,26 +273,41 @@
         });
     });
 
+    var userId = document.getElementById("userId").textContent;
 
+    $.ajax({
+        url: "/donation/customNews",
+        type: "GET",
+        data: { userId: userId },
+        dataType: "json",
+        success: function(rsp) {
+            console.log(userId);
+            // 응답으로 받은 rsp는 donation 목록입니다.
+            var content = '';
+            rsp.forEach(function(donation) {
+                content += `
+                <div class="custom_board_contents">
+                    <div class="custom_board_img">
+                        <img src="img/custom_board_img01.jpg" alt="Donation Image"/>
+                    </div>
+                    <div class="board_content_text_wrap">
+                        <div class="category category_green">${donation.doCategory}</div>
+                        <div class="title">${donation.doTitle}</div>
+                        <div class="fun_period">${donation.doStartDate} ~ ${donation.doEndDate}</div>
+                    </div>
+                </div>
+            `;
+            });
 
-
-
-
-
-
-
-
-
-
-
-
+            $(".custom_board_wrap").html(content);
+        }
+    });
 
 </script>
 
 <footer>
     <div th:replace="~{/common/footer.html :: footer_bar}"></div>
 </footer>
-
 
 
 </body>
