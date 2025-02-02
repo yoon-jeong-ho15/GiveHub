@@ -60,7 +60,7 @@ public class NewsController {
 		News n = nService.newsDetail(newsNo);
 		System.out.println(n);
 		model.addAttribute("n", n);
-		return "/news/newsdetail";
+		return "/news/newsdetail/" + newsNo;
   }
 	
 	//뉴스 작성 (윤정호)
