@@ -49,8 +49,13 @@ public class NewsController {
 	// 사용자 소식 게시판
 	@GetMapping("/news/newsList")
 	public String nnewsList(Model model) {
-		ArrayList<News> list = nService.nnewsList(0);
-		model.addAttribute("list", list);
+		ArrayList<News> nlist = nService.nnewsList(0);
+		model.addAttribute("nlist", nlist);
+		System.out.println("==========nList==========");
+		for (News n : nlist) {
+			System.out.println(n.getNewsNo()+" : "+ n.getThumbnailPath());
+		}
+		System.out.println("============================");
 		return "/news/newsList";
 	}
 
@@ -70,6 +75,7 @@ public class NewsController {
 		return "/news/newsWrite";
 	}
 	
+	//뉴스 작성 (윤정호)
 	@PostMapping("/news/insert")
 	@ResponseBody
 	public ResponseEntity<Integer> insertNews(@ModelAttribute News n,
