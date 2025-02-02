@@ -65,7 +65,7 @@ h3.board_title {
 
 .slide_img, .board_img {
    display: flex;
-   height: 100%;
+   height: auto;
 }
 
 /* 공통영역 end */
@@ -79,12 +79,40 @@ section#section_01 {
 .main_wrap {
    background-image: url(../img/sitting_brother.jpg);
    height: 90vh;
-   background-size: cover;
    background-repeat: repeat;
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
+   background-position: center;
+   background-size: 110%;
+   animation-name : bg_size_custom;
+   animation-duration : 8s;
+}
+
+@keyframes  bg_size_custom {
+   0% {
+      background-size: 100%;
+   }
+   100% {
+      background-size: 110%;
+   }
+}
+.text_animation_h1 h1{
+   transition-delay: 1s;
+   animation-name : text_animation;
+   animation-duration : 1s;
+}
+.text_animation_p p{
+   animation-name : text_animation;
+   animation-duration : 1s;
+}
+span.text_animation_custom {
+   overflow: hidden;
+}
+@keyframes  text_animation {
+   0% {
+      transform: translateY(50px);
+   }
+   100% {
+      transform: translateY(0px);
+   }
 }
 
 .main_title_wrap {
@@ -139,18 +167,25 @@ span.link_text {
 .title_container {
    position: relative;
 }
+div.visual_img {
+   width: 100%;
+   overflow: hidden;
+   position: relative;
+}
+div.slide_img_wrap {
+   width: 340%;
+   display: flex;
+   transition: transform 0.5s ease-in-out;
+}
 
 .img_wrap {
-   /*width: 24%;*/
+   width: 19%;
+   height: 60vh !important;
    margin-right: 72px;
    position: relative;
    overflow: hidden;
    border-radius: 17px;
    transition-duration: 0.5s;
-}
-.slide_img_wrap {
-   display: flex;
-   transition: transform 0.5s ease-in-out;
 }
 
 .slide_img_wrap .text_wrap {
@@ -182,7 +217,8 @@ span.link_text {
 .img_wrap img, .custom_board_img img {
    transition-duration: 1s;
    border-right: 19px;
-   width: auto;
+   width: 100%;
+   height: auto;
 }
 
 .img_wrap:hover img, .custom_board_img:hover img {
