@@ -27,9 +27,9 @@ public class PaymentController {
     	System.out.println(request.getDoNo());
     	System.out.println("멤버 번호는 ? = = = " + request.getMemNo());
     	
-    	payment.setAmount(request.getAmount());
-    	payment.setDonorName(request.getName());
-    	payment.setDonationNo(request.getDoNo());
+    	payment.setPayAmount(request.getAmount());
+    	payment.setMemName(request.getName());
+    	payment.setDoNo(request.getDoNo());
     	payment.setMemNo(request.getMemNo());
     	payment.setSuccess(true);
     	
