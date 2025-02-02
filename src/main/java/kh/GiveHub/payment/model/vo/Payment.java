@@ -17,5 +17,9 @@ public class Payment {
     private String doTitle;
     private Date payCreatedate;
     private String payStatus;
+    private String doCategory;
+    private String doContent;
+    private Date doStartDate;
+    private Date doEndDate;
 }
 

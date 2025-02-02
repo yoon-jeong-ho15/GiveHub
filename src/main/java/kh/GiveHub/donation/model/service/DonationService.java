@@ -1,6 +1,7 @@
 package kh.GiveHub.donation.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -76,4 +77,12 @@ public class DonationService {
 	public String getOldContent(int doNo) {
 		return mapper.getOldContent(doNo);
 	}
+
+    public List<Donation> selectMostCategoryList(String mostCategory) {
+        return mapper.selectMostCategoryList(mostCategory);
+    }
+
+    public List<Donation> selectDeadLineList() {
+        return mapper.selectDeadLinelist();
+    }
 }

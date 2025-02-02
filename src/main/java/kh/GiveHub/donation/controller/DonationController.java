@@ -2,15 +2,18 @@ package kh.GiveHub.donation.controller;
 
 
 import com.google.gson.Gson;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.donation.model.exception.DonationException;
 import kh.GiveHub.donation.model.service.DonationService;
 import kh.GiveHub.donation.model.vo.Donation;
 import kh.GiveHub.member.model.exception.MemberException;
+import kh.GiveHub.member.model.service.MemberService;
 import kh.GiveHub.member.model.vo.Member;
 import kh.GiveHub.news.model.service.NewsService;
 import kh.GiveHub.news.model.vo.News;
+import kh.GiveHub.payment.model.vo.Payment;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,6 +33,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -48,6 +52,8 @@ public class DonationController {
 
 	private final DonationService dService;
 	private final NewsService nService;
+	private final MemberService mService;
+	private final ServletResponse servletResponse;
 
 
 	@GetMapping("/admin/donaList")
@@ -143,7 +149,7 @@ public class DonationController {
 		//게시글이 존재하지 않으면 사용자 정의 예외 발생
 		if(d != null) {
 			mv.addObject("d", d).addObject("date", date).setViewName("/donation/donationdetail");
-			
+
 			return mv;
 		}else {
 			throw new MemberException("게시글 상세보기를 실패하셨습니다.");
@@ -164,7 +170,6 @@ public class DonationController {
 		model.addAttribute("d",d);
 		return "/donation/donationEdit";
 	}
-
 
 
 
@@ -198,6 +203,54 @@ public class DonationController {
 	}
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+	@GetMapping("/donation/customNews")
+	public ResponseEntity<List<Donation>> getCustomNews(@RequestParam("userId") int userId){
+		ArrayList<Payment> list = mService.selectDonationList(userId,0);
+
+		//카테고리만 추출해서 배열에 담음
+		 String[] categories = new String[list.size()];
+		 for(int i=0;i<categories.length;i++){
+			 categories[i] = list.get(i).getDoCategory();
+		 }
+
+		 //기부된 횟수별로 카테고리 횟수 세기
+		Map<String,Integer> categoryCount = new HashMap<>();
+		 for(String category : categories){
+			 categoryCount.put(category,categoryCount.getOrDefault(category,0)+1);
+		 }
+
+		 //가장 많이 기부된 카테고리 찾기
+		String mostCategory = null;
+		int maxCount = 0;
+		for(Map.Entry<String,Integer> entry : categoryCount.entrySet()){
+			if(entry.getValue() > maxCount){
+				mostCategory = entry.getKey();
+				maxCount = entry.getValue();
+			}
+		}
+		List<Donation> donations = null;
+		if(mostCategory != null) {
+			donations = dService.selectMostCategoryList(mostCategory);
+		}else{
+			donations = dService.selectDeadLineList();
+		}
+
+		return ResponseEntity.ok(donations);
+
+	}
 
 
 
