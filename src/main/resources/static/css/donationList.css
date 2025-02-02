@@ -68,7 +68,8 @@ div.searchContainer {
 }
 td.list_category_custom {
     font-size: 0.9rem;
-    padding: 0.8rem 0 0.1rem 0.4rem !important;
+    padding: 0.4rem 0.8rem !important;
+    margin: 0.8rem 0 0.1rem 0.4rem !important;
 }
 .categoryBtn button{
     font-size: 1.1rem;
