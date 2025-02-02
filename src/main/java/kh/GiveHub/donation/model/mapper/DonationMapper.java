@@ -28,4 +28,6 @@ public interface DonationMapper {
     ArrayList<Donation> selectNew();
 
 	String getOldContent(int doNo);
+
+	int updateDonation(Donation d);
 }

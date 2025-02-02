@@ -85,8 +85,12 @@ public class ImageService {
 	public List<String> compareContent(String content, String oldcontent) {
 		List<String> oldFiles = new ArrayList<String>();
         List<String> delFiles = new ArrayList<>();
-		Pattern pattern = Pattern.compile("<img[^>]+?src=\"/upload/([^\"]+)\"[^>]*?>");
+		//Pattern pattern = Pattern.compile("<img[^>]+?src=\"/upload/([^\"]+)\"[^>]*?>");
+        //Pattern pattern = Pattern.compile("<img[^>]+?src=\"(?:/upload/|../upload/)([^\"]+)\"[^>]*?>");
+        Pattern pattern = Pattern.compile("<"
+        		+ "img[^>]+?src=\"(?:/upload/|\\.\\./upload/|\\.\\./\\.\\./upload/)([^\"]+)\"[^>]*?>");
         Matcher matcher = pattern.matcher(oldcontent);
+        
         while (matcher.find()) {
         	String filename = matcher.group(1);
         	oldFiles.add(filename);
@@ -101,19 +105,32 @@ public class ImageService {
 	}
 
 	public boolean deleteImage(List<String> delFiles) {
-		int delcount = 0;
-        for (String filename : delFiles) {
-        	File file = new File(uploadPath+filename);
-        	if(file.exists()) {
-        		file.delete();
-        	}
-        	delcount += mapper.deleteImage(filename);
-        }
-        System.out.println("delCount : "+delcount);
-        System.out.println("delFiles.size() : "+delFiles.size());
-        if (delcount == delFiles.size()) {
-        	return true;
-        }
-		return false;
+	    int totalCount = delFiles.size();
+	    int successCount = 0;
+	    
+	    for (String filename : delFiles) {
+	        File file = new File(uploadPath + filename);
+	        boolean fileDeleted = false;
+	        
+	        if (file.exists()) {
+	            try {
+	                fileDeleted = file.delete();
+	                if (fileDeleted) {
+	                    int dbResult = mapper.deleteImage(filename);
+	                    if (dbResult > 0) {
+	                        successCount++;
+	                    }
+	                }
+	            } catch (SecurityException e) {
+	                e.printStackTrace();
+	            }
+	        } else {
+	            int dbResult = mapper.deleteImage(filename);
+	            if (dbResult > 0) {
+	                successCount++;
+	            }
+	        }
+	    }
+	    return successCount == totalCount;
 	}
 }
