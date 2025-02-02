@@ -86,7 +86,7 @@ public class DonationService {
         return mapper.selectDeadLinelist();
     }
 
-	public int updateDonation(Donation d) {
-		return mapper.updateDonation(d);
-	}
+    public int updateDonation(Donation d) {
+        return mapper.updateDonation(d);
+    }
 }
