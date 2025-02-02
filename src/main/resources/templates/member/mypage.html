@@ -289,7 +289,7 @@ span {
 <!--				<button onclick="location.href='redirect:/'">Log out</button>-->
 			</div>
 			<div class="my_info_menu_wrap">
-				<label class="delete_user" onclick="location.href='/member/delete'">탈퇴하기</label>
+				<label class="delete_user" onclick="confirmDelete()">탈퇴하기</label>
 			</div>
 		</div>
 
@@ -566,6 +566,12 @@ span {
 				},
 				error:data=>console.log(data)
 			});
+		}
+		function confirmDelete() {
+			if (confirm("정말 탈퇴하시겠습니까?")) {
+				location.href = '/member/delete';
+			}
+			// 취소 시 아무 동작도 하지 않음
 		}
 	</script>
 <footer>
