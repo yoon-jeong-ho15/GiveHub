@@ -9,4 +9,6 @@ public interface PaymentMapper {
 
 	int savePayment(PaymentRequest request);
 
+	int totalAmount(Integer memNo);
+
 }

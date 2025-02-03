@@ -5,6 +5,9 @@
 	<insert id="savePayment" parameterType="kh.GiveHub.payment.model.vo.PaymentRequest">
 		insert into payment values(seq_pay_no.nextval,#{amount},sysdate,'success',#{memNo},#{doNo})
 	</insert>
+	<select id="totalAmount">
+		select sum(pay_amount) from payment where mem_no=#{memNo}
+	</select>
 </mapper>
 
 

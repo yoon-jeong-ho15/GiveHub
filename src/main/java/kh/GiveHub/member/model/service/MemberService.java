@@ -9,6 +9,7 @@ import kh.GiveHub.member.model.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Service
 @RequiredArgsConstructor
@@ -74,6 +75,10 @@ public class MemberService {
 
 	public int checkEmail(String email) {
 		return mapper.checkEmail(email);
+	}
+
+	public int updateRank(HashMap<String, Object> rankMap) {
+		return mapper.updateRank(rankMap);
 	}
 
 }

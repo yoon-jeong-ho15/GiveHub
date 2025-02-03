@@ -1,6 +1,7 @@
 package kh.GiveHub.member.model.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import kh.GiveHub.payment.model.vo.Payment;
 import org.apache.ibatis.annotations.Mapper;
@@ -41,4 +42,6 @@ public interface MemberMapper {
     int deleteMember(String login);
 
 	int checkEmail(String email);
+
+	int updateRank(HashMap<String, Object> rankMap);
 }

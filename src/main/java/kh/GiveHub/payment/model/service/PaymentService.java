@@ -14,4 +14,7 @@ public class PaymentService {
 		
 		return mapper.savePayment(request);
 	}
+	public int totalAmount(Integer memNo) {
+		return mapper.totalAmount(memNo);
+	}
 }
