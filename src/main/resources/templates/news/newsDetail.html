@@ -77,12 +77,14 @@
         </div>
 
         <th:block th:if="${session.loginUser != null}">
-            <button th:if="${session.loginUser.memNo == n.memNo}" id="editBtn" type="button" onclick="doEdit()">
-                수정
-            </button>
-            <button th:if="${session.loginUser.memNo == n.memNo}" id="deleteBtn" type="button" onclick="doDelete()">
-                삭제
-            </button>
+            <div class="news_write_wrap">
+                <button class="editBtn" th:if="${session.loginUser.memNo == n.memNo}" id="editBtn" type="button" onclick="doEdit()">
+                    수정
+                </button>
+                <button class="delete_btn" th:if="${session.loginUser.memNo == n.memNo}" id="deleteBtn" type="button" onclick="doDelete()">
+                    삭제
+                </button>
+            </div>
         </th:block>
        
     </div>

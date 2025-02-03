@@ -5,6 +5,10 @@
     margin: 5rem 0 2rem;
 }
 
+.container{
+    overflow: hidden;
+}
+
 
 p.title_sub_text {
     font-size: 1.3rem;
@@ -171,7 +175,7 @@ tr.selectlist.select_list td:last-child {
 }
 table.table {
     width: 96%;
-    scale: 1.04;
+    scale: 1 !important;
     margin: 2.6rem auto 0;
 }
 h2.news_title {

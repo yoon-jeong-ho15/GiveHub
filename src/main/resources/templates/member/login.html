@@ -7,26 +7,8 @@
 <link href="/css/reset.css" rel="stylesheet" type="text/css">
 <link href="/css/common.css" rel="stylesheet" type="text/css">
 <link href="/css/navBar.css" rel="stylesheet" type="text/css">
-<link href="/css/footer.css" rel="stylesheet" type="text/css">
+    <link href="/css/page.css" rel="stylesheet" type="text/css">
 <style>
-
-    .page_wrap {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        flex-direction: column;
-    }
-
-    #loginTop {
-        margin-bottom: 10px;
-        font-size: 24px;
-        color: #1a1a1a;
-        text-align: center;
-    }
-
     .subtitle {
         font-size: 14px;
         color: #888;
@@ -118,7 +100,7 @@
 <body>
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
 <script src="/js/common.js"></script>
-<div class="page_wrap">
+<div class="container page_container">
 
     <form id="loginForm" method="post" action="/member/login">
 
