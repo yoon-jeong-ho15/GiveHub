@@ -8,7 +8,7 @@
 	</select>
 
 	<select id="selectMemberList">
-		select * from member
+		select * from member order by 1
 	</select>
 	
 	<!-- 로그인 -->
