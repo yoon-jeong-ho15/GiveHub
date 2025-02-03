@@ -84,15 +84,33 @@
             <td colspan="2" class="text_style">
                 <input type="email" id="mem_email" name="memEmail" placeholder="이메일을 입력하세요" required>
             </td>
-            <td class="Emailcheck_btn">
+
+            <td class="Emailcheck_btn check_btn">
      	       <button type="button" id="EmailCheckBtn" name="EmailCheckBtn">이메일 중복 확인</button>
             </td>
-            <td>
-                <label id="confirmEmail"></label>
-            </td>
-            
+
             <td class="check_btn">
             <button type="button" id="sendBtn" name="sendBtn">인증번호 받기</button>
+            </td>
+        </tr>
+        <tr class="confirm_text">
+            <td></td>
+            <td class="email_confirm">
+                <label id="confirmEmail"></label>
+            </td>
+        </tr>
+
+        <tr>
+            <th></th>
+            <td colspan="2">
+                <br>
+
+                <div class="form-group" id="mail_number" name="mail_number" style="visibility: hidden">
+                    <input type="text" name="confirmNumber" id="confirmNumber" class="form-control" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
+                    <span id="mail-check-warn"></span>
+                    <button type="button" name="confirmBtn" id="confirmBtn" style="margin-top: 20px">이메일 인증</button>
+                    <br>
+                </div>
             </td>
         </tr>
 
@@ -118,19 +136,7 @@
             </td>
         </tr>
 
-        <tr>
-            <th></th>
-            <td colspan="2">
-                <br>
 
-                <div class="form-group" id="mail_number" name="mail_number" style="visibility: hidden">
-                    <input type="text" name="confirmNumber" id="confirmNumber" class="form-control" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
-                    <span id="mail-check-warn"></span>
-                    <button type="button" name="confirmBtn" id="confirmBtn" style="margin-top: 20px">이메일 인증</button>
-                    <br>
-                </div>
-            </td>
-        </tr>
         <tr>
             <td colspan="3" align="center">
                 <button type="button" onclick="joinBtn()" id="join" class="submitBtn">회원가입</button>
