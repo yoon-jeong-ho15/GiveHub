@@ -16,67 +16,23 @@
 	href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
 	rel="stylesheet">
 <style>
+	body {
+		height: calc(100vh - 247px);
+	}
+	.notice_text {
+		width: 17.4rem;
+		font-size: 0.8rem;
+		color: #2ab54c;
+		margin: 0.5rem 0 0.8rem;
+		text-align: left;
+		font-weight: 400;
+	}
+	div#mail_number {
+		margin-left: 6.9rem;
+		margin-top: -1rem;
+		margin-bottom: 2.5rem;
+	}
 
-/*		input{*/
-/*			height: 28px;*/
-/*			padding: 5px;*/
-/*			border: 1px solid gray;*/
-/*			border-radius: 10px;*/
-/*			width: 270px;*/
-/*			text-align: justify;*/
-/*		}*/
-/*		input[name^=rrn]{*/
-/*			width: 120px;*/
-/*		}*/
-/*		span{*/
-/*			font-size: 9pt;*/
-/*			color: #2ab54c;*/
-/*			margin-top: 0;*/
-/*			margin-left: 4px;*/
-/*			margin-bottom: 10px;*/
-/*		}*/
-/*		button{*/
-/*			background: #34D28B;*/
-/*			border: 0px;*/
-/*			border-radius: 14px;*/
-/*			color: white;*/
-/*			font-size: 12pt;*/
-/*			margin-top: 20px;*/
-/*		}*/
-
-/*input {*/
-/*	height: 28px;*/
-/*	padding: 5px;*/
-/*	border: 1px solid gray;*/
-/*	border-radius: 10px;*/
-/*	width: 270px;*/
-/*	text-align: justify;*/
-/*}*/
-
-/*input[name^=rrn] {*/
-/*	width: 120px;*/
-/*}*/
-
-
-
-
-
-/*.login_wrap button {*/
-/*	background: none;*/
-/*	color: #1a1a1a !important;*/
-/*	border: none;*/
-/*	font-size: 1rem;*/
-/*	font-weight: 500;*/
-/*	cursor: pointer;*/
-/*}*/
-
-/*.container.container_center {*/
-/*	display: flex;*/
-/*	flex-direction: column;*/
-/*	justify-content: center;*/
-/*	height: 100vh;*/
-/*	align-items: center;*/
-/*}*/
 </style>
 </head>
 <body>
@@ -96,18 +52,21 @@
 				<span class="notice_text">회원가입시 등록한 이메일을 입력해 주세요</span>
 				<span class="check_btn">
 				<button type="button" id="prove_btn" class="page_btn">인증번호받기</button></span>
-				<button class="submitBtn findBtn">확인</button>
+
 				<div class="form-group" id="mail_number" name="mail_number" style="visibility: hidden">
 					<span class="text_style">
-					 <input type="text" name="confirmNumber" id="confirmNumber" class="form-control" style="width:250px; margin-top: -10px" placeholder="인증번호 입력">
+					 <input type="text" name="confirmNumber" id="confirmNumber" class="form-control" placeholder="인증번호 입력">
 					</span>
-						<span id="mail-check-warn"></span>
-					 <button type="button" name="confirmBtn" id="confirmBtn" style="margin-top: 20px">이메일 인증</button>
-					 <br>
+					<span id="mail-check-warn"></span>
+					<button type="button" name="confirmBtn" id="confirmBtn" style="margin-top: 20px">이메일 인증</button>
+					<br>
 					<span class="text_style">
 					 <input type="hidden" id="Confirm" name="Confirm" value="">
 					</span>
 				</div>
+
+				<button class="submitBtn findBtn">확인</button>
+
 
 			</form>
 		</div>

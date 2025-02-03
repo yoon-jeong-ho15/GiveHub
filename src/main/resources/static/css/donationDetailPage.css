@@ -5,6 +5,10 @@
     margin: 5rem 0 2rem;
 }
 
+.container{
+    overflow: hidden;
+}
+
 
 p.title_sub_text {
     font-size: 1.3rem;
@@ -166,9 +170,16 @@ tbody.newsList_custom {
     border: 1px solid #34D28B;
     transition-duration: 0.2s;
 }
-
-table.table {
-    width: 100%;
+tr.selectlist.select_list td:last-child {
+    margin-top: 1rem;
 }
-
+table.table {
+    width: 96%;
+    scale: 1 !important;
+    margin: 2.6rem auto 0;
+}
+h2.news_title {
+    margin-top: 3rem;
+    font-size: 2.2rem;
+}
 
