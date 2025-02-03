@@ -129,7 +129,7 @@ label.delete_user {
 
 #buttonDiv>button {
 	width: 45%;
-	background: #34D28B;
+	background: #5cc78d;
 	border: 0 solid #fff;
 	border-radius: 19px;
 	color: white;
@@ -399,11 +399,7 @@ span {
 				<div id="tableDiv">
 					<table class="table ">
 						<tbody id="myDonaTbody">
-							<tr th:each="p:${list}">
-								<td th:text="${p.doTitle}"></td>
-								<td th:text="${p.payAmount}+'원'"></td>
-								<td th:text="${#dates.format(p.payCreatedate, 'yyyy년 MM월 dd일')}"></td>
-							</tr>
+
 						</tbody>
 					</table>
 				</div>
@@ -536,7 +532,7 @@ span {
 						tr.appendChild(td2);
 						tr.appendChild(td3);
 						tr.appendChild(td4);
-						tr.appendChild(td5);
+						// tr.appendChild(td5);
 
 						tbody.appendChild(tr);
 					}
@@ -590,6 +586,10 @@ span {
 				location.href = '/member/delete';
 			}
 			// 취소 시 아무 동작도 하지 않음
+		}
+
+		window.onload = () => {
+			ongoingList();
 		}
 	</script>
 <footer>
