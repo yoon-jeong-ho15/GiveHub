@@ -119,6 +119,13 @@ td.list_category_custom, .news_category_custom {
     color: #34D28B;
 }
 
+.categoryBtn button:hover {
+    border-color: #34D28B;
+    color: #34D28B;
+}
+
+
+
 .category_custom{
     float: right;
     margin: 2.7rem 0 1rem;
@@ -183,6 +190,8 @@ button#searchButton {
     font-weight: 500;
     margin-left: 0.7rem;
 }
+
+
 input#searchInput:focus {
     outline:none;
 }
