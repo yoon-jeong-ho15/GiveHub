@@ -415,8 +415,8 @@ span {
 				<p class="text_color my_info_title">받은 기부 조회</p>
 				<hr>
 				<div>
-					<table>
-						<tbody>
+					<table class="table ">
+						<tbody id="myDonaTbody">
 							<tr th:each="p:${list}">
 								<td th:text="${p.doTitle}"></td>
 								<td th:text="${p.memName}"></td>
@@ -534,7 +534,7 @@ span {
 				url:'/ongoingList',
 				data: {no:/*[[${session.loginUser.memNo}]]*/100},
 				success:data=>{
-					const tbody = document.querySelector('#myDonaTbody');
+					const tbody = document.querySelectorAll('#myDonaTbody')[0];
 					tbody.innerHTML = ''; // 기존 내용 초기화
 					for (const p of data) {
 						const tr = document.createElement('tr');
@@ -543,10 +543,7 @@ span {
 						td1.appendChild(document.createTextNode(p.doTitle));
 
 						const td2 = document.createElement('td');
-						td2.appendChild(document.createTextNode(p.memName));
-
-						const td3 = document.createElement('td');
-						td3.appendChild(document.createTextNode(p.payAmount+'원'));
+						td2.appendChild(document.createTextNode(p.payAmount+'원'));
 
 						let objectDate = new Date(p.payCreatedate);
 						console.log(objectDate);
@@ -555,19 +552,12 @@ span {
 						let month = objectDate.getMonth() + 1;
 						let year = objectDate.getFullYear();
 
-						const td4 = document.createElement('td');
-						td4.appendChild(document.createTextNode(year + '년 ' + month + '월 ' + day + '일'));
-
-						const td5 = document.createElement('td');
-						if (p.payStatus == 'Y'){
-							td5.innerHTML = '<td><button onClick="cancleDonation()">취소</button></td>'
-						}
+						const td3 = document.createElement('td');
+						td3.appendChild(document.createTextNode(year + '년 ' + month + '월 ' + day + '일'));
 
 						tr.appendChild(td1);
 						tr.appendChild(td2);
 						tr.appendChild(td3);
-						tr.appendChild(td4);
-						// tr.appendChild(td5);
 
 						tbody.appendChild(tr);
 					}
@@ -581,7 +571,7 @@ span {
 				url:'/finishedList',
 				data: {no:/*[[${session.loginUser.memNo}]]*/100},
 				success:data=>{
-					const tbody = document.querySelector('#myDonaTbody');
+					const tbody = document.querySelectorAll('#myDonaTbody')[0];
 					tbody.innerHTML = ''; // 기존 내용 초기화
 					for (const p of data) {
 						const tr = document.createElement('tr');
@@ -590,10 +580,7 @@ span {
 						td1.appendChild(document.createTextNode(p.doTitle));
 
 						const td2 = document.createElement('td');
-						td2.appendChild(document.createTextNode(p.memName));
-
-						const td3 = document.createElement('td');
-						td3.appendChild(document.createTextNode(p.payAmount+'원'));
+						td2.appendChild(document.createTextNode(p.payAmount+'원'));
 
 						let objectDate = new Date(p.payCreatedate);
 						console.log(objectDate);
@@ -602,13 +589,12 @@ span {
 						let month = objectDate.getMonth() + 1;
 						let year = objectDate.getFullYear();
 
-						const td4 = document.createElement('td');
-						td4.appendChild(document.createTextNode(year + '년 ' + month + '월 ' + day + '일'));
+						const td3 = document.createElement('td');
+						td3.appendChild(document.createTextNode(year + '년 ' + month + '월 ' + day + '일'));
 
 						tr.appendChild(td1);
 						tr.appendChild(td2);
 						tr.appendChild(td3);
-						tr.appendChild(td4);
 
 						tbody.appendChild(tr);
 					}
