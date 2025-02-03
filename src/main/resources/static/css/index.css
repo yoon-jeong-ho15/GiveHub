@@ -78,8 +78,8 @@ section#section_01 {
 
 .main_wrap {
    background-image: url(../img/sitting_brother.jpg);
-   height: 90vh;
-   background-repeat: repeat;
+   height: 88vh;
+   background-repeat: no-repeat;
    background-position: center;
    background-size: 110%;
    animation-name : bg_size_custom;
