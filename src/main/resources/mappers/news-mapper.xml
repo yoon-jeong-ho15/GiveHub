@@ -10,7 +10,7 @@
 	<select id="selectNewsList">
 		select *
 		from news_view
-		order by news_no DESC
+		order by news_no
 	</select>
 
 	<delete id="deleteNews">
