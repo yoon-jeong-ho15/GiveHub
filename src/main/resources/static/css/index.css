@@ -144,6 +144,7 @@ span.text_animation_custom {
    border-radius: 17px;
    border: 1px solid #fff;
    padding: 1rem 2.8rem;
+   cursor: pointer;
 }
 /* section01(main) end */
 section#section_02 {
