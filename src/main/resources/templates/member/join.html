@@ -84,6 +84,13 @@
             <td colspan="2" class="text_style">
                 <input type="email" id="mem_email" name="memEmail" placeholder="이메일을 입력하세요" required>
             </td>
+            <td class="Emailcheck_btn">
+     	       <button type="button" id="EmailCheckBtn" name="EmailCheckBtn">이메일 중복 확인</button>
+            </td>
+            <td>
+                <label id="confirmEmail"></label>
+            </td>
+            
             <td class="check_btn">
             <button type="button" id="sendBtn" name="sendBtn">인증번호 받기</button>
             </td>
@@ -200,6 +207,43 @@
             alert('아이디를 입력하세요.')
         }
     });
+    
+    document.getElementById('EmailCheckBtn').addEventListener('click', () => {
+        console.log("확인");
+        const email = document.querySelector('#mem_email').value;
+        const confirmEmail = document.getElementById('confirmEmail');
+        
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if (email.trim() === '') {
+            alert('이메일을 입력하세요.');
+        } else if (!emailPattern.test(email)) {
+            confirmEmail.innerText = '이메일 형식이 올바르지 않습니다.';
+            confirmEmail.style.color = 'red';
+        } else {
+            $.ajax({
+                url: '/member/join.email',
+                data: { email: email },
+                success: (data) => {
+                    if (data == 0) {
+                        confirmEmail.innerText = '사용 가능한 이메일입니다.';
+                        confirmEmail.style.color = 'green';
+                    } else {
+                        confirmEmail.innerText = '이미 회원가입 돼 있는 이메일입니다.';
+                        confirmEmail.style.color = 'red';
+                    }
+                },
+                error: (data) => {
+                    console.log(data);
+                }
+            });
+        }
+    });
+    
+    
+    
+    
+    
 
     document.getElementById('allCheckbox').addEventListener('change', function () {
         const isChecked = this.checked;

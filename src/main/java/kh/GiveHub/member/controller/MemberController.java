@@ -1,20 +1,26 @@
 package kh.GiveHub.member.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
+
 import jakarta.servlet.http.HttpSession;
 import kh.GiveHub.member.model.exception.MemberException;
 import kh.GiveHub.member.model.service.MemberService;
 import kh.GiveHub.member.model.vo.Member;
 import kh.GiveHub.payment.model.vo.Payment;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
 
 @Controller
 @RequiredArgsConstructor
@@ -269,6 +275,20 @@ public class MemberController {
         }
 
     }
+    
+    
+    @GetMapping("/member/join.email")
+    @ResponseBody
+    public int checkEmail(@RequestParam("email") String email) {
+//    	System.out.println(email);
+    	return mService.checkEmail(email);
+    }
+    
+    
+    
+    
+    
+    
     
     
     
