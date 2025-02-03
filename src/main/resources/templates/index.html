@@ -8,6 +8,11 @@
     <link href="/css/common.css" rel="stylesheet" type="text/css">
     <link href="/css/index.css" rel="stylesheet" type="text/css">
     <link href="/css/navBar.css" rel="stylesheet" type="text/css">
+    <style>
+	    .custom_board_contents{
+			cursor:pointer;
+		}
+    </style>
 </head>
 <body>
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
@@ -417,7 +422,7 @@
             var content = '';
             rsp.forEach(function(donation) {
                 content += `
-                <div class="custom_board_contents">
+                	<div class="custom_board_contents" data-url="/donation/donationdetail/${donation.doNo}">
                     <div class="custom_board_img">
                         <img src="${donation.thumbnailPath}" alt="Donation Image"/>
                     </div>
@@ -431,6 +436,12 @@
             });
 
             $(".custom_board_wrap").html(content);
+            
+            $(document).on("click",".custom_board_contents",function(){
+            	var url = $(this).data("url");
+            	window.location.href=url;
+            });
+            
         }
     });
 
