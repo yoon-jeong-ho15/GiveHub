@@ -8,7 +8,6 @@
     <link href="/css/common.css" rel="stylesheet" type="text/css">
     <link href="/css/index.css" rel="stylesheet" type="text/css">
     <link href="/css/navBar.css" rel="stylesheet" type="text/css">
-
 </head>
 <body>
 <div th:replace="~{/common/navbar.html :: navbar}"></div>
@@ -21,7 +20,7 @@
                 <span class="text_animation_custom text_animation_p"><p>아름다운 기부</p></span>
                 <span class="text_animation_custom text_animation_h1"><h1>행복한 세상을 만들어갑니다</h1></span>
             </div>
-            <div class="dona_main_btn dona_btn">후원하기</div>
+            <div class="dona_main_btn dona_btn" onclick="location.href='/donation/donationlist';">후원하기</div>
         </div>
     </div>
 </section>
