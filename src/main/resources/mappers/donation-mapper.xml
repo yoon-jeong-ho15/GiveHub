@@ -6,12 +6,10 @@
     </delete>
 
     <select id="selectCategory">
-        select * from donation
-        join member using(mem_no)
-        left join (select '/upload/'||IMG_RENAME as thumbnailPath, REF_NO,
-        img_type from image where board_type = 'D' and img_type = '0') on (ref_no = do_no)
+        select * from don_view
         <where>
             do_enddate <![CDATA[>=]]> sysdate
+            and do_status = 'Y'
             <if test="categorySelect != 'all'">
                 and do_category = #{categorySelect}
             </if>
@@ -119,7 +117,12 @@
         order by do_enddate
         FETCH FIRST 2 ROWS ONLY
     </select>
-
+	
+	<update id="deleteDonation">
+		update donation
+		set do_status='N'
+		where do_no = #{doNo}
+	</update>
 
 
 
