@@ -100,6 +100,8 @@
 
 
 <script>
+
+
     $(document).ready(function () {
         $.ajax({
             url: '/donation/new',
@@ -115,21 +117,20 @@
                         const imgWrap = document.createElement('div');
                         imgWrap.classList.add('img_wrap');
                         imgWrap.innerHTML = `
-                        <a href="/donation/donationdetail/${d.doNo}">
-                            <div class="slide_img">
-                                <img src="${d.thumbnailPath}" alt="donation image">
-                            </div>
-                            <div class="text_wrap">
-                                <p class="category category_white">${d.doCategory}</p>
-                                <h3 class="board_title">${d.doTitle}</h3>
-                                <span class="link_text">도움주러가기↗</span>
-                            </div>
-                        </a>`;
+                    <a href="/donation/donationdetail/${d.doNo}">
+                        <div class="slide_img">
+                            <img src="${d.thumbnailPath}" alt="donation image">
+                        </div>
+                        <div class="text_wrap">
+                            <p class="category category_white">${d.doCategory}</p>
+                            <h3 class="board_title">${d.doTitle}</h3>
+                            <span class="link_text">도움주러가기↗</span>
+                        </div>
+                    </a>`;
                         slideWrap.appendChild(imgWrap);
                     });
 
-                    // 슬라이드 기능 초기화
-                    setTimeout(initSlider, 100);
+                    setTimeout(initSlider, 100); // DOM이 완전히 로딩된 후 실행
                 }
             },
             error: function (err) {
@@ -140,82 +141,88 @@
         let currentIndex = 1;
         let slideInterval;
         let slideWidth = 0;
+        let slides;
+        let isSliding = false; // 슬라이드 중인지 여부 체크
 
         function initSlider() {
             const slideWrap = document.getElementById('slide_wrap');
-            let slides = document.querySelectorAll('.img_wrap');
+            slides = document.querySelectorAll('.img_wrap');
 
             if (slides.length === 0) return;
+
+            // 기존 클론 제거 (중복 추가 방지)
+            document.querySelectorAll('.img_wrap.clone').forEach(clone => clone.remove());
 
             slideWidth = slides[0].offsetWidth; // 각 슬라이드의 너비 저장
 
             // 무한 루프를 위해 첫 번째와 마지막 요소 복제
             const firstClone = slides[0].cloneNode(true);
             const lastClone = slides[slides.length - 1].cloneNode(true);
+            firstClone.classList.add('clone');
+            lastClone.classList.add('clone');
 
-            slideWrap.appendChild(firstClone); // 마지막 뒤에 첫 번째 복제
-            slideWrap.insertBefore(lastClone, slides[0]); // 첫 번째 앞에 마지막 복제
+            slideWrap.appendChild(firstClone);
+            slideWrap.insertBefore(lastClone, slides[0]);
 
-            // 다시 요소 선택 (업데이트된 슬라이드)
             slides = document.querySelectorAll('.img_wrap');
 
-            // 슬라이드 너비 동적으로 설정
             slideWrap.style.width = `${slides.length * slideWidth}px`;
-
-            // 초기 위치 설정 (진짜 첫 번째 이미지가 보이도록)
             slideWrap.style.transition = 'none';
             slideWrap.style.transform = `translateX(-${slideWidth}px)`;
 
-            // 자동 슬라이드 시작
-            startAutoSlide();
-
-            // 좌우 버튼 클릭 이벤트 추가
+            document.querySelector('.right_arrow').removeEventListener('click', nextSlide);
+            document.querySelector('.left_arrow').removeEventListener('click', prevSlide);
             document.querySelector('.right_arrow').addEventListener('click', nextSlide);
             document.querySelector('.left_arrow').addEventListener('click', prevSlide);
+
+            startAutoSlide();
         }
 
         function nextSlide() {
-            const slideWrap = document.getElementById('slide_wrap');
-            let slides = document.querySelectorAll('.img_wrap');
+            if (isSliding) return; // 슬라이딩 중이면 클릭 방지
+            isSliding = true;
 
+            const slideWrap = document.getElementById('slide_wrap');
             currentIndex++;
             slideWrap.style.transition = 'transform 0.6s ease-in-out';
             slideWrap.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
 
-            // 마지막 슬라이드에서 첫 번째 슬라이드로 자연스럽게 이동
-            setTimeout(() => {
+            slideWrap.addEventListener('transitionend', () => {
                 if (currentIndex >= slides.length - 1) {
-                    slideWrap.style.transition = 'none';  // 애니메이션 없이 바로 변경
+                    slideWrap.style.transition = 'none';
                     currentIndex = 1;
                     slideWrap.style.transform = `translateX(-${slideWidth}px)`;
                 }
-            }, 600);  // 애니메이션 끝난 후 실행
+                isSliding = false; // 애니메이션 종료 후 클릭 가능
+            }, { once: true });
         }
 
         function prevSlide() {
-            const slideWrap = document.getElementById('slide_wrap');
-            let slides = document.querySelectorAll('.img_wrap');
+            if (isSliding) return; // 슬라이딩 중이면 클릭 방지
+            isSliding = true;
 
+            const slideWrap = document.getElementById('slide_wrap');
             currentIndex--;
             slideWrap.style.transition = 'transform 0.6s ease-in-out';
             slideWrap.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
 
-            // 첫 번째 슬라이드에서 마지막 슬라이드로 자연스럽게 이동
-            setTimeout(() => {
+            slideWrap.addEventListener('transitionend', () => {
                 if (currentIndex <= 0) {
-                    slideWrap.style.transition = 'none';  // 애니메이션 없이 바로 변경
+                    slideWrap.style.transition = 'none';
                     currentIndex = slides.length - 2;
                     slideWrap.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
                 }
-            }, 600);
+                isSliding = false; // 애니메이션 종료 후 클릭 가능
+            }, { once: true });
         }
 
         function startAutoSlide() {
+            clearInterval(slideInterval);
             slideInterval = setInterval(nextSlide, 5000);
 
             const slideVisual = document.getElementById('slide_visual');
             slideVisual.addEventListener('mouseenter', () => clearInterval(slideInterval));
-            slideVisual.addEventListener('mouseleave', () => startAutoSlide());
+            slideVisual.addEventListener('mouseleave', startAutoSlide);
         }
     });
 
