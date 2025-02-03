@@ -83,5 +83,12 @@
 		where mem_email = #{email} and mem_status = 'Y'
 	</select>
 	
+	<update id="updateRank" parameterType="Map">
+		update member
+		set mem_grade = #{rank}
+		where mem_no = #{memNo}
+	</update>
+	
+	
 	
 </mapper>
