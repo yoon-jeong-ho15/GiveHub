@@ -64,6 +64,7 @@
 		select *
 		FROM news_view
 		where ROWNUM <= 3
+		and news_status ='Y'
 		]]>
 	</select>
 
