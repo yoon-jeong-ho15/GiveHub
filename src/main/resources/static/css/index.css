@@ -210,9 +210,20 @@ div.slide_img_wrap {
 }
 
 .custom_board_img {
+   height: 360px;
+   width: auto;
    border-radius: 17px;
    overflow: hidden;
+   position: relative;
    display: flex;
+}
+.custom_board_img img {
+   height: 100% !important;
+   width: auto !important;
+   /*position: absolute;*/
+   /*left: 50%;*/
+   /*top: 50%;*/
+   /*transform: translate(-50%, -50%);*/
 }
 
 .img_wrap img, .custom_board_img img {
@@ -313,7 +324,7 @@ div.slide_img_wrap {
 }
 
 .board_content_text_wrap {
-   padding: 1.2rem 1.5rem;
+   padding: 1.2rem;
 }
 
 .board_content_text_wrap .title {
