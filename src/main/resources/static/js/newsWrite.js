@@ -46,7 +46,32 @@ tinymce.init({
             callback(temppath, { title: file.name });
         }
         input.click();
+    },
+    //이건 기능과 상관 없는 확인용 코드임.
+    //무엇을 확인? - 이미지 경로 관련.
+    setup: function(editor) {
+        console.log('현재 URL:', window.location.pathname);
+        console.log('TinyMCE base URL:', editor.documentBaseUrl);
+        console.log('TinyMCE settings:', editor.settings);
+        
+        editor.on('BeforeSetContent', function(e) {
+            console.log('Content before processing:', e.content);
+        });
+        
+        editor.on('SetContent', function(e) {
+            console.log('Content after processing:', e.content);
+            // DOM에서 직접 img 태그들을 찾아서 경로 확인
+            const images = editor.getBody().getElementsByTagName('img');
+            Array.from(images).forEach((img, i) => {
+                console.log(`Image ${i + 1}:`, {
+                    src: img.getAttribute('src'),
+                    'data-mce-src': img.getAttribute('data-mce-src'),
+                    baseURI: img.baseURI
+                });
+            });
+        });
     }
+
 });
 
 //썸네일
@@ -83,9 +108,12 @@ const processImage = async function(file, imgName, imgType){
         if(!response.ok){
             throw new Error("Upload failed : !response.ok");
         }
+        //경로 확인용
         const temppath = await response.text();
+        console.log('서버에서 받은 경로:', temppath);
         pathArr.push(temppath);
-        console.log(pathArr);
+        console.log('callback에 전달하기 전 경로:', temppath);
+        //
         return temppath;
     } catch (error) {
         console.error(error);
@@ -110,7 +138,7 @@ if(submitBtn){
                 body: new FormData(form)
             });
             if(!response.ok){
-                throw new Error("failed : insert donation")
+                throw new Error("failed : insert news")
             }
             bid = await response.json();
             console.log(bid);
@@ -136,7 +164,7 @@ if(submitBtn){
                 body: formData
             });
             if(!response.ok){
-                throw new Error("failed : save upload (upload donation content)");
+                throw new Error("failed : save upload (upload news content)");
             }
             const isUploaded = await response.json();
             if(isUploaded){
@@ -161,7 +189,7 @@ if(editBtn){
                 body: new FormData(form)
             });
             if(!response.ok){
-                throw new Error("failed : insert donation")
+                throw new Error("failed : insert news")
             }
             result = await response.json();
             console.log("update result : "+result);
@@ -174,7 +202,7 @@ if(editBtn){
             try {
                 const formData = new FormData();
                 const bid = document.getElementById("newsNo").value;
-                const content = tinymce.get("doContent").getContent();
+                const content = tinymce.get("newsContent").getContent();
                 pathArr.forEach(temppath => {
                     formData.append("updateFiles", temppath);
                 });
@@ -186,7 +214,7 @@ if(editBtn){
                     body: formData
                 });
                 if(!response.ok){
-                    throw new Error("failed : save upload (update donation content)");
+                    throw new Error("failed : save upload (update news content)");
                 }
                 const isUpdated = await response.json();
                 if(isUpdated){
@@ -200,24 +228,26 @@ if(editBtn){
 }
 //뒤로가기 버튼 
 if(backBtn){
-    backBtn.addEventListener("click", async function () {
-        try {
+    backBtn.addEventListener("click", async function(){
+        console.log(pathArr);
+        try{
             const formData = new FormData();
-            pathArr.forEach(fileName => {
-                formData.append("uploadFileNames", fileName);
+            pathArr.forEach(path=>{
+                formData.append("tempFiles", path);
             });
-            const response = await fetch("/image/delete", {
-                method: "DELETE",
+            const response = await fetch("/image/delete",{
+                method: "POST",
                 body: formData
             });
-            if (!response.ok) {
+            if (!response.ok){
                 throw new Error("delete temp files failed");
             }
             const isDeleted = await response.json();
-            if (disDeleted) {
+            console.log(isDeleted);
+            if (isDeleted){
                 window.history.back();
             }
-        } catch (error) {
+        }catch(error){
             console.error(error);
         }
     });
