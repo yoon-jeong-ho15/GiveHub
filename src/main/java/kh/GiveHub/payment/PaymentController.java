@@ -8,17 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import kh.GiveHub.member.model.exception.MemberException;
-<<<<<<< HEAD
 import kh.GiveHub.payment.model.service.PaymentService;
 //import kh.GiveHub.payment.model.service.PaymentService;
-=======
->>>>>>> branch 'main' of https://github.com/shpark47/GiveHub.git
 import kh.GiveHub.payment.model.vo.Payment;
-<<<<<<< HEAD
 import kh.GiveHub.payment.model.vo.PaymentRequest;
 //import kh.GiveHub.payment.model.vo.PaymentRequest;
-=======
->>>>>>> branch 'main' of https://github.com/shpark47/GiveHub.git
 import lombok.RequiredArgsConstructor;
 
 @Controller
