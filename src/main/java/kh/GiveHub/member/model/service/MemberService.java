@@ -71,4 +71,5 @@ public class MemberService {
     }
 
 	public int deleteMember(String login) { return mapper.deleteMember(login);}
+
 }

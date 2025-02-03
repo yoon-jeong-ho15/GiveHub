@@ -88,7 +88,7 @@ public class MemberController {
     @GetMapping("/member/mypage")
     public String mypage(Model model) {
         int no = ((Member) model.getAttribute("loginUser")).getMemNo();
-        model.addAttribute("list", mService.selectDonationList(no, 0));
+        model.addAttribute("list", mService.selectDonationList(no, 2));
         return "/member/mypage";
     }
 
@@ -96,9 +96,7 @@ public class MemberController {
     @ResponseBody
     public ArrayList<Payment> ongoingList(Model model) {
         int no = ((Member) model.getAttribute("loginUser")).getMemNo();
-        ArrayList<Payment> list = mService.selectDonationList(no, 0);
-        System.out.println(list);
-        return list;
+        return mService.selectDonationList(no, 0);
     }
 
     @GetMapping("/finishedList")

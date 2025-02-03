@@ -259,6 +259,18 @@ public class DonationController {
 		}else{
 			donations = dService.selectDeadLineList();
 		}
+		
+		for(int i = 0; i<donations.size();i++) {
+			switch(donations.get(i).getDoCategory()) {
+			case "handicap" : donations.get(i).setDoCategory("장애인");break;
+			case "child" :donations.get(i).setDoCategory("아동/청소년");break;
+			case "old" : donations.get(i).setDoCategory("어르신");break;
+			case "family":donations.get(i).setDoCategory("가족");break;
+			case "animal":donations.get(i).setDoCategory("동물");break;
+			case "environment":donations.get(i).setDoCategory("환경");break;
+			case "etc":donations.get(i).setDoCategory("기타");break;
+			}
+		}
 
 		return ResponseEntity.ok(donations);
 
