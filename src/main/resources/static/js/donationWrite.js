@@ -207,6 +207,7 @@ if(submitBtn){
             const isUploaded = await response.json();
             if(isUploaded){
                 alert("후원글 작성이 완료되었습니다.");
+                window.location.href="/donation/donationlist";
             }
         } catch (error) {
             console.error(error);
@@ -264,6 +265,7 @@ if(editBtn){
                 const isUpdated = await response.json();
                 if(isUpdated){
                     alert("후원글 수정이 완료되었습니다.");
+                    window.location.href="/donation/donationlist";
                 }
             } catch (error) {
                 console.error(error);
