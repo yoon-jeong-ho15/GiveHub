@@ -7,7 +7,7 @@
     <link href="/css/reset.css" rel="stylesheet" type="text/css">
     <link href="/css/common.css" rel="stylesheet" type="text/css">
     <link href="/css/navBar.css" rel="stylesheet" type="text/css">
-    <link href="/css/footer.css" rel="stylesheet" type="text/css">
+    <link href="/css/page.css" rel="stylesheet" type="text/css">
     <title>기부 페이지</title>
     <style>
         body {
@@ -15,40 +15,13 @@
             text-align: center;
             margin-top: 50px;
         }
-        .container {
-            display: inline-block;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
         .container input[type="radio"],
         .container input[type="text"] {
             margin: 10px 0;
         }
-        .container input[type="text"] {
-            padding: 5px;
-            width: 150px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .submit-btn {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .submit-btn:hover {
-            background-color: #45a049;
-        }
         .main_menu_wrap a {
             color: #1a1a1a !important;
         }
-
-
         .login_wrap button {
             background: none;
             color: #1a1a1a !important;
@@ -64,11 +37,11 @@
 <script src="/js/common.js"></script>
     <div class="container">
         <form action="/pay" method="post">
-            <div>
+            <div class="dona_mem">
                 <label for="donor-name">기부자</label>
                 <input type="text" id="donor-name" name="donater" placeholder="이름 입력" th:value="${memName}" readonly>님
             </div>
-            <p>[[${session.loginUser.memNo}]]</p>
+            <p style="visibility: hidden;">[[${session.loginUser.memNo}]]</p>
             <p id="doNo" hidden>[[${doNo}]]</p>
             <p id="memNo" hidden>[[${session.loginUser.memNo}]]</p>
             
@@ -85,11 +58,11 @@
                 <input type="radio" id="amount5" name="amount" value="200000">
                 <label for="amount5">20만원</label>
             </div>
-            <div>
+            <div class="text_style">
                 <label for="custom-amount">직접입력</label>
                 <input type="text" id="custom-amount" name="customAmount" placeholder="금액 입력"> 원
             </div>
-            <button type="button" class="submit-btn" id="payBtn">결제 하기</button>
+            <button type="button" class="submitBtn" id="payBtn">결제 하기</button>
         </form>
     </div>
 <footer>
@@ -163,6 +136,10 @@
                 alert("결제에 실패하였습니다. 오류 메시지: " + rsp.error_msg);
             }
         });
+
+
+
+
     });
 </script>
 </body>

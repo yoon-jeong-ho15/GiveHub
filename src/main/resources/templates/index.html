@@ -233,60 +233,6 @@
     window.onload = () => {
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // $.ajax({
-        //     url: '/donation/new',
-        //     dataType: 'json',
-        //     success: data => {
-        //         console.log(data);
-        //
-        //         const donationContainer = document.getElementById('slide_wrap');
-        //         if (data ! = null) {
-        //             donationContainer.innerHTML = '';
-        //
-        //             for (const d of data) {
-        //                 const imgWrap = document.createElement('div');
-        //                 imgWrap.classList.add('img_wrap'); // 클래스 추가
-        //
-        //                 imgWrap.innerHTML = `
-        //                 <a href="/donation/donationdetail/${d.doNo}">
-        //                     <div class="slide_img">
-        //                         <img src="${d.thumbnailPath}" alt="donation image">
-        //                     </div>
-        //                     <div class="text_wrap">
-        //                         <p class="category category_white">${d.doCategory}</p>
-        //                         <h3 class="board_title">${d.doTitle}</h3>
-        //                         <span class="link_text">도움주러가기↗</span>
-        //                     </div>
-        //                 </a>`;
-        //
-        //                 donationContainer.appendChild(imgWrap);
-        //             }
-        //         }
-        //     },
-        //     error: data => console.log(data)
-        // });
-
-
-
         $.ajax({
             url: '/donation/newNews',
             dataType: 'json',
@@ -423,7 +369,7 @@
             rsp.forEach(function(donation) {
                 content += `
                 	<div class="custom_board_contents" data-url="/donation/donationdetail/${donation.doNo}">
-                    <div class="custom_board_img">
+                    <div class="custom_board_img" style="background-image: url('${donation.thumbnailPath}');">
                         <img src="${donation.thumbnailPath}" alt="Donation Image"/>
                     </div>
                     <div class="board_content_text_wrap">
