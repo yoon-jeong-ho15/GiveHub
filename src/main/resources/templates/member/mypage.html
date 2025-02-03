@@ -299,8 +299,8 @@ span {
 				<p id="myProfile" class="text_color my_info_title infoMenu">My Profile</p>
 				<button id="editMyInfo" class="infoMenu">내 정보 수정</button>
 				<button id="myDonaList" class="infoMenu">기부 내역 조회</button>
+				<button id="organizerDonaList" class="infoMenu" th:if="${session.loginUser.memType == '1'}">받은 기부 조회</button>
 				<hr>
-<!--				<button onclick="location.href='redirect:/'">Log out</button>-->
 			</div>
 			<div class="my_info_menu_wrap">
 				<label class="delete_user" onclick="confirmDelete()">탈퇴하기</label>
@@ -405,6 +405,29 @@ span {
 				</div>
 			</div>
 		</div>
+
+		<div class="my_info_wrap" id="orDonaList">
+			<div class="user_intro">
+				<div><img th:src="@{'/img/grade_' + ${session.loginUser.memGrade} + '.svg'}"><p>[[${session.loginUser.memName}]]<p>님, 반갑습니다.</div>
+				<p>하모니와 함께 아름다운 세상을 만들어갑니다.</p>
+			</div>
+			<div class="info_detail_wrap">
+				<p class="text_color my_info_title">받은 기부 조회</p>
+				<hr>
+				<div>
+					<table>
+						<tbody>
+							<tr th:each="p:${list}">
+								<td th:text="${p.doTitle}"></td>
+								<td th:text="${p.memName}"></td>
+								<td th:text="${p.payAmount}+'원'"></td>
+								<td th:text="${#dates.format(p.payCreatedate, 'yyyy년 MM월 dd일')}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 	<script>
 		function checkEmail(event){
@@ -449,6 +472,7 @@ span {
 				infoContents[0].style.display = 'block';
 				infoContents[1].style.display = 'none';
 				infoContents[2].style.display = 'none';
+				infoContents[3].style.display = 'none';
 			});
 
 			// "내 정보 수정" 클릭 시 두 번째 정보 보이기
@@ -456,13 +480,24 @@ span {
 				infoContents[0].style.display = 'none';
 				infoContents[1].style.display = 'block';
 				infoContents[2].style.display = 'none';
+				infoContents[3].style.display = 'none';
 			});
 
 			// "기부 내역 조회" 클릭 시 세 번째 정보 보이기
 			infoMenu[2].addEventListener('click', function() {
+				ongoingList();
 				infoContents[0].style.display = 'none';
 				infoContents[1].style.display = 'none';
 				infoContents[2].style.display = 'block';
+				infoContents[3].style.display = 'none';
+			});
+
+			// "받은 기부 조회" 클릭 시 세 번째 정보 보이기
+			infoMenu[3].addEventListener('click', function() {
+				infoContents[0].style.display = 'none';
+				infoContents[1].style.display = 'none';
+				infoContents[2].style.display = 'none';
+				infoContents[3].style.display = 'block';
 			});
 		});
 
@@ -586,10 +621,6 @@ span {
 				location.href = '/member/delete';
 			}
 			// 취소 시 아무 동작도 하지 않음
-		}
-
-		window.onload = () => {
-			ongoingList();
 		}
 	</script>
 <footer>
