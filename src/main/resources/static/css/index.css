@@ -216,6 +216,9 @@ div.slide_img_wrap {
    overflow: hidden;
    position: relative;
    display: flex;
+   backdrop-filter: blur(1000px) !important;
+   background-size: cover;
+   background-position: center;
 }
 .custom_board_img img {
    height: 100% !important;
