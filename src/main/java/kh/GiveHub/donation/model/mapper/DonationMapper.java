@@ -35,4 +35,6 @@ public interface DonationMapper {
     ArrayList<Donation> selectDeadLineList();
 
 	int updateDonation(Donation d);
+	//쿼리 delete 가 아니라 update status='N'으로 하는거
+	int deleteDonation(int doNo);
 }
