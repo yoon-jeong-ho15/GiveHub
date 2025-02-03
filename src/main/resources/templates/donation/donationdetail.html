@@ -12,8 +12,6 @@
         .main_menu_wrap a {
             color: #1a1a1a !important;
         }
-
-
         .login_wrap button {
             background: none;
             color: #1a1a1a !important;
@@ -26,7 +24,27 @@
         tbody .selectlist:hover {
             cursor: pointer; /* 마우스 커서 변경 */
         }
-
+        table.table{width: 60%}
+        .modal-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 3;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
     </style>
 </head>
 <style>
@@ -106,15 +124,15 @@
         </div>
 
         <th:block th:if="${session.loginUser != null}">
-            <div class="news_write_wrap">
-                <button id="newsWriteBtn" type="button" onclick="newsWrite()" class="news_btn">
-                    소식글 작성
-                </button>
-                <button th:if="${session.loginUser.memNo == d.memNo}" id="editBtn" type="button" onclick="doEdit()" class="news_btn">
-                    수정
-                </button>
-                <button id="deleteBtn" type="button" onclick="doDelete()" class="delete_btn">삭제</button>
-            </div>
+            <button id="newsWriteBtn" type="button" onclick="newsWrite()">
+                소식글 작성
+            </button>
+            <button th:if="${session.loginUser.memNo == d.memNo}" id="editBtn" type="button" onclick="doEdit()">
+                수정
+            </button>
+            <button id="deleteBtn" type="button" onclick="openModal('deleteModal')">
+                삭제
+            </button>
         </th:block>
 
 
@@ -141,12 +159,22 @@
             </table>
         </div>
     </div>
-
 </section>
+
 <footer>
     <div th:replace="~{/common/footer.html :: footer_bar}"></div>
 </footer>
 
+<div class="modal-container" id="deleteModal" data-modal>
+    <div class="modal-content">
+        <h2>delete confirm</h2>
+        <p>delete confirm delete confirm?</p>
+        <div class="buttonDiv">
+            <button onclick="doDelete()">confirm</button>
+            <button onclick="closeModal('deleteModal')">close</button>
+        </div>
+    </div>  
+</div>
 <script type="text/javascript">
     const newsWrite = () => {
         const doNo = document.getElementById("doNo").textContent;
@@ -157,6 +185,42 @@
         const doNo = document.getElementById("doNo").textContent;
         window.location.href="/donation/edit/"+doNo;
     };
+    //아래는 Modal 사용하는 방법이라는데, 
+    //클래스 정의를하지 않고 간단히 사용할 수 있지만
+    //공부할겸 이 방법으로 해봤습니다. (윤정호)
+        class Modal{
+            constructor(modalId){
+                this.modal = document.getElementById(modalId);
+                this.isOpen = false;
+            }
+            open(){
+                this.modal.style.display = "flex";
+                this.isOpen = true;
+            }
+            close(){
+                this.modal.style.display="none";
+                this.isOpen=false;
+            }
+        }
+        const modals = new Map();
+        document.querySelectorAll('[data-modal]').forEach(element => {
+            const modalId = element.id;
+            modals.set(modalId, new Modal(modalId));
+        });
+
+        const openModal=function(modalId){
+            const modal = modals.get(modalId)
+            modal.open();
+        }
+        const closeModal=function(modalId){
+            const modal = modals.get(modalId)
+            modal.close();
+        }
+
+    const doDelete=()=>{
+        const doNo = document.getElementById("doNo").textContent;
+        window.location.href="/donation/delete/"+doNo;
+    }
 
 	window.onload = () => {
         document.getElementById("doanteBtn").addEventListener("click", function () {
