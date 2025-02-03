@@ -93,7 +93,7 @@
         </div>
     </div>
 </section>
-<p hidden="hidden" id="userId">[[${session.loginUser.memNo}]]</p>
+<p hidden="hidden" id="userId">[[${session.loginUser != null ? session.loginUser.memNo : ''}]]</p>
 <div id="floating_btn" class="dona_btn">
     <a href="/donation/donationlist">후원하기</a>
 </div>
