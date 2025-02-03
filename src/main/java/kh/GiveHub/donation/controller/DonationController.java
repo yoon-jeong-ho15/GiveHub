@@ -213,19 +213,6 @@ public class DonationController {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 	@GetMapping("/donation/customNews")
 	public ResponseEntity<List<Donation>> getCustomNews(@RequestParam(value = "userId" , required = false,defaultValue = "0") int userId){
 		ArrayList<Payment> list = mService.selectDonationList(userId,0);
@@ -271,6 +258,7 @@ public class DonationController {
 			case "etc":donations.get(i).setDoCategory("기타");break;
 			}
 		}
+		
 
 		return ResponseEntity.ok(donations);
 
