@@ -20,7 +20,7 @@ public class DeleteController {
 	public String deleteDonation(@PathVariable("doNo") int doNo) {
 		int result = dService.deleteDonation(doNo);
 		if (result == 1) {
-			return "/donation/donationlist";
+			return "redirect:/donation/donationlist";
 		}else {
 			throw new DonationException("deleteDonation failed");
 		}
@@ -30,7 +30,7 @@ public class DeleteController {
 	public String deleteNews(@PathVariable("newsNo") int newsNo) {
 		int result = nService.deleteNews2(newsNo);
 		if (result == 1) {
-			return "/news/newsList";
+			return "redirect:/news/newsList";
 		}else {
 			throw new NewsException("deleteNews2 failed");
 		}

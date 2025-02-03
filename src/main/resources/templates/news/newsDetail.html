@@ -107,13 +107,13 @@
 </section>
 <div id="deleteModal" class="modal-container" data-modal>
     <div class="modal-content">
-        <h1>경고</h1>
-        <p>정말로 삭제하시겠습니까?</p>
+        <h1 class="donation_detail_text">경고</h1>
+        <p class="donation_data_small">정말로 삭제하시겠습니까?</p>
         <div class="buttonDiv">
             <button onclick="doDelete()">확인</button>
             <button onclick="closeModal('deleteModal')">취소</button>
         </div>
-    </div>
+    </div>  
 </div>
 <footer>
     <div th:replace="~{/common/footer.html :: footer_bar}"></div>
