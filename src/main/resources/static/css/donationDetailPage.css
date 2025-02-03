@@ -133,7 +133,42 @@ div#floating_btn {
     border: 1px solid #cdcdcd;
 }
 
+.news_write_wrap button:hover {
+    font-weight: 500;
+}
 
+.newsList_custom .select_list {
+    border: 1px solid #dfdfdf;
+    border-radius: 19px;
+    padding: 1.6rem 1.8rem;
+    box-sizing: border-box;
+    text-align: justify;
+    margin-bottom: 2rem;
+    transition-duration: 0.2s;
+    width: 28%;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    align-items: flex-start;
+}
+.newsList_custom .select_list:nth-child(even){
+    margin: 0 2.6% 2rem;
+}
+tbody.newsList_custom {
+    display: flex;
+    flex-wrap: wrap;
+}
+.newsList_custom td {
+    margin-bottom: 0.5rem;
+}
 
+.newsList_custom .select_list:hover {
+    border: 1px solid #34D28B;
+    transition-duration: 0.2s;
+}
+
+table.table {
+    width: 100%;
+}
 
 
