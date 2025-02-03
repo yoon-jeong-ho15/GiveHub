@@ -27,8 +27,8 @@ public class NewsService {
         return mapper.deleteNews(nNo);
     }
 
-    public ArrayList<News> nnewsList(int i) {
-        return mapper.nnewsList(i);
+    public ArrayList<News> nnewsList(int doNo) {
+        return mapper.nnewsList(doNo);
     }
 
     public int setContent(int newsNo, String content) {
@@ -80,5 +80,9 @@ public class NewsService {
 
 	public int updateNews(News n) {
 		return mapper.updateNews(n);
+	}
+	//쿼리 delete 가 아니라 update status='N'으로 하는거
+	public int deleteNews2(int newsNo) {
+		return mapper.deleteNews2(newsNo);
 	}
 }

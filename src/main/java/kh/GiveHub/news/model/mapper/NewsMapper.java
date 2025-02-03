@@ -16,7 +16,7 @@ public interface NewsMapper {
 
     int deleteNews(String nNo);
 
-    ArrayList<News> nnewsList(int i);
+    ArrayList<News> nnewsList(int doNo);
 
 	int insertNews(News n);
 
@@ -31,4 +31,6 @@ public interface NewsMapper {
 	String getOldContent(int newsNo);
 
 	int updateNews(News n);
+	//쿼리 delete 가 아니라 update status='N'으로 하는거
+	int deleteNews2(int newsNo);
 }

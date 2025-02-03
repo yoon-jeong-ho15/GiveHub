@@ -24,6 +24,8 @@
         .modal-container{
             display: none;
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
@@ -143,16 +145,17 @@
 
     const openModal= function(modalId){
         //const modal = document.getElementById(modalId);
-        const modal = 
+        const modal = modals.get(modalId);
         modal.open();
     }
     const closeModal=function(modalId){
-        const modal = modals.get(modalId)
+        const modal = modals.get(modalId);
         modal.close();
     }
+
     const doDelete=()=>{
         const newsNo = document.getElementById("newsNo").textContent;
-        window.location.href="/donation/delete/"+newsNo;
+        window.location.href="/news/delete/"+newsNo;
     }
 </script>
 </body>

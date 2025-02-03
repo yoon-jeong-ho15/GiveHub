@@ -20,10 +20,11 @@
 	<select id="nnewsList">
 		select *
 		from news_view
-		<if test="i != 0">
-			where do_no = #{i}
+		where news_status = 'Y'
+		<if test="doNo != 0">
+			and do_no = #{doNo}
 		</if>
-		order by news_createdate desc
+		order by news_no desc
 	</select>
 
 	<insert id="insertNews">
@@ -71,5 +72,9 @@
 		from news_view
 		where news_no = #{newsNo}
 	</select>
-	
+	<update id="deleteNews2">
+		update news
+		set news_status ='N'
+		where news_no = #{newsNo}
+	</update>
 </mapper>
