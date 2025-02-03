@@ -77,4 +77,11 @@
 		set mem_status = 'N'
 		where mem_id = #{memId}
 	</update>
+	
+	<select	id="checkEmail">
+		select count(*) from member
+		where mem_email = #{email} and mem_status = 'Y'
+	</select>
+	
+	
 </mapper>

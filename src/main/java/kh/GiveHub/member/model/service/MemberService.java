@@ -72,4 +72,8 @@ public class MemberService {
 
 	public int deleteMember(String login) { return mapper.deleteMember(login);}
 
+	public int checkEmail(String email) {
+		return mapper.checkEmail(email);
+	}
+
 }
