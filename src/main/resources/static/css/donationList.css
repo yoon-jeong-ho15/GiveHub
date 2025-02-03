@@ -136,9 +136,7 @@ div.sortCategory input {
     cursor: pointer;
     align-items: flex-start;
 }
-td.list_category_custom {
-    margin: 0.8rem 0 0.1rem !important;
-}
+
 .list_container tbody {
     display: flex;
     flex-direction: row;
@@ -263,17 +261,3 @@ td.views_custom {
     color: #6b6b6b;
 }
 /*donaList end*/
-.newsList_custom .select_list {
-    border: 1px solid #dfdfdf;
-    border-radius: 19px;
-    padding: 1.6rem 1.8rem;
-    box-sizing: border-box;
-    text-align: justify;
-    margin-bottom: 4rem;
-    transition-duration: 0.2s;
-}
-
-.newsList_custom .select_list:hover {
-    border: 1px solid #34D28B;
-    transition-duration: 0.2s;
-}

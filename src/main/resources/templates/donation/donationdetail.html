@@ -7,6 +7,7 @@
     <link href="/css/common.css" rel="stylesheet" type="text/css">
     <link href="/css/donationDetailPage.css" rel="stylesheet" type="text/css">
     <link href="/css/navBar.css" rel="stylesheet" type="text/css">
+    <link href="/css/donationList.css" rel="stylesheet" type="text/css">
     <style>
         .main_menu_wrap a {
             color: #1a1a1a !important;
@@ -23,10 +24,9 @@
         }
 
         tbody .selectlist:hover {
-            background-color: #f2f2f2; /* 배경색 변경 */
             cursor: pointer; /* 마우스 커서 변경 */
         }
-        table.table{width: 60%}
+
     </style>
 </head>
 <style>
@@ -117,25 +117,25 @@
             </div>
         </th:block>
 
-        <br><br><br><br>
-        <h1 class="admin_title">소식 목록</h1>
+
 
         <div class="donationList">
+            <h2 class="news_title">그 후의 이야기</h2>
             <table class="table">
-                <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>새소식 제목</th>
-                    <th>올린 날짜</th>
-                    <th>프로젝트 팀</th>
-                </tr>
-                </thead>
-                <tbody>
-					<tr align="center" class="selectlist" th:each="n : ${list}">
-						<td th:text="${n.newsNo}"></td>
-						<td th:text="${n.newsTitle}"></td>
-						<td th:text="${n.newsCreateDate}"></td>
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th>번호</th>-->
+<!--                    <th>새소식 제목</th>-->
+<!--                    <th>올린 날짜</th>-->
+<!--                    <th>프로젝트 팀</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+                <tbody class="newsList_custom">
+					<tr class="selectlist select_list" th:each="n : ${list}">
+						<td class="news_category_custom" th:text="${n.newsNo}"></td>
+						<td class="list_title_custom" th:text="${n.newsTitle}"></td>
 						<td th:text="${n.memName}"></td>
+                        <td class="dona_date" th:text="${n.newsCreateDate}"></td>
 					</tr>
                 </tbody>
             </table>
