@@ -93,7 +93,7 @@
         </div>
     </div>
 </section>
-
+<p hidden="hidden" id="userId">[[${session.loginUser.memNo}]]</p>
 <div id="floating_btn" class="dona_btn">
     <a href="/donation/donationlist">후원하기</a>
 </div>
@@ -256,7 +256,7 @@
         //         console.log(data);
         //
         //         const donationContainer = document.getElementById('slide_wrap');
-        //         if (data != null) {
+        //         if (data ! = null) {
         //             donationContainer.innerHTML = '';
         //
         //             for (const d of data) {
@@ -415,7 +415,7 @@
         dataType: "json",
         success: function(rsp) {
             console.log(userId);
-            // 응답으로 받은 rsp는 donation 목록입니다.
+            
             var content = '';
             rsp.forEach(function(donation) {
                 content += `
