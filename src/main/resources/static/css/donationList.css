@@ -2,7 +2,6 @@
     color: #1a1a1a !important;
 }
 
-
 .login_wrap button {
     background: none;
     color: #1a1a1a !important;
@@ -12,6 +11,20 @@
     cursor: pointer;
 }
 /*page header color*/
+
+.dona_write{
+    transform: translateX(0px) !important;
+    padding: 0.8rem 3.2rem;
+    font-size: 1.1rem;
+    background-color: #5cc78d;
+    font-weight: 500;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    margin: 6rem 0 3rem 1rem;
+}
+
 
 .doantion_list_wrap {
     width: 75%;
@@ -229,7 +242,7 @@ td.dona_date, .dona_title_custom {
 
 }
 
-/* 배경을 블러 처리 */
+/* 배경 블러 처리 */
 .img_custom::before {
     content: "";
     position: absolute;

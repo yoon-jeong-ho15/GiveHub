@@ -94,8 +94,44 @@ p.donation_data_small {
     transform: translateX(-50%);
 }
 
+button#doanteBtn {
+    padding: 0.8rem 3.2rem;
+    font-size: 1.1rem;
+    background-color: #5cc78d;
+    font-weight: 500;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    margin: 6rem 0 2rem;
+}
+div#floating_btn {
+    display: inline-block;
+}
 
+.news_write_wrap {
+    display: inline-block;
+    float: right;
+    margin: 6rem 0 2rem;
+}
+.news_write_wrap button{
+    cursor: pointer;
+}
 
+.news_write_wrap button {
+    background: transparent;
+    font-size: 1rem;
+    color: #4caf75;
+    border: 1px solid #4caf75;
+    border-radius: 9px;
+    padding: 0.8rem 1.5rem;
+    margin-left: 1rem;
+}
+
+.news_write_wrap .delete_btn {
+    color: #474747;
+    border: 1px solid #cdcdcd;
+}
 
 
 

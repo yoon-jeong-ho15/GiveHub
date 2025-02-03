@@ -106,13 +106,15 @@
         </div>
 
         <th:block th:if="${session.loginUser != null}">
-            <button id="newsWriteBtn" type="button" onclick="newsWrite()">
-                소식글 작성
-            </button>
-            <button th:if="${session.loginUser.memNo == d.memNo}" id="editBtn" type="button" onclick="doEdit()">
-                수정
-            </button>
-            <button id="deleteBtn" type="button" onclick="doDelete()">삭제</button>
+            <div class="news_write_wrap">
+                <button id="newsWriteBtn" type="button" onclick="newsWrite()" class="news_btn">
+                    소식글 작성
+                </button>
+                <button th:if="${session.loginUser.memNo == d.memNo}" id="editBtn" type="button" onclick="doEdit()" class="news_btn">
+                    수정
+                </button>
+                <button id="deleteBtn" type="button" onclick="doDelete()" class="delete_btn">삭제</button>
+            </div>
         </th:block>
 
         <br><br><br><br>
