@@ -1,6 +1,7 @@
 package kh.GiveHub.donation.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -51,7 +52,7 @@ public class DonationService {
         
 		while(matcher.find()) {
 			String oldPath = matcher.group(1);
-			String newPath = oldPath.replace("/temp/", "/upload/");
+			String newPath = oldPath.replace("../temp/", "/upload/");
             
             int startIndex = matcher.start(1) + offset;
             int endIndex = matcher.end(1) + offset;
@@ -71,5 +72,21 @@ public class DonationService {
 
     public ArrayList<Donation> selectNew() {
         return mapper.selectNew();
+    }
+
+	public String getOldContent(int doNo) {
+		return mapper.getOldContent(doNo);
+	}
+
+    public ArrayList<Donation> selectMostCategoryList(String mostCategory) {
+        return mapper.selectMostCategoryList(mostCategory);
+    }
+
+    public ArrayList<Donation> selectDeadLineList() {
+        return mapper.selectDeadLineList();
+    }
+
+    public int updateDonation(Donation d) {
+        return mapper.updateDonation(d);
     }
 }

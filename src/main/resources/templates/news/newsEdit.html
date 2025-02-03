@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+    <link href="/css/reset.css" rel="stylesheet" type="text/css">
+    <link href="/css/common.css" rel="stylesheet" type="text/css">
+    <link href="/css/navBar.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/js/tinymce/tinymce.min.js"></script>
+    <style>
+        #submitBtn {
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: #5cc78d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #submitBtn:hover {
+            background-color: #4caf75;
+        }
+        .main { 
+            margin-top: 15rem;
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+        #thumbnailDiv{
+            width: 400px;
+            height: 250px;
+        }
+        .sec1{
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{/common/navbar.html :: navbar}"></div>
+
+<div class="main">
+    <section class="sec1">
+    <form>
+        <div class="tableDiv">
+        <table>
+            <tr>
+                <td><label>제목</label></td>
+                <td>
+                    <input type="text" id="newsTitle" name="newsTitle" 
+                    th:value="${n.newsTitle}" required>
+                    <input type="hidden" id="newsNo" name="newsNo"
+                    th:value="${n.newsNo}">
+                    <input type="hidden" id="memNo" name="memNo"
+                    th:value="${n.memNo}">
+                </td>
+            </tr>
+        </table>
+        </form>
+        </div>
+        <div>
+            썸네일 
+            <button id="thumbBtn">넣기</button>
+            <div id="thumbnailDiv" width="425px" height="300px">
+                <img id="thumbPre" th:src="${n.thumbnailPath}">
+            </div>
+        </div>
+    </div>
+    <section class="sec2">
+        <h2>게시글 내용</h2>
+        <input type="hidden" name="boardType" id="boardType" value="news">
+        <textarea id="newsContent" name="newsContent">
+        </textarea>
+        <div id="buttonDiv">
+            <button type="button" id="editBtn">수정 완료</button>
+            <button type="button" id="backBtn">뒤로가기</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div th:replace="~{/common/footer.html :: footer_bar}"></div>
+</footer>
+
+<script src="/js/common.js"></script>
+<script src="/js/newsWrite.js"></script>
+<script th:inline="javascript">
+    window.onload=()=>{
+        tinymce.get("newsContent").setContent(/*[[${n.newsContent}]]*/"");
+    }
+</script>
+</body>
+</html>

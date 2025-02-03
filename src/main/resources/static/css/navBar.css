@@ -23,6 +23,7 @@ div#logo {
     width: 65px;
 }
 .logo_main a {
+    width: 60px;
 	height: 100%;
     display: flex;
     align-items: center;
@@ -64,9 +65,10 @@ nav#main_menu ul li a {
 }
 
 nav#main_menu {
-    width: 70%;
-    padding-left: 7%;
+    width: 75.5%;
+    /*padding-left: 7%;*/
 }
+
 div.slide_up_inner_menu>ul:first-child {
    margin-right: 8rem;
 }
@@ -95,7 +97,7 @@ div#slide_up_menu {
 }
 .slide_up_inner_menu {
     width: 100%;
-    padding-left: 18.8%;
+    padding-left: 12.9%;
 }
 .slide_up_inner_menu a>li {
 	color:#fff;

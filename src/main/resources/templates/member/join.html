@@ -121,7 +121,6 @@
                     <span id="mail-check-warn"></span>
                     <button type="button" name="confirmBtn" id="confirmBtn" style="margin-top: 20px">이메일 인증</button>
                     <br>
-                    <input type="hidden" id="Confirm" name="Confirm" value="">
                 </div>
             </td>
         </tr>
@@ -142,6 +141,7 @@
     let idCheck = false;
     let pwdCheck = false;
     let confirmCheck = false;
+    let emailConfirm = '';
 
     document.getElementById('passwordConfirm').addEventListener('change', function () {
         const password = document.getElementById('mem_pwd').value;
@@ -225,13 +225,13 @@
         if (document.querySelector('#mem_email').value.trim() === ''){
             alert('이메일을 입력해 주세요.');
         }else{
+            document.querySelector('#mail_number').style.visibility = 'visible';
             $.ajax({
                 url: '/emailCheck',
                 method:'post',
                 data:{email:document.querySelector('#mem_email').value},
                 success:data=>{
-                    document.querySelector('#Confirm').value = data;
-                    document.querySelector('#mail_number').style.visibility = 'visible';
+                    emailConfirm = data;
                 },
                 error:data => console.log(data)
             });
@@ -239,7 +239,7 @@
     });
 
     document.querySelector('#confirmBtn').addEventListener('click', ()=>{
-        if (document.querySelector('#confirmNumber').value == document.querySelector('#Confirm').value){
+        if (document.querySelector('#confirmNumber').value == emailConfirm){
             confirmCheck = true;
             alert('인증 완료');
         }else{

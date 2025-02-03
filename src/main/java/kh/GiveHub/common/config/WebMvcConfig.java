@@ -5,12 +5,13 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer{
-	private String getBasePath() {
+	
+	public static String getBasePath() {
 		String os = System.getProperty("os.name").toLowerCase();
 		if (os.contains("win")) {
-			return "file:///c:/GiveHub";
+			return "c:/GiveHub";
 		}else {
-			return "file:///GiveHub";
+			return "/Users/" + System.getProperty("user.name") + "/GiveHub";
 		}
 	}
 	@Override
@@ -18,9 +19,9 @@ public class WebMvcConfig implements WebMvcConfigurer{
 		String basePath = getBasePath();
 		
 		registry.addResourceHandler("/temp/**")
-			.addResourceLocations(basePath+"/temp/");
+			.addResourceLocations("file:///"+basePath+"/temp/");
 		registry.addResourceHandler("/upload/**")
-			.addResourceLocations(basePath+"/upload/");
+			.addResourceLocations("file:///"+basePath+"/upload/");
 		registry.addResourceHandler("/**")
 			.addResourceLocations("classpath:/static/");
 

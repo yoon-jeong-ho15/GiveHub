@@ -9,4 +9,8 @@
 		,#{imgType}, #{refNo}, #{boardType})
 	</insert>
 	
+	<delete id="deleteImage">
+		delete from image
+		where img_rename = #{filename}
+	</delete>
 </mapper>

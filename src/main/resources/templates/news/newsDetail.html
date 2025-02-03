@@ -6,7 +6,7 @@
     <link href="/css/reset.css" rel="stylesheet" type="text/css">
     <link href="/css/common.css" rel="stylesheet" type="text/css">
     <link href="/css/navBar.css" rel="stylesheet" type="text/css">
-    <link href="/css/footer.css" rel="stylesheet" type="text/css">
+    <link href="/css/donationDetailPage.css" rel="stylesheet" type="text/css">
     <style>
         .main_menu_wrap a {
             color: #1a1a1a !important;
@@ -31,40 +31,72 @@
 <section>
     <div class="container">
         <div class="detail_title_wrap">
-            <p class="title_sub_text">후원</p>
-            <h1 class="donation_detail_text">[[${n.doTitle}]]</h1>
+            <p class="title_sub_text">소식</p>
+            <h1 class="donation_detail_text">[[${n.newsTitle}]]</h1>
         </div>
 
+        <p id="doNo" hidden>[[${n.doNo}]]</p>
+        <p id="newsNo" hidden>[[${n.newsNo}]]</p>
+        <p hidden>[[${session.loginUser != null ? session.loginUser.memNo : ''}]]</p>
+
         <div class="donation_info">
+            <div class="donation_img_wrap">
+                <img th:src="@{${n.thumbnailPath}}" alt="">
+            </div>
             <div class="donation_info_text_wrap">
                 <ul>
                     <li>
-                        <p>새소식</p>
-                        <span display="inline-block"><p class="donation_data" th:text="${n.newsTitle}"></span>
+                        <p>후원 프로젝트</p>
+                        <p class="donation_data" th:text="${n.doTitle}"></p>
                     </li>
                     <li>
-                        <p>프로젝트 팀</p>
+                        <p>후원자</p>
                         <p class="donation_data" th:text="${n.memName}"></p>
-                    </li>
-                    <li>
-                        <p>내용</p>
-                        <p class="donation_data" th:text="${n.newsContent}"></p>
                     </li>
                 </ul>
 
             </div>
         </div>
+        <div style="text-align: center" class="bar-label"></div>
+        <div class="bar-container">
+        </div>
+        <!-- ajax -->
+        <!--			<script type="text/javascript">-->
+        <!--				$(document).ready(function() {-->
+        <!--					document.getElementById("Content_bar").style.width = '20%';-->
+        <!--				});-->
+        <!--			</script>-->
+        <br><br>
+        <div class="doantion_content" th:utext="${n.newsContent}">
+
+        </div>
+        <br><br>
+        <div class="content_board_wrap">
+            <table class="content_board">
+            </table>
+        </div>
+
+        <th:block th:if="${session.loginUser != null}">
+            <button th:if="${session.loginUser.memNo == n.memNo}" id="editBtn" type="button" onclick="doEdit()">
+                수정
+            </button>
+            <button th:if="${session.loginUser.memNo == n.memNo}" id="deleteBtn" type="button" onclick="doDelete()">
+                삭제
+            </button>
+        </th:block>
+       
     </div>
+
 </section>
-
-
-
-
-
-
 
 <footer>
     <div th:replace="~{/common/footer.html :: footer_bar}"></div>
 </footer>
+<script>
+    const doEdit = () =>{
+        const newsNo = document.getElementById("newsNo").textContent;
+        window.location.href="/news/edit/"+newsNo;
+    }
+</script>
 </body>
 </html>

@@ -113,7 +113,7 @@ tbody {
     transform: translateY(-10px);
 }
 
-.check_btn button, #confirmBtn, .page_btn {
+.check_btn button, #confirmBtn, .page_btn .text_style button {
     background: transparent;
     color: #4caf75;
     border: 1px solid #4caf75;

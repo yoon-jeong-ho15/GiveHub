@@ -3,13 +3,14 @@
 
 <mapper namespace="kh.GiveHub.news.model.mapper.NewsMapper">
 	<select id="selectNews">
-		select * from news
-			join donation using(do_no)
-		where news_no = #{nNo}
+		select * from news_view
+		where news_no = #{newsNo}
 	</select>
 
 	<select id="selectNewsList">
-		select * from news join donation using(do_no)
+		select *
+		from news_view
+		order by news_no DESC
 	</select>
 
 	<delete id="deleteNews">
@@ -17,13 +18,12 @@
 	</delete>
 
 	<select id="nnewsList">
-		select n.*, d.do_title, m.mem_name
-		from news n
-		join donation d on (n.do_no = d.do_no)
-		join member m on (d.mem_no = m.mem_no)
+		select *
+		from news_view
 		<if test="i != 0">
-			where n.do_no = #{i}
+			where do_no = #{i}
 		</if>
+		order by news_createdate desc
 	</select>
 
 	<insert id="insertNews">
@@ -34,16 +34,41 @@
 		values (#{newsNo}, #{newsTitle}, 'null', default,
 		 default, #{memNo}, #{doNo})
 	</insert>
+	
 	<update id="setContent">
 		update news
 		set news_content = #{newContent}
 		where news_no = #{newsNo}
 	</update>
-
+	
+	<update id="updateNews">
+		update news
+		set news_title = #{newsTitle}
+		where news_no = #{newsNo}
+	</update>
+	
+	<select id="getOldContent">
+		select news_content
+		from news
+		where news_no = #{newsNo}
+	</select>
 	<select id="newsDetail">
 		select *
-		from news
-		join donation using(do_no)
+		from news_view
+		where news_no = #{newsNo}
+	</select>
+
+	<select id="selectNewsNew">
+		<![CDATA[
+		select *
+		FROM news_view
+		where ROWNUM <= 3
+		]]>
+	</select>
+
+	<select id="selectNewsDetail">
+		select *
+		from news_view
 		where news_no = #{newsNo}
 	</select>
 	

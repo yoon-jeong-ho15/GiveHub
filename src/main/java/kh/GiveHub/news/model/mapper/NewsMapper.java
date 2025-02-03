@@ -10,7 +10,7 @@ import kh.GiveHub.news.model.vo.News;
 @Mapper
 public interface NewsMapper {
 
-    News selectNews(String nNo);
+    News selectNews(int newsNo);
 
     ArrayList<News> selectNewsList();
 
@@ -23,4 +23,12 @@ public interface NewsMapper {
 	int setContent(@Param("newsNo")int newsNo,@Param("newContent") String newContent);
 
     News newsDetail(int newsNo);
+
+    ArrayList<News> selectNewsNew();
+
+    News selectNewsDetail(String newsNo);
+
+	String getOldContent(int newsNo);
+
+	int updateNews(News n);
 }
