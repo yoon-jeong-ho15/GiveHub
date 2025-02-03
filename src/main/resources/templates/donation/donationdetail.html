@@ -72,7 +72,7 @@
                     <li>
                         <p>모인 금액</p> <span display="inline-block"><p class="donation_data" th:text="${d.payAmount}"></p>
 								<span>원</span>
-								<p class="donation_data_small" th:text="${1.0*d.payAmount/d.doGoal*100}"></p>
+								<p class="donation_data_small" th:text="${#numbers.formatDecimal(1.0*d.payAmount/d.doGoal*100, 1, 1)}"></p>
 								<span style="font-weight: 900">%</span></span>
                     </li>
                     <li>
@@ -97,7 +97,7 @@
 
             </div>
         </div>
-        <div style="text-align: center" class="bar-label" th:text="${1.0*d.payAmount/d.doGoal*100+'%'}"></div>
+        <div style="text-align: center" class="bar-label" th:text="${#numbers.formatDecimal(1.0*d.payAmount/d.doGoal*100, 1, 1)+'%'}"></div>
         <div class="bar-container">
             <div id="Content_bar" class="bar"
                  th:style="'width:' + ${1.0*d.payAmount/d.doGoal*100 < 100 ? #strings.toString(1.0*d.payAmount/d.doGoal*100) : '100'} + '%;'"></div>
