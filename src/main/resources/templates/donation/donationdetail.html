@@ -8,6 +8,9 @@
 <link href="/css/navBar.css" rel="stylesheet" type="text/css">
 <link href="/css/donationList.css" rel="stylesheet" type="text/css">
 <style>
+    .donation_content img{
+        width: auto !important;
+    }
     .main_menu_wrap a {
         color: #1a1a1a !important;
     }
@@ -43,6 +46,12 @@
         max-width: 500px;
         width: 90%;
         position: relative;
+    }
+    .donation_content {
+        margin-top: 3rem;
+        border: 2px solid #e7e7e7;
+        border-radius: 17px;
+        padding: 4rem 3rem 2rem;
     }
 </style>
 <meta charset="UTF-8">
@@ -110,7 +119,7 @@
         <!--			</script>-->
 
         <br><br>
-        <div class="doantion_content" th:utext="${d.doContent}">
+        <div class="donation_content" th:utext="${d.doContent}">
 
         </div>
         <br><br>
