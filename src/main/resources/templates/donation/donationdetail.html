@@ -142,7 +142,7 @@
                 <button th:if="${session.loginUser.memNo == d.memNo}" id="editBtn" type="button" onclick="doEdit()">
                     수정
                 </button>
-                <button th:if="${session.loginUser.memNo == d.memNo}" type="button" onclick="openModal('deleteModal')">
+                <button class="delete_btn" th:if="${session.loginUser.memNo == d.memNo}" type="button" onclick="openModal('deleteModal')">
                     삭제
                 </button>
             </span>
