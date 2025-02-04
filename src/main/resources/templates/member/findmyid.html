@@ -17,7 +17,7 @@
 	rel="stylesheet">
 <style>
 	body {
-		min-height: calc(100vh - 247px);
+		height: calc(100vh - 247px);
 	}
 	.notice_text {
 		width: 17.4rem;
@@ -94,7 +94,7 @@
 				success:data=>{
                     document.querySelector('#Confirm').value = data;
                     document.querySelector('#mail_number').style.visibility = 'visible';
-					alert("메일함을 열어보세요.");
+					alert("인증번호가 발급되었습니다. 메일함을 확인해 주세요.");
 				},
 				error:data=> {
 					console.log('실패');
