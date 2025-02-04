@@ -27,17 +27,29 @@
             cursor: pointer;
             margin: 6rem 0 2rem;
         }
-        #submitBtn{
-            background-color: #5cc78d;
+        button#submitBtn {
+            background: #fff;
+            border: 1px solid #5cc78d;
+            border-radius: 9px;
+            font-size: 1rem;
+            color: #5cc78d;
+            padding: 0.8rem 2rem;
+            font-weight: 400;
         }
         #submitBtn:hover{
-            background-color: #4db575;
+            font-weight: 600;
         }
         #backBtn{
-            background-color: rgb(129, 118, 118);
+            border: 1px solid #a9a9a9;
+            background: #fff;
+            padding: 0.8rem 2rem;
+            border-radius: 9px;
+            font-size: 1rem;
+            font-weight: 400;
+            color: #898989;
         }
         #backBtn:hover{
-            background-color: rgb(101, 92, 92);
+            font-weight: 600;
         }
         .donation_info_text_wrap ul{
             padding-bottom: 1rem;
@@ -51,6 +63,14 @@
         .info_text{
             font-size: 1.7rem;
         }
+        .new_write_btn_custom h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+        .new_write_btn_custom {
+            margin-top: 4rem;
+        }
+
     </style>
 </head>
 <body>
@@ -90,20 +110,20 @@
             placeholder="프로젝트에 대한 자세한 설명을 작성하세요">
             </textarea>
         </div>
-    </div>
-</section>
+        <div class="new_write_btn_custom">
+            <h2>게시글 내용</h2>
 
-    </div>
-    <div>
-        <h2>게시글 내용</h2>
-        
-        
-        <div id="buttonDiv">
-            <button class="Btn-lg" type="button" id="submitBtn">후원 모집</button>
-            <button class="Btn-lg" type="button" id="backBtn">뒤로가기</button>
+
+            <div id="buttonDiv">
+                <button class="Btn-lg" type="button" id="submitBtn">후원 모집</button>
+                <button class="Btn-lg" type="button" id="backBtn">뒤로가기</button>
+            </div>
         </div>
     </div>
-</div>
+
+
+
+</section>
 <script src="/js/common.js"></script>
 <script src="/js/newsWrite.js"></script>
 <footer>
