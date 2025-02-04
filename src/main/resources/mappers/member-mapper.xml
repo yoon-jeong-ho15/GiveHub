@@ -26,12 +26,15 @@
 		update member set mem_type = #{memType}, mem_grade = #{memGrade}, mem_confirm = #{memConfirm} where mem_no = #{memNo}
 	</update>
 
-	<delete id="adminMemberDelete">
-		delete from member where mem_no = #{memNo}
-	</delete>
+	<update id="adminMemberDelete">
+		update member set mem_status = 'N' where mem_no = #{memNo}
+	</update>
 
 	<insert id="memberJoin">
-		insert into member values(seq_mem_no.nextval, #{memName}, #{memId}, #{memPwd}, #{memAddress}, #{memType}, #{memGrade}, default, #{memConfirm}, #{memEmail})
+		<selectKey  order="BEFORE" resultType="_int" keyProperty="memNo">
+			select seq_mem_no.nextval from dual
+		</selectKey>
+		insert into member values(#{memNo}, #{memName}, #{memId}, #{memPwd}, #{memAddress}, #{memType}, #{memGrade}, default, #{memConfirm}, #{memEmail})
 	</insert>
 	
 	<select id="checkIdDuplication" resultType="_int" parameterType="string">
