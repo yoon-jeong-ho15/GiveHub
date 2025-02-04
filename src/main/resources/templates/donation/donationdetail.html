@@ -136,13 +136,13 @@
 
         <th:block th:if="${session.loginUser != null}">
             <span class="edit_delete_btn">
-                <button id="newsWriteBtn" type="button" onclick="newsWrite()">
+                <button th:if="${session.loginUser.memNo == d.memNo}" id="newsWriteBtn" type="button" onclick="newsWrite()">
                     소식글 작성
                 </button>
                 <button th:if="${session.loginUser.memNo == d.memNo}" id="editBtn" type="button" onclick="doEdit()">
                     수정
                 </button>
-                <button id="deleteBtn" type="button" onclick="openModal('deleteModal')">
+                <button th:if="${session.loginUser.memNo == d.memNo}" type="button" onclick="openModal('deleteModal')">
                     삭제
                 </button>
             </span>
