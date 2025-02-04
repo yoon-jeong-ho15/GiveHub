@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="/css/reset.css" rel="stylesheet" type="text/css">
 <link href="/css/common.css" rel="stylesheet" type="text/css">
 <link href="/css/donationDetailPage.css" rel="stylesheet" type="text/css">
 <link href="/css/navBar.css" rel="stylesheet" type="text/css">
 <link href="/css/donationList.css" rel="stylesheet" type="text/css">
+
 <style>
-    .donation_content img{
-        width: auto !important;
-    }
     .main_menu_wrap a {
         color: #1a1a1a !important;
     }
@@ -21,6 +20,9 @@
         font-size: 1rem;
         font-weight: 500;
         cursor: pointer;
+    }
+    .donation_content img{
+        width: auto !important;
     }
 
     tbody .selectlist:hover {
@@ -178,11 +180,11 @@
 
 <div class="modal-container" id="deleteModal" data-modal>
     <div class="modal-content">
-        <h2>delete confirm</h2>
-        <p>delete confirm delete confirm?</p>
+        <h1 class="donation_detail_text">경고</h1>
+        <p class="donation_data_small">정말로 삭제하시겠습니까?</p>
         <div class="buttonDiv">
-            <button onclick="doDelete()">confirm</button>
-            <button onclick="closeModal('deleteModal')">close</button>
+            <button onclick="doDelete()">확인</button>
+            <button onclick="closeModal('deleteModal')">취소</button>
         </div>
     </div>  
 </div>
