@@ -38,4 +38,5 @@ out/
 /.DS_Store
 
 temp
+src/main/resources/application.properties
 
